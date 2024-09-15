@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:window_manager/window_manager.dart';
 import 'adb_device_info.dart';
 import 'tutorial.dart';
+import 'package:url_launcher/url_launcher.dart';
+import 'driver.dart';
 
 class Page1 extends StatelessWidget {
   final List<AdbDeviceInfo> devices;
@@ -170,26 +172,35 @@ Widget _buildNoDeviceConnected(BuildContext context) {
                 ],
               ),
               const SizedBox(height: 10),
-              Row(
-                children: [
-                  const Text(
-                    '2. 检查 ADB 驱动是否安装',
-                    style: TextStyle(fontSize: 15),
-                  ),
-                  GestureDetector(
-                    onTap: () {
-                      // 安装驱动点击事件
-                    },
-                    child: const Text(
-                      ' 安装驱动',
-                      style: TextStyle(
-                        fontSize: 15,
-                        color: Colors.blue,
-                      ),
-                    ),
-                  ),
-                ],
-              ),
+             Row(
+  children: [
+    const Text(
+      '2. 检查 USB 驱动是否安装',
+      style: TextStyle(fontSize: 15),
+    ),
+    MouseRegion(
+      cursor: SystemMouseCursors.click, // 设置鼠标光标为点击手势
+      child: GestureDetector(
+        onTap: () {
+          // 安装驱动点击事件
+         Navigator.push(
+        context,
+        MaterialPageRoute(builder: (context) => const DriverPage()),
+      );
+        },
+        child: const Text(
+          ' 安装驱动',
+          style: TextStyle(
+            fontSize: 15,
+            color: Colors.blue,
+          ),
+        ),
+      ),
+    ),
+  ],
+),
+
+              
               const SizedBox(height: 10),
               
               const Text(
@@ -226,6 +237,15 @@ Widget _buildNoDeviceConnected(BuildContext context) {
     }
   }
 
+ // 打开指定的URL
+  void _launchURL(String url) async {
+    final Uri uri = Uri.parse(url);
+    if (await canLaunchUrl(uri)) {
+      await launchUrl(uri, mode: LaunchMode.externalApplication); // 在外部浏览器打开
+    } else {
+      print('无法打开URL: $url');
+    }
+  }
 
   // 构建设备连接时的界面
   Widget _buildDeviceInfo(BuildContext context, AdbDeviceInfo device) {
