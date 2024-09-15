@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:window_manager/window_manager.dart';
 import 'adb_device_info.dart';
-
+import 'tutorial.dart';
 
 class Page1 extends StatelessWidget {
   final List<AdbDeviceInfo> devices;
@@ -48,7 +48,6 @@ class Page1 extends StatelessWidget {
                   ),
                 ],
               ),
-              
             ),
           ),
         ),
@@ -56,138 +55,148 @@ class Page1 extends StatelessWidget {
       body: Padding(
         padding: const EdgeInsets.all(25.0),
         child: devices.isEmpty
-            ? _buildNoDeviceConnected() // 确保调用未连接状态的卡片
+            ? _buildNoDeviceConnected(context) // 传递 context 参数
             : _buildDeviceInfo(context, devices[0]),
       ),
     );
   }
 
   // 构建设备未连接时的说明卡片
-  Widget _buildNoDeviceConnected() {
-    return Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: [
-        const Text(
-          '设备未连接',
-          style: TextStyle(fontSize: 22, fontWeight: FontWeight.bold),
-        ),
-        const SizedBox(height: 8),
-        const Text(
-          '未检测到手表, 请根据下方指引开始连接手表',
-          style: TextStyle(fontSize: 16),
-        ),
-        const SizedBox(height: 20),
-        Card(
-          color: const Color(0xFFF9F9F9),  // 设置背景颜色为浅灰色
-          elevation: 0, // 可选：去除阴影效果或根据需要设置
-          child: Padding(
-            padding: const EdgeInsets.all(20.0),
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                const Text(
-                  '支持的连接方式：',
-                  style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
-                ),
-                const SizedBox(height: 10),
-                const Text(
-                  '1. 使用数据线/充电底座连接电脑与手表（推荐）',
-                  style: TextStyle(fontSize: 15),
-                ),
-                const SizedBox(height: 10),
-                Row(
-                  children: [
-                    const Text(
-                      '2. 使用无线连接，请点击',
-                      style: TextStyle(fontSize: 15),
-                    ),
-                    GestureDetector(
-                      onTap: () {
-                        // 无线连接点击事件
-                      },
-                      child: const Text(
-                        ' 无线连接',
-                        style: TextStyle(
-                          fontSize: 15,
-                          color: Color.fromRGBO(13, 143, 250, 1),
-                        ),
+Widget _buildNoDeviceConnected(BuildContext context) {
+  return Column(
+    crossAxisAlignment: CrossAxisAlignment.start,
+    children: [
+      const Text(
+        '设备未连接',
+        style: TextStyle(fontSize: 22, fontWeight: FontWeight.bold),
+      ),
+      const SizedBox(height: 8),
+      const Text(
+        '未检测到手表, 请根据下方指引开始连接手表',
+        style: TextStyle(fontSize: 16),
+      ),
+      const SizedBox(height: 20),
+      Card(
+        color: const Color(0xFFF9F9F9),  // 设置背景颜色为浅灰色
+        elevation: 0, // 可选：去除阴影效果或根据需要设置
+        child: Padding(
+          padding: const EdgeInsets.all(20.0),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              const Text(
+                '支持的连接方式：',
+                style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
+              ),
+              const SizedBox(height: 10),
+              const Text(
+                '1. 使用数据线/充电底座连接电脑与手表（推荐）',
+                style: TextStyle(fontSize: 15),
+              ),
+              const SizedBox(height: 10),
+              Row(
+                children: [
+                  const Text(
+                    '2. 使用无线连接，请点击',
+                    style: TextStyle(fontSize: 15),
+                  ),
+                  GestureDetector(
+                    onTap: () {
+                      // 无线连接点击事件
+                    },
+                    child: const Text(
+                      ' 无线连接',
+                      style: TextStyle(
+                        fontSize: 15,
+                        color: Color.fromRGBO(13, 143, 250, 1),
                       ),
                     ),
-                    const Text(
-                      ' 进行无线局域网或蓝牙连接',
-                      style: TextStyle(fontSize: 15),
-                    ),
-                  ],
-                ),
-                const SizedBox(height: 20),
-                const Text(
-                  '若无法连接请尝试：',
-                  style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
-                ),
-                const SizedBox(height: 10),
-                Row(
-                  children: [
-                    const Text(
-                      '1. 请检查是否开启USB调试',
-                      style: TextStyle(fontSize: 15),
-                    ),
-                    GestureDetector(
-                      onTap: () {
-                        // 查看教程点击事件
-                      },
-                      child: const Text(
-                        ' 查看教程',
-                        style: TextStyle(
-                          fontSize: 15,
-                          color: Colors.blue,
-                        ),
+                  ),
+                  const Text(
+                    ' 进行无线局域网或蓝牙连接',
+                    style: TextStyle(fontSize: 15),
+                  ),
+                ],
+              ),
+              const SizedBox(height: 20),
+              const Text(
+                '若无法连接请尝试：',
+                style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
+              ),
+              const SizedBox(height: 10),
+              Row(
+                children: [
+                  const Text(
+                    '1. 请检查是否开启USB调试',
+                    style: TextStyle(fontSize: 15),
+                  ),
+                 MouseRegion(
+  cursor: SystemMouseCursors.click, // 设置鼠标光标为点击手的图标
+  child: GestureDetector(
+    onTap: () {
+      // 导航到教程页面
+      Navigator.push(
+        context,
+        MaterialPageRoute(builder: (context) => const TutorialPage()),
+      );
+    },
+    child: const Text(
+      ' 查看教程',
+      style: TextStyle(
+        fontSize: 15,
+        color: Colors.blue,
+      ),
+    ),
+  ),
+),
+
+                ],
+              ),
+              const SizedBox(height: 10),
+              Row(
+                children: [
+                  const Text(
+                    '2. 请至设备管理器检查ADB驱动是否安装',
+                    style: TextStyle(fontSize: 15),
+                  ),
+                  GestureDetector(
+                    onTap: () {
+                      // 安装驱动点击事件
+                    },
+                    child: const Text(
+                      ' 安装驱动',
+                      style: TextStyle(
+                        fontSize: 15,
+                        color: Colors.blue,
                       ),
                     ),
-                  ],
-                ),
-                const SizedBox(height: 10),
-                Row(
-                  children: [
-                    const Text(
-                      '2. 请至设备管理器检查ADB驱动是否安装',
-                      style: TextStyle(fontSize: 15),
-                    ),
-                    GestureDetector(
-                      onTap: () {
-                        // 安装驱动点击事件
-                      },
-                      child: const Text(
-                        ' 安装驱动',
-                        style: TextStyle(
-                          fontSize: 15,
-                          color: Colors.blue,
-                        ),
-                      ),
-                    ),
-                  ],
-                ),
-                const SizedBox(height: 10),
-                const Text(
-                  '3. 重新下载安装此应用，并检查应用版本更新',
-                  style: TextStyle(fontSize: 15),
-                ),
-                const SizedBox(height: 10),
-                const Text(
-                  '4. 重新启动计算机',
-                  style: TextStyle(fontSize: 15),
-                ),
-                const SizedBox(height: 10),
-                const Text(
-                  '5. 更换电脑或数据线并再次尝试连接',
-                  style: TextStyle(fontSize: 15),
-                ),
-              ],
-            ),
+                  ),
+                ],
+              ),
+              const SizedBox(height: 10),
+              const Text(
+                '3. 重新下载安装此应用，并检查应用版本更新',
+                style: TextStyle(fontSize: 15),
+              ),
+              const SizedBox(height: 10),
+              const Text(
+                '4. 重新启动计算机',
+                style: TextStyle(fontSize: 15),
+              ),
+              const SizedBox(height: 10),
+              const Text(
+                '5. 更换电脑或数据线并再次尝试连接',
+                style: TextStyle(fontSize: 15),
+              ),
+            ],
           ),
         ),
-      ],
-    );
-  }
+      ),
+    ],
+  );
+}
+
+
 
   // 构建设备连接时的界面
   Widget _buildDeviceInfo(BuildContext context, AdbDeviceInfo device) {
