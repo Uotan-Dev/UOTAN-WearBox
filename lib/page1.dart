@@ -61,21 +61,38 @@ class Page1 extends StatelessWidget {
     );
   }
 
-  // 构建设备未连接时的说明卡片
+ // 构建设备未连接时的说明卡片
 Widget _buildNoDeviceConnected(BuildContext context) {
+  final greeting = _getGreetingBasedOnTime(); // 根据时间获取问候语
+
   return Column(
     crossAxisAlignment: CrossAxisAlignment.start,
     children: [
-      const Text(
-        '设备未连接',
-        style: TextStyle(fontSize: 22, fontWeight: FontWeight.bold),
+      const SizedBox(height: 0),
+      Padding(
+        padding: const EdgeInsets.only(left: 5.0), // 设置左边距
+        child: Text(
+          '$greeting\n欢迎使用柚坛手表助手',
+          style: const TextStyle(
+            fontSize: 34,
+            fontFamily: 'OPPOSansMed',
+            height: 1.25,
+          ),
+        ),
       ),
-      const SizedBox(height: 8),
-      const Text(
-        '未检测到手表, 请根据下方指引开始连接手表',
-        style: TextStyle(fontSize: 16),
+      const SizedBox(height: 6),
+      const Padding(
+        padding: EdgeInsets.only(left: 5.0), // 设置左边距
+        child: Text(
+          '未检测到手表, 请根据下方指引连接手表',
+          style: TextStyle(fontSize: 16),
+        ),
       ),
-      const SizedBox(height: 20),
+      
+      const SizedBox(height: 15),
+
+
+      
       Card(
         color: const Color(0xFFF9F9F9),  // 设置背景颜色为浅灰色
         elevation: 0, // 可选：去除阴影效果或根据需要设置
@@ -127,7 +144,7 @@ Widget _buildNoDeviceConnected(BuildContext context) {
               Row(
                 children: [
                   const Text(
-                    '1. 请检查是否开启USB调试',
+                    '1. 检查手表是否开启 USB 调试',
                     style: TextStyle(fontSize: 15),
                   ),
                  MouseRegion(
@@ -156,7 +173,7 @@ Widget _buildNoDeviceConnected(BuildContext context) {
               Row(
                 children: [
                   const Text(
-                    '2. 请至设备管理器检查ADB驱动是否安装',
+                    '2. 检查 ADB 驱动是否安装',
                     style: TextStyle(fontSize: 15),
                   ),
                   GestureDetector(
@@ -174,18 +191,15 @@ Widget _buildNoDeviceConnected(BuildContext context) {
                 ],
               ),
               const SizedBox(height: 10),
+              
               const Text(
                 '3. 重新下载安装此应用，并检查应用版本更新',
                 style: TextStyle(fontSize: 15),
               ),
-              const SizedBox(height: 10),
+             const SizedBox(height: 10),
+              
               const Text(
-                '4. 重新启动计算机',
-                style: TextStyle(fontSize: 15),
-              ),
-              const SizedBox(height: 10),
-              const Text(
-                '5. 更换电脑或数据线并再次尝试连接',
+                '4. 重新启动计算机、更换电脑或数据线并再次尝试连接',
                 style: TextStyle(fontSize: 15),
               ),
             ],
@@ -196,6 +210,21 @@ Widget _buildNoDeviceConnected(BuildContext context) {
   );
 }
 
+// 根据当前时间获取问候语
+  String _getGreetingBasedOnTime() {
+    final now = DateTime.now(); // 获取当前时间
+    final hour = now.hour; // 获取当前的小时
+
+    if (hour >= 0 && hour < 6) {
+      return '凌晨好';
+    } else if (hour >= 6 && hour < 12) {
+      return '早上好';
+    } else if (hour >= 12 && hour < 18) {
+      return '下午好';
+    } else {
+      return '晚上好';
+    }
+  }
 
 
   // 构建设备连接时的界面

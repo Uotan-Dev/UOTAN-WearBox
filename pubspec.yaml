@@ -129,3 +129,8 @@ flutter:
     - family: MiSansLight
       fonts:
         - asset: assets/fonts/MiSans-Light.ttf
+
+    - family: OPPOSansMed
+      fonts:
+        - asset: assets/fonts/OPPOSans-Medium.ttf
+
