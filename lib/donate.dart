@@ -120,7 +120,7 @@ class _DonatePageState extends State<DonatePage> with SingleTickerProviderStateM
                       ),
                       const SizedBox(width: 5),
                       const Text(
-                        '支持我们 (❁´◡`❁)', // 页面标题
+                        '支持我们', // 页面标题
                         style: TextStyle(
                           color: Colors.black,
                           fontSize: 26,
@@ -164,6 +164,7 @@ class _DonatePageState extends State<DonatePage> with SingleTickerProviderStateM
                             borderRadius: BorderRadius.circular(8.0), // 圆角效果
                           ),
                           child: InkWell(
+                            borderRadius: BorderRadius.circular(8.0), // 设置悬浮时的圆角效果
                             onTap: () {
                               setState(() {
                                 selectedAmount = buttonLabel; // 更新选中的金额
@@ -265,7 +266,7 @@ class _DonatePageState extends State<DonatePage> with SingleTickerProviderStateM
                   ),
                    const SizedBox(height: 2),
                    const Text(
-                    '手表助手团队感谢您的捐赠',
+                    '开发团队衷心感谢您的捐赠',
                     style: TextStyle(fontSize: 14,color: Color.fromARGB(255, 131, 131, 131),fontFamily: 'MiSansLight', ),
                   ),
                 ],

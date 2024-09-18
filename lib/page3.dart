@@ -72,7 +72,7 @@ class Page3 extends StatelessWidget {
               children: [
                 _buildOptionCard(context, '常见问题', '不会使用、无法连接或无法操作，请先阅读常见问题说明', 'assets/icons/help_24dp_5F6368_FILL0_wght400_GRAD0_opsz24.png'),
                 const SizedBox(height: 10), // 添加空隙
-                _buildOptionCard(context, '捐赠', '本项目为免费项目，感谢捐赠支持', 'assets/icons/volunteer_activism_24dp_5F6368_FILL0_wght400_GRAD0_opsz24.png'),
+                _buildOptionCard(context, '捐赠', '本项目为免费项目，感谢捐赠支持 (❁´◡`❁)', 'assets/icons/volunteer_activism_24dp_5F6368_FILL0_wght400_GRAD0_opsz24.png'),
                 const SizedBox(height: 10), // 添加空隙
                 _buildOptionCard(context, '问题反馈', '反馈 Bug 或其他问题，请先阅读常见问题，如无法解决请向我们反馈', 'assets/icons/feedback_24dp_5F6368_FILL0_wght400_GRAD0_opsz24.png', isEmail: true),
                 const SizedBox(height: 10), // 添加空隙
