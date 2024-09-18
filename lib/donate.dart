@@ -1,14 +1,57 @@
 import 'package:flutter/material.dart';
 import 'package:window_manager/window_manager.dart';
 
-class DonatePage extends StatelessWidget {
+class DonatePage extends StatefulWidget {
   const DonatePage({super.key});
+
+  @override
+  _DonatePageState createState() => _DonatePageState();
+}
+
+class _DonatePageState extends State<DonatePage> with SingleTickerProviderStateMixin {
+  String currentQrCodeUrl = 'https://wear.gnayoah.com/donate/alipay3.png'; // 初始化默认的二维码图片链接
+  String selectedAmount = '3.00元'; // 初始化默认选中的金额
+  String currentPaymentMethod = 'alipay'; // 当前支付方式，初始化为支付宝
+
+  late TabController _tabController;
+
+  // 按钮对应的二维码链接
+  final Map<String, String> qrCodeUrls = {
+    '3.00元': '3',
+    '6.00元': '6',
+    '9.00元': '9',
+    '12.00元': '12',
+    '15.00元': '15',
+    '自定义': '',
+  };
+
+  @override
+  void initState() {
+    super.initState();
+    _tabController = TabController(length: 2, vsync: this); // 创建 TabController
+    _tabController.addListener(() {
+      setState(() {
+        // 切换支付方式时更新支付方式
+        currentPaymentMethod = _tabController.index == 0 ? 'alipay' : 'wx';
+        _updateQrCodeUrl(); // 更新二维码URL
+      });
+    });
+  }
+
+  void _updateQrCodeUrl() {
+    final code = qrCodeUrls[selectedAmount];
+    if (code != null && code.isNotEmpty) {
+      currentQrCodeUrl = 'https://wear.gnayoah.com/donate/${currentPaymentMethod}${code}.png';
+    } else {
+      currentQrCodeUrl = 'https://wear.gnayoah.com/donate/${currentPaymentMethod}.png'; // 自定义二维码
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: PreferredSize(
-        preferredSize: const Size.fromHeight(90.0), // 设置AppBar的高度
+        preferredSize: const Size.fromHeight(90.0), // 设置 AppBar 的高度
         child: Padding(
           padding: const EdgeInsets.only(top: 40), // 设置顶部边距
           child: GestureDetector(
@@ -29,7 +72,7 @@ class DonatePage extends StatelessWidget {
                       ),
                       const SizedBox(width: 5),
                       const Text(
-                        '捐赠', // 页面标题
+                        '支持我们', // 页面标题
                         style: TextStyle(
                           color: Colors.black,
                           fontSize: 26,
@@ -43,66 +86,144 @@ class DonatePage extends StatelessWidget {
             ),
           ),
         ),
+        
       ),
-      body: SingleChildScrollView(
-        child: Padding(
-          padding: const EdgeInsets.symmetric(vertical: 20.0), // 设置顶部和底部边距
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.center, // 中心对齐
-            children: [
-               const SizedBox(height: 15), // 添加空隙
-              const Align(
-                alignment: Alignment.center, // 文本居中对齐
-                child: Padding(
-                  padding: EdgeInsets.symmetric(horizontal: 18.0), // 为文本添加水平边距
-                  child: Text(
-                    '欢迎捐赠！感谢您的支持！', // 捐赠页面的内容
-                    style: TextStyle(fontSize: 24),
-                    textAlign: TextAlign.center,
-                  ),
-                ),
+      
+      body: Padding(
+        
+        padding: const EdgeInsets.all(25.0), // 设置页面内边距
+        
+        child: Row(
+          
+          children: [
+           
+            Expanded(
+              
+              flex: 2, // 设置按钮部分所占比例
+              child: GridView.count(
+                crossAxisCount: 2, // 两列
+                crossAxisSpacing: 10, // 列间距
+                mainAxisSpacing: 10, // 行间距
+                childAspectRatio: 3, // 按钮的宽高比，设置为较宽的比例
+                children: qrCodeUrls.keys.map((buttonLabel) {
+                    
+                  return Card(
+                    
+                    color: const Color(0xFFF9F9F9), // 设置卡片背景颜色
+                    elevation: 0, // 去掉阴影
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(8.0), // 圆角效果
+                    ),
+                    child: InkWell(
+                      onTap: () {
+                        setState(() {
+                          selectedAmount = buttonLabel; // 更新选中的金额
+                          _updateQrCodeUrl(); // 更新二维码URL
+                        });
+                      },
+                      
+                      child: Center(
+                        
+                        child: Text(
+                          buttonLabel,
+                          style: const TextStyle(fontSize: 16),
+                        ),
+                      ),
+                    ),
+                  );
+                }).toList(),
               ),
-              const SizedBox(height: 20),
-              Row(
-                mainAxisAlignment: MainAxisAlignment.center,
+            ),
+            const SizedBox(width: 20), // 左右部分的间距
+            Expanded(
+              flex: 1, // 设置二维码部分所占比例
+              child: Column(
+                
                 children: [
-                  // 第一个二维码图片的卡片
-                  Card(
-                    color: const Color(0xFFF9F9F9), // Card 背景颜色为 #F9F9F9
-                    shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(8.0), // 设置圆角
-                    ),
+                   
+                  Container(
+                    width: 180,
+                  child: Card(
+                    
+                    color: const Color(0xFFF9F9F9), // 设置卡片背景颜色
                     elevation: 0, // 去掉阴影
-                    child: Padding(
-                      padding: const EdgeInsets.all(10.0), // 图片周围的内边距
-                      child: Image.network(
-                        'https://wear.gnayoah.com/wx.jpg',
-                        height: 300,
-                        fit: BoxFit.cover,
+                    
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(16.0), // 圆角效果
+                    ),
+                   child: InkWell(
+                        child: Center(
+                          child: Container(
+                            padding: const EdgeInsets.symmetric(vertical: 4.0, horizontal: 4.0), // 添加上下和左右的内边距
+                            decoration: BoxDecoration(
+                              color: const Color(0xFFF9F9F9), // 设置 TabBar 背景颜色
+                              borderRadius: BorderRadius.circular(8.0), // 设置圆角效果
+                            ),
+                            child: TabBar(
+                              controller: _tabController,
+                              indicator: const BoxDecoration(
+                                color: Colors.white, // 选中的标签背景颜色
+                                borderRadius: BorderRadius.all(Radius.circular(8.0)), // 圆角效果
+                              ),
+                              indicatorSize: TabBarIndicatorSize.tab, // 设置指示器大小与整个Tab等宽
+                              indicatorPadding: EdgeInsets.zero, // 移除指示器内边距
+                              labelColor: Colors.black,
+                              unselectedLabelColor: Colors.grey,
+                              indicatorColor: Colors.transparent, // 去除下划线
+                              dividerHeight: 0,
+    tabs: [
+      Container(
+        height: 26, // 设置固定高度
+        alignment: Alignment.center,
+        child: const Text('  支付宝  '),
+      ),
+      Container(
+        height: 26, // 设置固定高度
+        alignment: Alignment.center,
+        child: const Text('  微信  '),
+      ),
+    ],
+  ),
+),
+
                       ),
                     ),
                   ),
-                  const SizedBox(width: 20),
-                  // 第二个二维码图片的卡片
-                  Card(
-                    color: const Color(0xFFF9F9F9), // Card 背景颜色为 #F9F9F9
-                    shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(8.0), // 设置圆角
-                    ),
-                    elevation: 0, // 去掉阴影
-                    child: Padding(
-                      padding: const EdgeInsets.all(10.0), // 图片周围的内边距
-                      child: Image.network(
-                        'https://wear.gnayoah.com/zfb.jpg',
-                        height: 300,
+                  ),
+                  // 将 TabBar 移动到二维码上方并自定义样式
+                 
+                  const SizedBox(height: 10), // 添加一些间距
+                  Stack(
+                    alignment: Alignment.center,
+                    children: [
+                      const CircularProgressIndicator(
+                         color: Colors.black, // 进度条颜色设置为黑色
+                      ), // 在加载图片时显示进度条
+
+                      Image.network(
+                        currentQrCodeUrl, // 根据按钮点击事件更换二维码图片
+                        width: 200, // 固定宽度
+                        height: 200, // 固定高度，确保是正方形
                         fit: BoxFit.cover,
+                        loadingBuilder: (BuildContext context, Widget child, ImageChunkEvent? loadingProgress) {
+                          if (loadingProgress == null) {
+                            return child;
+                          } else {
+                            return const SizedBox(); // 如果正在加载则返回空盒子，只显示加载动画
+                          }
+                        },
                       ),
-                    ),
+                    ],
+                  ),
+                  const SizedBox(height: 20),
+                  Text(
+                    '￥${selectedAmount.replaceAll('元', '')}',
+                    style: const TextStyle(fontSize: 18),
                   ),
                 ],
               ),
-            ],
-          ),
+            ),
+          ],
         ),
       ),
     );
