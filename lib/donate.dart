@@ -136,7 +136,7 @@ class _DonatePageState extends State<DonatePage> with SingleTickerProviderStateM
         ),
       ),
       body: Padding(
-        padding: const EdgeInsets.all(25.0), // 设置页面内边距
+        padding: const EdgeInsets.only(top:25.0,right:25,bottom:25,left:28), // 设置页面内边距
         child: Row(
           children: [
             Expanded(
