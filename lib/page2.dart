@@ -2,8 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:window_manager/window_manager.dart';
 import 'function/installApp.dart'; // 导入installApp页面
 import 'function/app.dart'; // 导入 app 页面
-import 'function/type.dart'; // 导入 app 页面
-import 'function/display.dart'; // 导入 app 页面
+import 'function/type.dart'; 
+import 'function/display.dart'; 
+import 'function/file.dart'; 
 
 class Page2 extends StatelessWidget {
   const Page2({super.key});
@@ -12,7 +13,7 @@ class Page2 extends StatelessWidget {
   final List<Map<String, dynamic>> buttonData = const [
     {'icon': 'assets/icons/download_24dp_5F6368_FILL0_wght400_GRAD0_opsz24.png', 'text': '安装应用'},
     {'icon': 'assets/icons/apps_24dp_5F6368_FILL0_wght400_GRAD0_opsz24.png', 'text': '应用管理'},
-    {'icon': 'assets/icons/drive_file_move_24dp_5F6368_FILL0_wght400_GRAD0_opsz24.png', 'text': '文件传输'},
+    {'icon': 'assets/icons/drive_file_move_24dp_5F6368_FILL0_wght400_GRAD0_opsz24.png', 'text': '文件管理'},
     {'icon': 'assets/icons/edit_note_24dp_5F6368_FILL0_wght400_GRAD0_opsz24.png', 'text': '发送文本'},
     {'icon': 'assets/icons/aod_watch_24dp_5F6368_FILL0_wght400_GRAD0_opsz24.png', 'text': '显示设置'},
     {'icon': 'assets/icons/memory_24dp_5F6368_FILL0_wght400_GRAD0_opsz24.png', 'text': '内存清理'},
@@ -114,6 +115,12 @@ class Page2 extends StatelessWidget {
                     Navigator.push(
                       context,
                       MaterialPageRoute(builder: (context) => const DisplaySettingsPage()),
+                    ); // 跳转到installApp页面
+                    
+                  }else if (buttonData[index]['text'] == '文件管理') {
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(builder: (context) => const AdbFileManagerPage()),
                     ); // 跳转到installApp页面
                     
                   }else {
