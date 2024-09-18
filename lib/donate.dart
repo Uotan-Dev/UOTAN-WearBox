@@ -189,7 +189,7 @@ class _DonatePageState extends State<DonatePage> with SingleTickerProviderStateM
               flex: 1, // 设置二维码部分所占比例
               child: Column(
                 children: [
-                  const SizedBox(height: 55),
+                  const SizedBox(height: 50),
                   Container(
                     width: 180,
                     child: Card(
@@ -258,10 +258,15 @@ class _DonatePageState extends State<DonatePage> with SingleTickerProviderStateM
                       ),
                     ],
                   ),
-                  const SizedBox(height: 13),
+                  const SizedBox(height: 10),
                   Text(
-                    '已选捐赠金额 - ￥${selectedAmount.replaceAll('元', '')}',
-                    style: const TextStyle(fontSize: 18),
+                    '￥${selectedAmount.replaceAll('元', '')}',
+                    style: const TextStyle(fontSize: 20),
+                  ),
+                   const SizedBox(height: 2),
+                   const Text(
+                    '手表助手团队感谢您的捐赠',
+                    style: TextStyle(fontSize: 14,color: Color.fromARGB(255, 131, 131, 131),fontFamily: 'MiSansLight', ),
                   ),
                 ],
               ),
