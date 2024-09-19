@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:window_manager/window_manager.dart';
 import 'package:url_launcher/url_launcher.dart';
 import 'donate.dart'; // 导入donate.dart
+import 'about/privacy.dart'; 
+import 'about/user.dart'; 
 
 class Page3 extends StatelessWidget {
   const Page3({super.key});
@@ -66,8 +68,11 @@ class Page3 extends StatelessWidget {
               ),
             ),
           ),
+          
           Expanded(
+            
             child: ListView(
+              
               padding: const EdgeInsets.all(20.0), // 列表的外边距
               children: [
                 _buildOptionCard(context, '常见问题', '不会使用、无法连接或无法操作，请先阅读常见问题说明', 'assets/icons/help_24dp_5F6368_FILL0_wght400_GRAD0_opsz24.png'),
@@ -79,6 +84,10 @@ class Page3 extends StatelessWidget {
                 _buildOptionCard(context, '访问官网', '提供 Windows、MacOS 和 Linux 最新版本免费下载', 'assets/icons/globe_24dp_5F6368_FILL0_wght400_GRAD0_opsz24.png', url: 'http://wear.gnayoah.com'),
                 const SizedBox(height: 10), // 添加空隙
                 _buildOptionCard(context, '访问柚坛社区', '玩机交流社群', 'assets/icons/uotan.png', url: 'http://uotan.cn'),
+                const SizedBox(height: 10), // 添加空隙
+                _buildOptionCard(context, '隐私政策', '玩机交流社群', 'assets/icons/uotan.png'),
+                 const SizedBox(height: 10), // 添加空隙
+                _buildOptionCard(context, '用户协议', '玩机交流社群', 'assets/icons/uotan.png'),
               ],
             ),
           ),
@@ -106,7 +115,19 @@ class Page3 extends StatelessWidget {
               context,
               MaterialPageRoute(builder: (context) => const DonatePage()),
             );
-          } else {
+          } else if (title == '隐私政策') {
+            // 导航到捐赠页面
+            Navigator.push(
+              context,
+              MaterialPageRoute(builder: (context) => const PrivacyPage()),
+            );
+          }else if (title == '用户协议') {
+            // 导航到捐赠页面
+            Navigator.push(
+              context,
+              MaterialPageRoute(builder: (context) => const UserPage()),
+            );
+          }  else {
             print('$title 被点击');
           }
         },
