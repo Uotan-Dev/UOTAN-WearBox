@@ -21,78 +21,126 @@ class Page3 extends StatelessWidget {
               color: Colors.transparent, // 设置为透明背景
               padding: const EdgeInsets.symmetric(horizontal: 18),
               child: Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween, // 左右对齐
-                children: [
-                  const Text(
-                    '柚坛手表助手', // 可以显示当前页面的名称
-                    style: TextStyle(
-                      color: Colors.black,
-                      fontSize: 26,
-                      fontFamily: 'MiSansLight', // 使用自定义字体
-                    ),
-                  ),
-                  Row(
-                    children: [
-                      // 最小化按钮
-                      IconButton(
-                        icon: Image.asset('assets/mini.png'),
-                        onPressed: () {
-                          windowManager.minimize();
-                        },
-                      ),
-                      // 关闭按钮
-                      IconButton(
-                        icon: Image.asset('assets/close.png'),
-                        onPressed: () {
-                          windowManager.close();
-                        },
-                      ),
-                    ],
-                  ),
-                ],
-              ),
+  mainAxisAlignment: MainAxisAlignment.spaceBetween, // 左右对齐
+  children: [
+    // 用 Padding 包裹标题以控制它的垂直位置
+    Padding(
+      padding: const EdgeInsets.only(top: 20), // 调整这个值控制标题往下移动的距离
+      child: const Text(
+        '柚坛手表助手', // 可以显示当前页面的名称
+        style: TextStyle(
+          color: Colors.black,
+          fontSize: 26,
+          fontFamily: 'MiSansLight', // 使用自定义字体
+        ),
+      ),
+    ),
+    Row(
+      children: [
+        // 最小化按钮
+        IconButton(
+          icon: Image.asset('assets/mini.png'),
+          onPressed: () {
+            windowManager.minimize();
+          },
+        ),
+        // 关闭按钮
+        IconButton(
+          icon: Image.asset('assets/close.png'),
+          onPressed: () {
+            windowManager.close();
+          },
+        ),
+      ],
+    ),
+  ],
+),
+
             ),
           ),
         ),
       ),
       body: Column(
+        
+  children: [
+    const SizedBox(height: 10), // 添加空隙
+    // 固定版本号文本，居左对齐
+    const Padding(
+      padding: EdgeInsets.symmetric(vertical: 0, horizontal: 20.0),
+      child: Align(
+        alignment: Alignment.centerLeft,
+        child: Text(
+          '版本: 16.0   开发&设计: Gnayoah', // 版本号文本
+          style: TextStyle(fontSize: 16, fontFamily: 'MiSansLight'),
+        ),
+      ),
+    ),
+    const SizedBox(height: 15), // 添加空隙
+    Expanded(
+      child: ListView(
+        padding: const EdgeInsets.only(left:20.0,right:20,bottom:20), // 列表的外边距
         children: [
-          // 固定版本号文本，居左对齐
+
+          // 添加自定义文本在隐私政策上方
           const Padding(
-            padding: EdgeInsets.symmetric(vertical: 0, horizontal: 20.0),
+            padding: EdgeInsets.symmetric(vertical: 10, horizontal: 0),
             child: Align(
               alignment: Alignment.centerLeft,
               child: Text(
-                '版本: 16.0   开发&设计: Gnayoah', // 版本号文本
-                style: TextStyle(fontSize: 16, fontFamily: 'MiSansLight'),
+                '关于应用',
+                style: TextStyle(fontSize: 15,color: Color.fromARGB(255, 154, 154, 154)),
               ),
             ),
           ),
+          _buildOptionCard(context, '常见问题', '不会使用、无法连接或无法操作，请先阅读常见问题说明', 'assets/icons/help_24dp_5F6368_FILL0_wght400_GRAD0_opsz24.png'),
+          const SizedBox(height: 10), // 添加空隙
+          _buildOptionCard(context, '捐赠', '本项目为免费项目，感谢捐赠支持 (❁´◡`❁)', 'assets/icons/volunteer_activism_24dp_5F6368_FILL0_wght400_GRAD0_opsz24.png'),
+          const SizedBox(height: 10), // 添加空隙
+          _buildOptionCard(context, '问题反馈', '反馈 Bug 或其他问题，请先阅读常见问题，如无法解决请向我们反馈', 'assets/icons/feedback_24dp_5F6368_FILL0_wght400_GRAD0_opsz24.png', isEmail: true),
+          const SizedBox(height: 10), // 添加空隙
           
-          Expanded(
-            
-            child: ListView(
-              
-              padding: const EdgeInsets.all(20.0), // 列表的外边距
-              children: [
-                _buildOptionCard(context, '常见问题', '不会使用、无法连接或无法操作，请先阅读常见问题说明', 'assets/icons/help_24dp_5F6368_FILL0_wght400_GRAD0_opsz24.png'),
-                const SizedBox(height: 10), // 添加空隙
-                _buildOptionCard(context, '捐赠', '本项目为免费项目，感谢捐赠支持 (❁´◡`❁)', 'assets/icons/volunteer_activism_24dp_5F6368_FILL0_wght400_GRAD0_opsz24.png'),
-                const SizedBox(height: 10), // 添加空隙
-                _buildOptionCard(context, '问题反馈', '反馈 Bug 或其他问题，请先阅读常见问题，如无法解决请向我们反馈', 'assets/icons/feedback_24dp_5F6368_FILL0_wght400_GRAD0_opsz24.png', isEmail: true),
-                const SizedBox(height: 10), // 添加空隙
-                _buildOptionCard(context, '访问官网', '提供 Windows、MacOS 和 Linux 最新版本免费下载', 'assets/icons/globe_24dp_5F6368_FILL0_wght400_GRAD0_opsz24.png', url: 'http://wear.gnayoah.com'),
-                const SizedBox(height: 10), // 添加空隙
-                _buildOptionCard(context, '访问柚坛社区', '玩机交流社群', 'assets/icons/uotan.png', url: 'http://uotan.cn'),
-                const SizedBox(height: 10), // 添加空隙
-                _buildOptionCard(context, '隐私政策', '玩机交流社群', 'assets/icons/uotan.png'),
-                 const SizedBox(height: 10), // 添加空隙
-                _buildOptionCard(context, '用户协议', '玩机交流社群', 'assets/icons/uotan.png'),
-              ],
+
+          // 添加自定义文本在隐私政策上方
+          const Padding(
+            padding: EdgeInsets.symmetric(vertical: 10, horizontal: 5),
+            child: Align(
+              alignment: Alignment.centerLeft,
+              child: Text(
+                '用户协议',
+                  style: TextStyle(fontSize: 15,color: Color.fromARGB(255, 154, 154, 154)),
+              ),
             ),
           ),
+
+          _buildOptionCard(context, '隐私政策', '请确保阅读并理解我们的隐私政策', 'assets/icons/verified_user_24dp_5F6368_FILL0_wght400_GRAD0_opsz24.png'),
+          const SizedBox(height: 10), // 添加空隙
+          _buildOptionCard(context, '用户协议', '请确保阅读并理解我们的用户协议', 'assets/icons/developer_guide_24dp_5F6368_FILL0_wght400_GRAD0_opsz24.png'),
+const SizedBox(height: 10), // 添加空隙
+          // 添加自定义文本在隐私政策上方
+          const Padding(
+            padding: EdgeInsets.symmetric(vertical: 10, horizontal: 5),
+            child: Align(
+              alignment: Alignment.centerLeft,
+              child: Text(
+                '访问官网',
+                 style: TextStyle(fontSize: 15,color: Color.fromARGB(255, 154, 154, 154)),
+              ),
+            ),
+          ),
+
+
+_buildOptionCard(context, '官网', '提供 Windows、MacOS 和 Linux 最新版本免费下载', 'assets/icons/globe_24dp_5F6368_FILL0_wght400_GRAD0_opsz24.png', url: 'http://wear.gnayoah.com'),
+          const SizedBox(height: 10), // 添加空隙
+          _buildOptionCard(context, 'Gnayoah.com ', '开发者个人开源站点', 'assets/icons/globe_24dp_5F6368_FILL0_wght400_GRAD0_opsz24.png', url: 'http://wear.gnayoah.com'),
+          const SizedBox(height: 10), // 添加空隙
+          _buildOptionCard(context, '柚坛社区', '玩机交流社群', 'assets/icons/uotan.png', url: 'http://uotan.cn'),
+          const SizedBox(height: 10), // 添加空隙
+
         ],
       ),
+    ),
+  ],
+),
     );
   }
 

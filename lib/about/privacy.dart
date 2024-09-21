@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:window_manager/window_manager.dart';
-import 'package:url_launcher/url_launcher.dart';
 
 class PrivacyPage extends StatelessWidget {
   const PrivacyPage({super.key});

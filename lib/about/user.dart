@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:window_manager/window_manager.dart';
-import 'package:url_launcher/url_launcher.dart';
 
 class UserPage extends StatelessWidget {
   const UserPage({super.key});
@@ -582,13 +581,5 @@ class UserPage extends StatelessWidget {
     );
   }
 
-  // 打开 URL 的方法
-  void _launchURL(String url) async {
-    Uri uri = Uri.parse(url);
-    if (await canLaunchUrl(uri)) {
-      await launchUrl(uri);
-    } else {
-      throw '无法打开链接: $url';
-    }
-  }
+  
 }

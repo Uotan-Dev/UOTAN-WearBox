@@ -38,44 +38,47 @@ class Page2 extends StatelessWidget {
               color: Colors.transparent, // 设置为透明背景
               padding: const EdgeInsets.symmetric(horizontal: 18),
               child: Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween, // 左右对齐
-                children: [
-                  const Row(
-                    children: [
-                      Text(
-                        '功能列表', // 可以显示当前页面的名称
-                        style: TextStyle(
-                          color: Colors.black, fontSize: 26, fontFamily: 'MiSansLight', // 使用自定义字体
-                        ),
-                      ),
-                    ],
-                  ),
-                  Row(
-                    children: [
-                      // 最小化按钮
-                      IconButton(
-                        icon: Image.asset('assets/mini.png'),
-                        onPressed: () {
-                          windowManager.minimize();
-                        },
-                      ),
-                      // 关闭按钮
-                      IconButton(
-                        icon: Image.asset('assets/close.png'),
-                        onPressed: () {
-                          windowManager.close();
-                        },
-                      ),
-                    ],
-                  ),
-                ],
-              ),
+  mainAxisAlignment: MainAxisAlignment.spaceBetween, // 左右对齐
+  children: [
+    // 用 Padding 包裹标题以控制它的垂直位置
+    Padding(
+      padding: const EdgeInsets.only(top: 20), // 调整这个值控制标题往下移动的距离
+      child: const Text(
+        '功能列表', // 可以显示当前页面的名称
+        style: TextStyle(
+          color: Colors.black,
+          fontSize: 26,
+          fontFamily: 'MiSansLight', // 使用自定义字体
+        ),
+      ),
+    ),
+    Row(
+      children: [
+        // 最小化按钮
+        IconButton(
+          icon: Image.asset('assets/mini.png'),
+          onPressed: () {
+            windowManager.minimize();
+          },
+        ),
+        // 关闭按钮
+        IconButton(
+          icon: Image.asset('assets/close.png'),
+          onPressed: () {
+            windowManager.close();
+          },
+        ),
+      ],
+    ),
+  ],
+),
+
             ),
           ),
         ),
       ),
       body: Padding(
-        padding: const EdgeInsets.only(top: 8, left: 20, right: 20),
+        padding: const EdgeInsets.only(top: 25, left: 20, right: 20),
         child: GridView.builder(
           gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
             crossAxisCount: 4, // 4列

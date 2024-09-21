@@ -125,6 +125,10 @@ flutter:
       - assets/driver/1.png
       - assets/driver/2.png
       - assets/driver/3.png
+
+
+      - assets/icons/verified_user_24dp_5F6368_FILL0_wght400_GRAD0_opsz24.png
+      - assets/icons/developer_guide_24dp_5F6368_FILL0_wght400_GRAD0_opsz24.png
       
   fonts:
     - family: OPPOSans
