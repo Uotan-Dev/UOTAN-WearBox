@@ -41,9 +41,9 @@ class Page2 extends StatelessWidget {
   mainAxisAlignment: MainAxisAlignment.spaceBetween, // 左右对齐
   children: [
     // 用 Padding 包裹标题以控制它的垂直位置
-    Padding(
-      padding: const EdgeInsets.only(top: 20), // 调整这个值控制标题往下移动的距离
-      child: const Text(
+    const Padding(
+      padding: EdgeInsets.only(top: 20), // 调整这个值控制标题往下移动的距离
+      child: Text(
         '功能列表', // 可以显示当前页面的名称
         style: TextStyle(
           color: Colors.black,
