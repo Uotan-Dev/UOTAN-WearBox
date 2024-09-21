@@ -95,7 +95,7 @@ BEGIN
             VALUE "InternalName", "watch_assistant" "\0"
             VALUE "LegalCopyright", "Copyright (C) 2024 Gnayoah.com All rights reserved." "\0"
             VALUE "OriginalFilename", "watch_assistant.exe" "\0"
-            VALUE "ProductName", "watch_assistant" "\0"
+            VALUE "ProductName", "Uotan Watch Assistant" "\0"
             VALUE "ProductVersion", VERSION_AS_STRING "\0"
         END
     END
