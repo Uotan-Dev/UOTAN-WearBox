@@ -1,3 +1,5 @@
+[简体中文](https://github.com/Gnayoah/watch_assistant/blob/main/readme_cn.md)
+
 # Uotan Watch Assistant
 
 Uotan Watch Assistant, independently designed and developed by [Gnayoah](https://github.com/Gnayoah), was released in February 2020. It aims to provide a streamlined and efficient management tool for users unfamiliar with ADB (Android Debug Bridge) commands. As a collaborative project with the Uotan Community (uotan.cn), Uotan Watch Assistant embodies the principles of open-source, free, and practical design, offering a comprehensive suite of smartwatch management features for a wide range of users.
