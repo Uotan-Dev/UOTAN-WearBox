@@ -4,6 +4,7 @@ import 'package:url_launcher/url_launcher.dart';
 import 'donate.dart'; // 导入donate.dart
 import 'about/privacy.dart'; 
 import 'about/user.dart'; 
+import 'about/question.dart'; 
 
 class Page3 extends StatelessWidget {
   const Page3({super.key});
@@ -24,9 +25,9 @@ class Page3 extends StatelessWidget {
   mainAxisAlignment: MainAxisAlignment.spaceBetween, // 左右对齐
   children: [
     // 用 Padding 包裹标题以控制它的垂直位置
-    Padding(
-      padding: const EdgeInsets.only(top: 20), // 调整这个值控制标题往下移动的距离
-      child: const Text(
+    const Padding(
+      padding: EdgeInsets.only(top: 20), // 调整这个值控制标题往下移动的距离
+      child: Text(
         '柚坛手表助手', // 可以显示当前页面的名称
         style: TextStyle(
           color: Colors.black,
@@ -87,11 +88,12 @@ class Page3 extends StatelessWidget {
             child: Align(
               alignment: Alignment.centerLeft,
               child: Text(
-                '关于应用',
-                style: TextStyle(fontSize: 15,color: Color.fromARGB(255, 154, 154, 154)),
+                '常见问题',
+                style: TextStyle(fontSize: 15,color: Color.fromARGB(255, 154, 154, 154),fontFamily: 'MiSansLight'),
               ),
             ),
           ),
+          const SizedBox(height: 2), // 添加空隙
           _buildOptionCard(context, '常见问题', '不会使用、无法连接或无法操作，请先阅读常见问题说明', 'assets/icons/help_24dp_5F6368_FILL0_wght400_GRAD0_opsz24.png'),
           const SizedBox(height: 10), // 添加空隙
           _buildOptionCard(context, '捐赠', '本项目为免费项目，感谢捐赠支持 (❁´◡`❁)', 'assets/icons/volunteer_activism_24dp_5F6368_FILL0_wght400_GRAD0_opsz24.png'),
@@ -107,11 +109,11 @@ class Page3 extends StatelessWidget {
               alignment: Alignment.centerLeft,
               child: Text(
                 '用户协议',
-                  style: TextStyle(fontSize: 15,color: Color.fromARGB(255, 154, 154, 154)),
+                  style: TextStyle(fontSize: 15,color: Color.fromARGB(255, 154, 154, 154),fontFamily: 'MiSansLight'),
               ),
             ),
           ),
-
+const SizedBox(height: 2), // 添加空隙
           _buildOptionCard(context, '隐私政策', '请确保阅读并理解我们的隐私政策', 'assets/icons/verified_user_24dp_5F6368_FILL0_wght400_GRAD0_opsz24.png'),
           const SizedBox(height: 10), // 添加空隙
           _buildOptionCard(context, '用户协议', '请确保阅读并理解我们的用户协议', 'assets/icons/developer_guide_24dp_5F6368_FILL0_wght400_GRAD0_opsz24.png'),
@@ -123,19 +125,32 @@ const SizedBox(height: 10), // 添加空隙
               alignment: Alignment.centerLeft,
               child: Text(
                 '访问官网',
-                 style: TextStyle(fontSize: 15,color: Color.fromARGB(255, 154, 154, 154)),
+                 style: TextStyle(fontSize: 15,color: Color.fromARGB(255, 154, 154, 154),fontFamily: 'MiSansLight'),
               ),
             ),
           ),
 
-
-_buildOptionCard(context, '官网', '提供 Windows、MacOS 和 Linux 最新版本免费下载', 'assets/icons/globe_24dp_5F6368_FILL0_wght400_GRAD0_opsz24.png', url: 'http://wear.gnayoah.com'),
+const SizedBox(height: 2), // 添加空隙
+_buildOptionCard(context, '官网', '柚坛手表助手', 'assets/icons/watch_24dp_5F6368_FILL0_wght400_GRAD0_opsz24.png', url: 'http://wear.gnayoah.com'),
           const SizedBox(height: 10), // 添加空隙
-          _buildOptionCard(context, 'Gnayoah.com ', '开发者个人开源站点', 'assets/icons/globe_24dp_5F6368_FILL0_wght400_GRAD0_opsz24.png', url: 'http://wear.gnayoah.com'),
-          const SizedBox(height: 10), // 添加空隙
+        
           _buildOptionCard(context, '柚坛社区', '玩机交流社群', 'assets/icons/uotan.png', url: 'http://uotan.cn'),
           const SizedBox(height: 10), // 添加空隙
-
+const SizedBox(height: 10), // 添加空隙
+          // 添加自定义文本在隐私政策上方
+          const Padding(
+            padding: EdgeInsets.symmetric(vertical: 10, horizontal: 5),
+            child: Align(
+              alignment: Alignment.centerLeft,
+              
+              child: Text(
+                '柚坛手表助手\n© 2020-2024 Gnayoah.com All rights reserved.',
+                 style: TextStyle(fontSize: 15,color: Color.fromARGB(255, 154, 154, 154),fontFamily: 'MiSansLight'),
+              ),
+              
+            ),
+          ),
+          const SizedBox(height: 5), // 添加空隙
         ],
       ),
     ),
@@ -174,6 +189,12 @@ _buildOptionCard(context, '官网', '提供 Windows、MacOS 和 Linux 最新版�
             Navigator.push(
               context,
               MaterialPageRoute(builder: (context) => const UserPage()),
+            );
+          } else if (title == '常见问题') {
+            // 导航到捐赠页面
+            Navigator.push(
+              context,
+              MaterialPageRoute(builder: (context) => const FAQPage()),
             );
           }  else {
             print('$title 被点击');
