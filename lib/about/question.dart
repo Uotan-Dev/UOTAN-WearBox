@@ -173,7 +173,7 @@ class _FAQPageState extends State<FAQPage> {
                   ),
                   SizedBox(height: 6),
                   Text(
-                    '请确保已启用 USB 调试功能，并在设备连接时授权 USB 调试权限。',
+                    '请确保已启用 USB 调试功能，并在设备连接时授权 USB 调试权限。这是柚坛手表助手与您的设备进行通信的必要条件。',
                     style: TextStyle(
                       fontSize: 16,
                     ),
@@ -329,7 +329,7 @@ class _FAQPageState extends State<FAQPage> {
                   ),
                   SizedBox(height: 6),
                   Text(
-                    '• 进入手表的开发者选项，找到并点击“无线调试信息”，即可查看当前设备的 IP 地址和端口号。',
+                    '进入手表的开发者选项，找到并点击“无线调试信息”，即可查看当前设备的 IP 地址和端口号。',
                     style: TextStyle(
                       fontSize: 16,
                     ),
