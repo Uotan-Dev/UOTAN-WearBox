@@ -12,7 +12,6 @@ class HomeScreen extends StatefulWidget {
   const HomeScreen({super.key});
 
   @override
-  // ignore: library_private_types_in_public_api
   _HomeScreenState createState() => _HomeScreenState();
 }
 
@@ -44,17 +43,16 @@ class _HomeScreenState extends State<HomeScreen> with WindowListener {
   }
 
   final List<Widget> _pages = [];
-  
+
   // 检查网络连接并访问URL
   Future<void> _checkNetworkAndUpdate() async {
-     await Future.delayed(const Duration(milliseconds: 500)); // 修改延迟为0.5秒
+    await Future.delayed(const Duration(milliseconds: 500)); // 修改延迟为0.5秒
     setState(() {
       _isCheckingUpdate = true; // 开始检查时显示进度条
     });
 
     try {
       // 尝试发送请求到 wear.gnayoah.com
-     
       final response = await http.get(Uri.parse('https://wear.gnayoah.com'));
       if (response.statusCode == 200) {
         // 网站访问正常，继续检查版本更新
@@ -67,9 +65,7 @@ class _HomeScreenState extends State<HomeScreen> with WindowListener {
       // 捕获异常，显示网络错误提示
       _showNoNetworkDialog('请检查网络或稍后再试。');
     } finally {
-     
       setState(() {
-        
         _isCheckingUpdate = false; // 检查完成后隐藏进度条
       });
     }
@@ -111,8 +107,7 @@ class _HomeScreenState extends State<HomeScreen> with WindowListener {
         return AlertDialog(
           backgroundColor: const Color(0xFFF9F9F9), // 弹窗背景颜色
           title: const Text('版本更新'),
-          content: Text(
-              '发现新版本: $remoteVersion\n发布日期: $releaseDate'),
+          content: Text('发现新版本: $remoteVersion\n发布日期: $releaseDate'),
           actions: [
             TextButton(
               style: ButtonStyle(
@@ -129,7 +124,6 @@ class _HomeScreenState extends State<HomeScreen> with WindowListener {
               child: const Text('下次一定'),
               onPressed: () {
                 Navigator.of(context).pop(); // 关闭对话框
-
               },
             ),
             TextButton(
@@ -166,7 +160,7 @@ class _HomeScreenState extends State<HomeScreen> with WindowListener {
           title: const Text('无法连接服务器'),
           content: Text(message),
           actions: [
-             TextButton(
+            TextButton(
               style: ButtonStyle(
                 overlayColor: MaterialStateProperty.resolveWith<Color?>(
                   (Set<MaterialState> states) {
@@ -180,7 +174,7 @@ class _HomeScreenState extends State<HomeScreen> with WindowListener {
               ),
               child: const Text('退出'),
               onPressed: () {
-               windowManager.close();
+                windowManager.close();
               },
             ),
             TextButton(
@@ -225,68 +219,86 @@ class _HomeScreenState extends State<HomeScreen> with WindowListener {
     _pages.add(const Page3());
 
     return Scaffold(
-      body: _isCheckingUpdate
-           ? Center(
-              child: Column(
-                mainAxisAlignment: MainAxisAlignment.center, // 垂直居中对齐
-                children: [
-                  Image.asset(
-                    'assets/logo2.png', // 加载 logo
-                    width: 120, // 设置 Logo 的宽度
-                    height: 120, // 设置 Logo 的高度
-                  ),
-                  
-                
-                ],
-              ),
-            )
-          : Row(
-              children: [
-                NavigationRail(
-                  selectedIndex: _selectedIndex,
-                  onDestinationSelected: (int index) {
-                    setState(() {
-                      _selectedIndex = index;
-                    });
-                  },
-                  labelType: NavigationRailLabelType.all, // 始终显示按钮文本
-                  groupAlignment: 0.0, // 按钮上下居中
-                  backgroundColor: const Color(0xFFF9F9F9), // 设置背景颜色为 #F9F9F9
-                  useIndicator: true, // 启用指示器
-                  indicatorColor: const Color.fromARGB(255, 237, 237, 237), // 选中项的背景颜色
-                  destinations: const [
-                    NavigationRailDestination(
-                      icon: Icon(Icons.home_filled),
-                      selectedIcon: Icon(Icons.home_filled),
-                      label: Text(
-                        '主页',
-                        style: TextStyle(fontSize: 13), // 调整文本大小为13
+      body: AnimatedSwitcher(
+        duration: const Duration(milliseconds: 500), // 动画时长
+        transitionBuilder: (Widget child, Animation<double> animation) {
+          return FadeTransition(opacity: animation, child: child); // 使用淡入淡出过渡
+        },
+        child: _isCheckingUpdate
+            ? Center(
+                key: const ValueKey('loading'), // 唯一键值
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.center, // 垂直居中对齐
+                  children: [
+                   /// const SizedBox(height: 80),
+                   /// Image.asset(
+                   //   'assets/logo2.png', // 加载 logo
+                   //   width: 120, // 设置 Logo 的宽度
+                   //   height: 120, // 设置 Logo 的高度
+                  //  ),
+                  //  const SizedBox(height: 80),
+                    const SizedBox(
+                        width: 60,  // 设置进度条的宽度
+                        height:60, // 设置进度条的高度
+                        child: CircularProgressIndicator(
+                          strokeWidth: 4,  // 设置进度条的粗细，默认是 4.0
+                          color: Colors.black,
+                        ),
                       ),
-                    ),
-                    NavigationRailDestination(
-                      icon: Icon(Icons.view_cozy),
-                      selectedIcon: Icon(Icons.view_cozy),
-                      label: Text(
-                        '功能',
-                        style: TextStyle(fontSize: 13), // 调整文本大小为13
-                      ),
-                    ),
-                    NavigationRailDestination(
-                      icon: Icon(Icons.settings),
-                      selectedIcon: Icon(Icons.settings),
-                      label: Text(
-                        '关于',
-                        style: TextStyle(fontSize: 13), // 调整文本大小为13
-                      ),
-                    ),
+                   
+                   
                   ],
                 ),
-                const VerticalDivider(thickness: 1, width: 1),
-                Expanded(
-                  child: _pages[_selectedIndex],
-                ),
-              ],
-            ),
+              )
+            : Row(
+                key: const ValueKey('content'), // 唯一键值
+                children: [
+                  NavigationRail(
+                    selectedIndex: _selectedIndex,
+                    onDestinationSelected: (int index) {
+                      setState(() {
+                        _selectedIndex = index;
+                      });
+                    },
+                    labelType: NavigationRailLabelType.all, // 始终显示按钮文本
+                    groupAlignment: 0.0, // 按钮上下居中
+                    backgroundColor: const Color(0xFFF9F9F9), // 设置背景颜色为 #F9F9F9
+                    useIndicator: true, // 启用指示器
+                    indicatorColor: const Color.fromARGB(255, 237, 237, 237), // 选中项的背景颜色
+                    destinations: const [
+                      NavigationRailDestination(
+                        icon: Icon(Icons.home_filled),
+                        selectedIcon: Icon(Icons.home_filled),
+                        label: Text(
+                          '主页',
+                          style: TextStyle(fontSize: 13), // 调整文本大小为13
+                        ),
+                      ),
+                      NavigationRailDestination(
+                        icon: Icon(Icons.view_cozy),
+                        selectedIcon: Icon(Icons.view_cozy),
+                        label: Text(
+                          '功能',
+                          style: TextStyle(fontSize: 13), // 调整文本大小为13
+                        ),
+                      ),
+                      NavigationRailDestination(
+                        icon: Icon(Icons.settings),
+                        selectedIcon: Icon(Icons.settings),
+                        label: Text(
+                          '关于',
+                          style: TextStyle(fontSize: 13), // 调整文本大小为13
+                        ),
+                      ),
+                    ],
+                  ),
+                  const VerticalDivider(thickness: 1, width: 1),
+                  Expanded(
+                    child: _pages[_selectedIndex],
+                  ),
+                ],
+              ),
+      ),
     );
   }
 }
