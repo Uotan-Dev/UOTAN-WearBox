@@ -49,7 +49,7 @@ class _AdbFileManagerPageState extends State<AdbFileManagerPage> {
           isLoading = false; // 完成加载后隐藏进度条
         });
       } else {
-        _showError('无法列出 $currentPath 下的文件。');
+        _showError('无法列出 $currentPath 下的文件，请检查设备连接状态');
         setState(() {
           isLoading = false; // 如果出错，也隐藏进度条
         });
@@ -63,15 +63,27 @@ class _AdbFileManagerPageState extends State<AdbFileManagerPage> {
   }
 
   // 显示错误消息
-  void _showError(String message) {
+   void _showError(String message) {
     showDialog(
       context: context,
       builder: (BuildContext context) {
         return AlertDialog(
+          backgroundColor: const Color(0xFFF9F9F9), // 弹窗背景颜色
           title: const Text('错误'),
-          content: Text(message),
+          content: Text(message, style: const TextStyle(color: Colors.black)),
           actions: <Widget>[
             TextButton(
+              style: ButtonStyle(
+                overlayColor: MaterialStateProperty.resolveWith<Color?>(
+                  (Set<MaterialState> states) {
+                    if (states.contains(MaterialState.pressed) || states.contains(MaterialState.hovered)) {
+                      return const Color.fromARGB(255, 237, 237, 237); // 点击或悬浮时的背景颜色
+                    }
+                    return null; // 默认状态下不更改颜色
+                  },
+                ),
+                foregroundColor: MaterialStateProperty.all<Color>(Colors.black), // 文本颜色
+              ),
               onPressed: () {
                 Navigator.of(context).pop();
               },
