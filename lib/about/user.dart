@@ -70,46 +70,16 @@ class UserPage extends StatelessWidget {
             ),
             SizedBox(height: 16),
             Text(
-              '一、关于软件名称',
+              '一、 隐私政策的独立性',
               style: TextStyle(
                 fontSize: 20,
                 fontFamily: 'OPPOSansMed',
               ),
             ),
-            SizedBox(height: 6),
-            Text(
-              '1. 开发者与组成结构',
-              style: TextStyle(
-                fontSize: 16,
-                fontWeight: FontWeight.bold,
-              ),
-            ),
-            SizedBox(height: 6),
-            Text(
-              '柚坛手表助手由 Gnayoah 独立设计和开发。本应用由“柚坛”（即柚坛社区）和“手表助手”共同构成。其中，柚坛系青岛柚坛网络科技有限公司与武威市凉州区灵动软件开发工作室之产品；手表助手由 Gnayoah 负责开发和维护。',
-              style: TextStyle(fontSize: 16),
-            ),
-            SizedBox(height: 6),
-            Text(
-              '2. 合作关系说明',
-              style: TextStyle(
-                fontSize: 16,
-                fontWeight: FontWeight.bold,
-              ),
-            ),
-            SizedBox(height: 6),
-            Text(
-              '柚坛与手表助手团队之间为合作关系，双方在业务上保持独立性。柚坛不参与手表助手的研发、设计及开发工作，亦不干涉手表助手团队之运营管理。',
-              style: TextStyle(fontSize: 16),
-            ),
-            SizedBox(height: 6),
-            Text(
-              '3. 隐私政策的独立性',
-              style: TextStyle(
-                fontSize: 16,
-                fontWeight: FontWeight.bold,
-              ),
-            ),
+          
+
+           
+          
             SizedBox(height: 6),
             Text(
               '柚坛社区的隐私政策与柚坛手表助手的隐私政策完全独立，互不关联。如您需要查阅柚坛社区的隐私政策，敬请前往柚坛社区官方网站。本应用的隐私政策仅适用于柚坛手表助手，特此声明。',

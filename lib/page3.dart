@@ -237,8 +237,8 @@ const SizedBox(height: 10), // 添加空隙
       scheme: 'mailto',
       path: 'feedback@Gnayoah.com',
       queryParameters: {
-        'subject': '柚坛手表助手 - 问题反馈',
-        'body': '反馈日期：\n系统版本：\n反馈内容：'
+        'subject': '柚坛手表助手-问题反馈',
+        'body': '系统版本：\n\n反馈内容：\n\n\n\n\n\n\n\n'
       },
     );
 

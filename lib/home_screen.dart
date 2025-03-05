@@ -121,9 +121,10 @@ class _HomeScreenState extends State<HomeScreen> with WindowListener {
                 ),
                 foregroundColor: MaterialStateProperty.all<Color>(Colors.black), // 文本颜色
               ),
-              child: const Text('下次一定'),
+             // child: const Text('下次一定'),
+             child: const Text(''),
               onPressed: () {
-                Navigator.of(context).pop(); // 关闭对话框
+              //  Navigator.of(context).pop(); // 关闭对话框
               },
             ),
             TextButton(

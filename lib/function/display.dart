@@ -259,7 +259,7 @@ class _DisplaySettingsPageState extends State<DisplaySettingsPage> {
                     ),
                     child: Slider(
                       value: widthValue,
-                      min: 480,
+                      min: 180,
                       max: 2560,
                       divisions: 208,
                       label: widthValue.round().toString(),
@@ -288,7 +288,7 @@ class _DisplaySettingsPageState extends State<DisplaySettingsPage> {
                     ),
                     child: Slider(
                       value: heightValue,
-                      min: 800,
+                      min: 100,
                       max: 3840,
                       divisions: 304,
                       label: heightValue.round().toString(),

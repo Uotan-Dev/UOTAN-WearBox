@@ -4,7 +4,7 @@ import 'package:http/http.dart' as http;
 
 class DonatePage extends StatefulWidget {
   const DonatePage({super.key});
-
+  
   @override
   _DonatePageState createState() => _DonatePageState();
 }
@@ -13,6 +13,7 @@ class _DonatePageState extends State<DonatePage> with SingleTickerProviderStateM
   String currentQrCodeUrl = 'https://wear.gnayoah.com/donate/alipay3.png'; // 初始化默认的二维码图片链接
   String selectedAmount = '3.00元'; // 初始化默认选中的金额
   String currentPaymentMethod = 'alipay'; // 当前支付方式，初始化为支付宝
+  
 
   late TabController _tabController;
 
@@ -25,21 +26,24 @@ class _DonatePageState extends State<DonatePage> with SingleTickerProviderStateM
     '15.00元': '15',
     '自定义': '',
   };
-
+  
   @override
   void initState() {
     super.initState();
     _tabController = TabController(length: 2, vsync: this); // 创建 TabController
     _tabController.addListener(() {
+     
       setState(() {
+         // 检查网络连接
+    _checkNetworkConnection();
         // 切换支付方式时更新支付方式
+        
         currentPaymentMethod = _tabController.index == 0 ? 'alipay' : 'wx';
         _updateQrCodeUrl(); // 更新二维码URL
       });
     });
 
-    // 检查网络连接
-    _checkNetworkConnection();
+    
   }
 
   Future<void> _checkNetworkConnection() async {

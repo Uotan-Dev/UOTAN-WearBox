@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:watch_assistant/function/button.dart';
 import 'package:window_manager/window_manager.dart';
 import 'function/installApp.dart'; // 导入installApp页面
 import 'function/app.dart'; // 导入 app 页面
@@ -124,6 +125,12 @@ class Page2 extends StatelessWidget {
                     Navigator.push(
                       context,
                       MaterialPageRoute(builder: (context) => const AdbFileManagerPage()),
+                    ); // 跳转到installApp页面
+                    
+                  }else if (buttonData[index]['text'] == '按键模拟') {
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(builder: (context) => const ButtonPage()),
                     ); // 跳转到installApp页面
                     
                   }else {
