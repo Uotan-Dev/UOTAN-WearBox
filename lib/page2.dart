@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:watch_assistant/function/button.dart';
+import 'package:watch_assistant/function/pair.dart';
+import 'package:watch_assistant/function/rotate.dart';
 import 'package:window_manager/window_manager.dart';
 import 'function/installApp.dart'; // 导入installApp页面
 import 'function/app.dart'; // 导入 app 页面
@@ -133,8 +135,22 @@ class Page2 extends StatelessWidget {
                       MaterialPageRoute(builder: (context) => const ButtonPage()),
                     ); // 跳转到installApp页面
                     
-                  }else {
-                    print('按钮 ${buttonData[index]['text']} 被点击');
+                  }else if (buttonData[index]['text'] == '强制旋转屏幕') {
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(builder: (context) => const RotatePage()),
+                    ); // 跳转到installApp页面
+                    
+                  }else if (buttonData[index]['text'] == '重新配对') {
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(builder: (context) => const PairPage()),
+                    ); // 跳转到installApp页面
+                    
+                  }
+                  else {
+                     _showMessage(context, "敬请期待", "由于软件重制，当前版本暂不支持 ${buttonData[index]['text']}，我们将尽快更新支持。");
+                   
                   }
                 },
                 child: Padding(
@@ -162,6 +178,38 @@ class Page2 extends StatelessWidget {
           },
         ),
       ),
+    );
+  }
+
+   void _showMessage(BuildContext context, String title, String message) {
+    showDialog(
+      context: context,
+      builder: (BuildContext context) {
+        return AlertDialog(
+          backgroundColor: const Color(0xFFF9F9F9),
+          title: Text(title),
+          content: Text(message),
+          actions: <Widget>[
+            TextButton(
+              style: ButtonStyle(
+                overlayColor: WidgetStateProperty.resolveWith<Color?>(
+                  (Set<WidgetState> states) {
+                    if (states.contains(WidgetState.pressed) || states.contains(WidgetState.hovered)) {
+                      return const Color.fromARGB(255, 237, 237, 237);
+                    }
+                    return null;
+                  },
+                ),
+                foregroundColor: WidgetStateProperty.all<Color>(Colors.black),
+              ),
+              child: const Text('确定'),
+              onPressed: () {
+                Navigator.of(context).pop();
+              },
+            ),
+          ],
+        );
+      },
     );
   }
 }

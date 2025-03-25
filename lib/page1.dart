@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:watch_assistant/wireless.dart';
 import 'package:window_manager/window_manager.dart';
 import 'adb_device_info.dart';
 import 'tutorial.dart';
@@ -119,18 +120,25 @@ Widget _buildNoDeviceConnected(BuildContext context) {
                     '2. 使用无线连接，请点击',
                     style: TextStyle(fontSize: 15),
                   ),
-                  GestureDetector(
-                    onTap: () {
-                      // 无线连接点击事件
-                    },
-                    child: const Text(
-                      ' 无线连接',
-                      style: TextStyle(
-                        fontSize: 15,
-                        color: Color.fromRGBO(13, 143, 250, 1),
-                      ),
-                    ),
-                  ),
+                  MouseRegion(
+  cursor: SystemMouseCursors.click, // 设置鼠标光标为点击手的图标
+  child: GestureDetector(
+    onTap: () {
+      // 导航到教程页面
+      Navigator.push(
+        context,
+        MaterialPageRoute(builder: (context) => const WirelessPage()),
+      );
+    },
+    child: const Text(
+      ' 无线连接',
+      style: TextStyle(
+        fontSize: 15,
+        color: Colors.blue,
+      ),
+    ),
+  ),
+),
                   const Text(
                     ' 进行无线局域网或蓝牙连接',
                     style: TextStyle(fontSize: 15),
