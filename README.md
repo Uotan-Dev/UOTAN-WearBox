@@ -5,6 +5,6 @@
 	<div id="badges" >
 		<a href="https://github.com/Gnayoah/UotanWatchAssistant/blob/main/LICENSE"><img src="https://img.shields.io/github/license/Gnayoah/UotanWatchAssistant?style=for-the-badge" alt="License"/></a>
   <a href="https://github.com/Gnayoah/UotanWatchAssistant"><img src="https://img.shields.io/github/created-at/Gnayoah/UotanWatchAssistant?style=for-the-badge" alt="License"/></a> 
-  <a href="https://github.com/Gnayoah/UotanWatchAssistant"><img src="https://img.shields.io/github/v/release/Dropwave/Settingpro?style=for-the-badge" alt="License"/></a> 
+  <a href="https://github.com/Gnayoah/UotanWatchAssistant"><img src="https://img.shields.io/github/v/release/Gnayoah/UotanWatchAssistant?style=for-the-badge" alt="License"/></a> 
 	</div>
 </div>
