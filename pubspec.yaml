@@ -94,6 +94,7 @@ flutter:
   # see https://flutter.dev/to/font-from-package
   assets:
       - assets/logo.png
+      - assets/new_logo.png
       - assets/logo2.png
       - assets/close.png
       - assets/mini.png

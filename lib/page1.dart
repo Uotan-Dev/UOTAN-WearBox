@@ -17,20 +17,24 @@ class Page1 extends StatelessWidget {
       appBar: PreferredSize(
         preferredSize: const Size.fromHeight(70.0),
         child: Padding(
-          padding: const EdgeInsets.only(top: 20), // 设置顶部边距
+          padding: const EdgeInsets.only(top: 20),
           child: GestureDetector(
-            onPanStart: (details) => windowManager.startDragging(), // 允许拖动窗口
+            onPanStart: (details) => windowManager.startDragging(), 
             child: Container(
-              color: Colors.transparent, // 设置为透明背景
+              color: Colors.transparent, 
               padding: const EdgeInsets.symmetric(horizontal: 18),
               child: Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween, // 左右对齐
+                mainAxisAlignment: MainAxisAlignment.spaceBetween, 
                 children: [
-                  Row(
-                    children: [
-                      Image.asset('assets/logo.png'), // 增大Logo的尺寸
-                    ],
-                  ),
+                 Row(        
+                  children: [
+                      SizedBox(width: 10,),
+                    Image.asset(
+                      'assets/new_logo.png',
+                      height: 35, 
+                    ),
+                  ],
+                ),
                   Row(
                     children: [
                       // 最小化按钮
