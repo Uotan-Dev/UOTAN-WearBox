@@ -49,6 +49,156 @@
   "networkErrorMessage": "请检查网络或稍后再试。",
   "networkErrorExit": "退出",
   "networkErrorRetry": "重试",
+  "homeGreetingEarlyMorning": "凌晨好",
+  "homeGreetingMorning": "早上好",
+  "homeGreetingAfternoon": "下午好",
+  "homeGreetingEvening": "晚上好",
+  "homeWelcomeMessage": "欢迎使用柚坛手表助手",
+  "homeNoDeviceDetected": "未检测到手表，请根据下方指引连接手表",
+  "homeConnectionMethodsTitle": "支持的连接方式：",
+  "homeConnectionWired": "1. 使用数据线/充电底座连接电脑与手表（推荐）",
+  "homeConnectionWirelessPrefix": "2. 使用无线连接，请点击",
+  "homeConnectionWirelessLink": "无线连接",
+  "homeConnectionWirelessSuffix": "进行无线局域网或蓝牙连接",
+  "homeTroubleshootTitle": "若无法连接请尝试：",
+  "homeTroubleshootUsbDebug": "1. 检查手表是否开启 USB 调试",
+  "homeTroubleshootUsbDebugLink": "查看教程",
+  "homeTroubleshootDriver": "2. 检查 USB 驱动是否安装",
+  "homeTroubleshootDriverLink": "安装驱动",
+  "homeTroubleshootReinstall": "3. 重新下载安装此应用，并检查应用版本更新",
+  "homeTroubleshootRestart": "4. 重新启动计算机、更换电脑或数据线并再次尝试连接",
+  "deviceBasicInfoTitle": "基本信息",
+  "deviceBatteryStatusTitle": "电池状况",
+  "deviceSystemVersionTitle": "系统版本",
+  "deviceBrand": "品牌: {brand}",
+  "@deviceBrand": {
+    "placeholders": {
+      "brand": {}
+    }
+  },
+  "deviceResolution": "分辨率: {resolution}",
+  "@deviceResolution": {
+    "placeholders": {
+      "resolution": {}
+    }
+  },
+  "deviceModel": "型号: {model}",
+  "@deviceModel": {
+    "placeholders": {
+      "model": {}
+    }
+  },
+  "deviceDpi": "DPI: {dpi}",
+  "@deviceDpi": {
+    "placeholders": {
+      "dpi": {}
+    }
+  },
+  "deviceSerial": "序列号: {serial}",
+  "@deviceSerial": {
+    "placeholders": {
+      "serial": {}
+    }
+  },
+  "deviceMemory": "内存: {memory}",
+  "@deviceMemory": {
+    "placeholders": {
+      "memory": {}
+    }
+  },
+  "deviceUptime": "开机时间: {uptime}",
+  "@deviceUptime": {
+    "placeholders": {
+      "uptime": {}
+    }
+  },
+  "deviceStorage": "储存: {storage}",
+  "@deviceStorage": {
+    "placeholders": {
+      "storage": {}
+    }
+  },
+  "deviceBootloader": "BL锁: {bootloader}",
+  "@deviceBootloader": {
+    "placeholders": {
+      "bootloader": {}
+    }
+  },
+  "deviceArchitecture": "架构: {architecture}",
+  "@deviceArchitecture": {
+    "placeholders": {
+      "architecture": {}
+    }
+  },
+  "deviceBatteryLevel": "电量: {level}%",
+  "@deviceBatteryLevel": {
+    "placeholders": {
+      "level": {}
+    }
+  },
+  "deviceBatteryHealth": "健康: {health}",
+  "@deviceBatteryHealth": {
+    "placeholders": {
+      "health": {}
+    }
+  },
+  "deviceBatteryVoltage": "电压: {voltage}mV",
+  "@deviceBatteryVoltage": {
+    "placeholders": {
+      "voltage": {}
+    }
+  },
+  "deviceBatteryTemperature": "温度: {temperature}°C",
+  "@deviceBatteryTemperature": {
+    "placeholders": {
+      "temperature": {}
+    }
+  },
+  "deviceAndroidVersion": "安卓版本: {androidVersion}",
+  "@deviceAndroidVersion": {
+    "placeholders": {
+      "androidVersion": {}
+    }
+  },
+  "devicePatchDate": "补丁日期: {patchDate}",
+  "@devicePatchDate": {
+    "placeholders": {
+      "patchDate": {}
+    }
+  },
+  "deviceSoftwareVersion": "系统版本: {softwareVersion}",
+  "@deviceSoftwareVersion": {
+    "placeholders": {
+      "softwareVersion": {}
+    }
+  },
+  "deviceKernelVersion": "内核版本: {kernelVersion}",
+  "@deviceKernelVersion": {
+    "placeholders": {
+      "kernelVersion": {}
+    }
+  },
+  "featuresTitle": "功能列表",
+  "featureInstallApp": "安装应用",
+  "featureAppManagement": "应用管理",
+  "featureFileManagement": "文件管理",
+  "featureSendText": "发送文本",
+  "featureDisplaySettings": "显示设置",
+  "featureMemoryClean": "内存清理",
+  "featureKeySimulation": "按键模拟",
+  "featureBatteryManager": "电池管理",
+  "featureRotateScreen": "强制旋转屏幕",
+  "featureCapture": "截屏录屏",
+  "featureRePair": "重新配对",
+  "featureFlashTool": "刷机工具",
+  "featureComingSoonTitle": "敬请期待",
+  "featureComingSoonMessage": "由于软件重制，当前版本暂不支持 {feature}，我们将尽快更新支持。",
+  "@featureComingSoonMessage": {
+    "placeholders": {
+      "feature": {}
+    }
+  },
+  "dialogOk": "确定",
   "setting_config": "设置",
   "connect_successfully": "已成功连接！请保持设备连接并开启USB调试"
 }

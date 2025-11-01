@@ -323,6 +323,336 @@ abstract class AppLocalizations {
   /// **'Retry'**
   String get networkErrorRetry;
 
+  /// No description provided for @homeGreetingEarlyMorning.
+  ///
+  /// In en, this message translates to:
+  /// **'Good early morning'**
+  String get homeGreetingEarlyMorning;
+
+  /// No description provided for @homeGreetingMorning.
+  ///
+  /// In en, this message translates to:
+  /// **'Good morning'**
+  String get homeGreetingMorning;
+
+  /// No description provided for @homeGreetingAfternoon.
+  ///
+  /// In en, this message translates to:
+  /// **'Good afternoon'**
+  String get homeGreetingAfternoon;
+
+  /// No description provided for @homeGreetingEvening.
+  ///
+  /// In en, this message translates to:
+  /// **'Good evening'**
+  String get homeGreetingEvening;
+
+  /// No description provided for @homeWelcomeMessage.
+  ///
+  /// In en, this message translates to:
+  /// **'Welcome to Uotan WearBox'**
+  String get homeWelcomeMessage;
+
+  /// No description provided for @homeNoDeviceDetected.
+  ///
+  /// In en, this message translates to:
+  /// **'No watch detected. Follow the steps below to connect.'**
+  String get homeNoDeviceDetected;
+
+  /// No description provided for @homeConnectionMethodsTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Supported connection methods:'**
+  String get homeConnectionMethodsTitle;
+
+  /// No description provided for @homeConnectionWired.
+  ///
+  /// In en, this message translates to:
+  /// **'1. Connect the watch to your computer with a cable or charging dock (recommended)'**
+  String get homeConnectionWired;
+
+  /// No description provided for @homeConnectionWirelessPrefix.
+  ///
+  /// In en, this message translates to:
+  /// **'2. Tap'**
+  String get homeConnectionWirelessPrefix;
+
+  /// No description provided for @homeConnectionWirelessLink.
+  ///
+  /// In en, this message translates to:
+  /// **'Wireless connection'**
+  String get homeConnectionWirelessLink;
+
+  /// No description provided for @homeConnectionWirelessSuffix.
+  ///
+  /// In en, this message translates to:
+  /// **'to start Wi-Fi or Bluetooth pairing.'**
+  String get homeConnectionWirelessSuffix;
+
+  /// No description provided for @homeTroubleshootTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'If the connection fails, try:'**
+  String get homeTroubleshootTitle;
+
+  /// No description provided for @homeTroubleshootUsbDebug.
+  ///
+  /// In en, this message translates to:
+  /// **'1. Check that USB debugging is enabled on your watch'**
+  String get homeTroubleshootUsbDebug;
+
+  /// No description provided for @homeTroubleshootUsbDebugLink.
+  ///
+  /// In en, this message translates to:
+  /// **'View tutorial'**
+  String get homeTroubleshootUsbDebugLink;
+
+  /// No description provided for @homeTroubleshootDriver.
+  ///
+  /// In en, this message translates to:
+  /// **'2. Confirm the USB driver is installed'**
+  String get homeTroubleshootDriver;
+
+  /// No description provided for @homeTroubleshootDriverLink.
+  ///
+  /// In en, this message translates to:
+  /// **'Install driver'**
+  String get homeTroubleshootDriverLink;
+
+  /// No description provided for @homeTroubleshootReinstall.
+  ///
+  /// In en, this message translates to:
+  /// **'3. Reinstall this app and check for updates'**
+  String get homeTroubleshootReinstall;
+
+  /// No description provided for @homeTroubleshootRestart.
+  ///
+  /// In en, this message translates to:
+  /// **'4. Restart the computer, switch USB ports or cables, and try again'**
+  String get homeTroubleshootRestart;
+
+  /// No description provided for @deviceBasicInfoTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Basic information'**
+  String get deviceBasicInfoTitle;
+
+  /// No description provided for @deviceBatteryStatusTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Battery status'**
+  String get deviceBatteryStatusTitle;
+
+  /// No description provided for @deviceSystemVersionTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'System version'**
+  String get deviceSystemVersionTitle;
+
+  /// No description provided for @deviceBrand.
+  ///
+  /// In en, this message translates to:
+  /// **'Brand: {brand}'**
+  String deviceBrand(Object brand);
+
+  /// No description provided for @deviceResolution.
+  ///
+  /// In en, this message translates to:
+  /// **'Resolution: {resolution}'**
+  String deviceResolution(Object resolution);
+
+  /// No description provided for @deviceModel.
+  ///
+  /// In en, this message translates to:
+  /// **'Model: {model}'**
+  String deviceModel(Object model);
+
+  /// No description provided for @deviceDpi.
+  ///
+  /// In en, this message translates to:
+  /// **'DPI: {dpi}'**
+  String deviceDpi(Object dpi);
+
+  /// No description provided for @deviceSerial.
+  ///
+  /// In en, this message translates to:
+  /// **'Serial number: {serial}'**
+  String deviceSerial(Object serial);
+
+  /// No description provided for @deviceMemory.
+  ///
+  /// In en, this message translates to:
+  /// **'Memory: {memory}'**
+  String deviceMemory(Object memory);
+
+  /// No description provided for @deviceUptime.
+  ///
+  /// In en, this message translates to:
+  /// **'Uptime: {uptime}'**
+  String deviceUptime(Object uptime);
+
+  /// No description provided for @deviceStorage.
+  ///
+  /// In en, this message translates to:
+  /// **'Storage: {storage}'**
+  String deviceStorage(Object storage);
+
+  /// No description provided for @deviceBootloader.
+  ///
+  /// In en, this message translates to:
+  /// **'Bootloader: {bootloader}'**
+  String deviceBootloader(Object bootloader);
+
+  /// No description provided for @deviceArchitecture.
+  ///
+  /// In en, this message translates to:
+  /// **'Architecture: {architecture}'**
+  String deviceArchitecture(Object architecture);
+
+  /// No description provided for @deviceBatteryLevel.
+  ///
+  /// In en, this message translates to:
+  /// **'Battery: {level}%'**
+  String deviceBatteryLevel(Object level);
+
+  /// No description provided for @deviceBatteryHealth.
+  ///
+  /// In en, this message translates to:
+  /// **'Health: {health}'**
+  String deviceBatteryHealth(Object health);
+
+  /// No description provided for @deviceBatteryVoltage.
+  ///
+  /// In en, this message translates to:
+  /// **'Voltage: {voltage} mV'**
+  String deviceBatteryVoltage(Object voltage);
+
+  /// No description provided for @deviceBatteryTemperature.
+  ///
+  /// In en, this message translates to:
+  /// **'Temperature: {temperature} °C'**
+  String deviceBatteryTemperature(Object temperature);
+
+  /// No description provided for @deviceAndroidVersion.
+  ///
+  /// In en, this message translates to:
+  /// **'Android version: {androidVersion}'**
+  String deviceAndroidVersion(Object androidVersion);
+
+  /// No description provided for @devicePatchDate.
+  ///
+  /// In en, this message translates to:
+  /// **'Patch date: {patchDate}'**
+  String devicePatchDate(Object patchDate);
+
+  /// No description provided for @deviceSoftwareVersion.
+  ///
+  /// In en, this message translates to:
+  /// **'Software version: {softwareVersion}'**
+  String deviceSoftwareVersion(Object softwareVersion);
+
+  /// No description provided for @deviceKernelVersion.
+  ///
+  /// In en, this message translates to:
+  /// **'Kernel version: {kernelVersion}'**
+  String deviceKernelVersion(Object kernelVersion);
+
+  /// No description provided for @featuresTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Tools'**
+  String get featuresTitle;
+
+  /// No description provided for @featureInstallApp.
+  ///
+  /// In en, this message translates to:
+  /// **'Install apps'**
+  String get featureInstallApp;
+
+  /// No description provided for @featureAppManagement.
+  ///
+  /// In en, this message translates to:
+  /// **'App management'**
+  String get featureAppManagement;
+
+  /// No description provided for @featureFileManagement.
+  ///
+  /// In en, this message translates to:
+  /// **'File manager'**
+  String get featureFileManagement;
+
+  /// No description provided for @featureSendText.
+  ///
+  /// In en, this message translates to:
+  /// **'Send text'**
+  String get featureSendText;
+
+  /// No description provided for @featureDisplaySettings.
+  ///
+  /// In en, this message translates to:
+  /// **'Display settings'**
+  String get featureDisplaySettings;
+
+  /// No description provided for @featureMemoryClean.
+  ///
+  /// In en, this message translates to:
+  /// **'Memory cleanup'**
+  String get featureMemoryClean;
+
+  /// No description provided for @featureKeySimulation.
+  ///
+  /// In en, this message translates to:
+  /// **'Button simulation'**
+  String get featureKeySimulation;
+
+  /// No description provided for @featureBatteryManager.
+  ///
+  /// In en, this message translates to:
+  /// **'Battery manager'**
+  String get featureBatteryManager;
+
+  /// No description provided for @featureRotateScreen.
+  ///
+  /// In en, this message translates to:
+  /// **'Force screen rotation'**
+  String get featureRotateScreen;
+
+  /// No description provided for @featureCapture.
+  ///
+  /// In en, this message translates to:
+  /// **'Screenshot / Recording'**
+  String get featureCapture;
+
+  /// No description provided for @featureRePair.
+  ///
+  /// In en, this message translates to:
+  /// **'Re-pair'**
+  String get featureRePair;
+
+  /// No description provided for @featureFlashTool.
+  ///
+  /// In en, this message translates to:
+  /// **'Flash tool'**
+  String get featureFlashTool;
+
+  /// No description provided for @featureComingSoonTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Coming soon'**
+  String get featureComingSoonTitle;
+
+  /// No description provided for @featureComingSoonMessage.
+  ///
+  /// In en, this message translates to:
+  /// **'This feature ({feature}) is not available in this rebuild yet. We will add it soon.'**
+  String featureComingSoonMessage(Object feature);
+
+  /// No description provided for @dialogOk.
+  ///
+  /// In en, this message translates to:
+  /// **'OK'**
+  String get dialogOk;
+
   /// No description provided for @setting_config.
   ///
   /// In en, this message translates to:
@@ -332,7 +662,7 @@ abstract class AppLocalizations {
   /// No description provided for @connect_successfully.
   ///
   /// In en, this message translates to:
-  /// **'Connected! Keep the device connected and enable USB debugging.'**
+  /// **'Connected! Please keep the device connected and enable USB debugging.'**
   String get connect_successfully;
 }
 

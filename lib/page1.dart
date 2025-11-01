@@ -1,14 +1,12 @@
-import 'dart:math';
-
 import 'package:flutter/material.dart';
 import 'package:watch_assistant/wireless.dart';
 import 'package:window_manager/window_manager.dart';
+
 import 'adb_device_info.dart';
-import 'tutorial.dart';
-import 'package:url_launcher/url_launcher.dart';
 import 'driver.dart';
 import 'l10n/app_localizations.dart';
 import 'l10n/l10n.dart';
+import 'tutorial.dart';
 
 class Page1 extends StatelessWidget {
   final List<AdbDeviceInfo> devices;
@@ -32,9 +30,7 @@ class Page1 extends StatelessWidget {
                 children: [
                   Row(
                     children: [
-                      SizedBox(
-                        width: 10,
-                      ),
+                      const SizedBox(width: 10),
                       Image.asset(
                         'assets/new_logo.png',
                         height: 35,
@@ -43,14 +39,12 @@ class Page1 extends StatelessWidget {
                   ),
                   Row(
                     children: [
-                      // 最小化按钮
                       IconButton(
                         icon: Image.asset('assets/mini.png'),
                         onPressed: () {
                           windowManager.minimize();
                         },
                       ),
-                      // 关闭按钮
                       IconButton(
                         icon: Image.asset('assets/close.png'),
                         onPressed: () {
@@ -68,24 +62,24 @@ class Page1 extends StatelessWidget {
       body: Padding(
         padding: const EdgeInsets.all(25.0),
         child: devices.isEmpty
-            ? _buildNoDeviceConnected(context) // 传递 context 参数
+            ? _buildNoDeviceConnected(context)
             : _buildDeviceInfo(context, devices[0]),
       ),
     );
   }
 
-  // 构建设备未连接时的说明卡片
   Widget _buildNoDeviceConnected(BuildContext context) {
-    final greeting = _getGreetingBasedOnTime(); // 根据时间获取问候语
+    final l10n = context.l10n;
+    final greeting = _getGreetingBasedOnTime(l10n);
 
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         const SizedBox(height: 0),
         Padding(
-          padding: const EdgeInsets.only(left: 5.0), // 设置左边距
+          padding: const EdgeInsets.only(left: 5.0),
           child: Text(
-            '$greeting\n欢迎使用柚坛手表助手',
+            '$greeting\n${l10n.homeWelcomeMessage}',
             style: const TextStyle(
               fontSize: 34,
               fontFamily: 'OPPOSansMed',
@@ -94,90 +88,89 @@ class Page1 extends StatelessWidget {
           ),
         ),
         const SizedBox(height: 6),
-        const Padding(
-          padding: EdgeInsets.only(left: 5.0), // 设置左边距
+        Padding(
+          padding: const EdgeInsets.only(left: 5.0),
           child: Text(
-            '未检测到手表, 请根据下方指引连接手表',
-            style: TextStyle(fontSize: 16),
+            l10n.homeNoDeviceDetected,
+            style: const TextStyle(fontSize: 16),
           ),
         ),
         const SizedBox(height: 15),
         Card(
-          color: const Color(0xFFF9F9F9), // 设置背景颜色为浅灰色
-          elevation: 0, // 可选：去除阴影效果或根据需要设置
+          color: const Color(0xFFF9F9F9),
+          elevation: 0,
           child: Padding(
             padding: const EdgeInsets.all(20.0),
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                const Text(
-                  '支持的连接方式：',
-                  style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
+                Text(
+                  l10n.homeConnectionMethodsTitle,
+                  style: const TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
                 ),
                 const SizedBox(height: 10),
-                const Text(
-                  '1. 使用数据线/充电底座连接电脑与手表（推荐）',
-                  style: TextStyle(fontSize: 15),
+                Text(
+                  l10n.homeConnectionWired,
+                  style: const TextStyle(fontSize: 15),
                 ),
                 const SizedBox(height: 10),
                 Row(
                   children: [
-                    const Text(
-                      '2. 使用无线连接，请点击',
-                      style: TextStyle(fontSize: 15),
+                    Text(
+                      l10n.homeConnectionWirelessPrefix,
+                      style: const TextStyle(fontSize: 15),
                     ),
+                    const SizedBox(width: 4),
                     MouseRegion(
-                      cursor: SystemMouseCursors.click, // 设置鼠标光标为点击手的图标
+                      cursor: SystemMouseCursors.click,
                       child: GestureDetector(
                         onTap: () {
-                          // 导航到教程页面
                           Navigator.push(
                             context,
-                            MaterialPageRoute(
-                                builder: (context) => const WirelessPage()),
+                            MaterialPageRoute(builder: (context) => const WirelessPage()),
                           );
                         },
-                        child: const Text(
-                          ' 无线连接',
-                          style: TextStyle(
+                        child: Text(
+                          l10n.homeConnectionWirelessLink,
+                          style: const TextStyle(
                             fontSize: 15,
                             color: Colors.blue,
                           ),
                         ),
                       ),
                     ),
-                    const Text(
-                      ' 进行无线局域网或蓝牙连接',
-                      style: TextStyle(fontSize: 15),
+                    const SizedBox(width: 4),
+                    Text(
+                      l10n.homeConnectionWirelessSuffix,
+                      style: const TextStyle(fontSize: 15),
                     ),
                   ],
                 ),
                 const SizedBox(height: 20),
-                const Text(
-                  '若无法连接请尝试：',
-                  style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
+                Text(
+                  l10n.homeTroubleshootTitle,
+                  style: const TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
                 ),
                 const SizedBox(height: 10),
                 Row(
                   children: [
-                    const Text(
-                      '1. 检查手表是否开启 USB 调试',
-                      style: TextStyle(fontSize: 15),
+                    Text(
+                      l10n.homeTroubleshootUsbDebug,
+                      style: const TextStyle(fontSize: 15),
                     ),
+                    const SizedBox(width: 4),
                     MouseRegion(
-                      cursor: SystemMouseCursors.click, // 设置鼠标光标为点击手的图标
+                      cursor: SystemMouseCursors.click,
                       child: GestureDetector(
                         onTap: () {
-                          // 导航到教程页面
                           Navigator.push(
                             context,
-                            MaterialPageRoute(
-                                builder: (context) => const TutorialPage()),
+                            MaterialPageRoute(builder: (context) => const TutorialPage()),
                           );
                         },
-                        child: const Text(
-                          ' 查看教程',
-                          style: TextStyle(
+                        child: Text(
+                          l10n.homeTroubleshootUsbDebugLink,
+                          style: const TextStyle(
                             fontSize: 15,
                             color: Colors.blue,
                           ),
@@ -189,24 +182,23 @@ class Page1 extends StatelessWidget {
                 const SizedBox(height: 10),
                 Row(
                   children: [
-                    const Text(
-                      '2. 检查 USB 驱动是否安装',
-                      style: TextStyle(fontSize: 15),
+                    Text(
+                      l10n.homeTroubleshootDriver,
+                      style: const TextStyle(fontSize: 15),
                     ),
+                    const SizedBox(width: 4),
                     MouseRegion(
-                      cursor: SystemMouseCursors.click, // 设置鼠标光标为点击手势
+                      cursor: SystemMouseCursors.click,
                       child: GestureDetector(
                         onTap: () {
-                          // 安装驱动点击事件
                           Navigator.push(
                             context,
-                            MaterialPageRoute(
-                                builder: (context) => const DriverPage()),
+                            MaterialPageRoute(builder: (context) => const DriverPage()),
                           );
                         },
-                        child: const Text(
-                          ' 安装驱动',
-                          style: TextStyle(
+                        child: Text(
+                          l10n.homeTroubleshootDriverLink,
+                          style: const TextStyle(
                             fontSize: 15,
                             color: Colors.blue,
                           ),
@@ -216,14 +208,14 @@ class Page1 extends StatelessWidget {
                   ],
                 ),
                 const SizedBox(height: 10),
-                const Text(
-                  '3. 重新下载安装此应用，并检查应用版本更新',
-                  style: TextStyle(fontSize: 15),
+                Text(
+                  l10n.homeTroubleshootReinstall,
+                  style: const TextStyle(fontSize: 15),
                 ),
                 const SizedBox(height: 10),
-                const Text(
-                  '4. 重新启动计算机、更换电脑或数据线并再次尝试连接',
-                  style: TextStyle(fontSize: 15),
+                Text(
+                  l10n.homeTroubleshootRestart,
+                  style: const TextStyle(fontSize: 15),
                 ),
               ],
             ),
@@ -233,33 +225,21 @@ class Page1 extends StatelessWidget {
     );
   }
 
-// 根据当前时间获取问候语
-  String _getGreetingBasedOnTime() {
-    final now = DateTime.now(); // 获取当前时间
-    final hour = now.hour; // 获取当前的小时
+  String _getGreetingBasedOnTime(AppLocalizations l10n) {
+    final now = DateTime.now();
+    final hour = now.hour;
 
     if (hour >= 0 && hour < 6) {
-      return '凌晨好';
+      return l10n.homeGreetingEarlyMorning;
     } else if (hour >= 6 && hour < 12) {
-      return '早上好';
+      return l10n.homeGreetingMorning;
     } else if (hour >= 12 && hour < 18) {
-      return '下午好';
+      return l10n.homeGreetingAfternoon;
     } else {
-      return '晚上好';
+      return l10n.homeGreetingEvening;
     }
   }
 
-  // 打开指定的URL
-  void _launchURL(String url) async {
-    final Uri uri = Uri.parse(url);
-    if (await canLaunchUrl(uri)) {
-      await launchUrl(uri, mode: LaunchMode.externalApplication); // 在外部浏览器打开
-    } else {
-      print('无法打开URL: $url');
-    }
-  }
-
-  // 构建设备连接时的界面
   Widget _buildDeviceInfo(BuildContext context, AdbDeviceInfo device) {
     final l10n = context.l10n;
 
@@ -267,40 +247,40 @@ class Page1 extends StatelessWidget {
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         Text(
-          ' ${device.model}',
+          device.model,
           style: const TextStyle(fontSize: 22, fontWeight: FontWeight.bold),
         ),
         const SizedBox(height: 2),
         Text(
-          ' ${l10n.connect_successfully}',
+          l10n.connect_successfully,
           style: const TextStyle(fontSize: 16),
         ),
         const SizedBox(height: 20),
-        buildBasicInfoCard(context, '基本信息', [
-          ['品牌: ${device.brand}', '分辨率: ${device.resolution}'],
-          ['型号: ${device.model}', 'DPI: ${device.dpi}'],
-          ['序列号: ${device.deviceId}', '内存: ${device.memory}'],
-          ['开机时间: ${device.uptime}', '储存: ${device.storage}'],
-          ['BL锁: ${device.bootloaderStatus}', '架构: ${device.cpuArch}'],
+        buildBasicInfoCard(context, l10n.deviceBasicInfoTitle, [
+          [l10n.deviceBrand(device.brand), l10n.deviceResolution(device.resolution)],
+          [l10n.deviceModel(device.model), l10n.deviceDpi(device.dpi)],
+          [l10n.deviceSerial(device.deviceId), l10n.deviceMemory(device.memory)],
+          [l10n.deviceUptime(device.uptime), l10n.deviceStorage(device.storage)],
+          [l10n.deviceBootloader(device.bootloaderStatus), l10n.deviceArchitecture(device.cpuArch)],
         ]),
         const SizedBox(height: 5),
         Row(
           children: [
             Expanded(
-              child: buildInfoCard('电池状况', [
-                '电量: ${device.batteryLevel}%',
-                '健康: ${device.batteryHealth}',
-                '电压: ${device.batteryVoltage}mV',
-                '温度: ${device.batteryTemperature}°C',
+              child: buildInfoCard(l10n.deviceBatteryStatusTitle, [
+                l10n.deviceBatteryLevel(device.batteryLevel),
+                l10n.deviceBatteryHealth(device.batteryHealth),
+                l10n.deviceBatteryVoltage(device.batteryVoltage),
+                l10n.deviceBatteryTemperature(device.batteryTemperature),
               ]),
             ),
             const SizedBox(width: 5),
             Expanded(
-              child: buildInfoCard('系统版本', [
-                '安卓版本: ${device.androidVersion}',
-                '补丁日期: ${device.patchDate}',
-                '系统版本: ${device.softwareVersion}',
-                '内核版本: ${device.kernelVersion}', // 显示内核版本
+              child: buildInfoCard(l10n.deviceSystemVersionTitle, [
+                l10n.deviceAndroidVersion(device.androidVersion),
+                l10n.devicePatchDate(device.patchDate),
+                l10n.deviceSoftwareVersion(device.softwareVersion),
+                l10n.deviceKernelVersion(device.kernelVersion),
               ]),
             ),
           ],
@@ -309,12 +289,10 @@ class Page1 extends StatelessWidget {
     );
   }
 
-  // 基本信息卡片
-  Widget buildBasicInfoCard(
-      BuildContext context, String title, List<List<String>> info) {
+  Widget buildBasicInfoCard(BuildContext context, String title, List<List<String>> info) {
     return Card(
-      color: const Color(0xFFF9F9F9), // 设置背景颜色为浅灰色
-      elevation: 0, // 可选：去除阴影效果或根据需要设置
+      color: const Color(0xFFF9F9F9),
+      elevation: 0,
       child: Padding(
         padding: const EdgeInsets.all(12.0),
         child: Column(
@@ -325,33 +303,34 @@ class Page1 extends StatelessWidget {
               style: const TextStyle(fontSize: 17, fontWeight: FontWeight.bold),
             ),
             const SizedBox(height: 8),
-            ...info.map((pair) => Row(
-                  children: [
-                    Expanded(
-                      child: Text(
-                        pair[0],
-                        style: const TextStyle(fontSize: 16),
-                      ),
+            ...info.map(
+              (pair) => Row(
+                children: [
+                  Expanded(
+                    child: Text(
+                      pair[0],
+                      style: const TextStyle(fontSize: 16),
                     ),
-                    Expanded(
-                      child: Text(
-                        pair[1],
-                        style: const TextStyle(fontSize: 16),
-                      ),
+                  ),
+                  Expanded(
+                    child: Text(
+                      pair[1],
+                      style: const TextStyle(fontSize: 16),
                     ),
-                  ],
-                )),
+                  ),
+                ],
+              ),
+            ),
           ],
         ),
       ),
     );
   }
 
-  // 信息卡片
   Widget buildInfoCard(String title, List<String> info) {
     return Card(
-      color: const Color(0xFFF9F9F9), // 设置背景颜色为浅灰色
-      elevation: 0, // 可选：去除阴影效果或根据需要设置
+      color: const Color(0xFFF9F9F9),
+      elevation: 0,
       child: Padding(
         padding: const EdgeInsets.all(12.0),
         child: Column(
@@ -362,7 +341,7 @@ class Page1 extends StatelessWidget {
               style: const TextStyle(fontSize: 17, fontWeight: FontWeight.bold),
             ),
             const SizedBox(height: 8),
-            for (var item in info)
+            for (final item in info)
               Padding(
                 padding: const EdgeInsets.only(bottom: 4.0),
                 child: Text(

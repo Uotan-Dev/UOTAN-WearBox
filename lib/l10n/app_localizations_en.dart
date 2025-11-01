@@ -127,8 +127,211 @@ class AppLocalizationsEn extends AppLocalizations {
   String get networkErrorRetry => 'Retry';
 
   @override
+  String get homeGreetingEarlyMorning => 'Good early morning';
+
+  @override
+  String get homeGreetingMorning => 'Good morning';
+
+  @override
+  String get homeGreetingAfternoon => 'Good afternoon';
+
+  @override
+  String get homeGreetingEvening => 'Good evening';
+
+  @override
+  String get homeWelcomeMessage => 'Welcome to Uotan WearBox';
+
+  @override
+  String get homeNoDeviceDetected => 'No watch detected. Follow the steps below to connect.';
+
+  @override
+  String get homeConnectionMethodsTitle => 'Supported connection methods:';
+
+  @override
+  String get homeConnectionWired => '1. Connect the watch to your computer with a cable or charging dock (recommended)';
+
+  @override
+  String get homeConnectionWirelessPrefix => '2. Tap';
+
+  @override
+  String get homeConnectionWirelessLink => 'Wireless connection';
+
+  @override
+  String get homeConnectionWirelessSuffix => 'to start Wi-Fi or Bluetooth pairing.';
+
+  @override
+  String get homeTroubleshootTitle => 'If the connection fails, try:';
+
+  @override
+  String get homeTroubleshootUsbDebug => '1. Check that USB debugging is enabled on your watch';
+
+  @override
+  String get homeTroubleshootUsbDebugLink => 'View tutorial';
+
+  @override
+  String get homeTroubleshootDriver => '2. Confirm the USB driver is installed';
+
+  @override
+  String get homeTroubleshootDriverLink => 'Install driver';
+
+  @override
+  String get homeTroubleshootReinstall => '3. Reinstall this app and check for updates';
+
+  @override
+  String get homeTroubleshootRestart => '4. Restart the computer, switch USB ports or cables, and try again';
+
+  @override
+  String get deviceBasicInfoTitle => 'Basic information';
+
+  @override
+  String get deviceBatteryStatusTitle => 'Battery status';
+
+  @override
+  String get deviceSystemVersionTitle => 'System version';
+
+  @override
+  String deviceBrand(Object brand) {
+    return 'Brand: $brand';
+  }
+
+  @override
+  String deviceResolution(Object resolution) {
+    return 'Resolution: $resolution';
+  }
+
+  @override
+  String deviceModel(Object model) {
+    return 'Model: $model';
+  }
+
+  @override
+  String deviceDpi(Object dpi) {
+    return 'DPI: $dpi';
+  }
+
+  @override
+  String deviceSerial(Object serial) {
+    return 'Serial number: $serial';
+  }
+
+  @override
+  String deviceMemory(Object memory) {
+    return 'Memory: $memory';
+  }
+
+  @override
+  String deviceUptime(Object uptime) {
+    return 'Uptime: $uptime';
+  }
+
+  @override
+  String deviceStorage(Object storage) {
+    return 'Storage: $storage';
+  }
+
+  @override
+  String deviceBootloader(Object bootloader) {
+    return 'Bootloader: $bootloader';
+  }
+
+  @override
+  String deviceArchitecture(Object architecture) {
+    return 'Architecture: $architecture';
+  }
+
+  @override
+  String deviceBatteryLevel(Object level) {
+    return 'Battery: $level%';
+  }
+
+  @override
+  String deviceBatteryHealth(Object health) {
+    return 'Health: $health';
+  }
+
+  @override
+  String deviceBatteryVoltage(Object voltage) {
+    return 'Voltage: $voltage mV';
+  }
+
+  @override
+  String deviceBatteryTemperature(Object temperature) {
+    return 'Temperature: $temperature °C';
+  }
+
+  @override
+  String deviceAndroidVersion(Object androidVersion) {
+    return 'Android version: $androidVersion';
+  }
+
+  @override
+  String devicePatchDate(Object patchDate) {
+    return 'Patch date: $patchDate';
+  }
+
+  @override
+  String deviceSoftwareVersion(Object softwareVersion) {
+    return 'Software version: $softwareVersion';
+  }
+
+  @override
+  String deviceKernelVersion(Object kernelVersion) {
+    return 'Kernel version: $kernelVersion';
+  }
+
+  @override
+  String get featuresTitle => 'Tools';
+
+  @override
+  String get featureInstallApp => 'Install apps';
+
+  @override
+  String get featureAppManagement => 'App management';
+
+  @override
+  String get featureFileManagement => 'File manager';
+
+  @override
+  String get featureSendText => 'Send text';
+
+  @override
+  String get featureDisplaySettings => 'Display settings';
+
+  @override
+  String get featureMemoryClean => 'Memory cleanup';
+
+  @override
+  String get featureKeySimulation => 'Button simulation';
+
+  @override
+  String get featureBatteryManager => 'Battery manager';
+
+  @override
+  String get featureRotateScreen => 'Force screen rotation';
+
+  @override
+  String get featureCapture => 'Screenshot / Recording';
+
+  @override
+  String get featureRePair => 'Re-pair';
+
+  @override
+  String get featureFlashTool => 'Flash tool';
+
+  @override
+  String get featureComingSoonTitle => 'Coming soon';
+
+  @override
+  String featureComingSoonMessage(Object feature) {
+    return 'This feature ($feature) is not available in this rebuild yet. We will add it soon.';
+  }
+
+  @override
+  String get dialogOk => 'OK';
+
+  @override
   String get setting_config => 'Settings';
 
   @override
-  String get connect_successfully => 'Connected! Keep the device connected and enable USB debugging.';
+  String get connect_successfully => 'Connected! Please keep the device connected and enable USB debugging.';
 }

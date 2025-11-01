@@ -49,6 +49,156 @@
   "networkErrorMessage": "Please check your network connection or try again later.",
   "networkErrorExit": "Exit",
   "networkErrorRetry": "Retry",
+  "homeGreetingEarlyMorning": "Good early morning",
+  "homeGreetingMorning": "Good morning",
+  "homeGreetingAfternoon": "Good afternoon",
+  "homeGreetingEvening": "Good evening",
+  "homeWelcomeMessage": "Welcome to Uotan WearBox",
+  "homeNoDeviceDetected": "No watch detected. Follow the steps below to connect.",
+  "homeConnectionMethodsTitle": "Supported connection methods:",
+  "homeConnectionWired": "1. Connect the watch to your computer with a cable or charging dock (recommended)",
+  "homeConnectionWirelessPrefix": "2. Tap",
+  "homeConnectionWirelessLink": "Wireless connection",
+  "homeConnectionWirelessSuffix": "to start Wi-Fi or Bluetooth pairing.",
+  "homeTroubleshootTitle": "If the connection fails, try:",
+  "homeTroubleshootUsbDebug": "1. Check that USB debugging is enabled on your watch",
+  "homeTroubleshootUsbDebugLink": "View tutorial",
+  "homeTroubleshootDriver": "2. Confirm the USB driver is installed",
+  "homeTroubleshootDriverLink": "Install driver",
+  "homeTroubleshootReinstall": "3. Reinstall this app and check for updates",
+  "homeTroubleshootRestart": "4. Restart the computer, switch USB ports or cables, and try again",
+  "deviceBasicInfoTitle": "Basic information",
+  "deviceBatteryStatusTitle": "Battery status",
+  "deviceSystemVersionTitle": "System version",
+  "deviceBrand": "Brand: {brand}",
+  "@deviceBrand": {
+    "placeholders": {
+      "brand": {}
+    }
+  },
+  "deviceResolution": "Resolution: {resolution}",
+  "@deviceResolution": {
+    "placeholders": {
+      "resolution": {}
+    }
+  },
+  "deviceModel": "Model: {model}",
+  "@deviceModel": {
+    "placeholders": {
+      "model": {}
+    }
+  },
+  "deviceDpi": "DPI: {dpi}",
+  "@deviceDpi": {
+    "placeholders": {
+      "dpi": {}
+    }
+  },
+  "deviceSerial": "Serial number: {serial}",
+  "@deviceSerial": {
+    "placeholders": {
+      "serial": {}
+    }
+  },
+  "deviceMemory": "Memory: {memory}",
+  "@deviceMemory": {
+    "placeholders": {
+      "memory": {}
+    }
+  },
+  "deviceUptime": "Uptime: {uptime}",
+  "@deviceUptime": {
+    "placeholders": {
+      "uptime": {}
+    }
+  },
+  "deviceStorage": "Storage: {storage}",
+  "@deviceStorage": {
+    "placeholders": {
+      "storage": {}
+    }
+  },
+  "deviceBootloader": "Bootloader: {bootloader}",
+  "@deviceBootloader": {
+    "placeholders": {
+      "bootloader": {}
+    }
+  },
+  "deviceArchitecture": "Architecture: {architecture}",
+  "@deviceArchitecture": {
+    "placeholders": {
+      "architecture": {}
+    }
+  },
+  "deviceBatteryLevel": "Battery: {level}%",
+  "@deviceBatteryLevel": {
+    "placeholders": {
+      "level": {}
+    }
+  },
+  "deviceBatteryHealth": "Health: {health}",
+  "@deviceBatteryHealth": {
+    "placeholders": {
+      "health": {}
+    }
+  },
+  "deviceBatteryVoltage": "Voltage: {voltage} mV",
+  "@deviceBatteryVoltage": {
+    "placeholders": {
+      "voltage": {}
+    }
+  },
+  "deviceBatteryTemperature": "Temperature: {temperature} °C",
+  "@deviceBatteryTemperature": {
+    "placeholders": {
+      "temperature": {}
+    }
+  },
+  "deviceAndroidVersion": "Android version: {androidVersion}",
+  "@deviceAndroidVersion": {
+    "placeholders": {
+      "androidVersion": {}
+    }
+  },
+  "devicePatchDate": "Patch date: {patchDate}",
+  "@devicePatchDate": {
+    "placeholders": {
+      "patchDate": {}
+    }
+  },
+  "deviceSoftwareVersion": "Software version: {softwareVersion}",
+  "@deviceSoftwareVersion": {
+    "placeholders": {
+      "softwareVersion": {}
+    }
+  },
+  "deviceKernelVersion": "Kernel version: {kernelVersion}",
+  "@deviceKernelVersion": {
+    "placeholders": {
+      "kernelVersion": {}
+    }
+  },
+  "featuresTitle": "Tools",
+  "featureInstallApp": "Install apps",
+  "featureAppManagement": "App management",
+  "featureFileManagement": "File manager",
+  "featureSendText": "Send text",
+  "featureDisplaySettings": "Display settings",
+  "featureMemoryClean": "Memory cleanup",
+  "featureKeySimulation": "Button simulation",
+  "featureBatteryManager": "Battery manager",
+  "featureRotateScreen": "Force screen rotation",
+  "featureCapture": "Screenshot / Recording",
+  "featureRePair": "Re-pair",
+  "featureFlashTool": "Flash tool",
+  "featureComingSoonTitle": "Coming soon",
+  "featureComingSoonMessage": "This feature ({feature}) is not available in this rebuild yet. We will add it soon.",
+  "@featureComingSoonMessage": {
+    "placeholders": {
+      "feature": {}
+    }
+  },
+  "dialogOk": "OK",
   "setting_config": "Settings",
   "connect_successfully": "Connected! Please keep the device connected and enable USB debugging."
 }

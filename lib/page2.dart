@@ -1,81 +1,68 @@
+import 'package:auto_size_text/auto_size_text.dart';
 import 'package:flutter/material.dart';
-import 'package:watch_assistant/function/button.dart';
-import 'package:watch_assistant/function/pair.dart';
-import 'package:watch_assistant/function/rotate.dart';
 import 'package:window_manager/window_manager.dart';
-import 'function/installApp.dart'; // 导入installApp页面
-import 'function/app.dart'; // 导入 app 页面
-import 'function/type.dart'; 
-import 'function/display.dart'; 
-import 'function/file.dart'; 
+
+import 'function/app.dart';
+import 'function/display.dart';
+import 'function/file.dart';
+import 'function/installApp.dart';
+import 'function/type.dart';
+import 'function/button.dart';
+import 'function/pair.dart';
+import 'function/rotate.dart';
+import 'l10n/app_localizations.dart';
+import 'l10n/l10n.dart';
 
 class Page2 extends StatelessWidget {
   const Page2({super.key});
 
-  // 定义一个包含图标和文本的列表
-  final List<Map<String, dynamic>> buttonData = const [
-    {'icon': 'assets/icons/download_24dp_5F6368_FILL0_wght400_GRAD0_opsz24.png', 'text': '安装应用'},
-    {'icon': 'assets/icons/apps_24dp_5F6368_FILL0_wght400_GRAD0_opsz24.png', 'text': '应用管理'},
-    {'icon': 'assets/icons/drive_file_move_24dp_5F6368_FILL0_wght400_GRAD0_opsz24.png', 'text': '文件管理'},
-    {'icon': 'assets/icons/edit_note_24dp_5F6368_FILL0_wght400_GRAD0_opsz24.png', 'text': '发送文本'},
-    {'icon': 'assets/icons/aod_watch_24dp_5F6368_FILL0_wght400_GRAD0_opsz24.png', 'text': '显示设置'},
-    {'icon': 'assets/icons/memory_24dp_5F6368_FILL0_wght400_GRAD0_opsz24.png', 'text': '内存清理'},
-    {'icon': 'assets/icons/watch_button_press_24dp_5F6368_FILL0_wght400_GRAD0_opsz24.png', 'text': '按键模拟'},
-    {'icon': 'assets/icons/battery_profile.png', 'text': '电池管理'},
-    {'icon': 'assets/icons/screen_rotation_24dp_5F6368_FILL0_wght400_GRAD0_opsz24.png', 'text': '强制旋转屏幕'},
-    {'icon': 'assets/icons/screenshot_tablet_24dp_5F6368_FILL0_wght400_GRAD0_opsz24.png', 'text': '截屏录屏'},
-    {'icon': 'assets/icons/transition_push_24dp_5F6368_FILL0_wght400_GRAD0_opsz24.png', 'text': '重新配对'},
-    {'icon': 'assets/icons/android_24dp_5F6368_FILL0_wght400_GRAD0_opsz24.png', 'text': '刷机工具'},
-  ];
-
   @override
   Widget build(BuildContext context) {
+    final l10n = context.l10n;
+    final featureItems = _buildFeatureItems(l10n);
+
     return Scaffold(
       appBar: PreferredSize(
         preferredSize: const Size.fromHeight(70.0),
         child: Padding(
-          padding: const EdgeInsets.only(top: 20), // 设置顶部边距
+          padding: const EdgeInsets.only(top: 20),
           child: GestureDetector(
-            onPanStart: (details) => windowManager.startDragging(), // 允许拖动窗口
+            onPanStart: (details) => windowManager.startDragging(),
             child: Container(
-              color: Colors.transparent, // 设置为透明背景
+              color: Colors.transparent,
               padding: const EdgeInsets.symmetric(horizontal: 18),
               child: Row(
-  mainAxisAlignment: MainAxisAlignment.spaceBetween, // 左右对齐
-  children: [
-    // 用 Padding 包裹标题以控制它的垂直位置
-    const Padding(
-      padding: EdgeInsets.only(top: 20), // 调整这个值控制标题往下移动的距离
-      child: Text(
-        '功能列表', // 可以显示当前页面的名称
-        style: TextStyle(
-          color: Colors.black,
-          fontSize: 26,
-          fontFamily: 'MiSansLight', // 使用自定义字体
-        ),
-      ),
-    ),
-    Row(
-      children: [
-        // 最小化按钮
-        IconButton(
-          icon: Image.asset('assets/mini.png'),
-          onPressed: () {
-            windowManager.minimize();
-          },
-        ),
-        // 关闭按钮
-        IconButton(
-          icon: Image.asset('assets/close.png'),
-          onPressed: () {
-            windowManager.close();
-          },
-        ),
-      ],
-    ),
-  ],
-),
-
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  Padding(
+                    padding: const EdgeInsets.only(top: 20),
+                    child: Text(
+                      l10n.featuresTitle,
+                      style: const TextStyle(
+                        color: Colors.black,
+                        fontSize: 26,
+                        fontFamily: 'MiSansLight',
+                      ),
+                    ),
+                  ),
+                  Row(
+                    children: [
+                      IconButton(
+                        icon: Image.asset('assets/mini.png'),
+                        onPressed: () {
+                          windowManager.minimize();
+                        },
+                      ),
+                      IconButton(
+                        icon: Image.asset('assets/close.png'),
+                        onPressed: () {
+                          windowManager.close();
+                        },
+                      ),
+                    ],
+                  ),
+                ],
+              ),
             ),
           ),
         ),
@@ -84,73 +71,98 @@ class Page2 extends StatelessWidget {
         padding: const EdgeInsets.only(top: 25, left: 20, right: 20),
         child: GridView.builder(
           gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-            crossAxisCount: 4, // 4列
+            crossAxisCount: 4,
             crossAxisSpacing: 8.0,
             mainAxisSpacing: 8.0,
-            childAspectRatio: 3, // 调整子项的宽高比，增加横向空间
+            childAspectRatio: 3,
           ),
-          itemCount: buttonData.length, // 根据按钮列表的长度生成按钮
+          itemCount: featureItems.length,
           itemBuilder: (context, index) {
+            final item = featureItems[index];
             return Material(
-              color: const Color(0xFFF9F9F9), // 设置背景颜色为浅灰色
+              color: const Color(0xFFF9F9F9),
               shape: RoundedRectangleBorder(
-                borderRadius: BorderRadius.circular(8.0), // 设置圆角
+                borderRadius: BorderRadius.circular(8.0),
               ),
               child: InkWell(
-                borderRadius: BorderRadius.circular(8.0), // 设置悬浮时的圆角效果
+                borderRadius: BorderRadius.circular(8.0),
                 onTap: () {
-                  if (buttonData[index]['text'] == '安装应用') {
-                    Navigator.push(
+                  if (!item.isImplemented) {
+                    _showMessage(
                       context,
-                      MaterialPageRoute(builder: (context) => const InstallAppPage()),
-                    ); // 跳转到installApp页面
-                    
-                  } else if (buttonData[index]['text'] == '应用管理') {
-                    Navigator.push(
-                      context,
-                      MaterialPageRoute(builder: (context) => const AppManagementPage()),
-                    ); // 跳转到installApp页面
-                    
-                  }else if (buttonData[index]['text'] == '发送文本') {
-                    Navigator.push(
-                      context,
-                      MaterialPageRoute(builder: (context) => const TypeTextPage()),
-                    ); // 跳转到installApp页面
-                    
-                  }else if (buttonData[index]['text'] == '显示设置') {
-                    Navigator.push(
-                      context,
-                      MaterialPageRoute(builder: (context) => const DisplaySettingsPage()),
-                    ); // 跳转到installApp页面
-                    
-                  }else if (buttonData[index]['text'] == '文件管理') {
-                    Navigator.push(
-                      context,
-                      MaterialPageRoute(builder: (context) => const AdbFileManagerPage()),
-                    ); // 跳转到installApp页面
-                    
-                  }else if (buttonData[index]['text'] == '按键模拟') {
-                    Navigator.push(
-                      context,
-                      MaterialPageRoute(builder: (context) => const ButtonPage()),
-                    ); // 跳转到installApp页面
-                    
-                  }else if (buttonData[index]['text'] == '强制旋转屏幕') {
-                    Navigator.push(
-                      context,
-                      MaterialPageRoute(builder: (context) => const RotatePage()),
-                    ); // 跳转到installApp页面
-                    
-                  }else if (buttonData[index]['text'] == '重新配对') {
-                    Navigator.push(
-                      context,
-                      MaterialPageRoute(builder: (context) => const PairPage()),
-                    ); // 跳转到installApp页面
-                    
+                      l10n.featureComingSoonTitle,
+                      l10n.featureComingSoonMessage(item.label),
+                    );
+                    return;
                   }
-                  else {
-                     _showMessage(context, "敬请期待", "由于软件重制，当前版本暂不支持 ${buttonData[index]['text']}，我们将尽快更新支持。");
-                   
+
+                  switch (item.action) {
+                    case _FeatureAction.installApp:
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                            builder: (context) => const InstallAppPage()),
+                      );
+                      break;
+                    case _FeatureAction.appManagement:
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                            builder: (context) => const AppManagementPage()),
+                      );
+                      break;
+                    case _FeatureAction.fileManagement:
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                            builder: (context) => const AdbFileManagerPage()),
+                      );
+                      break;
+                    case _FeatureAction.sendText:
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                            builder: (context) => const TypeTextPage()),
+                      );
+                      break;
+                    case _FeatureAction.displaySettings:
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                            builder: (context) => const DisplaySettingsPage()),
+                      );
+                      break;
+                    case _FeatureAction.keySimulation:
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                            builder: (context) => const ButtonPage()),
+                      );
+                      break;
+                    case _FeatureAction.rotateScreen:
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                            builder: (context) => const RotatePage()),
+                      );
+                      break;
+                    case _FeatureAction.rePair:
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                            builder: (context) => const PairPage()),
+                      );
+                      break;
+                    case _FeatureAction.memoryClean:
+                    case _FeatureAction.batteryManager:
+                    case _FeatureAction.capture:
+                    case _FeatureAction.flashTool:
+                      _showMessage(
+                        context,
+                        l10n.featureComingSoonTitle,
+                        l10n.featureComingSoonMessage(item.label),
+                      );
+                      break;
                   }
                 },
                 child: Padding(
@@ -160,16 +172,21 @@ class Page2 extends StatelessWidget {
                     children: [
                       const SizedBox(width: 5),
                       Image.asset(
-                        buttonData[index]['icon']!, // 动态加载自定义图标
+                        item.iconPath,
                         width: 20,
                         height: 20,
                         color: const Color.fromARGB(255, 0, 0, 0),
                       ),
                       const SizedBox(width: 8),
-                      Text(
-                        buttonData[index]['text'], // 动态设置文本
-                        style: const TextStyle(fontSize: 16),
-                      ),
+                      Expanded(
+                        child: AutoSizeText(
+                          item.label,
+                          style: const TextStyle(fontSize: 16),
+                          maxLines: 2, // 最多两行
+                          minFontSize: 12, // 最小字号，可根据需要调
+                          overflow: TextOverflow.ellipsis,
+                        ),
+                      )
                     ],
                   ),
                 ),
@@ -181,7 +198,88 @@ class Page2 extends StatelessWidget {
     );
   }
 
-   void _showMessage(BuildContext context, String title, String message) {
+  List<_FeatureItemData> _buildFeatureItems(AppLocalizations l10n) {
+    return [
+      _FeatureItemData(
+        iconPath:
+            'assets/icons/download_24dp_5F6368_FILL0_wght400_GRAD0_opsz24.png',
+        label: l10n.featureInstallApp,
+        action: _FeatureAction.installApp,
+      ),
+      _FeatureItemData(
+        iconPath:
+            'assets/icons/apps_24dp_5F6368_FILL0_wght400_GRAD0_opsz24.png',
+        label: l10n.featureAppManagement,
+        action: _FeatureAction.appManagement,
+      ),
+      _FeatureItemData(
+        iconPath:
+            'assets/icons/drive_file_move_24dp_5F6368_FILL0_wght400_GRAD0_opsz24.png',
+        label: l10n.featureFileManagement,
+        action: _FeatureAction.fileManagement,
+      ),
+      _FeatureItemData(
+        iconPath:
+            'assets/icons/edit_note_24dp_5F6368_FILL0_wght400_GRAD0_opsz24.png',
+        label: l10n.featureSendText,
+        action: _FeatureAction.sendText,
+      ),
+      _FeatureItemData(
+        iconPath:
+            'assets/icons/aod_watch_24dp_5F6368_FILL0_wght400_GRAD0_opsz24.png',
+        label: l10n.featureDisplaySettings,
+        action: _FeatureAction.displaySettings,
+      ),
+      _FeatureItemData(
+        iconPath:
+            'assets/icons/memory_24dp_5F6368_FILL0_wght400_GRAD0_opsz24.png',
+        label: l10n.featureMemoryClean,
+        action: _FeatureAction.memoryClean,
+        isImplemented: false,
+      ),
+      _FeatureItemData(
+        iconPath:
+            'assets/icons/watch_button_press_24dp_5F6368_FILL0_wght400_GRAD0_opsz24.png',
+        label: l10n.featureKeySimulation,
+        action: _FeatureAction.keySimulation,
+      ),
+      _FeatureItemData(
+        iconPath: 'assets/icons/battery_profile.png',
+        label: l10n.featureBatteryManager,
+        action: _FeatureAction.batteryManager,
+        isImplemented: false,
+      ),
+      _FeatureItemData(
+        iconPath:
+            'assets/icons/screen_rotation_24dp_5F6368_FILL0_wght400_GRAD0_opsz24.png',
+        label: l10n.featureRotateScreen,
+        action: _FeatureAction.rotateScreen,
+      ),
+      _FeatureItemData(
+        iconPath:
+            'assets/icons/screenshot_tablet_24dp_5F6368_FILL0_wght400_GRAD0_opsz24.png',
+        label: l10n.featureCapture,
+        action: _FeatureAction.capture,
+        isImplemented: false,
+      ),
+      _FeatureItemData(
+        iconPath:
+            'assets/icons/transition_push_24dp_5F6368_FILL0_wght400_GRAD0_opsz24.png',
+        label: l10n.featureRePair,
+        action: _FeatureAction.rePair,
+      ),
+      _FeatureItemData(
+        iconPath:
+            'assets/icons/android_24dp_5F6368_FILL0_wght400_GRAD0_opsz24.png',
+        label: l10n.featureFlashTool,
+        action: _FeatureAction.flashTool,
+        isImplemented: false,
+      ),
+    ];
+  }
+
+  void _showMessage(BuildContext context, String title, String message) {
+    final l10n = context.l10n;
     showDialog(
       context: context,
       builder: (BuildContext context) {
@@ -192,17 +290,18 @@ class Page2 extends StatelessWidget {
           actions: <Widget>[
             TextButton(
               style: ButtonStyle(
-                overlayColor: WidgetStateProperty.resolveWith<Color?>(
-                  (Set<WidgetState> states) {
-                    if (states.contains(WidgetState.pressed) || states.contains(WidgetState.hovered)) {
+                overlayColor: MaterialStateProperty.resolveWith<Color?>(
+                  (Set<MaterialState> states) {
+                    if (states.contains(MaterialState.pressed) ||
+                        states.contains(MaterialState.hovered)) {
                       return const Color.fromARGB(255, 237, 237, 237);
                     }
                     return null;
                   },
                 ),
-                foregroundColor: WidgetStateProperty.all<Color>(Colors.black),
+                foregroundColor: MaterialStateProperty.all<Color>(Colors.black),
               ),
-              child: const Text('确定'),
+              child: Text(l10n.dialogOk),
               onPressed: () {
                 Navigator.of(context).pop();
               },
@@ -212,4 +311,33 @@ class Page2 extends StatelessWidget {
       },
     );
   }
+}
+
+enum _FeatureAction {
+  installApp,
+  appManagement,
+  fileManagement,
+  sendText,
+  displaySettings,
+  memoryClean,
+  keySimulation,
+  batteryManager,
+  rotateScreen,
+  capture,
+  rePair,
+  flashTool,
+}
+
+class _FeatureItemData {
+  const _FeatureItemData({
+    required this.iconPath,
+    required this.label,
+    required this.action,
+    this.isImplemented = true,
+  });
+
+  final String iconPath;
+  final String label;
+  final _FeatureAction action;
+  final bool isImplemented;
 }
