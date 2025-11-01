@@ -52,7 +52,7 @@
 
 <br><br><br>
 
-<img src="https://wearbox.uotan.cn/wp-content/uploads/2025/11/分组-4.png"></img>
+<img src="https://wearbox.uotan.cn/wp-content/uploads/2025/11/分组-4-1.png"></img>
 
 
 <a id="english"></a>
