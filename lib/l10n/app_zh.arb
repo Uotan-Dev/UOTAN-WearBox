@@ -406,5 +406,155 @@
     "placeholders": {
       "error": {}
     }
+  },
+  "fileManagerListFailure": "无法列出 {path} 下的文件，请检查设备连接状态",
+  "@fileManagerListFailure": {
+    "placeholders": {
+      "path": {}
+    }
+  },
+  "fileManagerErrorMessage": "错误: {error}",
+  "@fileManagerErrorMessage": {
+    "placeholders": {
+      "error": {}
+    }
+  },
+  "fileManagerSuccessTitle": "成功",
+  "fileManagerConfirmDeleteTitle": "确认删除",
+  "fileManagerConfirmDeleteMessage": "确定要删除 {entry} 吗？",
+  "@fileManagerConfirmDeleteMessage": {
+    "placeholders": {
+      "entry": {}
+    }
+  },
+  "fileManagerDeleteButton": "删除",
+  "fileManagerDeleteProgress": "正在删除 {entry}...",
+  "@fileManagerDeleteProgress": {
+    "placeholders": {
+      "entry": {}
+    }
+  },
+  "fileManagerDeleteSuccess": "删除 {entry} 成功",
+  "@fileManagerDeleteSuccess": {
+    "placeholders": {
+      "entry": {}
+    }
+  },
+  "fileManagerDeleteFailure": "无法删除 {entry}",
+  "@fileManagerDeleteFailure": {
+    "placeholders": {
+      "entry": {}
+    }
+  },
+  "fileManagerRenameTitle": "重命名",
+  "fileManagerRenameLabel": "输入新的名称",
+  "fileManagerRenameAction": "重命名",
+  "fileManagerSaveDialogTitle": "选择保存位置",
+  "fileManagerSaveProgress": "正在保存 {file} 到本地...",
+  "@fileManagerSaveProgress": {
+    "placeholders": {
+      "file": {}
+    }
+  },
+  "fileManagerSaveSuccess": "文件已成功保存到 {path}",
+  "@fileManagerSaveSuccess": {
+    "placeholders": {
+      "path": {}
+    }
+  },
+  "fileManagerSaveFailure": "无法复制文件到本地",
+  "fileManagerUploadProgress": "正在上传文件...",
+  "fileManagerUploadSuccess": "文件已成功上传到 {path}",
+  "@fileManagerUploadSuccess": {
+    "placeholders": {
+      "path": {}
+    }
+  },
+  "fileManagerUploadFailure": "无法上传文件到设备",
+  "fileManagerContextRename": "重命名",
+  "fileManagerContextCopy": "复制到电脑",
+  "fileManagerContextDelete": "删除",
+  "fileManagerTitle": "文件管理 ({path})",
+  "@fileManagerTitle": {
+    "placeholders": {
+      "path": {}
+    }
+  },
+  "fileManagerRootLabel": "内部存储",
+  "pairingPageTitle": "免重置重新配对 (WearOS)",
+  "pairingStepTitle": "第 {step} 步",
+  "@pairingStepTitle": {
+    "placeholders": {
+      "step": {}
+    }
+  },
+  "pairingStepDescription1": "在旧手机设置中，断开并删除手机与手表的蓝牙配对连接。",
+  "pairingClearServicesButton": "清除 Google 服务并重启",
+  "pairingStepDescription4": "在新手机上，打开 WearOS by Google 应用，配对连接手表。",
+  "pairingEnableBluetoothButton": "开启蓝牙可见模式",
+  "pairingClearFailure": "清除 Google 服务失败: {error}",
+  "@pairingClearFailure": {
+    "placeholders": {
+      "error": {}
+    }
+  },
+  "pairingRebooting": "设备正在重启...",
+  "pairingRebootFailure": "重启失败: {error}",
+  "@pairingRebootFailure": {
+    "placeholders": {
+      "error": {}
+    }
+  },
+  "pairingExecuteFailure": "执行失败: {error}",
+  "@pairingExecuteFailure": {
+    "placeholders": {
+      "error": {}
+    }
+  },
+  "pairingBluetoothEnabled": "蓝牙可见模式已开启",
+  "rotatePageTitle": "旋转屏幕",
+  "rotateButtonLeft": "向左旋转",
+  "rotateButtonRight": "向右旋转",
+  "rotateButtonFlip": "上下翻转",
+  "rotateButtonReset": "恢复默认",
+  "rotateSuccessMessage": "成功旋转屏幕：{direction}",
+  "@rotateSuccessMessage": {
+    "placeholders": {
+      "direction": {}
+    }
+  },
+  "rotateExecuteFailure": "执行失败: {error}",
+  "@rotateExecuteFailure": {
+    "placeholders": {
+      "error": {}
+    }
+  },
+  "typePageTitle": "发送文本到手表",
+  "typeHint": "在这里输入你的文本...",
+  "typeImportButton": "导入文本",
+  "typeClearButton": "清空文本",
+  "typeSendButton": "发送文本到手表",
+  "typeImportFailure": "无法导入文本文件: {error}",
+  "@typeImportFailure": {
+    "placeholders": {
+      "error": {}
+    }
+  },
+  "typeNoDeviceMessage": "未检测到设备，请检查设备连接",
+  "typeEmptyTextMessage": "请输入文本",
+  "typeSendingProgress": "正在发送文本...",
+  "typePermissionDenied": "权限不足。请前往“开发者选项”开启“USB调试（安装设置）”后重试。",
+  "typeSendSuccess": "文本已成功发送到设备",
+  "typeSendFailure": "发生错误: {error}",
+  "@typeSendFailure": {
+    "placeholders": {
+      "error": {}
+    }
+  },
+  "typeConnectionCheckFailure": "无法检测设备连接状态: {error}",
+  "@typeConnectionCheckFailure": {
+    "placeholders": {
+      "error": {}
+    }
   }
 }

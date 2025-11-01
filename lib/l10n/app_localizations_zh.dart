@@ -431,7 +431,7 @@ class AppLocalizationsZh extends AppLocalizations {
   String get buttonNameCallDial => '电话拨号';
 
   @override
-  String get buttonNameCallEnd => '电话1挂断';
+  String get buttonNameCallEnd => '电话挂断';
 
   @override
   String get buttonNamePlayPause => '暂停/播放';
@@ -626,5 +626,208 @@ class AppLocalizationsZh extends AppLocalizations {
   @override
   String appManageUnfreezeFailure(Object error) {
     return '无法解冻应用：$error';
+  }
+
+  @override
+  String fileManagerListFailure(Object path) {
+    return '无法列出 $path 下的文件，请检查设备连接状态';
+  }
+
+  @override
+  String fileManagerErrorMessage(Object error) {
+    return '错误: $error';
+  }
+
+  @override
+  String get fileManagerSuccessTitle => '成功';
+
+  @override
+  String get fileManagerConfirmDeleteTitle => '确认删除';
+
+  @override
+  String fileManagerConfirmDeleteMessage(Object entry) {
+    return '确定要删除 $entry 吗？';
+  }
+
+  @override
+  String get fileManagerDeleteButton => '删除';
+
+  @override
+  String fileManagerDeleteProgress(Object entry) {
+    return '正在删除 $entry...';
+  }
+
+  @override
+  String fileManagerDeleteSuccess(Object entry) {
+    return '删除 $entry 成功';
+  }
+
+  @override
+  String fileManagerDeleteFailure(Object entry) {
+    return '无法删除 $entry';
+  }
+
+  @override
+  String get fileManagerRenameTitle => '重命名';
+
+  @override
+  String get fileManagerRenameLabel => '输入新的名称';
+
+  @override
+  String get fileManagerRenameAction => '重命名';
+
+  @override
+  String get fileManagerSaveDialogTitle => '选择保存位置';
+
+  @override
+  String fileManagerSaveProgress(Object file) {
+    return '正在保存 $file 到本地...';
+  }
+
+  @override
+  String fileManagerSaveSuccess(Object path) {
+    return '文件已成功保存到 $path';
+  }
+
+  @override
+  String get fileManagerSaveFailure => '无法复制文件到本地';
+
+  @override
+  String get fileManagerUploadProgress => '正在上传文件...';
+
+  @override
+  String fileManagerUploadSuccess(Object path) {
+    return '文件已成功上传到 $path';
+  }
+
+  @override
+  String get fileManagerUploadFailure => '无法上传文件到设备';
+
+  @override
+  String get fileManagerContextRename => '重命名';
+
+  @override
+  String get fileManagerContextCopy => '复制到电脑';
+
+  @override
+  String get fileManagerContextDelete => '删除';
+
+  @override
+  String fileManagerTitle(Object path) {
+    return '文件管理 ($path)';
+  }
+
+  @override
+  String get fileManagerRootLabel => '内部存储';
+
+  @override
+  String get pairingPageTitle => '免重置重新配对 (WearOS)';
+
+  @override
+  String pairingStepTitle(Object step) {
+    return '第 $step 步';
+  }
+
+  @override
+  String get pairingStepDescription1 => '在旧手机设置中，断开并删除手机与手表的蓝牙配对连接。';
+
+  @override
+  String get pairingClearServicesButton => '清除 Google 服务并重启';
+
+  @override
+  String get pairingStepDescription4 => '在新手机上，打开 WearOS by Google 应用，配对连接手表。';
+
+  @override
+  String get pairingEnableBluetoothButton => '开启蓝牙可见模式';
+
+  @override
+  String pairingClearFailure(Object error) {
+    return '清除 Google 服务失败: $error';
+  }
+
+  @override
+  String get pairingRebooting => '设备正在重启...';
+
+  @override
+  String pairingRebootFailure(Object error) {
+    return '重启失败: $error';
+  }
+
+  @override
+  String pairingExecuteFailure(Object error) {
+    return '执行失败: $error';
+  }
+
+  @override
+  String get pairingBluetoothEnabled => '蓝牙可见模式已开启';
+
+  @override
+  String get rotatePageTitle => '旋转屏幕';
+
+  @override
+  String get rotateButtonLeft => '向左旋转';
+
+  @override
+  String get rotateButtonRight => '向右旋转';
+
+  @override
+  String get rotateButtonFlip => '上下翻转';
+
+  @override
+  String get rotateButtonReset => '恢复默认';
+
+  @override
+  String rotateSuccessMessage(Object direction) {
+    return '成功旋转屏幕：$direction';
+  }
+
+  @override
+  String rotateExecuteFailure(Object error) {
+    return '执行失败: $error';
+  }
+
+  @override
+  String get typePageTitle => '发送文本到手表';
+
+  @override
+  String get typeHint => '在这里输入你的文本...';
+
+  @override
+  String get typeImportButton => '导入文本';
+
+  @override
+  String get typeClearButton => '清空文本';
+
+  @override
+  String get typeSendButton => '发送文本到手表';
+
+  @override
+  String typeImportFailure(Object error) {
+    return '无法导入文本文件: $error';
+  }
+
+  @override
+  String get typeNoDeviceMessage => '未检测到设备，请检查设备连接';
+
+  @override
+  String get typeEmptyTextMessage => '请输入文本';
+
+  @override
+  String get typeSendingProgress => '正在发送文本...';
+
+  @override
+  String get typePermissionDenied => '权限不足。请前往“开发者选项”开启“USB调试（安装设置）”后重试。';
+
+  @override
+  String get typeSendSuccess => '文本已成功发送到设备';
+
+  @override
+  String typeSendFailure(Object error) {
+    return '发生错误: $error';
+  }
+
+  @override
+  String typeConnectionCheckFailure(Object error) {
+    return '无法检测设备连接状态: $error';
   }
 }

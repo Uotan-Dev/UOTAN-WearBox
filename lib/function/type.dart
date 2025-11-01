@@ -1,7 +1,9 @@
 import 'dart:io'; // 导入用于运行进程的包
+import 'package:file_picker/file_picker.dart'; // 导入文件选择器包
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:window_manager/window_manager.dart';
-import 'package:file_picker/file_picker.dart'; // 导入文件选择器包
+import 'package:watch_assistant/l10n/l10n.dart';
 
 class TypeTextPage extends StatefulWidget {
   const TypeTextPage({super.key});
@@ -15,6 +17,7 @@ class _TypeTextPageState extends State<TypeTextPage> {
 
   @override
   Widget build(BuildContext context) {
+    final l10n = context.l10n;
     return Scaffold(
       appBar: PreferredSize(
         preferredSize: const Size.fromHeight(90.0), // 设置AppBar的高度
@@ -37,9 +40,9 @@ class _TypeTextPageState extends State<TypeTextPage> {
                         },
                       ),
                       const SizedBox(width: 5),
-                      const Text(
-                        '发送文本到手表', // 页面标题
-                        style: TextStyle(
+                      Text(
+                        l10n.typePageTitle, // 页面标题
+                        style: const TextStyle(
                           color: Colors.black,
                           fontSize: 26,
                           fontFamily: 'MiSansLight', // 使用自定义字体
@@ -70,7 +73,7 @@ class _TypeTextPageState extends State<TypeTextPage> {
                   decoration: InputDecoration(
                     filled: true, // 启用填充背景颜色
                     fillColor: const Color(0xFFF9F9F9), // 设置背景颜色
-                    hintText: '在这里输入你的文本...', // 提示文本
+                    hintText: l10n.typeHint, // 提示文本
                     contentPadding: const EdgeInsets.all(20), // 设置文本框的内边距
                     border: OutlineInputBorder(
                       borderRadius: BorderRadius.circular(12), // 设置圆角
@@ -105,11 +108,11 @@ class _TypeTextPageState extends State<TypeTextPage> {
                     onTap: () {
                       _importTextFromFile(); // 导入文本文件
                     },
-                    child: const Padding(
-                      padding: EdgeInsets.symmetric(horizontal: 20.0, vertical: 10.0), // 设置内边距
+                    child: Padding(
+                      padding: const EdgeInsets.symmetric(horizontal: 20.0, vertical: 10.0), // 设置内边距
                       child: Text(
-                        '导入文本',
-                        style: TextStyle(color: Colors.black, fontSize: 15),
+                        l10n.typeImportButton,
+                        style: const TextStyle(color: Colors.black, fontSize: 15),
                       ),
                     ),
                   ),
@@ -126,11 +129,11 @@ class _TypeTextPageState extends State<TypeTextPage> {
                     onTap: () {
                       _controller.clear(); // 清空编辑框内容
                     },
-                    child: const Padding(
-                      padding: EdgeInsets.symmetric(horizontal: 20.0, vertical: 10.0), // 设置内边距
+                    child: Padding(
+                      padding: const EdgeInsets.symmetric(horizontal: 20.0, vertical: 10.0), // 设置内边距
                       child: Text(
-                        '清空文本',
-                        style: TextStyle(color: Colors.black, fontSize: 15),
+                        l10n.typeClearButton,
+                        style: const TextStyle(color: Colors.black, fontSize: 15),
                       ),
                     ),
                   ),
@@ -147,11 +150,11 @@ class _TypeTextPageState extends State<TypeTextPage> {
                     onTap: () {
                       _sendTextToDevice(); // 发送文本到设备
                     },
-                    child: const Padding(
-                      padding: EdgeInsets.symmetric(horizontal: 20.0, vertical: 10.0), // 设置内边距
+                    child: Padding(
+                      padding: const EdgeInsets.symmetric(horizontal: 20.0, vertical: 10.0), // 设置内边距
                       child: Text(
-                        '发送文本到手表',
-                        style: TextStyle(color: Colors.black, fontSize: 15),
+                        l10n.typeSendButton,
+                        style: const TextStyle(color: Colors.black, fontSize: 15),
                       ),
                     ),
                   ),
@@ -175,10 +178,15 @@ class _TypeTextPageState extends State<TypeTextPage> {
 
     if (result != null && result.files.single.path != null) {
       File file = File(result.files.single.path!);
-      String fileContent = await file.readAsString(); // 读取文件内容
-      setState(() {
-        _controller.text = fileContent; // 将文件内容导入到编辑框
-      });
+      try {
+        String fileContent = await file.readAsString(); // 读取文件内容
+        if (!mounted) return;
+        setState(() {
+          _controller.text = fileContent; // 将文件内容导入到编辑框
+        });
+      } catch (e) {
+        _showMessageDialog(context.l10n.typeImportFailure(e.toString()));
+      }
     }
   }
 
@@ -187,18 +195,18 @@ class _TypeTextPageState extends State<TypeTextPage> {
     // 检测设备是否连接
     bool isConnected = await _isDeviceConnected();
     if (!isConnected) {
-      _showMessageDialog('未检测到设备，请检查设备连接');
+      _showMessageDialog(context.l10n.typeNoDeviceMessage);
       return;
     }
 
     String text = _controller.text; // 获取编辑框内容
     if (text.isEmpty) {
-      _showMessageDialog('请输入文本'); // 如果文本为空，显示提示
+      _showMessageDialog(context.l10n.typeEmptyTextMessage); // 如果文本为空，显示提示
       return;
     }
 
     // 显示发送进度弹窗
-    _showProgressDialog('正在发送文本...');
+    _showProgressDialog(context.l10n.typeSendingProgress);
 
     try {
       List<String> lines = text.split('\n'); // 按行分割文本
@@ -209,7 +217,7 @@ class _TypeTextPageState extends State<TypeTextPage> {
         // 检查是否返回了权限错误
         if (result.stderr.toString().contains('INJECT_EVENTS permission')) {
           Navigator.of(context).pop(); // 关闭进度弹窗
-          _showMessageDialog('权限不足。请开启前往 “开发者选项” 开启 “USB调试（安装设置）” 后重试。');
+          _showMessageDialog(context.l10n.typePermissionDenied);
           return;
         }
         // 模拟回车键以实现换行
@@ -217,11 +225,11 @@ class _TypeTextPageState extends State<TypeTextPage> {
       }
 
       Navigator.of(context).pop(); // 关闭进度弹窗
-      _showMessageDialog('文本已成功发送到设备');
+      _showMessageDialog(context.l10n.typeSendSuccess);
       _controller.clear(); // 清空编辑框内容
     } catch (e) {
       Navigator.of(context).pop(); // 关闭进度弹窗
-      _showMessageDialog('发生错误: $e');
+      _showMessageDialog(context.l10n.typeSendFailure(e.toString()));
     }
   }
 
@@ -257,7 +265,7 @@ class _TypeTextPageState extends State<TypeTextPage> {
       // 检查输出中是否有 "device" 状态，排除 "List of devices" 和空行
       return output.split('\n').any((line) => line.contains('\tdevice'));
     } catch (e) {
-      _showMessageDialog('无法检测设备连接状态: $e');
+      _showMessageDialog(context.l10n.typeConnectionCheckFailure(e.toString()));
       return false;
     }
   }
@@ -267,9 +275,10 @@ class _TypeTextPageState extends State<TypeTextPage> {
     showDialog(
       context: context,
       builder: (BuildContext context) {
+        final l10n = context.l10n;
         return AlertDialog(
           backgroundColor: const Color(0xFFF9F9F9), // 弹窗背景颜色
-          title: const Text('提示'),
+          title: Text(l10n.commonNoticeTitle),
           content: Text(message, style: const TextStyle(color: Colors.black)),
           actions: [
             TextButton(
@@ -287,7 +296,7 @@ class _TypeTextPageState extends State<TypeTextPage> {
               onPressed: () {
                 Navigator.of(context).pop();
               },
-              child: const Text('确认', style: TextStyle(color: Colors.black)),
+              child: Text(l10n.dialogOk, style: const TextStyle(color: Colors.black)),
             ),
           ],
         );

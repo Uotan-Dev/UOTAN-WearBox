@@ -1,7 +1,10 @@
 import 'dart:io';
+
+import 'package:file_picker/file_picker.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:window_manager/window_manager.dart';
-import 'package:file_picker/file_picker.dart';
+import 'package:watch_assistant/l10n/l10n.dart';
 
 class AdbFileManagerPage extends StatefulWidget {
   const AdbFileManagerPage({super.key});
@@ -15,15 +18,25 @@ class _AdbFileManagerPageState extends State<AdbFileManagerPage> {
   List<String> files = []; // 当前目录中的文件列表
   List<String> directories = []; // 当前目录中的文件夹列表
   bool isLoading = false; // 用于控制加载进度条的显示
+  bool _initialized = false;
 
   @override
   void initState() {
     super.initState();
-    _listFiles(); // 列出初始路径下的文件和文件夹
+  }
+
+  @override
+  void didChangeDependencies() {
+    super.didChangeDependencies();
+    if (!_initialized) {
+      _initialized = true;
+      _listFiles(); // 列出初始路径下的文件和文件夹
+    }
   }
 
   // 列出当前路径的文件和文件夹
   Future<void> _listFiles() async {
+    final l10n = context.l10n;
     setState(() {
       isLoading = true; // 开始加载时显示进度条
     });
@@ -32,6 +45,7 @@ class _AdbFileManagerPageState extends State<AdbFileManagerPage> {
       final result = await Process.run('adb', ['shell', 'ls', '-p', currentPath]);
       if (result.exitCode == 0) {
         await Future.delayed(const Duration(milliseconds: 500)); // 延迟显示加载
+        if (!mounted) return;
         setState(() {
           files.clear();
           directories.clear();
@@ -49,13 +63,15 @@ class _AdbFileManagerPageState extends State<AdbFileManagerPage> {
           isLoading = false; // 完成加载后隐藏进度条
         });
       } else {
-        _showError('无法列出 $currentPath 下的文件，请检查设备连接状态');
+        if (!mounted) return;
+        _showError(l10n.fileManagerListFailure(currentPath));
         setState(() {
           isLoading = false; // 如果出错，也隐藏进度条
         });
       }
     } catch (e) {
-      _showError('错误: $e');
+      if (!mounted) return;
+      _showError(l10n.fileManagerErrorMessage(e.toString()));
       setState(() {
         isLoading = false; // 如果发生异常，隐藏进度条
       });
@@ -67,9 +83,10 @@ class _AdbFileManagerPageState extends State<AdbFileManagerPage> {
     showDialog(
       context: context,
       builder: (BuildContext context) {
+        final l10n = context.l10n;
         return AlertDialog(
           backgroundColor: const Color(0xFFF9F9F9), // 弹窗背景颜色
-          title: const Text('错误'),
+          title: Text(l10n.commonErrorTitle),
           content: Text(message, style: const TextStyle(color: Colors.black)),
           actions: <Widget>[
             TextButton(
@@ -87,7 +104,7 @@ class _AdbFileManagerPageState extends State<AdbFileManagerPage> {
               onPressed: () {
                 Navigator.of(context).pop();
               },
-              child: const Text('确认'),
+              child: Text(l10n.dialogOk),
             ),
           ],
         );
@@ -100,15 +117,16 @@ class _AdbFileManagerPageState extends State<AdbFileManagerPage> {
     showDialog(
       context: context,
       builder: (BuildContext context) {
+        final l10n = context.l10n;
         return AlertDialog(
-          title: const Text('成功'),
+          title: Text(l10n.fileManagerSuccessTitle),
           content: Text(message),
           actions: <Widget>[
             TextButton(
               onPressed: () {
                 Navigator.of(context).pop();
               },
-              child: const Text('确认'),
+              child: Text(l10n.dialogOk),
             ),
           ],
         );
@@ -121,22 +139,23 @@ class _AdbFileManagerPageState extends State<AdbFileManagerPage> {
     showDialog(
       context: context,
       builder: (BuildContext context) {
+        final l10n = context.l10n;
         return AlertDialog(
-          title: const Text('确认删除'),
-          content: Text('确定要删除 $entry 吗？'),
+          title: Text(l10n.fileManagerConfirmDeleteTitle),
+          content: Text(l10n.fileManagerConfirmDeleteMessage(entry)),
           actions: [
             TextButton(
               onPressed: () {
                 Navigator.of(context).pop();
               },
-              child: const Text('取消'),
+              child: Text(l10n.dialogCancel),
             ),
             TextButton(
               onPressed: () {
                 Navigator.of(context).pop();
                 _deleteFileOrDirectory(entry, isDirectory);
               },
-              child: const Text('删除'),
+              child: Text(l10n.fileManagerDeleteButton),
             ),
           ],
         );
@@ -146,19 +165,20 @@ class _AdbFileManagerPageState extends State<AdbFileManagerPage> {
 
   // 删除文件或文件夹
   Future<void> _deleteFileOrDirectory(String entry, bool isDirectory) async {
-    await _showProgressDialog('正在删除 $entry...');
+    final l10n = context.l10n;
+    await _showProgressDialog(l10n.fileManagerDeleteProgress(entry));
     try {
       final result = await Process.run('adb', ['shell', 'rm', '-rf', '$currentPath$entry']);
       _closeProgressDialog();
       if (result.exitCode == 0) {
         _listFiles(); // 重新列出文件和文件夹
-        _showSuccess('删除 $entry 成功');
+        _showSuccess(l10n.fileManagerDeleteSuccess(entry));
       } else {
-        _showError('无法删除 $entry');
+        _showError(l10n.fileManagerDeleteFailure(entry));
       }
     } catch (e) {
       _closeProgressDialog();
-      _showError('错误: $e');
+      _showError(l10n.fileManagerErrorMessage(e.toString()));
     }
   }
 
@@ -168,24 +188,25 @@ class _AdbFileManagerPageState extends State<AdbFileManagerPage> {
     showDialog(
       context: context,
       builder: (BuildContext context) {
+        final l10n = context.l10n;
         return AlertDialog(
-          title: const Text('重命名'),
+          title: Text(l10n.fileManagerRenameTitle),
           content: TextField(
             controller: controller,
-            decoration: const InputDecoration(labelText: '输入新的名称'),
+            decoration: InputDecoration(labelText: l10n.fileManagerRenameLabel),
           ),
           actions: [
             TextButton(
               onPressed: () {
                 Navigator.of(context).pop();
               },
-              child: const Text('取消'),
+              child: Text(l10n.dialogCancel),
             ),
             TextButton(
               onPressed: () async {
                 String newName = controller.text.trim();
                 if (newName.isNotEmpty && newName != oldName) {
-                  await _showProgressDialog('正在重命名...');
+                  await _showProgressDialog(l10n.fileManagerRenameAction);
                   await Process.run('adb', [
                     'shell',
                     'mv',
@@ -197,7 +218,7 @@ class _AdbFileManagerPageState extends State<AdbFileManagerPage> {
                 }
                 Navigator.of(context).pop();
               },
-              child: const Text('重命名'),
+              child: Text(l10n.fileManagerRenameAction),
             ),
           ],
         );
@@ -207,25 +228,26 @@ class _AdbFileManagerPageState extends State<AdbFileManagerPage> {
 
   // 复制文件到电脑
   Future<void> _copyFileToComputer(String fileName) async {
+    final l10n = context.l10n;
     String? savePath = await FilePicker.platform.saveFile(
-      dialogTitle: '选择保存位置',
+      dialogTitle: l10n.fileManagerSaveDialogTitle,
       fileName: fileName,
     );
 
     if (savePath == null) return; // 如果用户取消保存操作，直接返回
 
-    await _showProgressDialog('正在保存 $fileName 到本地...');
+    await _showProgressDialog(l10n.fileManagerSaveProgress(fileName));
     try {
       final result = await Process.run('adb', ['pull', '$currentPath$fileName', savePath]);
       _closeProgressDialog();
       if (result.exitCode == 0) {
-        _showSuccess('文件已成功保存到 $savePath');
+        _showSuccess(l10n.fileManagerSaveSuccess(savePath));
       } else {
-        _showError('无法复制文件到本地');
+        _showError(l10n.fileManagerSaveFailure);
       }
     } catch (e) {
       _closeProgressDialog();
-      _showError('错误: $e');
+      _showError(l10n.fileManagerErrorMessage(e.toString()));
     }
   }
 
@@ -235,19 +257,19 @@ class _AdbFileManagerPageState extends State<AdbFileManagerPage> {
 
     if (result != null && result.files.isNotEmpty) {
       String filePath = result.files.single.path!;
-      await _showProgressDialog('正在上传文件...');
+      await _showProgressDialog(context.l10n.fileManagerUploadProgress);
       try {
         final uploadResult = await Process.run('adb', ['push', filePath, currentPath]);
         _closeProgressDialog();
         if (uploadResult.exitCode == 0) {
-          _showSuccess('文件已成功上传到 $currentPath');
+          _showSuccess(context.l10n.fileManagerUploadSuccess(currentPath));
           _listFiles(); // 重新列出文件和文件夹
         } else {
-          _showError('无法上传文件到设备');
+          _showError(context.l10n.fileManagerUploadFailure);
         }
       } catch (e) {
         _closeProgressDialog();
-        _showError('错误: $e');
+        _showError(context.l10n.fileManagerErrorMessage(e.toString()));
       }
     }
   }
@@ -286,16 +308,16 @@ class _AdbFileManagerPageState extends State<AdbFileManagerPage> {
       items: [
         PopupMenuItem<String>(
           value: 'rename',
-          child: const Text('重命名'),
+          child: Text(context.l10n.fileManagerContextRename),
         ),
         if (!isDirectory)
           PopupMenuItem<String>(
             value: 'copy',
-            child: const Text('复制到电脑'),
+            child: Text(context.l10n.fileManagerContextCopy),
           ),
         PopupMenuItem<String>(
           value: 'delete',
-          child: const Text('删除'),
+          child: Text(context.l10n.fileManagerContextDelete),
         ),
       ],
     ).then((selected) {
@@ -331,8 +353,10 @@ class _AdbFileManagerPageState extends State<AdbFileManagerPage> {
 
   @override
   Widget build(BuildContext context) {
+    final l10n = context.l10n;
     // 获取相对路径（隐藏 "/storage/emulated/0/"）
     String relativePath = currentPath.replaceFirst('/storage/emulated/0/', '');
+    final String displayPath = relativePath.isEmpty ? l10n.fileManagerRootLabel : relativePath;
 
     return Scaffold(
       appBar: PreferredSize(
@@ -361,7 +385,7 @@ class _AdbFileManagerPageState extends State<AdbFileManagerPage> {
                       ),
                       const SizedBox(width: 5),
                       Text(
-                        '文件管理 (${relativePath.isEmpty ? '内部存储' : relativePath})', // 页面标题显示当前路径
+                        l10n.fileManagerTitle(displayPath), // 页面标题显示当前路径
                         style: const TextStyle(
                           color: Colors.black,
                           fontSize: 26,

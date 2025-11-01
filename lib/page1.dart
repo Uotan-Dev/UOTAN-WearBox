@@ -106,7 +106,8 @@ class Page1 extends StatelessWidget {
               children: [
                 Text(
                   l10n.homeConnectionMethodsTitle,
-                  style: const TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
+                  style: const TextStyle(
+                      fontSize: 16, fontWeight: FontWeight.bold),
                 ),
                 const SizedBox(height: 10),
                 Text(
@@ -127,7 +128,8 @@ class Page1 extends StatelessWidget {
                         onTap: () {
                           Navigator.push(
                             context,
-                            MaterialPageRoute(builder: (context) => const WirelessPage()),
+                            MaterialPageRoute(
+                                builder: (context) => const WirelessPage()),
                           );
                         },
                         child: Text(
@@ -149,7 +151,8 @@ class Page1 extends StatelessWidget {
                 const SizedBox(height: 20),
                 Text(
                   l10n.homeTroubleshootTitle,
-                  style: const TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
+                  style: const TextStyle(
+                      fontSize: 16, fontWeight: FontWeight.bold),
                 ),
                 const SizedBox(height: 10),
                 Row(
@@ -165,7 +168,8 @@ class Page1 extends StatelessWidget {
                         onTap: () {
                           Navigator.push(
                             context,
-                            MaterialPageRoute(builder: (context) => const TutorialPage()),
+                            MaterialPageRoute(
+                                builder: (context) => const TutorialPage()),
                           );
                         },
                         child: Text(
@@ -193,7 +197,8 @@ class Page1 extends StatelessWidget {
                         onTap: () {
                           Navigator.push(
                             context,
-                            MaterialPageRoute(builder: (context) => const DriverPage()),
+                            MaterialPageRoute(
+                                builder: (context) => const DriverPage()),
                           );
                         },
                         child: Text(
@@ -247,21 +252,33 @@ class Page1 extends StatelessWidget {
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         Text(
-          device.model,
+          ' ${device.model}',
           style: const TextStyle(fontSize: 22, fontWeight: FontWeight.bold),
         ),
         const SizedBox(height: 2),
         Text(
-          l10n.connect_successfully,
+          ' ${l10n.connect_successfully}',
           style: const TextStyle(fontSize: 16),
         ),
         const SizedBox(height: 20),
         buildBasicInfoCard(context, l10n.deviceBasicInfoTitle, [
-          [l10n.deviceBrand(device.brand), l10n.deviceResolution(device.resolution)],
+          [
+            l10n.deviceBrand(device.brand),
+            l10n.deviceResolution(device.resolution)
+          ],
           [l10n.deviceModel(device.model), l10n.deviceDpi(device.dpi)],
-          [l10n.deviceSerial(device.deviceId), l10n.deviceMemory(device.memory)],
-          [l10n.deviceUptime(device.uptime), l10n.deviceStorage(device.storage)],
-          [l10n.deviceBootloader(device.bootloaderStatus), l10n.deviceArchitecture(device.cpuArch)],
+          [
+            l10n.deviceSerial(device.deviceId),
+            l10n.deviceMemory(device.memory)
+          ],
+          [
+            l10n.deviceUptime(device.uptime),
+            l10n.deviceStorage(device.storage)
+          ],
+          [
+            l10n.deviceBootloader(device.bootloaderStatus),
+            l10n.deviceArchitecture(device.cpuArch)
+          ],
         ]),
         const SizedBox(height: 5),
         Row(
@@ -289,7 +306,8 @@ class Page1 extends StatelessWidget {
     );
   }
 
-  Widget buildBasicInfoCard(BuildContext context, String title, List<List<String>> info) {
+  Widget buildBasicInfoCard(
+      BuildContext context, String title, List<List<String>> info) {
     return Card(
       color: const Color(0xFFF9F9F9),
       elevation: 0,

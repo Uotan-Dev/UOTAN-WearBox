@@ -842,7 +842,7 @@ abstract class AppLocalizations {
   /// No description provided for @buttonNameCallEnd.
   ///
   /// In en, this message translates to:
-  /// **'Hang up (SIM 1)'**
+  /// **'Hang up'**
   String get buttonNameCallEnd;
 
   /// No description provided for @buttonNamePlayPause.
@@ -1150,6 +1150,336 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Failed to unfreeze app: {error}'**
   String appManageUnfreezeFailure(Object error);
+
+  /// No description provided for @fileManagerListFailure.
+  ///
+  /// In en, this message translates to:
+  /// **'Unable to list files under {path}. Please check the device connection.'**
+  String fileManagerListFailure(Object path);
+
+  /// No description provided for @fileManagerErrorMessage.
+  ///
+  /// In en, this message translates to:
+  /// **'Error: {error}'**
+  String fileManagerErrorMessage(Object error);
+
+  /// No description provided for @fileManagerSuccessTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Success'**
+  String get fileManagerSuccessTitle;
+
+  /// No description provided for @fileManagerConfirmDeleteTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Delete item'**
+  String get fileManagerConfirmDeleteTitle;
+
+  /// No description provided for @fileManagerConfirmDeleteMessage.
+  ///
+  /// In en, this message translates to:
+  /// **'Are you sure you want to delete {entry}?'**
+  String fileManagerConfirmDeleteMessage(Object entry);
+
+  /// No description provided for @fileManagerDeleteButton.
+  ///
+  /// In en, this message translates to:
+  /// **'Delete'**
+  String get fileManagerDeleteButton;
+
+  /// No description provided for @fileManagerDeleteProgress.
+  ///
+  /// In en, this message translates to:
+  /// **'Deleting {entry}...'**
+  String fileManagerDeleteProgress(Object entry);
+
+  /// No description provided for @fileManagerDeleteSuccess.
+  ///
+  /// In en, this message translates to:
+  /// **'{entry} has been deleted.'**
+  String fileManagerDeleteSuccess(Object entry);
+
+  /// No description provided for @fileManagerDeleteFailure.
+  ///
+  /// In en, this message translates to:
+  /// **'Failed to delete {entry}.'**
+  String fileManagerDeleteFailure(Object entry);
+
+  /// No description provided for @fileManagerRenameTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Rename'**
+  String get fileManagerRenameTitle;
+
+  /// No description provided for @fileManagerRenameLabel.
+  ///
+  /// In en, this message translates to:
+  /// **'Enter a new name'**
+  String get fileManagerRenameLabel;
+
+  /// No description provided for @fileManagerRenameAction.
+  ///
+  /// In en, this message translates to:
+  /// **'Rename'**
+  String get fileManagerRenameAction;
+
+  /// No description provided for @fileManagerSaveDialogTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Choose save location'**
+  String get fileManagerSaveDialogTitle;
+
+  /// No description provided for @fileManagerSaveProgress.
+  ///
+  /// In en, this message translates to:
+  /// **'Saving {file} to your computer...'**
+  String fileManagerSaveProgress(Object file);
+
+  /// No description provided for @fileManagerSaveSuccess.
+  ///
+  /// In en, this message translates to:
+  /// **'File saved to {path}'**
+  String fileManagerSaveSuccess(Object path);
+
+  /// No description provided for @fileManagerSaveFailure.
+  ///
+  /// In en, this message translates to:
+  /// **'Failed to copy the file to your computer.'**
+  String get fileManagerSaveFailure;
+
+  /// No description provided for @fileManagerUploadProgress.
+  ///
+  /// In en, this message translates to:
+  /// **'Uploading file...'**
+  String get fileManagerUploadProgress;
+
+  /// No description provided for @fileManagerUploadSuccess.
+  ///
+  /// In en, this message translates to:
+  /// **'File uploaded to {path}'**
+  String fileManagerUploadSuccess(Object path);
+
+  /// No description provided for @fileManagerUploadFailure.
+  ///
+  /// In en, this message translates to:
+  /// **'Failed to upload the file to the device.'**
+  String get fileManagerUploadFailure;
+
+  /// No description provided for @fileManagerContextRename.
+  ///
+  /// In en, this message translates to:
+  /// **'Rename'**
+  String get fileManagerContextRename;
+
+  /// No description provided for @fileManagerContextCopy.
+  ///
+  /// In en, this message translates to:
+  /// **'Copy to computer'**
+  String get fileManagerContextCopy;
+
+  /// No description provided for @fileManagerContextDelete.
+  ///
+  /// In en, this message translates to:
+  /// **'Delete'**
+  String get fileManagerContextDelete;
+
+  /// No description provided for @fileManagerTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'File manager ({path})'**
+  String fileManagerTitle(Object path);
+
+  /// No description provided for @fileManagerRootLabel.
+  ///
+  /// In en, this message translates to:
+  /// **'Internal storage'**
+  String get fileManagerRootLabel;
+
+  /// No description provided for @pairingPageTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Re-pair without reset (WearOS)'**
+  String get pairingPageTitle;
+
+  /// No description provided for @pairingStepTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Step {step}'**
+  String pairingStepTitle(Object step);
+
+  /// No description provided for @pairingStepDescription1.
+  ///
+  /// In en, this message translates to:
+  /// **'On the old phone, remove the Bluetooth pairing between the phone and the watch.'**
+  String get pairingStepDescription1;
+
+  /// No description provided for @pairingClearServicesButton.
+  ///
+  /// In en, this message translates to:
+  /// **'Clear Google services and reboot'**
+  String get pairingClearServicesButton;
+
+  /// No description provided for @pairingStepDescription4.
+  ///
+  /// In en, this message translates to:
+  /// **'On the new phone, open the WearOS by Google app and pair with the watch.'**
+  String get pairingStepDescription4;
+
+  /// No description provided for @pairingEnableBluetoothButton.
+  ///
+  /// In en, this message translates to:
+  /// **'Enable Bluetooth discoverable mode'**
+  String get pairingEnableBluetoothButton;
+
+  /// No description provided for @pairingClearFailure.
+  ///
+  /// In en, this message translates to:
+  /// **'Failed to clear Google services: {error}'**
+  String pairingClearFailure(Object error);
+
+  /// No description provided for @pairingRebooting.
+  ///
+  /// In en, this message translates to:
+  /// **'Device is rebooting...'**
+  String get pairingRebooting;
+
+  /// No description provided for @pairingRebootFailure.
+  ///
+  /// In en, this message translates to:
+  /// **'Failed to reboot: {error}'**
+  String pairingRebootFailure(Object error);
+
+  /// No description provided for @pairingExecuteFailure.
+  ///
+  /// In en, this message translates to:
+  /// **'Command failed: {error}'**
+  String pairingExecuteFailure(Object error);
+
+  /// No description provided for @pairingBluetoothEnabled.
+  ///
+  /// In en, this message translates to:
+  /// **'Bluetooth discoverable mode enabled.'**
+  String get pairingBluetoothEnabled;
+
+  /// No description provided for @rotatePageTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Force screen rotation'**
+  String get rotatePageTitle;
+
+  /// No description provided for @rotateButtonLeft.
+  ///
+  /// In en, this message translates to:
+  /// **'Rotate left'**
+  String get rotateButtonLeft;
+
+  /// No description provided for @rotateButtonRight.
+  ///
+  /// In en, this message translates to:
+  /// **'Rotate right'**
+  String get rotateButtonRight;
+
+  /// No description provided for @rotateButtonFlip.
+  ///
+  /// In en, this message translates to:
+  /// **'Flip vertically'**
+  String get rotateButtonFlip;
+
+  /// No description provided for @rotateButtonReset.
+  ///
+  /// In en, this message translates to:
+  /// **'Reset rotation'**
+  String get rotateButtonReset;
+
+  /// No description provided for @rotateSuccessMessage.
+  ///
+  /// In en, this message translates to:
+  /// **'Screen rotated: {direction}'**
+  String rotateSuccessMessage(Object direction);
+
+  /// No description provided for @rotateExecuteFailure.
+  ///
+  /// In en, this message translates to:
+  /// **'Failed to apply rotation: {error}'**
+  String rotateExecuteFailure(Object error);
+
+  /// No description provided for @typePageTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Send text to watch'**
+  String get typePageTitle;
+
+  /// No description provided for @typeHint.
+  ///
+  /// In en, this message translates to:
+  /// **'Type your text here...'**
+  String get typeHint;
+
+  /// No description provided for @typeImportButton.
+  ///
+  /// In en, this message translates to:
+  /// **'Import text'**
+  String get typeImportButton;
+
+  /// No description provided for @typeClearButton.
+  ///
+  /// In en, this message translates to:
+  /// **'Clear text'**
+  String get typeClearButton;
+
+  /// No description provided for @typeSendButton.
+  ///
+  /// In en, this message translates to:
+  /// **'Send to watch'**
+  String get typeSendButton;
+
+  /// No description provided for @typeImportFailure.
+  ///
+  /// In en, this message translates to:
+  /// **'Unable to import the text file: {error}'**
+  String typeImportFailure(Object error);
+
+  /// No description provided for @typeNoDeviceMessage.
+  ///
+  /// In en, this message translates to:
+  /// **'No device detected. Please check the connection.'**
+  String get typeNoDeviceMessage;
+
+  /// No description provided for @typeEmptyTextMessage.
+  ///
+  /// In en, this message translates to:
+  /// **'Please enter some text.'**
+  String get typeEmptyTextMessage;
+
+  /// No description provided for @typeSendingProgress.
+  ///
+  /// In en, this message translates to:
+  /// **'Sending text...'**
+  String get typeSendingProgress;
+
+  /// No description provided for @typePermissionDenied.
+  ///
+  /// In en, this message translates to:
+  /// **'Permission denied. Enable \"USB debugging (Security settings)\" in Developer Options and try again.'**
+  String get typePermissionDenied;
+
+  /// No description provided for @typeSendSuccess.
+  ///
+  /// In en, this message translates to:
+  /// **'Text sent to the device.'**
+  String get typeSendSuccess;
+
+  /// No description provided for @typeSendFailure.
+  ///
+  /// In en, this message translates to:
+  /// **'An error occurred: {error}'**
+  String typeSendFailure(Object error);
+
+  /// No description provided for @typeConnectionCheckFailure.
+  ///
+  /// In en, this message translates to:
+  /// **'Unable to check device connection: {error}'**
+  String typeConnectionCheckFailure(Object error);
 }
 
 class _AppLocalizationsDelegate extends LocalizationsDelegate<AppLocalizations> {

@@ -406,5 +406,155 @@
     "placeholders": {
       "error": {}
     }
+  },
+  "fileManagerListFailure": "Unable to list files under {path}. Please check the device connection.",
+  "@fileManagerListFailure": {
+    "placeholders": {
+      "path": {}
+    }
+  },
+  "fileManagerErrorMessage": "Error: {error}",
+  "@fileManagerErrorMessage": {
+    "placeholders": {
+      "error": {}
+    }
+  },
+  "fileManagerSuccessTitle": "Success",
+  "fileManagerConfirmDeleteTitle": "Delete item",
+  "fileManagerConfirmDeleteMessage": "Are you sure you want to delete {entry}?",
+  "@fileManagerConfirmDeleteMessage": {
+    "placeholders": {
+      "entry": {}
+    }
+  },
+  "fileManagerDeleteButton": "Delete",
+  "fileManagerDeleteProgress": "Deleting {entry}...",
+  "@fileManagerDeleteProgress": {
+    "placeholders": {
+      "entry": {}
+    }
+  },
+  "fileManagerDeleteSuccess": "{entry} has been deleted.",
+  "@fileManagerDeleteSuccess": {
+    "placeholders": {
+      "entry": {}
+    }
+  },
+  "fileManagerDeleteFailure": "Failed to delete {entry}.",
+  "@fileManagerDeleteFailure": {
+    "placeholders": {
+      "entry": {}
+    }
+  },
+  "fileManagerRenameTitle": "Rename",
+  "fileManagerRenameLabel": "Enter a new name",
+  "fileManagerRenameAction": "Rename",
+  "fileManagerSaveDialogTitle": "Choose save location",
+  "fileManagerSaveProgress": "Saving {file} to your computer...",
+  "@fileManagerSaveProgress": {
+    "placeholders": {
+      "file": {}
+    }
+  },
+  "fileManagerSaveSuccess": "File saved to {path}",
+  "@fileManagerSaveSuccess": {
+    "placeholders": {
+      "path": {}
+    }
+  },
+  "fileManagerSaveFailure": "Failed to copy the file to your computer.",
+  "fileManagerUploadProgress": "Uploading file...",
+  "fileManagerUploadSuccess": "File uploaded to {path}",
+  "@fileManagerUploadSuccess": {
+    "placeholders": {
+      "path": {}
+    }
+  },
+  "fileManagerUploadFailure": "Failed to upload the file to the device.",
+  "fileManagerContextRename": "Rename",
+  "fileManagerContextCopy": "Copy to computer",
+  "fileManagerContextDelete": "Delete",
+  "fileManagerTitle": "File manager ({path})",
+  "@fileManagerTitle": {
+    "placeholders": {
+      "path": {}
+    }
+  },
+  "fileManagerRootLabel": "Internal storage",
+  "pairingPageTitle": "Re-pair without reset (WearOS)",
+  "pairingStepTitle": "Step {step}",
+  "@pairingStepTitle": {
+    "placeholders": {
+      "step": {}
+    }
+  },
+  "pairingStepDescription1": "On the old phone, remove the Bluetooth pairing between the phone and the watch.",
+  "pairingClearServicesButton": "Clear Google services and reboot",
+  "pairingStepDescription4": "On the new phone, open the WearOS by Google app and pair with the watch.",
+  "pairingEnableBluetoothButton": "Enable Bluetooth discoverable mode",
+  "pairingClearFailure": "Failed to clear Google services: {error}",
+  "@pairingClearFailure": {
+    "placeholders": {
+      "error": {}
+    }
+  },
+  "pairingRebooting": "Device is rebooting...",
+  "pairingRebootFailure": "Failed to reboot: {error}",
+  "@pairingRebootFailure": {
+    "placeholders": {
+      "error": {}
+    }
+  },
+  "pairingExecuteFailure": "Command failed: {error}",
+  "@pairingExecuteFailure": {
+    "placeholders": {
+      "error": {}
+    }
+  },
+  "pairingBluetoothEnabled": "Bluetooth discoverable mode enabled.",
+  "rotatePageTitle": "Force screen rotation",
+  "rotateButtonLeft": "Rotate left",
+  "rotateButtonRight": "Rotate right",
+  "rotateButtonFlip": "Flip vertically",
+  "rotateButtonReset": "Reset rotation",
+  "rotateSuccessMessage": "Screen rotated: {direction}",
+  "@rotateSuccessMessage": {
+    "placeholders": {
+      "direction": {}
+    }
+  },
+  "rotateExecuteFailure": "Failed to apply rotation: {error}",
+  "@rotateExecuteFailure": {
+    "placeholders": {
+      "error": {}
+    }
+  },
+  "typePageTitle": "Send text to watch",
+  "typeHint": "Type your text here...",
+  "typeImportButton": "Import text",
+  "typeClearButton": "Clear text",
+  "typeSendButton": "Send to watch",
+  "typeImportFailure": "Unable to import the text file: {error}",
+  "@typeImportFailure": {
+    "placeholders": {
+      "error": {}
+    }
+  },
+  "typeNoDeviceMessage": "No device detected. Please check the connection.",
+  "typeEmptyTextMessage": "Please enter some text.",
+  "typeSendingProgress": "Sending text...",
+  "typePermissionDenied": "Permission denied. Enable \"USB debugging (Security settings)\" in Developer Options and try again.",
+  "typeSendSuccess": "Text sent to the device.",
+  "typeSendFailure": "An error occurred: {error}",
+  "@typeSendFailure": {
+    "placeholders": {
+      "error": {}
+    }
+  },
+  "typeConnectionCheckFailure": "Unable to check device connection: {error}",
+  "@typeConnectionCheckFailure": {
+    "placeholders": {
+      "error": {}
+    }
   }
 }

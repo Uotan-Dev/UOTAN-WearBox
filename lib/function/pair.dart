@@ -1,6 +1,9 @@
+import 'dart:io';
+
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:window_manager/window_manager.dart';
-import 'dart:io';
+import 'package:watch_assistant/l10n/l10n.dart';
 
 class PairPage extends StatefulWidget {
   const PairPage({super.key});
@@ -11,22 +14,36 @@ class PairPage extends StatefulWidget {
 
 class _PairPageState extends State<PairPage> {
   bool _isDeviceConnected = false;
+  bool _initialized = false;
 
   @override
   void initState() {
     super.initState();
-    _checkDeviceConnection().then((connected) {
-      setState(() {
-        _isDeviceConnected = connected;
+  }
+
+  @override
+  void didChangeDependencies() {
+    super.didChangeDependencies();
+    if (!_initialized) {
+      _initialized = true;
+      _checkDeviceConnection().then((connected) {
+        if (!mounted) {
+          return;
+        }
+        setState(() {
+          _isDeviceConnected = connected;
+        });
+        if (!connected) {
+          final l10n = context.l10n;
+          _showMessage(context, l10n.buttonDeviceNotConnectedTitle, l10n.buttonDeviceNotConnectedMessage);
+        }
       });
-      if (!connected) {
-        _showMessage(context, "设备未连接", "请检查设备是否连接到电脑，并开启USB调试模式");
-      }
-    });
+    }
   }
 
   @override
   Widget build(BuildContext context) {
+    final l10n = context.l10n;
     return Scaffold(
       appBar: PreferredSize(
         preferredSize: const Size.fromHeight(90.0),
@@ -49,9 +66,9 @@ class _PairPageState extends State<PairPage> {
                         },
                       ),
                       const SizedBox(width: 5),
-                      const Text(
-                        '免重置重新配对(WearOS)',
-                        style: TextStyle(
+                      Text(
+                        l10n.pairingPageTitle,
+                        style: const TextStyle(
                           color: Colors.black,
                           fontSize: 26,
                           fontFamily: 'MiSansLight',
@@ -70,40 +87,36 @@ class _PairPageState extends State<PairPage> {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-             const Text(
-              "第一步",
-              style: TextStyle(fontSize: 20, ),
-              
+            Text(
+              l10n.pairingStepTitle(1),
+              style: const TextStyle(fontSize: 20),
             ),
-             const Text(
-              "在旧手机设置中，断开并删除手机与手表的蓝牙配对连接",
-              style: TextStyle(fontSize: 16, ),
+            Text(
+              l10n.pairingStepDescription1,
+              style: const TextStyle(fontSize: 16),
             ),
-              const SizedBox(height: 30), 
-            const Text(
-              "第二步",
-              style: TextStyle(fontSize: 20, ),
+            const SizedBox(height: 30),
+            Text(
+              l10n.pairingStepTitle(2),
+              style: const TextStyle(fontSize: 20),
             ),
-             
             const SizedBox(height: 10),
-            _buildButton("清除 Google 服务并重启", _clearGoogleServicesAndReboot),
+            _buildButton(l10n.pairingClearServicesButton, _clearGoogleServicesAndReboot),
             const SizedBox(height: 30), // 间隔
-
-            const Text(
-              "第三步",
-              style: TextStyle(fontSize: 20, ),
+            Text(
+              l10n.pairingStepTitle(3),
+              style: const TextStyle(fontSize: 20),
             ),
            
-            _buildButton("开启蓝牙可见模式", _enableBluetoothDiscoverable),
+            _buildButton(l10n.pairingEnableBluetoothButton, _enableBluetoothDiscoverable),
             const SizedBox(height: 30), // 间隔
-             const Text(
-              "第四步",
-              style: TextStyle(fontSize: 20, ),
-              
+            Text(
+              l10n.pairingStepTitle(4),
+              style: const TextStyle(fontSize: 20),
             ),
-             const Text(
-              "在新手机上，打开 WearOS By Google 应用，配对连接手表",
-              style: TextStyle(fontSize: 16, ),
+            Text(
+              l10n.pairingStepDescription4,
+              style: const TextStyle(fontSize: 16),
             ),
           ],
         ),
@@ -141,7 +154,8 @@ class _PairPageState extends State<PairPage> {
   /// **第一步：清除 Google Play 服务并重启**
   Future<void> _clearGoogleServicesAndReboot() async {
     if (!_isDeviceConnected) {
-      _showMessage(context, "设备未连接", "请先连接设备");
+      final l10n = context.l10n;
+      _showMessage(context, l10n.buttonDeviceNotConnectedTitle, l10n.buttonConnectFirstMessage);
       return;
     }
 
@@ -149,26 +163,27 @@ class _PairPageState extends State<PairPage> {
       // 清除 Google Play 服务
       ProcessResult clearResult = await Process.run('adb', ['shell', 'pm', 'clear', 'com.google.android.gms']);
       if (clearResult.exitCode != 0) {
-        _showMessage(context, "错误", "清除 Google 服务失败: ${clearResult.stderr}");
+        _showMessage(context, context.l10n.commonErrorTitle, context.l10n.pairingClearFailure(clearResult.stderr.toString()));
         return;
       }
 
       // 重启设备
       ProcessResult rebootResult = await Process.run('adb', ['shell', 'reboot']);
       if (rebootResult.exitCode == 0) {
-        _showMessage(context, "成功", "设备正在重启...");
+        _showMessage(context, context.l10n.fileManagerSuccessTitle, context.l10n.pairingRebooting);
       } else {
-        _showMessage(context, "错误", "重启失败: ${rebootResult.stderr}");
+        _showMessage(context, context.l10n.commonErrorTitle, context.l10n.pairingRebootFailure(rebootResult.stderr.toString()));
       }
     } catch (e) {
-      _showMessage(context, "错误", "执行失败: $e");
+      _showMessage(context, context.l10n.commonErrorTitle, context.l10n.pairingExecuteFailure(e.toString()));
     }
   }
 
   /// **第二步：开启蓝牙可见模式**
   Future<void> _enableBluetoothDiscoverable() async {
     if (!_isDeviceConnected) {
-      _showMessage(context, "设备未连接", "请先连接设备");
+      final l10n = context.l10n;
+      _showMessage(context, l10n.buttonDeviceNotConnectedTitle, l10n.buttonConnectFirstMessage);
       return;
     }
 
@@ -181,12 +196,12 @@ class _PairPageState extends State<PairPage> {
         'android.bluetooth.adapter.action.REQUEST_DISCOVERABLE'
       ]);
       if (result.exitCode == 0) {
-        _showMessage(context, "成功", "蓝牙可见模式已开启");
+        _showMessage(context, context.l10n.fileManagerSuccessTitle, context.l10n.pairingBluetoothEnabled);
       } else {
-        _showMessage(context, "错误", "执行失败: ${result.stderr}");
+        _showMessage(context, context.l10n.commonErrorTitle, context.l10n.pairingExecuteFailure(result.stderr.toString()));
       }
     } catch (e) {
-      _showMessage(context, "错误", "执行失败: $e");
+      _showMessage(context, context.l10n.commonErrorTitle, context.l10n.pairingExecuteFailure(e.toString()));
     }
   }
 
@@ -202,7 +217,7 @@ class _PairPageState extends State<PairPage> {
         }
       }
     } catch (e) {
-      print('检查设备连接失败：$e');
+      debugPrint('Failed to check device connection: $e');
     }
     return false;
   }
@@ -212,6 +227,7 @@ class _PairPageState extends State<PairPage> {
     showDialog(
       context: context,
       builder: (BuildContext context) {
+        final l10n = context.l10n;
         return AlertDialog(
           backgroundColor: const Color(0xFFF9F9F9),
           title: Text(title),
@@ -229,7 +245,7 @@ class _PairPageState extends State<PairPage> {
                 ),
                 foregroundColor: WidgetStateProperty.all<Color>(Colors.black),
               ),
-              child: const Text('确定'),
+              child: Text(l10n.dialogOk),
               onPressed: () {
                 Navigator.of(context).pop();
               },

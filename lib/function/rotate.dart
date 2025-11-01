@@ -1,6 +1,9 @@
+import 'dart:io';
+
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:window_manager/window_manager.dart';
-import 'dart:io';
+import 'package:watch_assistant/l10n/l10n.dart';
 
 class RotatePage extends StatefulWidget {
   const RotatePage({super.key});
@@ -11,22 +14,36 @@ class RotatePage extends StatefulWidget {
 
 class _RotatePageState extends State<RotatePage> {
   bool _isDeviceConnected = false;
+  bool _initialized = false;
 
   @override
   void initState() {
     super.initState();
-    _checkDeviceConnection().then((connected) {
-      setState(() {
-        _isDeviceConnected = connected;
+  }
+
+  @override
+  void didChangeDependencies() {
+    super.didChangeDependencies();
+    if (!_initialized) {
+      _initialized = true;
+      _checkDeviceConnection().then((connected) {
+        if (!mounted) {
+          return;
+        }
+        setState(() {
+          _isDeviceConnected = connected;
+        });
+        if (!connected) {
+          final l10n = context.l10n;
+          _showMessage(context, l10n.buttonDeviceNotConnectedTitle, l10n.buttonDeviceNotConnectedMessage);
+        }
       });
-      if (!connected) {
-        _showMessage(context, "设备未连接", "请检查设备是否连接到电脑，并开启USB调试模式");
-      }
-    });
+    }
   }
 
   @override
   Widget build(BuildContext context) {
+    final l10n = context.l10n;
     return Scaffold(
       appBar: PreferredSize(
         preferredSize: const Size.fromHeight(90.0),
@@ -49,9 +66,9 @@ class _RotatePageState extends State<RotatePage> {
                         },
                       ),
                       const SizedBox(width: 5),
-                      const Text(
-                        '旋转屏幕',
-                        style: TextStyle(
+                      Text(
+                        l10n.rotatePageTitle,
+                        style: const TextStyle(
                           color: Colors.black,
                           fontSize: 26,
                           fontFamily: 'MiSansLight',
@@ -79,15 +96,16 @@ class _RotatePageState extends State<RotatePage> {
   }
 
   List<Widget> _buildButtons() {
-    List<Map<String, dynamic>> buttonData = [
-      {"name": "向左旋转", "rotation": "1"},
-      {"name": "向右旋转", "rotation": "3"},
-      {"name": "上下翻转", "rotation": "2"},
-      {"name": "恢复默认", "rotation": "0"},
+    final l10n = context.l10n;
+    final List<Map<String, String>> buttonData = [
+      {"name": l10n.rotateButtonLeft, "rotation": "1"},
+      {"name": l10n.rotateButtonRight, "rotation": "3"},
+      {"name": l10n.rotateButtonFlip, "rotation": "2"},
+      {"name": l10n.rotateButtonReset, "rotation": "0"},
     ];
 
     return buttonData.map((button) {
-      return _buildButton(button["name"], () => _rotateScreen(button["rotation"]));
+      return _buildButton(button["name"]!, () => _rotateScreen(button["rotation"]!, button["name"]!));
     }).toList();
   }
 
@@ -118,9 +136,10 @@ class _RotatePageState extends State<RotatePage> {
     );
   }
 
-  Future<void> _rotateScreen(String rotation) async {
+  Future<void> _rotateScreen(String rotation, String directionLabel) async {
     if (!_isDeviceConnected) {
-      _showMessage(context, "设备未连接", "请先连接设备");
+      final l10n = context.l10n;
+      _showMessage(context, l10n.buttonDeviceNotConnectedTitle, l10n.buttonConnectFirstMessage);
       return;
     }
 
@@ -128,12 +147,12 @@ class _RotatePageState extends State<RotatePage> {
       ProcessResult result = await Process.run(
           'adb', ['shell', 'settings', 'put', 'system', 'user_rotation', rotation]);
       if (result.exitCode == 0) {
-        print("成功旋转屏幕：$rotation");
+        _showMessage(context, context.l10n.fileManagerSuccessTitle, context.l10n.rotateSuccessMessage(directionLabel));
       } else {
-        _showMessage(context, "错误", "执行失败: ${result.stderr}");
+        _showMessage(context, context.l10n.commonErrorTitle, context.l10n.rotateExecuteFailure(result.stderr.toString()));
       }
     } catch (e) {
-      _showMessage(context, "错误", "执行失败: $e");
+      _showMessage(context, context.l10n.commonErrorTitle, context.l10n.rotateExecuteFailure(e.toString()));
     }
   }
 
@@ -148,7 +167,7 @@ class _RotatePageState extends State<RotatePage> {
         }
       }
     } catch (e) {
-      print('检查设备连接失败：$e');
+      debugPrint('Failed to check device connection: $e');
     }
     return false;
   }
@@ -157,6 +176,7 @@ class _RotatePageState extends State<RotatePage> {
     showDialog(
       context: context,
       builder: (BuildContext context) {
+        final l10n = context.l10n;
         return AlertDialog(
           backgroundColor: const Color(0xFFF9F9F9),
           title: Text(title),
@@ -174,7 +194,7 @@ class _RotatePageState extends State<RotatePage> {
                 ),
                 foregroundColor: WidgetStateProperty.all<Color>(Colors.black),
               ),
-              child: const Text('确定'),
+              child: Text(l10n.dialogOk),
               onPressed: () {
                 Navigator.of(context).pop();
               },

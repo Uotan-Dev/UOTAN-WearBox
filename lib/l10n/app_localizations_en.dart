@@ -431,7 +431,7 @@ class AppLocalizationsEn extends AppLocalizations {
   String get buttonNameCallDial => 'Dial';
 
   @override
-  String get buttonNameCallEnd => 'Hang up (SIM 1)';
+  String get buttonNameCallEnd => 'Hang up';
 
   @override
   String get buttonNamePlayPause => 'Play / pause';
@@ -626,5 +626,208 @@ class AppLocalizationsEn extends AppLocalizations {
   @override
   String appManageUnfreezeFailure(Object error) {
     return 'Failed to unfreeze app: $error';
+  }
+
+  @override
+  String fileManagerListFailure(Object path) {
+    return 'Unable to list files under $path. Please check the device connection.';
+  }
+
+  @override
+  String fileManagerErrorMessage(Object error) {
+    return 'Error: $error';
+  }
+
+  @override
+  String get fileManagerSuccessTitle => 'Success';
+
+  @override
+  String get fileManagerConfirmDeleteTitle => 'Delete item';
+
+  @override
+  String fileManagerConfirmDeleteMessage(Object entry) {
+    return 'Are you sure you want to delete $entry?';
+  }
+
+  @override
+  String get fileManagerDeleteButton => 'Delete';
+
+  @override
+  String fileManagerDeleteProgress(Object entry) {
+    return 'Deleting $entry...';
+  }
+
+  @override
+  String fileManagerDeleteSuccess(Object entry) {
+    return '$entry has been deleted.';
+  }
+
+  @override
+  String fileManagerDeleteFailure(Object entry) {
+    return 'Failed to delete $entry.';
+  }
+
+  @override
+  String get fileManagerRenameTitle => 'Rename';
+
+  @override
+  String get fileManagerRenameLabel => 'Enter a new name';
+
+  @override
+  String get fileManagerRenameAction => 'Rename';
+
+  @override
+  String get fileManagerSaveDialogTitle => 'Choose save location';
+
+  @override
+  String fileManagerSaveProgress(Object file) {
+    return 'Saving $file to your computer...';
+  }
+
+  @override
+  String fileManagerSaveSuccess(Object path) {
+    return 'File saved to $path';
+  }
+
+  @override
+  String get fileManagerSaveFailure => 'Failed to copy the file to your computer.';
+
+  @override
+  String get fileManagerUploadProgress => 'Uploading file...';
+
+  @override
+  String fileManagerUploadSuccess(Object path) {
+    return 'File uploaded to $path';
+  }
+
+  @override
+  String get fileManagerUploadFailure => 'Failed to upload the file to the device.';
+
+  @override
+  String get fileManagerContextRename => 'Rename';
+
+  @override
+  String get fileManagerContextCopy => 'Copy to computer';
+
+  @override
+  String get fileManagerContextDelete => 'Delete';
+
+  @override
+  String fileManagerTitle(Object path) {
+    return 'File manager ($path)';
+  }
+
+  @override
+  String get fileManagerRootLabel => 'Internal storage';
+
+  @override
+  String get pairingPageTitle => 'Re-pair without reset (WearOS)';
+
+  @override
+  String pairingStepTitle(Object step) {
+    return 'Step $step';
+  }
+
+  @override
+  String get pairingStepDescription1 => 'On the old phone, remove the Bluetooth pairing between the phone and the watch.';
+
+  @override
+  String get pairingClearServicesButton => 'Clear Google services and reboot';
+
+  @override
+  String get pairingStepDescription4 => 'On the new phone, open the WearOS by Google app and pair with the watch.';
+
+  @override
+  String get pairingEnableBluetoothButton => 'Enable Bluetooth discoverable mode';
+
+  @override
+  String pairingClearFailure(Object error) {
+    return 'Failed to clear Google services: $error';
+  }
+
+  @override
+  String get pairingRebooting => 'Device is rebooting...';
+
+  @override
+  String pairingRebootFailure(Object error) {
+    return 'Failed to reboot: $error';
+  }
+
+  @override
+  String pairingExecuteFailure(Object error) {
+    return 'Command failed: $error';
+  }
+
+  @override
+  String get pairingBluetoothEnabled => 'Bluetooth discoverable mode enabled.';
+
+  @override
+  String get rotatePageTitle => 'Force screen rotation';
+
+  @override
+  String get rotateButtonLeft => 'Rotate left';
+
+  @override
+  String get rotateButtonRight => 'Rotate right';
+
+  @override
+  String get rotateButtonFlip => 'Flip vertically';
+
+  @override
+  String get rotateButtonReset => 'Reset rotation';
+
+  @override
+  String rotateSuccessMessage(Object direction) {
+    return 'Screen rotated: $direction';
+  }
+
+  @override
+  String rotateExecuteFailure(Object error) {
+    return 'Failed to apply rotation: $error';
+  }
+
+  @override
+  String get typePageTitle => 'Send text to watch';
+
+  @override
+  String get typeHint => 'Type your text here...';
+
+  @override
+  String get typeImportButton => 'Import text';
+
+  @override
+  String get typeClearButton => 'Clear text';
+
+  @override
+  String get typeSendButton => 'Send to watch';
+
+  @override
+  String typeImportFailure(Object error) {
+    return 'Unable to import the text file: $error';
+  }
+
+  @override
+  String get typeNoDeviceMessage => 'No device detected. Please check the connection.';
+
+  @override
+  String get typeEmptyTextMessage => 'Please enter some text.';
+
+  @override
+  String get typeSendingProgress => 'Sending text...';
+
+  @override
+  String get typePermissionDenied => 'Permission denied. Enable \"USB debugging (Security settings)\" in Developer Options and try again.';
+
+  @override
+  String get typeSendSuccess => 'Text sent to the device.';
+
+  @override
+  String typeSendFailure(Object error) {
+    return 'An error occurred: $error';
+  }
+
+  @override
+  String typeConnectionCheckFailure(Object error) {
+    return 'Unable to check device connection: $error';
   }
 }
