@@ -1,6 +1,9 @@
-import 'dart:io'; // 导入用于运行进程的包
+import 'dart:io';
+
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:window_manager/window_manager.dart';
+import 'package:watch_assistant/l10n/l10n.dart';
 
 class DisplaySettingsPage extends StatefulWidget {
   const DisplaySettingsPage({super.key});
@@ -10,28 +13,41 @@ class DisplaySettingsPage extends StatefulWidget {
 }
 
 class _DisplaySettingsPageState extends State<DisplaySettingsPage> {
-  String currentDPI = '未获取'; // 用于存储当前DPI
-  String currentResolution = '未获取'; // 用于存储当前分辨率
+  String currentDPI = ''; // 用于存储当前DPI
+  String currentResolution = ''; // 用于存储当前分辨率
   double dpiValue = 160; // 初始化滑块的DPI值
   double widthValue = 1080; // 初始化滑块的宽度值
   double heightValue = 1920; // 初始化滑块的高度值
   bool isLoading = true; // 用于控制加载动画的显示
 
+  bool _initialized = false;
+
   @override
   void initState() {
     super.initState();
-    _checkDeviceConnection(); // 检测设备是否连接
+  }
+
+  @override
+  void didChangeDependencies() {
+    super.didChangeDependencies();
+    if (!_initialized) {
+      _initialized = true;
+      _checkDeviceConnection(); // 检测设备是否连接
+    }
   }
 
   // 检测设备是否连接
   void _checkDeviceConnection() async {
+    final l10n = context.l10n;
     bool isConnected = await _isDeviceConnected();
+    if (!mounted) return;
     if (!isConnected) {
-      _shownoconnectDialog('未检测到设备，请检查设备连接');
+      _shownoconnectDialog(l10n.displayDeviceNotConnectedMessage);
     } else {
       await _fetchCurrentDPI(); // 获取当前DPI
       await _fetchCurrentResolution(); // 获取当前分辨率
       await Future.delayed(const Duration(milliseconds: 500)); // 修改延迟为0.5秒
+      if (!mounted) return;
       setState(() {
         isLoading = false; // 加载完成后隐藏动画
       });
@@ -45,7 +61,7 @@ class _DisplaySettingsPageState extends State<DisplaySettingsPage> {
       String output = result.stdout as String;
       return output.split('\n').any((line) => line.contains('\tdevice'));
     } catch (e) {
-      _showErrorDialog('无法检测设备连接状态: $e');
+      _showErrorDialog(context.l10n.displayErrorCheckingConnection(e.toString()));
       return false;
     }
   }
@@ -55,14 +71,17 @@ class _DisplaySettingsPageState extends State<DisplaySettingsPage> {
     try {
       ProcessResult result = await Process.run('adb', ['shell', 'wm', 'density']);
       String output = result.stdout as String;
+      if (!mounted) return;
       setState(() {
-        currentDPI = output.contains('Physical density') ? output.split(':').last.trim() : '无法获取';
+        currentDPI = output.contains('Physical density') ? output.split(':').last.trim() : '';
         dpiValue = double.tryParse(currentDPI) ?? 160;
       });
     } catch (e) {
+      if (!mounted) return;
       setState(() {
-        currentDPI = '无法获取';
+        currentDPI = '';
       });
+      debugPrint('Failed to fetch current DPI: $e');
     }
   }
 
@@ -71,8 +90,9 @@ class _DisplaySettingsPageState extends State<DisplaySettingsPage> {
     try {
       ProcessResult result = await Process.run('adb', ['shell', 'wm', 'size']);
       String output = result.stdout as String;
+      if (!mounted) return;
       setState(() {
-        currentResolution = output.contains('Physical size') ? output.split(':').last.trim() : '无法获取';
+        currentResolution = output.contains('Physical size') ? output.split(':').last.trim() : '';
         List<String> resolutionParts = currentResolution.split('x');
         if (resolutionParts.length == 2) {
           widthValue = double.tryParse(resolutionParts[0]) ?? 1080;
@@ -80,14 +100,17 @@ class _DisplaySettingsPageState extends State<DisplaySettingsPage> {
         }
       });
     } catch (e) {
+      if (!mounted) return;
       setState(() {
-        currentResolution = '无法获取';
+        currentResolution = '';
       });
+      debugPrint('Failed to fetch current resolution: $e');
     }
   }
 
   @override
   Widget build(BuildContext context) {
+    final l10n = context.l10n;
     return WillPopScope(
       onWillPop: () async => !isLoading, // 如果正在加载则禁止返回
       child: Scaffold(
@@ -114,9 +137,9 @@ class _DisplaySettingsPageState extends State<DisplaySettingsPage> {
                                 },
                         ),
                         const SizedBox(width: 5),
-                        const Text(
-                          '显示设置', // 页面标题
-                          style: TextStyle(
+                        Text(
+                          l10n.displayPageTitle, // 页面标题
+                          style: const TextStyle(
                             color: Colors.black,
                             fontSize: 26,
                             fontFamily: 'MiSansLight', // 使用自定义字体
@@ -141,10 +164,10 @@ class _DisplaySettingsPageState extends State<DisplaySettingsPage> {
                 child: Column(
                   children: [
                     // DPI设置卡片
-                    _buildDpiCard(),
+                    _buildDpiCard(context),
                     const SizedBox(height: 10),
                     // 分辨率设置卡片
-                    _buildResolutionCard(),
+                    _buildResolutionCard(context),
                   ],
                 ),
               ),
@@ -153,7 +176,11 @@ class _DisplaySettingsPageState extends State<DisplaySettingsPage> {
   }
 
   // 构建DPI设置卡片
-  Widget _buildDpiCard() {
+  Widget _buildDpiCard(BuildContext context) {
+    final l10n = context.l10n;
+    final String currentDpiDisplay =
+        currentDPI.isEmpty ? (isLoading ? l10n.displayValueUnknown : l10n.displayValueUnavailable) : currentDPI;
+    final String selectedDpiDisplay = dpiValue.toInt().toString();
     return Card(
       color: const Color(0xFFF9F9F9), // 卡片背景颜色
       elevation: 0, // 去除阴影
@@ -169,11 +196,11 @@ class _DisplaySettingsPageState extends State<DisplaySettingsPage> {
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
                 Text(
-                  '当前DPI: $currentDPI', // 显示当前DPI
+                  l10n.displayCurrentDpi(currentDpiDisplay), // 显示当前DPI
                   style: const TextStyle(fontSize: 18, color: Colors.black),
                 ),
                 Text(
-                  '已选: ${dpiValue.toInt()}', // 显示即将修改的DPI
+                  l10n.displaySelectedDpi(selectedDpiDisplay), // 显示即将修改的DPI
                   style: const TextStyle(fontSize: 18, color: Colors.black),
                 ),
               ],
@@ -181,7 +208,7 @@ class _DisplaySettingsPageState extends State<DisplaySettingsPage> {
             const SizedBox(height: 10),
             Row(
               children: [
-                const Text('DPI: ', style: TextStyle(fontSize: 16)),
+                Text(l10n.displayDpiLabel, style: const TextStyle(fontSize: 16)),
                 Expanded(
                   child: SliderTheme(
                     data: SliderTheme.of(context).copyWith(
@@ -206,9 +233,9 @@ class _DisplaySettingsPageState extends State<DisplaySettingsPage> {
                     ),
                   ),
                 ),
-                _buildCardButton('恢复默认', _resetDPI),
+                _buildCardButton(l10n.displayResetDefaultButton, _resetDPI),
                 const SizedBox(width: 10),
-                _buildCardButton('修改DPI', () => _setDPI(dpiValue.toInt().toString())),
+                _buildCardButton(l10n.displayApplyDpiButton, () => _setDPI(dpiValue.toInt().toString())),
               ],
             ),
           ],
@@ -218,7 +245,11 @@ class _DisplaySettingsPageState extends State<DisplaySettingsPage> {
   }
 
   // 构建分辨率设置卡片
-  Widget _buildResolutionCard() {
+  Widget _buildResolutionCard(BuildContext context) {
+    final l10n = context.l10n;
+    final String currentResolutionDisplay =
+        currentResolution.isEmpty ? (isLoading ? l10n.displayValueUnknown : l10n.displayValueUnavailable) : currentResolution;
+    final String selectedResolutionDisplay = '${widthValue.toInt()}x${heightValue.toInt()}';
     return Card(
       color: const Color(0xFFF9F9F9), // 卡片背景颜色
       elevation: 0, // 去除阴影
@@ -234,11 +265,11 @@ class _DisplaySettingsPageState extends State<DisplaySettingsPage> {
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
                 Text(
-                  '当前分辨率: $currentResolution', // 显示当前分辨率
+                  l10n.displayCurrentResolution(currentResolutionDisplay), // 显示当前分辨率
                   style: const TextStyle(fontSize: 18, color: Colors.black),
                 ),
                 Text(
-                  '已选: ${widthValue.toInt()}x${heightValue.toInt()}', // 显示即将修改的分辨率
+                  l10n.displaySelectedResolution(selectedResolutionDisplay), // 显示即将修改的分辨率
                   style: const TextStyle(fontSize: 18, color: Colors.black),
                 ),
               ],
@@ -246,7 +277,7 @@ class _DisplaySettingsPageState extends State<DisplaySettingsPage> {
             const SizedBox(height: 10),
             Row(
               children: [
-                const Text('宽度: ', style: TextStyle(fontSize: 16)),
+                Text(l10n.displayWidthLabel, style: const TextStyle(fontSize: 16)),
                 Expanded(
                   child: SliderTheme(
                     data: SliderTheme.of(context).copyWith(
@@ -275,7 +306,7 @@ class _DisplaySettingsPageState extends State<DisplaySettingsPage> {
             ),
             Row(
               children: [
-                const Text('高度: ', style: TextStyle(fontSize: 16)),
+                Text(l10n.displayHeightLabel, style: const TextStyle(fontSize: 16)),
                 Expanded(
                   child: SliderTheme(
                     data: SliderTheme.of(context).copyWith(
@@ -300,11 +331,11 @@ class _DisplaySettingsPageState extends State<DisplaySettingsPage> {
                     ),
                   ),
                 ),
-                _buildCardButton('恢复默认', _resetResolution),
+                _buildCardButton(l10n.displayResetDefaultButton, _resetResolution),
                 const SizedBox(width: 10),
                 _buildCardButton(
-                  '修改分辨率',
-                  () => _setResolution('${widthValue.toInt()}x${heightValue.toInt()}'),
+                  l10n.displayApplyResolutionButton,
+                  () => _setResolution(selectedResolutionDisplay),
                 ),
               ],
             ),
@@ -341,16 +372,17 @@ class _DisplaySettingsPageState extends State<DisplaySettingsPage> {
     showDialog(
       context: context,
       builder: (BuildContext context) {
+        final l10n = context.l10n;
         return AlertDialog(
           backgroundColor: const Color(0xFFF9F9F9),
-          title: const Text('错误'),
+          title: Text(l10n.commonErrorTitle),
           content: Text(message, style: const TextStyle(color: Colors.black)),
           actions: [
             TextButton(
               onPressed: () {
                 Navigator.of(context).pop();
               },
-              child: const Text('确认', style: TextStyle(color: Colors.black)),
+              child: Text(l10n.dialogOk, style: const TextStyle(color: Colors.black)),
             ),
           ],
         );
@@ -363,9 +395,10 @@ class _DisplaySettingsPageState extends State<DisplaySettingsPage> {
     showDialog(
       context: context,
       builder: (BuildContext context) {
+        final l10n = context.l10n;
         return AlertDialog(
           backgroundColor: const Color(0xFFF9F9F9), // 弹窗背景颜色
-          title: const Text('没有连接设备'),
+          title: Text(l10n.installNoDeviceTitle),
           content: Text(message, style: const TextStyle(color: Colors.black)),
           actions: [
             TextButton(
@@ -384,7 +417,7 @@ class _DisplaySettingsPageState extends State<DisplaySettingsPage> {
                 Navigator.of(context).pop();
                 Navigator.pop(context); // 返回到上一个页面
               },
-              child: const Text('确认', style: TextStyle(color: Colors.black)),
+              child: Text(l10n.dialogOk, style: const TextStyle(color: Colors.black)),
             ),
           ],
         );
@@ -397,13 +430,13 @@ class _DisplaySettingsPageState extends State<DisplaySettingsPage> {
     if (dpi.isNotEmpty && await _isDeviceConnected()) { // 检测设备是否连接
       try {
         await Process.run('adb', ['shell', 'wm', 'density', dpi]);
-        _showInfoDialog('DPI 已修改为: $dpi');
+        _showInfoDialog(context.l10n.displayDpiSetSuccess(dpi));
         _fetchCurrentDPI(); // 更新当前DPI
       } catch (e) {
-        _showErrorDialog('无法修改DPI: $e');
+        _showErrorDialog(context.l10n.displayDpiSetFailure(e.toString()));
       }
     } else {
-      _shownoconnectDialog('未检测到设备，请检查设备连接');
+      _shownoconnectDialog(context.l10n.displayDeviceNotConnectedMessage);
     }
   }
 
@@ -412,13 +445,13 @@ class _DisplaySettingsPageState extends State<DisplaySettingsPage> {
     if (resolution.isNotEmpty && await _isDeviceConnected()) { // 检测设备是否连接
       try {
         await Process.run('adb', ['shell', 'wm', 'size', resolution]);
-        _showInfoDialog('分辨率已修改为: $resolution');
+        _showInfoDialog(context.l10n.displayResolutionSetSuccess(resolution));
         _fetchCurrentResolution(); // 更新当前分辨率
       } catch (e) {
-        _showErrorDialog('无法修改分辨率: $e');
+        _showErrorDialog(context.l10n.displayResolutionSetFailure(e.toString()));
       }
     } else {
-      _shownoconnectDialog('未检测到设备，请检查设备连接');
+      _shownoconnectDialog(context.l10n.displayDeviceNotConnectedMessage);
     }
   }
 
@@ -427,13 +460,13 @@ class _DisplaySettingsPageState extends State<DisplaySettingsPage> {
     if (await _isDeviceConnected()) { // 检测设备是否连接
       try {
         await Process.run('adb', ['shell', 'wm', 'density', 'reset']);
-        _showInfoDialog('DPI 已恢复为默认值');
+        _showInfoDialog(context.l10n.displayDpiResetSuccess);
         _fetchCurrentDPI(); // 更新当前DPI
       } catch (e) {
-        _showErrorDialog('无法恢复默认DPI: $e');
+        _showErrorDialog(context.l10n.displayDpiResetFailure(e.toString()));
       }
     } else {
-      _shownoconnectDialog('未检测到设备，请检查设备连接');
+      _shownoconnectDialog(context.l10n.displayDeviceNotConnectedMessage);
     }
   }
 
@@ -442,13 +475,13 @@ class _DisplaySettingsPageState extends State<DisplaySettingsPage> {
     if (await _isDeviceConnected()) { // 检测设备是否连接
       try {
         await Process.run('adb', ['shell', 'wm', 'size', 'reset']);
-        _showInfoDialog('分辨率已恢复为默认值');
+        _showInfoDialog(context.l10n.displayResolutionResetSuccess);
         _fetchCurrentResolution(); // 更新当前分辨率
       } catch (e) {
-        _showErrorDialog('无法恢复默认分辨率: $e');
+        _showErrorDialog(context.l10n.displayResolutionResetFailure(e.toString()));
       }
     } else {
-      _shownoconnectDialog('未检测到设备，请检查设备连接');
+      _shownoconnectDialog(context.l10n.displayDeviceNotConnectedMessage);
     }
   }
 
@@ -457,16 +490,17 @@ class _DisplaySettingsPageState extends State<DisplaySettingsPage> {
     showDialog(
       context: context,
       builder: (BuildContext context) {
+        final l10n = context.l10n;
         return AlertDialog(
           backgroundColor: const Color(0xFFF9F9F9),
-          title: const Text('提示'),
+          title: Text(l10n.commonNoticeTitle),
           content: Text(message, style: const TextStyle(color: Colors.black)),
           actions: [
             TextButton(
               onPressed: () {
                 Navigator.of(context).pop();
               },
-              child: const Text('确认', style: TextStyle(color: Colors.black)),
+              child: Text(l10n.dialogOk, style: const TextStyle(color: Colors.black)),
             ),
           ],
         );

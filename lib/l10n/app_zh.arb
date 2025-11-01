@@ -200,5 +200,211 @@
   },
   "dialogOk": "确定",
   "setting_config": "设置",
-  "connect_successfully": "已成功连接！请保持设备连接并开启USB调试"
+  "connect_successfully": "已成功连接！请保持设备连接并开启USB调试",
+  "installApptoWatch": "安装应用到手表",
+  "selectApptoInstall": "选择APK文件并安装",
+  "installingWaiting": "安装进行中，请稍候...",
+  "installNoDeviceTitle": "没有连接设备",
+  "installNoDeviceMessage": "没有检测到设备，请确保设备已连接。",
+  "installSuccessTitle": "安装成功",
+  "installSuccessMessage": "应用已成功安装！",
+  "installFailureTitle": "安装失败",
+  "installFailureMessage": "安装过程中出现问题。",
+  "installFailureWithReason": "出现错误：{error}",
+  "@installFailureWithReason": {
+    "placeholders": {
+      "error": {}
+    }
+  },
+  "installErrorOutput": "错误: {details}",
+  "@installErrorOutput": {
+    "placeholders": {
+      "details": {}
+    }
+  },
+  "installTipTitle": "提示",
+  "installNoFileSelected": "未选择任何文件",
+  "commonErrorTitle": "错误",
+  "commonNoticeTitle": "提示",
+  "buttonPageTitle": "按键模拟",
+  "buttonDeviceNotConnectedTitle": "设备未连接",
+  "buttonDeviceNotConnectedMessage": "请检查设备是否连接到电脑，并开启USB调试模式",
+  "buttonConnectFirstMessage": "请先连接设备",
+  "buttonSendKeySuccess": "成功发送按键事件：{keycode}",
+  "@buttonSendKeySuccess": {
+    "placeholders": {
+      "keycode": {}
+    }
+  },
+  "buttonExecutionFailed": "执行失败: {details}",
+  "@buttonExecutionFailed": {
+    "placeholders": {
+      "details": {}
+    }
+  },
+  "buttonNameHome": "主键",
+  "buttonNameBack": "返回",
+  "buttonNamePower": "电源",
+  "buttonNameVolumeUp": "音量+",
+  "buttonNameVolumeDown": "音量-",
+  "buttonNameSpeakerMute": "扬声器静音",
+  "buttonNameMicMute": "话筒静音",
+  "buttonNameCallDial": "电话拨号",
+  "buttonNameCallEnd": "电话1挂断",
+  "buttonNamePlayPause": "暂停/播放",
+  "buttonNameNextTrack": "下一曲",
+  "buttonNamePreviousTrack": "上一曲",
+  "buttonNameScreenOn": "亮屏",
+  "buttonNameScreenOff": "息屏",
+  "displayPageTitle": "显示设置",
+  "displayValueUnknown": "未获取",
+  "displayValueUnavailable": "无法获取",
+  "displayDeviceNotConnectedMessage": "未检测到设备，请检查设备连接",
+  "displayErrorCheckingConnection": "无法检测设备连接状态: {error}",
+  "@displayErrorCheckingConnection": {
+    "placeholders": {
+      "error": {}
+    }
+  },
+  "displayCurrentDpi": "当前DPI: {value}",
+  "@displayCurrentDpi": {
+    "placeholders": {
+      "value": {}
+    }
+  },
+  "displaySelectedDpi": "已选: {value}",
+  "@displaySelectedDpi": {
+    "placeholders": {
+      "value": {}
+    }
+  },
+  "displayDpiLabel": "DPI：",
+  "displayResetDefaultButton": "恢复默认",
+  "displayApplyDpiButton": "修改DPI",
+  "displayCurrentResolution": "当前分辨率: {value}",
+  "@displayCurrentResolution": {
+    "placeholders": {
+      "value": {}
+    }
+  },
+  "displaySelectedResolution": "已选: {value}",
+  "@displaySelectedResolution": {
+    "placeholders": {
+      "value": {}
+    }
+  },
+  "displayWidthLabel": "宽度：",
+  "displayHeightLabel": "高度：",
+  "displayApplyResolutionButton": "修改分辨率",
+  "displayDpiSetSuccess": "DPI 已修改为: {value}",
+  "@displayDpiSetSuccess": {
+    "placeholders": {
+      "value": {}
+    }
+  },
+  "displayDpiSetFailure": "无法修改DPI: {error}",
+  "@displayDpiSetFailure": {
+    "placeholders": {
+      "error": {}
+    }
+  },
+  "displayResolutionSetSuccess": "分辨率已修改为: {value}",
+  "@displayResolutionSetSuccess": {
+    "placeholders": {
+      "value": {}
+    }
+  },
+  "displayResolutionSetFailure": "无法修改分辨率: {error}",
+  "@displayResolutionSetFailure": {
+    "placeholders": {
+      "error": {}
+    }
+  },
+  "displayDpiResetSuccess": "DPI 已恢复为默认值",
+  "displayDpiResetFailure": "无法恢复默认DPI: {error}",
+  "@displayDpiResetFailure": {
+    "placeholders": {
+      "error": {}
+    }
+  },
+  "displayResolutionResetSuccess": "分辨率已恢复为默认值",
+  "displayResolutionResetFailure": "无法恢复默认分辨率: {error}",
+  "@displayResolutionResetFailure": {
+    "placeholders": {
+      "error": {}
+    }
+  },
+  "displayDeviceDisconnectedMessage": "检测到设备已断开连接。",
+  "dialogCancel": "取消",
+  "dialogConfirm": "确认",
+  "appManageTitle": "应用管理",
+  "appManageShowSystemApps": "显示系统应用",
+  "appManageNoAppsOrDevice": "未检测到已安装应用或设备未连接。",
+  "appManageCannotFetch": "无法获取已安装的应用列表: {error}",
+  "@appManageCannotFetch": {
+    "placeholders": {
+      "error": {}
+    }
+  },
+  "appManageDeviceDisconnected": "检测到设备已断开连接。",
+  "appManageTooltipUnfreeze": "解冻",
+  "appManageTooltipFreeze": "冻结",
+  "appManageTooltipExportApk": "导出APK",
+  "appManageTooltipUninstall": "卸载",
+  "appManageConfirmUninstallTitle": "确认卸载",
+  "appManageConfirmUninstallMessage": "确定要卸载 {packageName} 吗？",
+  "@appManageConfirmUninstallMessage": {
+    "placeholders": {
+      "packageName": {}
+    }
+  },
+  "appManagePullProgress": "正在提取APK...",
+  "appManagePullSuccess": "APK 已成功提取到：{path}",
+  "@appManagePullSuccess": {
+    "placeholders": {
+      "path": {}
+    }
+  },
+  "appManagePullFailure": "无法提取 APK 文件: {error}",
+  "@appManagePullFailure": {
+    "placeholders": {
+      "error": {}
+    }
+  },
+  "appManageUninstallSuccess": "应用已成功卸载：{packageName}",
+  "@appManageUninstallSuccess": {
+    "placeholders": {
+      "packageName": {}
+    }
+  },
+  "appManageUninstallFailure": "无法卸载应用：{error}",
+  "@appManageUninstallFailure": {
+    "placeholders": {
+      "error": {}
+    }
+  },
+  "appManageFreezeSuccess": "应用已冻结：{packageName}",
+  "@appManageFreezeSuccess": {
+    "placeholders": {
+      "packageName": {}
+    }
+  },
+  "appManageFreezeFailure": "无法冻结应用：{error}",
+  "@appManageFreezeFailure": {
+    "placeholders": {
+      "error": {}
+    }
+  },
+  "appManageUnfreezeSuccess": "应用已解冻：{packageName}",
+  "@appManageUnfreezeSuccess": {
+    "placeholders": {
+      "packageName": {}
+    }
+  },
+  "appManageUnfreezeFailure": "无法解冻应用：{error}",
+  "@appManageUnfreezeFailure": {
+    "placeholders": {
+      "error": {}
+    }
+  }
 }

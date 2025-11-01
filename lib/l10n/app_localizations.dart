@@ -664,6 +664,492 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Connected! Please keep the device connected and enable USB debugging.'**
   String get connect_successfully;
+
+  /// No description provided for @installApptoWatch.
+  ///
+  /// In en, this message translates to:
+  /// **'Install app(apk) on watch'**
+  String get installApptoWatch;
+
+  /// No description provided for @selectApptoInstall.
+  ///
+  /// In en, this message translates to:
+  /// **'Select an APK file to install'**
+  String get selectApptoInstall;
+
+  /// No description provided for @installingWaiting.
+  ///
+  /// In en, this message translates to:
+  /// **'Installation in progress, please wait...'**
+  String get installingWaiting;
+
+  /// No description provided for @installNoDeviceTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'No device connected'**
+  String get installNoDeviceTitle;
+
+  /// No description provided for @installNoDeviceMessage.
+  ///
+  /// In en, this message translates to:
+  /// **'No device was detected. Please make sure the device is connected.'**
+  String get installNoDeviceMessage;
+
+  /// No description provided for @installSuccessTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Install successful'**
+  String get installSuccessTitle;
+
+  /// No description provided for @installSuccessMessage.
+  ///
+  /// In en, this message translates to:
+  /// **'The app has been installed successfully!'**
+  String get installSuccessMessage;
+
+  /// No description provided for @installFailureTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Install failed'**
+  String get installFailureTitle;
+
+  /// No description provided for @installFailureMessage.
+  ///
+  /// In en, this message translates to:
+  /// **'An issue occurred during installation.'**
+  String get installFailureMessage;
+
+  /// No description provided for @installFailureWithReason.
+  ///
+  /// In en, this message translates to:
+  /// **'Error: {error}'**
+  String installFailureWithReason(Object error);
+
+  /// No description provided for @installErrorOutput.
+  ///
+  /// In en, this message translates to:
+  /// **'Error: {details}'**
+  String installErrorOutput(Object details);
+
+  /// No description provided for @installTipTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Notice'**
+  String get installTipTitle;
+
+  /// No description provided for @installNoFileSelected.
+  ///
+  /// In en, this message translates to:
+  /// **'No file selected.'**
+  String get installNoFileSelected;
+
+  /// No description provided for @commonErrorTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Error'**
+  String get commonErrorTitle;
+
+  /// No description provided for @commonNoticeTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Notice'**
+  String get commonNoticeTitle;
+
+  /// No description provided for @buttonPageTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Button simulation'**
+  String get buttonPageTitle;
+
+  /// No description provided for @buttonDeviceNotConnectedTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Device not connected'**
+  String get buttonDeviceNotConnectedTitle;
+
+  /// No description provided for @buttonDeviceNotConnectedMessage.
+  ///
+  /// In en, this message translates to:
+  /// **'Please check that the device is connected to the computer and USB debugging is enabled.'**
+  String get buttonDeviceNotConnectedMessage;
+
+  /// No description provided for @buttonConnectFirstMessage.
+  ///
+  /// In en, this message translates to:
+  /// **'Please connect the device first.'**
+  String get buttonConnectFirstMessage;
+
+  /// No description provided for @buttonSendKeySuccess.
+  ///
+  /// In en, this message translates to:
+  /// **'Key event {keycode} sent successfully.'**
+  String buttonSendKeySuccess(Object keycode);
+
+  /// No description provided for @buttonExecutionFailed.
+  ///
+  /// In en, this message translates to:
+  /// **'Execution failed: {details}'**
+  String buttonExecutionFailed(Object details);
+
+  /// No description provided for @buttonNameHome.
+  ///
+  /// In en, this message translates to:
+  /// **'Home'**
+  String get buttonNameHome;
+
+  /// No description provided for @buttonNameBack.
+  ///
+  /// In en, this message translates to:
+  /// **'Back'**
+  String get buttonNameBack;
+
+  /// No description provided for @buttonNamePower.
+  ///
+  /// In en, this message translates to:
+  /// **'Power'**
+  String get buttonNamePower;
+
+  /// No description provided for @buttonNameVolumeUp.
+  ///
+  /// In en, this message translates to:
+  /// **'Volume +'**
+  String get buttonNameVolumeUp;
+
+  /// No description provided for @buttonNameVolumeDown.
+  ///
+  /// In en, this message translates to:
+  /// **'Volume -'**
+  String get buttonNameVolumeDown;
+
+  /// No description provided for @buttonNameSpeakerMute.
+  ///
+  /// In en, this message translates to:
+  /// **'Speaker mute'**
+  String get buttonNameSpeakerMute;
+
+  /// No description provided for @buttonNameMicMute.
+  ///
+  /// In en, this message translates to:
+  /// **'Microphone mute'**
+  String get buttonNameMicMute;
+
+  /// No description provided for @buttonNameCallDial.
+  ///
+  /// In en, this message translates to:
+  /// **'Dial'**
+  String get buttonNameCallDial;
+
+  /// No description provided for @buttonNameCallEnd.
+  ///
+  /// In en, this message translates to:
+  /// **'Hang up (SIM 1)'**
+  String get buttonNameCallEnd;
+
+  /// No description provided for @buttonNamePlayPause.
+  ///
+  /// In en, this message translates to:
+  /// **'Play / pause'**
+  String get buttonNamePlayPause;
+
+  /// No description provided for @buttonNameNextTrack.
+  ///
+  /// In en, this message translates to:
+  /// **'Next track'**
+  String get buttonNameNextTrack;
+
+  /// No description provided for @buttonNamePreviousTrack.
+  ///
+  /// In en, this message translates to:
+  /// **'Previous track'**
+  String get buttonNamePreviousTrack;
+
+  /// No description provided for @buttonNameScreenOn.
+  ///
+  /// In en, this message translates to:
+  /// **'Turn screen on'**
+  String get buttonNameScreenOn;
+
+  /// No description provided for @buttonNameScreenOff.
+  ///
+  /// In en, this message translates to:
+  /// **'Turn screen off'**
+  String get buttonNameScreenOff;
+
+  /// No description provided for @displayPageTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Display settings'**
+  String get displayPageTitle;
+
+  /// No description provided for @displayValueUnknown.
+  ///
+  /// In en, this message translates to:
+  /// **'Not fetched'**
+  String get displayValueUnknown;
+
+  /// No description provided for @displayValueUnavailable.
+  ///
+  /// In en, this message translates to:
+  /// **'Unavailable'**
+  String get displayValueUnavailable;
+
+  /// No description provided for @displayDeviceNotConnectedMessage.
+  ///
+  /// In en, this message translates to:
+  /// **'No device detected. Please check the connection.'**
+  String get displayDeviceNotConnectedMessage;
+
+  /// No description provided for @displayErrorCheckingConnection.
+  ///
+  /// In en, this message translates to:
+  /// **'Unable to check device connection status: {error}'**
+  String displayErrorCheckingConnection(Object error);
+
+  /// No description provided for @displayCurrentDpi.
+  ///
+  /// In en, this message translates to:
+  /// **'Current DPI: {value}'**
+  String displayCurrentDpi(Object value);
+
+  /// No description provided for @displaySelectedDpi.
+  ///
+  /// In en, this message translates to:
+  /// **'Selected: {value}'**
+  String displaySelectedDpi(Object value);
+
+  /// No description provided for @displayDpiLabel.
+  ///
+  /// In en, this message translates to:
+  /// **'DPI:'**
+  String get displayDpiLabel;
+
+  /// No description provided for @displayResetDefaultButton.
+  ///
+  /// In en, this message translates to:
+  /// **'Reset'**
+  String get displayResetDefaultButton;
+
+  /// No description provided for @displayApplyDpiButton.
+  ///
+  /// In en, this message translates to:
+  /// **'Apply DPI'**
+  String get displayApplyDpiButton;
+
+  /// No description provided for @displayCurrentResolution.
+  ///
+  /// In en, this message translates to:
+  /// **'Current resolution: {value}'**
+  String displayCurrentResolution(Object value);
+
+  /// No description provided for @displaySelectedResolution.
+  ///
+  /// In en, this message translates to:
+  /// **'Selected: {value}'**
+  String displaySelectedResolution(Object value);
+
+  /// No description provided for @displayWidthLabel.
+  ///
+  /// In en, this message translates to:
+  /// **'Width:'**
+  String get displayWidthLabel;
+
+  /// No description provided for @displayHeightLabel.
+  ///
+  /// In en, this message translates to:
+  /// **'Height:'**
+  String get displayHeightLabel;
+
+  /// No description provided for @displayApplyResolutionButton.
+  ///
+  /// In en, this message translates to:
+  /// **'Apply resolution'**
+  String get displayApplyResolutionButton;
+
+  /// No description provided for @displayDpiSetSuccess.
+  ///
+  /// In en, this message translates to:
+  /// **'DPI changed to {value}'**
+  String displayDpiSetSuccess(Object value);
+
+  /// No description provided for @displayDpiSetFailure.
+  ///
+  /// In en, this message translates to:
+  /// **'Failed to change DPI: {error}'**
+  String displayDpiSetFailure(Object error);
+
+  /// No description provided for @displayResolutionSetSuccess.
+  ///
+  /// In en, this message translates to:
+  /// **'Resolution changed to {value}'**
+  String displayResolutionSetSuccess(Object value);
+
+  /// No description provided for @displayResolutionSetFailure.
+  ///
+  /// In en, this message translates to:
+  /// **'Failed to change resolution: {error}'**
+  String displayResolutionSetFailure(Object error);
+
+  /// No description provided for @displayDpiResetSuccess.
+  ///
+  /// In en, this message translates to:
+  /// **'DPI restored to default'**
+  String get displayDpiResetSuccess;
+
+  /// No description provided for @displayDpiResetFailure.
+  ///
+  /// In en, this message translates to:
+  /// **'Failed to reset DPI: {error}'**
+  String displayDpiResetFailure(Object error);
+
+  /// No description provided for @displayResolutionResetSuccess.
+  ///
+  /// In en, this message translates to:
+  /// **'Resolution restored to default'**
+  String get displayResolutionResetSuccess;
+
+  /// No description provided for @displayResolutionResetFailure.
+  ///
+  /// In en, this message translates to:
+  /// **'Failed to reset resolution: {error}'**
+  String displayResolutionResetFailure(Object error);
+
+  /// No description provided for @displayDeviceDisconnectedMessage.
+  ///
+  /// In en, this message translates to:
+  /// **'The device appears to be disconnected.'**
+  String get displayDeviceDisconnectedMessage;
+
+  /// No description provided for @dialogCancel.
+  ///
+  /// In en, this message translates to:
+  /// **'Cancel'**
+  String get dialogCancel;
+
+  /// No description provided for @dialogConfirm.
+  ///
+  /// In en, this message translates to:
+  /// **'Confirm'**
+  String get dialogConfirm;
+
+  /// No description provided for @appManageTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'App management'**
+  String get appManageTitle;
+
+  /// No description provided for @appManageShowSystemApps.
+  ///
+  /// In en, this message translates to:
+  /// **'Show system apps'**
+  String get appManageShowSystemApps;
+
+  /// No description provided for @appManageNoAppsOrDevice.
+  ///
+  /// In en, this message translates to:
+  /// **'No apps detected or the device is not connected.'**
+  String get appManageNoAppsOrDevice;
+
+  /// No description provided for @appManageCannotFetch.
+  ///
+  /// In en, this message translates to:
+  /// **'Failed to load installed apps: {error}'**
+  String appManageCannotFetch(Object error);
+
+  /// No description provided for @appManageDeviceDisconnected.
+  ///
+  /// In en, this message translates to:
+  /// **'The device appears to be disconnected.'**
+  String get appManageDeviceDisconnected;
+
+  /// No description provided for @appManageTooltipUnfreeze.
+  ///
+  /// In en, this message translates to:
+  /// **'Unfreeze'**
+  String get appManageTooltipUnfreeze;
+
+  /// No description provided for @appManageTooltipFreeze.
+  ///
+  /// In en, this message translates to:
+  /// **'Freeze'**
+  String get appManageTooltipFreeze;
+
+  /// No description provided for @appManageTooltipExportApk.
+  ///
+  /// In en, this message translates to:
+  /// **'Export APK'**
+  String get appManageTooltipExportApk;
+
+  /// No description provided for @appManageTooltipUninstall.
+  ///
+  /// In en, this message translates to:
+  /// **'Uninstall'**
+  String get appManageTooltipUninstall;
+
+  /// No description provided for @appManageConfirmUninstallTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Uninstall app'**
+  String get appManageConfirmUninstallTitle;
+
+  /// No description provided for @appManageConfirmUninstallMessage.
+  ///
+  /// In en, this message translates to:
+  /// **'Are you sure you want to uninstall {packageName}?'**
+  String appManageConfirmUninstallMessage(Object packageName);
+
+  /// No description provided for @appManagePullProgress.
+  ///
+  /// In en, this message translates to:
+  /// **'Pulling APK...'**
+  String get appManagePullProgress;
+
+  /// No description provided for @appManagePullSuccess.
+  ///
+  /// In en, this message translates to:
+  /// **'APK exported to: {path}'**
+  String appManagePullSuccess(Object path);
+
+  /// No description provided for @appManagePullFailure.
+  ///
+  /// In en, this message translates to:
+  /// **'Failed to export APK: {error}'**
+  String appManagePullFailure(Object error);
+
+  /// No description provided for @appManageUninstallSuccess.
+  ///
+  /// In en, this message translates to:
+  /// **'App uninstalled: {packageName}'**
+  String appManageUninstallSuccess(Object packageName);
+
+  /// No description provided for @appManageUninstallFailure.
+  ///
+  /// In en, this message translates to:
+  /// **'Failed to uninstall app: {error}'**
+  String appManageUninstallFailure(Object error);
+
+  /// No description provided for @appManageFreezeSuccess.
+  ///
+  /// In en, this message translates to:
+  /// **'App frozen: {packageName}'**
+  String appManageFreezeSuccess(Object packageName);
+
+  /// No description provided for @appManageFreezeFailure.
+  ///
+  /// In en, this message translates to:
+  /// **'Failed to freeze app: {error}'**
+  String appManageFreezeFailure(Object error);
+
+  /// No description provided for @appManageUnfreezeSuccess.
+  ///
+  /// In en, this message translates to:
+  /// **'App unfrozen: {packageName}'**
+  String appManageUnfreezeSuccess(Object packageName);
+
+  /// No description provided for @appManageUnfreezeFailure.
+  ///
+  /// In en, this message translates to:
+  /// **'Failed to unfreeze app: {error}'**
+  String appManageUnfreezeFailure(Object error);
 }
 
 class _AppLocalizationsDelegate extends LocalizationsDelegate<AppLocalizations> {

@@ -334,4 +334,297 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get connect_successfully => 'Connected! Please keep the device connected and enable USB debugging.';
+
+  @override
+  String get installApptoWatch => 'Install app(apk) on watch';
+
+  @override
+  String get selectApptoInstall => 'Select an APK file to install';
+
+  @override
+  String get installingWaiting => 'Installation in progress, please wait...';
+
+  @override
+  String get installNoDeviceTitle => 'No device connected';
+
+  @override
+  String get installNoDeviceMessage => 'No device was detected. Please make sure the device is connected.';
+
+  @override
+  String get installSuccessTitle => 'Install successful';
+
+  @override
+  String get installSuccessMessage => 'The app has been installed successfully!';
+
+  @override
+  String get installFailureTitle => 'Install failed';
+
+  @override
+  String get installFailureMessage => 'An issue occurred during installation.';
+
+  @override
+  String installFailureWithReason(Object error) {
+    return 'Error: $error';
+  }
+
+  @override
+  String installErrorOutput(Object details) {
+    return 'Error: $details';
+  }
+
+  @override
+  String get installTipTitle => 'Notice';
+
+  @override
+  String get installNoFileSelected => 'No file selected.';
+
+  @override
+  String get commonErrorTitle => 'Error';
+
+  @override
+  String get commonNoticeTitle => 'Notice';
+
+  @override
+  String get buttonPageTitle => 'Button simulation';
+
+  @override
+  String get buttonDeviceNotConnectedTitle => 'Device not connected';
+
+  @override
+  String get buttonDeviceNotConnectedMessage => 'Please check that the device is connected to the computer and USB debugging is enabled.';
+
+  @override
+  String get buttonConnectFirstMessage => 'Please connect the device first.';
+
+  @override
+  String buttonSendKeySuccess(Object keycode) {
+    return 'Key event $keycode sent successfully.';
+  }
+
+  @override
+  String buttonExecutionFailed(Object details) {
+    return 'Execution failed: $details';
+  }
+
+  @override
+  String get buttonNameHome => 'Home';
+
+  @override
+  String get buttonNameBack => 'Back';
+
+  @override
+  String get buttonNamePower => 'Power';
+
+  @override
+  String get buttonNameVolumeUp => 'Volume +';
+
+  @override
+  String get buttonNameVolumeDown => 'Volume -';
+
+  @override
+  String get buttonNameSpeakerMute => 'Speaker mute';
+
+  @override
+  String get buttonNameMicMute => 'Microphone mute';
+
+  @override
+  String get buttonNameCallDial => 'Dial';
+
+  @override
+  String get buttonNameCallEnd => 'Hang up (SIM 1)';
+
+  @override
+  String get buttonNamePlayPause => 'Play / pause';
+
+  @override
+  String get buttonNameNextTrack => 'Next track';
+
+  @override
+  String get buttonNamePreviousTrack => 'Previous track';
+
+  @override
+  String get buttonNameScreenOn => 'Turn screen on';
+
+  @override
+  String get buttonNameScreenOff => 'Turn screen off';
+
+  @override
+  String get displayPageTitle => 'Display settings';
+
+  @override
+  String get displayValueUnknown => 'Not fetched';
+
+  @override
+  String get displayValueUnavailable => 'Unavailable';
+
+  @override
+  String get displayDeviceNotConnectedMessage => 'No device detected. Please check the connection.';
+
+  @override
+  String displayErrorCheckingConnection(Object error) {
+    return 'Unable to check device connection status: $error';
+  }
+
+  @override
+  String displayCurrentDpi(Object value) {
+    return 'Current DPI: $value';
+  }
+
+  @override
+  String displaySelectedDpi(Object value) {
+    return 'Selected: $value';
+  }
+
+  @override
+  String get displayDpiLabel => 'DPI:';
+
+  @override
+  String get displayResetDefaultButton => 'Reset';
+
+  @override
+  String get displayApplyDpiButton => 'Apply DPI';
+
+  @override
+  String displayCurrentResolution(Object value) {
+    return 'Current resolution: $value';
+  }
+
+  @override
+  String displaySelectedResolution(Object value) {
+    return 'Selected: $value';
+  }
+
+  @override
+  String get displayWidthLabel => 'Width:';
+
+  @override
+  String get displayHeightLabel => 'Height:';
+
+  @override
+  String get displayApplyResolutionButton => 'Apply resolution';
+
+  @override
+  String displayDpiSetSuccess(Object value) {
+    return 'DPI changed to $value';
+  }
+
+  @override
+  String displayDpiSetFailure(Object error) {
+    return 'Failed to change DPI: $error';
+  }
+
+  @override
+  String displayResolutionSetSuccess(Object value) {
+    return 'Resolution changed to $value';
+  }
+
+  @override
+  String displayResolutionSetFailure(Object error) {
+    return 'Failed to change resolution: $error';
+  }
+
+  @override
+  String get displayDpiResetSuccess => 'DPI restored to default';
+
+  @override
+  String displayDpiResetFailure(Object error) {
+    return 'Failed to reset DPI: $error';
+  }
+
+  @override
+  String get displayResolutionResetSuccess => 'Resolution restored to default';
+
+  @override
+  String displayResolutionResetFailure(Object error) {
+    return 'Failed to reset resolution: $error';
+  }
+
+  @override
+  String get displayDeviceDisconnectedMessage => 'The device appears to be disconnected.';
+
+  @override
+  String get dialogCancel => 'Cancel';
+
+  @override
+  String get dialogConfirm => 'Confirm';
+
+  @override
+  String get appManageTitle => 'App management';
+
+  @override
+  String get appManageShowSystemApps => 'Show system apps';
+
+  @override
+  String get appManageNoAppsOrDevice => 'No apps detected or the device is not connected.';
+
+  @override
+  String appManageCannotFetch(Object error) {
+    return 'Failed to load installed apps: $error';
+  }
+
+  @override
+  String get appManageDeviceDisconnected => 'The device appears to be disconnected.';
+
+  @override
+  String get appManageTooltipUnfreeze => 'Unfreeze';
+
+  @override
+  String get appManageTooltipFreeze => 'Freeze';
+
+  @override
+  String get appManageTooltipExportApk => 'Export APK';
+
+  @override
+  String get appManageTooltipUninstall => 'Uninstall';
+
+  @override
+  String get appManageConfirmUninstallTitle => 'Uninstall app';
+
+  @override
+  String appManageConfirmUninstallMessage(Object packageName) {
+    return 'Are you sure you want to uninstall $packageName?';
+  }
+
+  @override
+  String get appManagePullProgress => 'Pulling APK...';
+
+  @override
+  String appManagePullSuccess(Object path) {
+    return 'APK exported to: $path';
+  }
+
+  @override
+  String appManagePullFailure(Object error) {
+    return 'Failed to export APK: $error';
+  }
+
+  @override
+  String appManageUninstallSuccess(Object packageName) {
+    return 'App uninstalled: $packageName';
+  }
+
+  @override
+  String appManageUninstallFailure(Object error) {
+    return 'Failed to uninstall app: $error';
+  }
+
+  @override
+  String appManageFreezeSuccess(Object packageName) {
+    return 'App frozen: $packageName';
+  }
+
+  @override
+  String appManageFreezeFailure(Object error) {
+    return 'Failed to freeze app: $error';
+  }
+
+  @override
+  String appManageUnfreezeSuccess(Object packageName) {
+    return 'App unfrozen: $packageName';
+  }
+
+  @override
+  String appManageUnfreezeFailure(Object error) {
+    return 'Failed to unfreeze app: $error';
+  }
 }

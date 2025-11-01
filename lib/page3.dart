@@ -248,13 +248,13 @@ class Page3 extends StatelessWidget {
                 value: 'system',
                 child: Text(l10n.languageSystem),
               ),
-              DropdownMenuItem(
+              const DropdownMenuItem(
                 value: 'zh',
-                child: Text(l10n.languageChinese),
+                child: Text('简体中文'),
               ),
-              DropdownMenuItem(
+              const DropdownMenuItem(
                 value: 'en',
-                child: Text(l10n.languageEnglish),
+                child: Text('English'),
               ),
             ],
           ),

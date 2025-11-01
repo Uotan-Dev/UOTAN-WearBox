@@ -1,7 +1,10 @@
 import 'dart:io';
+
+import 'package:file_picker/file_picker.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:window_manager/window_manager.dart';
-import 'package:file_picker/file_picker.dart'; // 导入文件选择器包
+import 'package:watch_assistant/l10n/l10n.dart';
 
 class AppManagementPage extends StatefulWidget {
   const AppManagementPage({super.key});
@@ -15,11 +18,20 @@ class _AppManagementPageState extends State<AppManagementPage> {
   bool showSystemApps = false; // 用于控制是否显示系统应用
   bool isLoading = true; // 用于控制加载状态
   double progress = 0.0; // 用于控制加载进度
+  bool _initialized = false;
 
   @override
   void initState() {
     super.initState();
-    _fetchInstalledApps(); // 初始化时获取已安装的应用列表
+  }
+
+  @override
+  void didChangeDependencies() {
+    super.didChangeDependencies();
+    if (!_initialized) {
+      _initialized = true;
+      _fetchInstalledApps(); // 初始化时获取已安装的应用列表
+    }
   }
 
   // 检查设备是否连接
@@ -33,14 +45,17 @@ class _AppManagementPageState extends State<AppManagementPage> {
 
   // 获取已安装的应用列表
   void _fetchInstalledApps() async {
+    final l10n = context.l10n;
     if (!await _isDeviceConnected()) {
-      _shownoconnectDialog('未检测到已安装应用或设备未连接。');
+      _shownoconnectDialog(l10n.appManageNoAppsOrDevice);
+      if (!mounted) return;
       setState(() {
         isLoading = false;
       });
       return;
     }
 
+    if (!mounted) return;
     setState(() {
       isLoading = true; // 开始加载时设置为true
       progress = 0.0; // 初始化进度为0
@@ -49,16 +64,16 @@ class _AppManagementPageState extends State<AppManagementPage> {
     try {
       // 获取所有已安装的应用包名
       ProcessResult result = await Process.run('adb', ['shell', 'pm', 'list', 'packages']);
-      String output = result.stdout as String;
+      String output = result.stdout.toString();
 
       // 获取所有已冻结的应用包名
       ProcessResult disabledResult = await Process.run('adb', ['shell', 'pm', 'list', 'packages', '-d']);
-      String disabledOutput = disabledResult.stdout as String;
+      String disabledOutput = disabledResult.stdout.toString();
       List<String> disabledPackages = disabledOutput.split('\n').map((line) => line.replaceFirst('package:', '').trim()).toList();
 
       // 获取所有系统应用包名
       ProcessResult systemResult = await Process.run('adb', ['shell', 'pm', 'list', 'packages', '-s']);
-      String systemOutput = systemResult.stdout as String;
+      String systemOutput = systemResult.stdout.toString();
       List<String> systemPackages = systemOutput.split('\n').map((line) => line.replaceFirst('package:', '').trim()).toList();
 
       if (output.isNotEmpty) {
@@ -80,19 +95,22 @@ class _AppManagementPageState extends State<AppManagementPage> {
         // 对应用列表进行字母排序
         appDetails.sort((a, b) => a['name']!.toLowerCase().compareTo(b['name']!.toLowerCase()));
         await Future.delayed(const Duration(seconds: 1));
+        if (!mounted) return;
         setState(() {
           installedApps = appDetails;
           
           isLoading = false; // 加载完成后设置为false
         });
       } else {
-        _shownoconnectDialog('未检测到已安装应用或设备未连接。');
+        _shownoconnectDialog(l10n.appManageNoAppsOrDevice);
+        if (!mounted) return;
         setState(() {
           isLoading = false; // 加载完成后设置为false
         });
       }
     } catch (e) {
-      _showErrorDialog('无法获取已安装的应用列表: $e');
+      _showErrorDialog(l10n.appManageCannotFetch(e.toString()));
+      if (!mounted) return;
       setState(() {
         isLoading = false; // 加载完成后设置为false
       });
@@ -106,9 +124,10 @@ class _AppManagementPageState extends State<AppManagementPage> {
     showDialog(
       context: context,
       builder: (BuildContext context) {
+        final l10n = context.l10n;
         return AlertDialog(
           backgroundColor: const Color(0xFFF9F9F9), // 弹窗背景颜色
-          title: const Text('错误'),
+          title: Text(l10n.commonErrorTitle),
           content: Text(message, style: const TextStyle(color: Colors.black)),
           actions: [
             TextButton(
@@ -126,7 +145,7 @@ class _AppManagementPageState extends State<AppManagementPage> {
               onPressed: () {
                 Navigator.of(context).pop();
               },
-              child: const Text('确认', style: TextStyle(color: Colors.black)),
+              child: Text(l10n.dialogOk, style: const TextStyle(color: Colors.black)),
             ),
           ],
         );
@@ -139,9 +158,10 @@ class _AppManagementPageState extends State<AppManagementPage> {
     showDialog(
       context: context,
       builder: (BuildContext context) {
+        final l10n = context.l10n;
         return AlertDialog(
           backgroundColor: const Color(0xFFF9F9F9), // 弹窗背景颜色
-          title: const Text('没有连接设备'),
+          title: Text(l10n.installNoDeviceTitle),
           content: Text(message, style: const TextStyle(color: Colors.black)),
           actions: [
             TextButton(
@@ -160,7 +180,7 @@ class _AppManagementPageState extends State<AppManagementPage> {
                 Navigator.of(context).pop();
                 Navigator.pop(context); // 返回到上一个页面
               },
-              child: const Text('确认', style: TextStyle(color: Colors.black)),
+              child: Text(l10n.dialogOk, style: const TextStyle(color: Colors.black)),
             ),
           ],
         );
@@ -170,6 +190,7 @@ class _AppManagementPageState extends State<AppManagementPage> {
 
   @override
   Widget build(BuildContext context) {
+    final l10n = context.l10n;
     return WillPopScope(
       onWillPop: () async {
         return !isLoading; // 如果正在加载，则禁用返回键
@@ -198,9 +219,9 @@ class _AppManagementPageState extends State<AppManagementPage> {
                                 },
                         ),
                         const SizedBox(width: 5),
-                        const Text(
-                          '应用管理', // 页面标题
-                          style: TextStyle(
+                        Text(
+                          l10n.appManageTitle, // 页面标题
+                          style: const TextStyle(
                             color: Colors.black,
                             fontSize: 26,
                             fontFamily: 'MiSansLight', // 使用自定义字体
@@ -210,9 +231,9 @@ class _AppManagementPageState extends State<AppManagementPage> {
                     ),
                     Row(
                       children: [
-                        const Text(
-                          '显示系统应用 ',
-                          style: TextStyle(
+                        Text(
+                          l10n.appManageShowSystemApps,
+                          style: const TextStyle(
                             color: Colors.black,
                             fontSize: 16,
                             fontFamily: 'MiSansLight', // 使用自定义字体
@@ -270,7 +291,9 @@ class _AppManagementPageState extends State<AppManagementPage> {
                         mainAxisSize: MainAxisSize.min,
                         children: [
                           Tooltip(
-                            message: installedApps[index]['isFrozen'] ? '解冻' : '冻结',
+                            message: installedApps[index]['isFrozen']
+                                ? l10n.appManageTooltipUnfreeze
+                                : l10n.appManageTooltipFreeze,
                             child: IconButton(
                               icon: Image.asset(
                                 installedApps[index]['isFrozen']
@@ -282,8 +305,7 @@ class _AppManagementPageState extends State<AppManagementPage> {
                               ),
                               onPressed: () async {
                                 if (!await _isDeviceConnected()) {
-                                
-                                  _shownoconnectDialog('检测到设备已断开连接。');
+                                  _shownoconnectDialog(l10n.appManageDeviceDisconnected);
                                   return;
                                 }
                                 if (installedApps[index]['isFrozen']) {
@@ -295,7 +317,7 @@ class _AppManagementPageState extends State<AppManagementPage> {
                             ),
                           ),
                           Tooltip(
-                            message: '导出APK',
+                            message: l10n.appManageTooltipExportApk,
                             child: IconButton(
                               icon: Image.asset(
                                 'assets/icons/upload_24dp_5F6368_FILL0_wght400_GRAD0_opsz24.png',
@@ -305,7 +327,7 @@ class _AppManagementPageState extends State<AppManagementPage> {
                               ),
                               onPressed: () async {
                                 if (!await _isDeviceConnected()) {
-                                   _shownoconnectDialog('检测到设备已断开连接。');
+                                  _shownoconnectDialog(l10n.appManageDeviceDisconnected);
                                   return;
                                 }
                                 _extractApk(installedApps[index]['name']);
@@ -314,7 +336,7 @@ class _AppManagementPageState extends State<AppManagementPage> {
                           ),
                           if (!installedApps[index]['isSystemApp']) // 仅在非系统应用时显示卸载按钮
                             Tooltip(
-                              message: '卸载',
+                              message: l10n.appManageTooltipUninstall,
                               child: IconButton(
                                 icon: Image.asset(
                                   'assets/icons/delete_24dp_5F6368_FILL0_wght400_GRAD0_opsz24.png',
@@ -324,7 +346,7 @@ class _AppManagementPageState extends State<AppManagementPage> {
                                 ),
                                 onPressed: () async {
                                   if (!await _isDeviceConnected()) {
-                                     _shownoconnectDialog('检测到设备已断开连接。');
+                                    _shownoconnectDialog(l10n.appManageDeviceDisconnected);
                                     return;
                                   }
                                   _showConfirmUninstallDialog(installedApps[index]['name']);
@@ -346,10 +368,11 @@ class _AppManagementPageState extends State<AppManagementPage> {
     showDialog(
       context: context,
       builder: (BuildContext context) {
+        final l10n = context.l10n;
         return AlertDialog(
           backgroundColor: const Color(0xFFF9F9F9),
-          title: const Text('确认卸载'),
-          content: Text('确定要卸载 $packageName 吗？', style: const TextStyle(color: Colors.black)),
+          title: Text(l10n.appManageConfirmUninstallTitle),
+          content: Text(l10n.appManageConfirmUninstallMessage(packageName), style: const TextStyle(color: Colors.black)),
           actions: [
             TextButton(
               style: ButtonStyle(
@@ -366,7 +389,7 @@ class _AppManagementPageState extends State<AppManagementPage> {
               onPressed: () {
                 Navigator.of(context).pop(); // 取消卸载
               },
-              child: const Text('取消'),
+              child: Text(l10n.dialogCancel),
             ),
             TextButton(
               style: ButtonStyle(
@@ -385,10 +408,10 @@ class _AppManagementPageState extends State<AppManagementPage> {
                 if (await _isDeviceConnected()) {
                   _uninstallApp(packageName); // 执行卸载操作
                 } else {
-                  _showErrorDialog('没有连接设备。');
+                  _showErrorDialog(l10n.installNoDeviceMessage);
                 }
               },
-              child: const Text('确认'),
+              child: Text(l10n.dialogConfirm),
             ),
           ],
         );
@@ -401,20 +424,20 @@ class _AppManagementPageState extends State<AppManagementPage> {
     String? outputPath = await FilePicker.platform.getDirectoryPath(); // 选择保存路径
 
     if (outputPath != null) {
-      _showProgressDialog('正在提取APK...'); // 显示进度弹窗
+      _showProgressDialog(context.l10n.appManagePullProgress); // 显示进度弹窗
 
       try {
         ProcessResult result = await Process.run('adb', ['shell', 'pm', 'path', packageName]);
-        String apkPath = (result.stdout as String).split(':').last.trim();
-        String savePath = '$outputPath\\$packageName.apk'; // 将文件名设置为包名.apk
+        String apkPath = result.stdout.toString().split(':').last.trim();
+        String savePath = '$outputPath${Platform.pathSeparator}$packageName.apk'; // 将文件名设置为包名.apk
 
         await Process.run('adb', ['pull', apkPath, savePath]);
 
         Navigator.of(context).pop(); // 关闭进度弹窗
-        _showInfoDialog('APK 已成功提取到：$savePath');
+        _showInfoDialog(context.l10n.appManagePullSuccess(savePath));
       } catch (e) {
         Navigator.of(context).pop(); // 关闭进度弹窗
-        _showErrorDialog('无法提取 APK 文件: $e');
+        _showErrorDialog(context.l10n.appManagePullFailure(e.toString()));
       }
     }
   }
@@ -447,14 +470,14 @@ class _AppManagementPageState extends State<AppManagementPage> {
   void _uninstallApp(String packageName) async {
     try {
       await Process.run('adb', ['shell', 'pm', 'uninstall', packageName]);
-
+      if (!mounted) return;
       setState(() {
         installedApps.removeWhere((app) => app['name'] == packageName); // 从列表中移除已卸载的应用
       });
 
-      _showInfoDialog('应用已成功卸载：$packageName');
+      _showInfoDialog(context.l10n.appManageUninstallSuccess(packageName));
     } catch (e) {
-      _showErrorDialog('无法卸载应用：$e');
+      _showErrorDialog(context.l10n.appManageUninstallFailure(e.toString()));
     }
   }
 
@@ -463,13 +486,14 @@ class _AppManagementPageState extends State<AppManagementPage> {
     try {
       await Process.run('adb', ['shell', 'pm', 'disable-user', packageName]);
 
+      if (!mounted) return;
       setState(() {
         installedApps.firstWhere((app) => app['name'] == packageName)['isFrozen'] = true;
       });
 
-      _showInfoDialog('应用已冻结：$packageName');
+      _showInfoDialog(context.l10n.appManageFreezeSuccess(packageName));
     } catch (e) {
-      _showErrorDialog('无法冻结应用：$e');
+      _showErrorDialog(context.l10n.appManageFreezeFailure(e.toString()));
     }
   }
 
@@ -478,13 +502,14 @@ class _AppManagementPageState extends State<AppManagementPage> {
     try {
       await Process.run('adb', ['shell', 'pm', 'enable', packageName]);
 
+      if (!mounted) return;
       setState(() {
         installedApps.firstWhere((app) => app['name'] == packageName)['isFrozen'] = false;
       });
 
-      _showInfoDialog('应用已解冻：$packageName');
+      _showInfoDialog(context.l10n.appManageUnfreezeSuccess(packageName));
     } catch (e) {
-      _showErrorDialog('无法解冻应用：$e');
+      _showErrorDialog(context.l10n.appManageUnfreezeFailure(e.toString()));
     }
   }
 
@@ -493,9 +518,10 @@ class _AppManagementPageState extends State<AppManagementPage> {
     showDialog(
       context: context,
       builder: (BuildContext context) {
+        final l10n = context.l10n;
         return AlertDialog(
           backgroundColor: const Color(0xFFF9F9F9), // 弹窗背景颜色
-          title: const Text('提示'),
+          title: Text(l10n.commonNoticeTitle),
           content: Text(message, style: const TextStyle(color: Colors.black)),
           actions: [
             TextButton(
@@ -513,7 +539,7 @@ class _AppManagementPageState extends State<AppManagementPage> {
               onPressed: () {
                 Navigator.of(context).pop();
               },
-              child: const Text('确认', style: TextStyle(color: Colors.black)),
+              child: Text(l10n.dialogOk, style: const TextStyle(color: Colors.black)),
             ),
           ],
         );

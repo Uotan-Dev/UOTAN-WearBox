@@ -1,7 +1,10 @@
+import 'dart:io';
+
+import 'package:file_picker/file_picker.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
-import 'package:window_manager/window_manager.dart'; // 导入用于窗口管理的包
-import 'package:file_picker/file_picker.dart'; // 导入文件选择器包
-import 'dart:io'; // 导入 dart:io 包，用于执行系统命令
+import 'package:window_manager/window_manager.dart';
+import 'package:watch_assistant/l10n/l10n.dart';
 
 class InstallAppPage extends StatefulWidget {
   const InstallAppPage({super.key});
@@ -16,6 +19,7 @@ class _InstallAppPageState extends State<InstallAppPage> {
 
   @override
   Widget build(BuildContext context) {
+    final l10n = context.l10n;
     return Scaffold(
       appBar: PreferredSize(
         preferredSize: const Size.fromHeight(90.0), // 设置AppBar的高度
@@ -24,26 +28,30 @@ class _InstallAppPageState extends State<InstallAppPage> {
           child: GestureDetector(
             onPanStart: (details) => windowManager.startDragging(), // 允许拖动窗口
             child: Container(
-              color: Colors.transparent, // 设置为透明背景
+              color: Colors.transparent,
               padding: const EdgeInsets.symmetric(horizontal: 18),
               child: Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween, // 左右对齐
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
                   Row(
                     children: [
                       IconButton(
-                        icon: const Icon(Icons.arrow_back, color: Colors.black, size: 20), // 返回图标
-                        onPressed: _isInstalling ? null : () { // 安装过程中禁用返回按钮
-                          Navigator.pop(context); // 返回到上一个页面
-                        },
+                        icon: const Icon(Icons.arrow_back,
+                            color: Colors.black, size: 20),
+                        onPressed: _isInstalling
+                            ? null
+                            : () {
+                                // 安装过程中禁用返回按钮
+                                Navigator.pop(context);
+                              },
                       ),
                       const SizedBox(width: 5),
-                      const Text(
-                        '安装应用到手表', // 页面标题
-                        style: TextStyle(
+                      Text(
+                        l10n.installApptoWatch,
+                        style: const TextStyle(
                           color: Colors.black,
                           fontSize: 26,
-                          fontFamily: 'MiSansLight', // 使用自定义字体
+                          fontFamily: 'MiSansLight',
                         ),
                       ),
                     ],
@@ -67,17 +75,21 @@ class _InstallAppPageState extends State<InstallAppPage> {
                 elevation: 0, // 去掉阴影
                 child: InkWell(
                   borderRadius: BorderRadius.circular(8.0), // 设置悬浮时的圆角效果
-                  onTap: _isInstalling ? null : () async {
-                    await _selectAndInstallApk(context);
-                  },
+                  onTap: _isInstalling
+                      ? null
+                      : () async {
+                          await _selectAndInstallApk(context);
+                        },
                   child: Material(
                     color: Colors.transparent,
                     borderRadius: BorderRadius.circular(8.0), // 保持圆角效果
-                    child: const Padding(
-                      padding: EdgeInsets.symmetric(vertical: 10, horizontal: 20),
+                    child: Padding(
+                      padding: const EdgeInsets.symmetric(
+                          vertical: 10, horizontal: 20),
                       child: Text(
-                        '选择APK文件并安装',
-                        style: TextStyle(color: Colors.black, fontSize: 16),
+                        l10n.selectApptoInstall,
+                        style:
+                            const TextStyle(color: Colors.black, fontSize: 16),
                       ),
                     ),
                   ),
@@ -88,10 +100,11 @@ class _InstallAppPageState extends State<InstallAppPage> {
               Column(
                 children: [
                   const CircularProgressIndicator(
-                    valueColor: AlwaysStoppedAnimation<Color>(Colors.black), // 设置进度条颜色为黑色
+                    valueColor: AlwaysStoppedAnimation<Color>(
+                        Colors.black), // 设置进度条颜色为黑色
                   ),
                   const SizedBox(height: 20),
-                  Text(_installingMessage ?? '安装进行中，请稍候...'),
+                  Text(_installingMessage ?? l10n.installingWaiting),
                 ],
               ),
           ],
@@ -102,10 +115,11 @@ class _InstallAppPageState extends State<InstallAppPage> {
 
   // 选择APK文件并使用ADB进行安装
   Future<void> _selectAndInstallApk(BuildContext context) async {
+    final l10n = context.l10n;
     // 先检查是否有设备连接
     bool hasConnectedDevice = await _checkDeviceConnection();
     if (!hasConnectedDevice) {
-      _showMessage(context, '没有连接设备', '没有检测到设备，请确保设备已连接。');
+      _showMessage(context, l10n.installNoDeviceTitle, l10n.installNoDeviceMessage);
       return; // 如果没有连接设备，直接返回
     }
 
@@ -121,7 +135,7 @@ class _InstallAppPageState extends State<InstallAppPage> {
 
       setState(() {
         _isInstalling = true; // 开始安装
-        _installingMessage = '安装进行中，请稍候...';
+        _installingMessage = l10n.installingWaiting;
       });
 
       // 运行ADB命令进行安装
@@ -129,15 +143,15 @@ class _InstallAppPageState extends State<InstallAppPage> {
         // 使用 Process.start 来启动异步进程
         Process process = await Process.start('adb', ['install', '-r', filePath]);
 
-        process.stdout.transform(SystemEncoding().decoder).listen((data) {
+        process.stdout.transform(const SystemEncoding().decoder).listen((data) {
           setState(() {
             _installingMessage = data.trim(); // 更新安装过程的消息
           });
         });
 
-        process.stderr.transform(SystemEncoding().decoder).listen((data) {
+        process.stderr.transform(const SystemEncoding().decoder).listen((data) {
           setState(() {
-            _installingMessage = '错误: $data'; // 显示错误信息
+            _installingMessage = l10n.installErrorOutput(data.trim()); // 显示错误信息
           });
         });
 
@@ -147,20 +161,23 @@ class _InstallAppPageState extends State<InstallAppPage> {
         });
 
         // 弹窗提示安装结果
+        final bool isSuccess = exitCode == 0;
+        final String message =
+            isSuccess ? l10n.installSuccessMessage : (_installingMessage?.isNotEmpty == true ? _installingMessage! : l10n.installFailureMessage);
         _showMessage(
           context,
-          exitCode == 0 ? '安装成功' : '安装失败',
-          exitCode == 0 ? '应用已成功安装！' : _installingMessage ?? '安装过程中出现问题。',
+          isSuccess ? l10n.installSuccessTitle : l10n.installFailureTitle,
+          message,
         );
       } catch (e) {
         setState(() {
           _isInstalling = false;
-          _installingMessage = '安装失败：$e';
+          _installingMessage = l10n.installFailureWithReason(e.toString());
         });
-        _showMessage(context, '安装失败', '出现错误：$e');
+        _showMessage(context, l10n.installFailureTitle, l10n.installFailureWithReason(e.toString()));
       }
     } else {
-      _showMessage(context, '提示', '未选择任何文件');
+      _showMessage(context, l10n.installTipTitle, l10n.installNoFileSelected);
     }
   }
 
@@ -172,13 +189,14 @@ class _InstallAppPageState extends State<InstallAppPage> {
 
       // 过滤掉第一行标题，并检查是否有任何设备行存在
       List<String> lines = output.split('\n');
-      for (var line in lines.skip(1)) { // 跳过第一行
+      for (var line in lines.skip(1)) {
+        // 跳过第一行
         if (line.contains('\tdevice')) {
           return true; // 发现连接的设备
         }
       }
     } catch (e) {
-      print('检查设备连接失败：$e');
+      debugPrint('Failed to check device connection: $e');
     }
     return false; // 没有设备连接
   }
@@ -188,6 +206,7 @@ class _InstallAppPageState extends State<InstallAppPage> {
     showDialog(
       context: context,
       builder: (BuildContext context) {
+        final l10n = context.l10n;
         return AlertDialog(
           backgroundColor: const Color(0xFFF9F9F9), // 设置弹窗背景颜色为 #F9F9F9
           title: Text(title),
@@ -197,15 +216,18 @@ class _InstallAppPageState extends State<InstallAppPage> {
               style: ButtonStyle(
                 overlayColor: WidgetStateProperty.resolveWith<Color?>(
                   (Set<WidgetState> states) {
-                    if (states.contains(WidgetState.pressed) || states.contains(WidgetState.hovered)) {
-                      return const Color.fromARGB(255, 237, 237, 237); // 点击或悬浮时的背景颜色
+                    if (states.contains(WidgetState.pressed) ||
+                        states.contains(WidgetState.hovered)) {
+                      return const Color.fromARGB(
+                          255, 237, 237, 237); // 点击或悬浮时的背景颜色
                     }
                     return null; // 默认状态下不更改颜色
                   },
                 ),
-                foregroundColor: WidgetStateProperty.all<Color>(Colors.black), // 文本颜色
+                foregroundColor:
+                    WidgetStateProperty.all<Color>(Colors.black), // 文本颜色
               ),
-              child: const Text('确定'),
+              child: Text(l10n.dialogOk),
               onPressed: () {
                 Navigator.of(context).pop();
               },

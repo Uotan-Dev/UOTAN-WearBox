@@ -1,6 +1,9 @@
+import 'dart:io';
+
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:window_manager/window_manager.dart';
-import 'dart:io';
+import 'package:watch_assistant/l10n/l10n.dart';
 
 class ButtonPage extends StatefulWidget {
   const ButtonPage({super.key});
@@ -16,17 +19,23 @@ class _ButtonPageState extends State<ButtonPage> {
   void initState() {
     super.initState();
     _checkDeviceConnection().then((connected) {
+      if (!mounted) {
+        return;
+      }
       setState(() {
         _isDeviceConnected = connected;
       });
       if (!connected) {
-        _showMessage(context, "设备未连接", "请检查设备是否连接到电脑，并开启USB调试模式");
+        final l10n = context.l10n;
+        _showMessage(context, l10n.buttonDeviceNotConnectedTitle,
+            l10n.buttonDeviceNotConnectedMessage);
       }
     });
   }
 
   @override
   Widget build(BuildContext context) {
+    final l10n = context.l10n;
     return Scaffold(
       appBar: PreferredSize(
         preferredSize: const Size.fromHeight(90.0),
@@ -43,15 +52,16 @@ class _ButtonPageState extends State<ButtonPage> {
                   Row(
                     children: [
                       IconButton(
-                        icon: const Icon(Icons.arrow_back, color: Colors.black, size: 20),
+                        icon: const Icon(Icons.arrow_back,
+                            color: Colors.black, size: 20),
                         onPressed: () {
                           Navigator.pop(context);
                         },
                       ),
                       const SizedBox(width: 5),
-                      const Text(
-                        '按键模拟',
-                        style: TextStyle(
+                      Text(
+                        l10n.buttonPageTitle,
+                        style: const TextStyle(
                           color: Colors.black,
                           fontSize: 26,
                           fontFamily: 'MiSansLight',
@@ -72,32 +82,34 @@ class _ButtonPageState extends State<ButtonPage> {
           crossAxisSpacing: 6,
           mainAxisSpacing: 6,
           childAspectRatio: 3, // 维持按钮原高度
-          children: _buildButtons(),
+          children: _buildButtons(context),
         ),
       ),
     );
   }
 
-  List<Widget> _buildButtons() {
-    List<Map<String, dynamic>> buttonData = [
-      {"name": "主键", "keycode": "3"},
-      {"name": "返回", "keycode": "4"},
-      {"name": "电源", "keycode": "26"},
-      {"name": "音量+", "keycode": "24"},
-      {"name": "音量-", "keycode": "25"},
-      {"name": "扬声器静音", "keycode": "164"},
-      {"name": "话筒静音", "keycode": "91"},
-      {"name": "电话拨号", "keycode": "5"},
-      {"name": "电话1挂断", "keycode": "6"},
-      {"name": "暂停/播放", "keycode": "85"},
-      {"name": "下一曲", "keycode": "87"},
-      {"name": "上一曲", "keycode": "88"},
-      {"name": "亮屏", "keycode": "224"},
-      {"name": "息屏", "keycode": "223"},
+  List<Widget> _buildButtons(BuildContext context) {
+    final l10n = context.l10n;
+    final List<Map<String, String>> buttonData = [
+      {"name": l10n.buttonNameHome, "keycode": "3"},
+      {"name": l10n.buttonNameBack, "keycode": "4"},
+      {"name": l10n.buttonNamePower, "keycode": "26"},
+      {"name": l10n.buttonNameVolumeUp, "keycode": "24"},
+      {"name": l10n.buttonNameVolumeDown, "keycode": "25"},
+      {"name": l10n.buttonNameSpeakerMute, "keycode": "164"},
+      {"name": l10n.buttonNameMicMute, "keycode": "91"},
+      {"name": l10n.buttonNameCallDial, "keycode": "5"},
+      {"name": l10n.buttonNameCallEnd, "keycode": "6"},
+      {"name": l10n.buttonNamePlayPause, "keycode": "85"},
+      {"name": l10n.buttonNameNextTrack, "keycode": "87"},
+      {"name": l10n.buttonNamePreviousTrack, "keycode": "88"},
+      {"name": l10n.buttonNameScreenOn, "keycode": "224"},
+      {"name": l10n.buttonNameScreenOff, "keycode": "223"},
     ];
 
     return buttonData.map((button) {
-      return _buildButton(button["name"], () => _sendAdbKey(button["keycode"]));
+      return _buildButton(
+          button["name"]!, () => _sendAdbKey(button["keycode"]!));
     }).toList();
   }
 
@@ -130,19 +142,24 @@ class _ButtonPageState extends State<ButtonPage> {
 
   Future<void> _sendAdbKey(String keycode) async {
     if (!_isDeviceConnected) {
-      _showMessage(context, "设备未连接", "请先连接设备");
+      final l10n = context.l10n;
+      _showMessage(context, l10n.buttonDeviceNotConnectedTitle,
+          l10n.buttonConnectFirstMessage);
       return;
     }
 
     try {
-      ProcessResult result = await Process.run('adb', ['shell', 'input', 'keyevent', keycode]);
+      ProcessResult result =
+          await Process.run('adb', ['shell', 'input', 'keyevent', keycode]);
       if (result.exitCode == 0) {
-        print("成功发送按键事件：$keycode");
+        debugPrint(context.l10n.buttonSendKeySuccess(keycode));
       } else {
-        _showMessage(context, "错误", "执行失败: ${result.stderr}");
+        _showMessage(context, context.l10n.commonErrorTitle,
+            context.l10n.buttonExecutionFailed(result.stderr.toString()));
       }
     } catch (e) {
-      _showMessage(context, "错误", "执行失败: $e");
+      _showMessage(context, context.l10n.commonErrorTitle,
+          context.l10n.buttonExecutionFailed(e.toString()));
     }
   }
 
@@ -157,7 +174,7 @@ class _ButtonPageState extends State<ButtonPage> {
         }
       }
     } catch (e) {
-      print('检查设备连接失败：$e');
+      debugPrint('Failed to check device connection: $e');
     }
     return false;
   }
@@ -175,7 +192,8 @@ class _ButtonPageState extends State<ButtonPage> {
               style: ButtonStyle(
                 overlayColor: WidgetStateProperty.resolveWith<Color?>(
                   (Set<WidgetState> states) {
-                    if (states.contains(WidgetState.pressed) || states.contains(WidgetState.hovered)) {
+                    if (states.contains(WidgetState.pressed) ||
+                        states.contains(WidgetState.hovered)) {
                       return const Color.fromARGB(255, 237, 237, 237);
                     }
                     return null;

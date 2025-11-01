@@ -200,5 +200,211 @@
   },
   "dialogOk": "OK",
   "setting_config": "Settings",
-  "connect_successfully": "Connected! Please keep the device connected and enable USB debugging."
+  "connect_successfully": "Connected! Please keep the device connected and enable USB debugging.",
+  "installApptoWatch": "Install app(apk) on watch",
+  "selectApptoInstall": "Select an APK file to install",
+  "installingWaiting": "Installation in progress, please wait...",
+  "installNoDeviceTitle": "No device connected",
+  "installNoDeviceMessage": "No device was detected. Please make sure the device is connected.",
+  "installSuccessTitle": "Install successful",
+  "installSuccessMessage": "The app has been installed successfully!",
+  "installFailureTitle": "Install failed",
+  "installFailureMessage": "An issue occurred during installation.",
+  "installFailureWithReason": "Error: {error}",
+  "@installFailureWithReason": {
+    "placeholders": {
+      "error": {}
+    }
+  },
+  "installErrorOutput": "Error: {details}",
+  "@installErrorOutput": {
+    "placeholders": {
+      "details": {}
+    }
+  },
+  "installTipTitle": "Notice",
+  "installNoFileSelected": "No file selected.",
+  "commonErrorTitle": "Error",
+  "commonNoticeTitle": "Notice",
+  "buttonPageTitle": "Button simulation",
+  "buttonDeviceNotConnectedTitle": "Device not connected",
+  "buttonDeviceNotConnectedMessage": "Please check that the device is connected to the computer and USB debugging is enabled.",
+  "buttonConnectFirstMessage": "Please connect the device first.",
+  "buttonSendKeySuccess": "Key event {keycode} sent successfully.",
+  "@buttonSendKeySuccess": {
+    "placeholders": {
+      "keycode": {}
+    }
+  },
+  "buttonExecutionFailed": "Execution failed: {details}",
+  "@buttonExecutionFailed": {
+    "placeholders": {
+      "details": {}
+    }
+  },
+  "buttonNameHome": "Home",
+  "buttonNameBack": "Back",
+  "buttonNamePower": "Power",
+  "buttonNameVolumeUp": "Volume +",
+  "buttonNameVolumeDown": "Volume -",
+  "buttonNameSpeakerMute": "Speaker mute",
+  "buttonNameMicMute": "Microphone mute",
+  "buttonNameCallDial": "Dial",
+  "buttonNameCallEnd": "Hang up (SIM 1)",
+  "buttonNamePlayPause": "Play / pause",
+  "buttonNameNextTrack": "Next track",
+  "buttonNamePreviousTrack": "Previous track",
+  "buttonNameScreenOn": "Turn screen on",
+  "buttonNameScreenOff": "Turn screen off",
+  "displayPageTitle": "Display settings",
+  "displayValueUnknown": "Not fetched",
+  "displayValueUnavailable": "Unavailable",
+  "displayDeviceNotConnectedMessage": "No device detected. Please check the connection.",
+  "displayErrorCheckingConnection": "Unable to check device connection status: {error}",
+  "@displayErrorCheckingConnection": {
+    "placeholders": {
+      "error": {}
+    }
+  },
+  "displayCurrentDpi": "Current DPI: {value}",
+  "@displayCurrentDpi": {
+    "placeholders": {
+      "value": {}
+    }
+  },
+  "displaySelectedDpi": "Selected: {value}",
+  "@displaySelectedDpi": {
+    "placeholders": {
+      "value": {}
+    }
+  },
+  "displayDpiLabel": "DPI:",
+  "displayResetDefaultButton": "Reset",
+  "displayApplyDpiButton": "Apply DPI",
+  "displayCurrentResolution": "Current resolution: {value}",
+  "@displayCurrentResolution": {
+    "placeholders": {
+      "value": {}
+    }
+  },
+  "displaySelectedResolution": "Selected: {value}",
+  "@displaySelectedResolution": {
+    "placeholders": {
+      "value": {}
+    }
+  },
+  "displayWidthLabel": "Width:",
+  "displayHeightLabel": "Height:",
+  "displayApplyResolutionButton": "Apply resolution",
+  "displayDpiSetSuccess": "DPI changed to {value}",
+  "@displayDpiSetSuccess": {
+    "placeholders": {
+      "value": {}
+    }
+  },
+  "displayDpiSetFailure": "Failed to change DPI: {error}",
+  "@displayDpiSetFailure": {
+    "placeholders": {
+      "error": {}
+    }
+  },
+  "displayResolutionSetSuccess": "Resolution changed to {value}",
+  "@displayResolutionSetSuccess": {
+    "placeholders": {
+      "value": {}
+    }
+  },
+  "displayResolutionSetFailure": "Failed to change resolution: {error}",
+  "@displayResolutionSetFailure": {
+    "placeholders": {
+      "error": {}
+    }
+  },
+  "displayDpiResetSuccess": "DPI restored to default",
+  "displayDpiResetFailure": "Failed to reset DPI: {error}",
+  "@displayDpiResetFailure": {
+    "placeholders": {
+      "error": {}
+    }
+  },
+  "displayResolutionResetSuccess": "Resolution restored to default",
+  "displayResolutionResetFailure": "Failed to reset resolution: {error}",
+  "@displayResolutionResetFailure": {
+    "placeholders": {
+      "error": {}
+    }
+  },
+  "displayDeviceDisconnectedMessage": "The device appears to be disconnected.",
+  "dialogCancel": "Cancel",
+  "dialogConfirm": "Confirm",
+  "appManageTitle": "App management",
+  "appManageShowSystemApps": "Show system apps",
+  "appManageNoAppsOrDevice": "No apps detected or the device is not connected.",
+  "appManageCannotFetch": "Failed to load installed apps: {error}",
+  "@appManageCannotFetch": {
+    "placeholders": {
+      "error": {}
+    }
+  },
+  "appManageDeviceDisconnected": "The device appears to be disconnected.",
+  "appManageTooltipUnfreeze": "Unfreeze",
+  "appManageTooltipFreeze": "Freeze",
+  "appManageTooltipExportApk": "Export APK",
+  "appManageTooltipUninstall": "Uninstall",
+  "appManageConfirmUninstallTitle": "Uninstall app",
+  "appManageConfirmUninstallMessage": "Are you sure you want to uninstall {packageName}?",
+  "@appManageConfirmUninstallMessage": {
+    "placeholders": {
+      "packageName": {}
+    }
+  },
+  "appManagePullProgress": "Pulling APK...",
+  "appManagePullSuccess": "APK exported to: {path}",
+  "@appManagePullSuccess": {
+    "placeholders": {
+      "path": {}
+    }
+  },
+  "appManagePullFailure": "Failed to export APK: {error}",
+  "@appManagePullFailure": {
+    "placeholders": {
+      "error": {}
+    }
+  },
+  "appManageUninstallSuccess": "App uninstalled: {packageName}",
+  "@appManageUninstallSuccess": {
+    "placeholders": {
+      "packageName": {}
+    }
+  },
+  "appManageUninstallFailure": "Failed to uninstall app: {error}",
+  "@appManageUninstallFailure": {
+    "placeholders": {
+      "error": {}
+    }
+  },
+  "appManageFreezeSuccess": "App frozen: {packageName}",
+  "@appManageFreezeSuccess": {
+    "placeholders": {
+      "packageName": {}
+    }
+  },
+  "appManageFreezeFailure": "Failed to freeze app: {error}",
+  "@appManageFreezeFailure": {
+    "placeholders": {
+      "error": {}
+    }
+  },
+  "appManageUnfreezeSuccess": "App unfrozen: {packageName}",
+  "@appManageUnfreezeSuccess": {
+    "placeholders": {
+      "packageName": {}
+    }
+  },
+  "appManageUnfreezeFailure": "Failed to unfreeze app: {error}",
+  "@appManageUnfreezeFailure": {
+    "placeholders": {
+      "error": {}
+    }
+  }
 }
