@@ -1,7 +1,5 @@
 [简体中文](#chinese) | [English](#english)
 
----
-
 <a id="chinese"></a>
 
 #
