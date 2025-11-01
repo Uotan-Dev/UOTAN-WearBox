@@ -1,16 +1,113 @@
 import 'package:flutter/material.dart';
-import 'package:window_manager/window_manager.dart';
 import 'package:url_launcher/url_launcher.dart';
-import 'donate.dart'; // 导入donate.dart
-import 'about/privacy.dart'; 
-import 'about/user.dart'; 
-import 'about/question.dart'; 
+import 'package:window_manager/window_manager.dart';
+
+import 'about/privacy.dart';
+import 'about/question.dart';
+import 'about/user.dart';
+import 'donate.dart';
+import 'l10n/app_localizations.dart';
+import 'l10n/l10n.dart';
 
 class Page3 extends StatelessWidget {
-  const Page3({super.key});
+  const Page3({
+    super.key,
+    required this.onLocaleChanged,
+    required this.currentLocale,
+    required this.currentVersion,
+  });
+
+  final ValueChanged<Locale?> onLocaleChanged;
+  final Locale? currentLocale;
+  final String currentVersion;
 
   @override
   Widget build(BuildContext context) {
+    final l10n = context.l10n;
+
+    final faqOptions = [
+      _SettingOption(
+        iconPath:
+            'assets/icons/help_24dp_5F6368_FILL0_wght400_GRAD0_opsz24.png',
+        title: l10n.settingsFaqTitle,
+        subtitle: l10n.settingsFaqSubtitle,
+        onTap: () {
+          Navigator.push(
+            context,
+            MaterialPageRoute(builder: (context) => const FAQPage()),
+          );
+        },
+      ),
+      _SettingOption(
+        iconPath:
+            'assets/icons/volunteer_activism_24dp_5F6368_FILL0_wght400_GRAD0_opsz24.png',
+        title: l10n.settingsDonateTitle,
+        subtitle: l10n.settingsDonateSubtitle,
+        onTap: () {
+          Navigator.push(
+            context,
+            MaterialPageRoute(builder: (context) => const DonatePage()),
+          );
+        },
+      ),
+      _SettingOption(
+        iconPath:
+            'assets/icons/feedback_24dp_5F6368_FILL0_wght400_GRAD0_opsz24.png',
+        title: l10n.settingsFeedbackTitle,
+        subtitle: l10n.settingsFeedbackSubtitle,
+        onTap: () {
+          _launchEmail(l10n.feedbackEmailSubject, l10n.feedbackEmailBody);
+        },
+      ),
+    ];
+
+    final agreementOptions = [
+      _SettingOption(
+        iconPath:
+            'assets/icons/verified_user_24dp_5F6368_FILL0_wght400_GRAD0_opsz24.png',
+        title: l10n.settingsPrivacyTitle,
+        subtitle: l10n.settingsPrivacySubtitle,
+        onTap: () {
+          Navigator.push(
+            context,
+            MaterialPageRoute(builder: (context) => const PrivacyPage()),
+          );
+        },
+      ),
+      _SettingOption(
+        iconPath:
+            'assets/icons/developer_guide_24dp_5F6368_FILL0_wght400_GRAD0_opsz24.png',
+        title: l10n.settingsUserAgreementTitle,
+        subtitle: l10n.settingsUserAgreementSubtitle,
+        onTap: () {
+          Navigator.push(
+            context,
+            MaterialPageRoute(builder: (context) => const UserPage()),
+          );
+        },
+      ),
+    ];
+
+    final visitOptions = [
+      _SettingOption(
+        iconPath:
+            'assets/icons/watch_24dp_5F6368_FILL0_wght400_GRAD0_opsz24.png',
+        title: l10n.settingsWebsiteTitle,
+        subtitle: l10n.settingsWebsiteSubtitle,
+        onTap: () {
+          _launchURL('https://wearbox.uotan.cn/');
+        },
+      ),
+      _SettingOption(
+        iconPath: 'assets/icons/uotan.png',
+        title: l10n.settingsCommunityTitle,
+        subtitle: l10n.settingsCommunitySubtitle,
+        onTap: () {
+          _launchURL('https://www.uotan.cn');
+        },
+      ),
+    ];
+
     return Scaffold(
       appBar: PreferredSize(
         preferredSize: const Size.fromHeight(70.0), // 设置AppBar的高度
@@ -22,198 +119,203 @@ class Page3 extends StatelessWidget {
               color: Colors.transparent, // 设置为透明背景
               padding: const EdgeInsets.symmetric(horizontal: 18),
               child: Row(
-  mainAxisAlignment: MainAxisAlignment.spaceBetween, // 左右对齐
-  children: [
-    // 用 Padding 包裹标题以控制它的垂直位置
-    const Padding(
-      padding: EdgeInsets.only(top: 20), // 调整这个值控制标题往下移动的距离
-      child: Text(
-        '柚坛手表助手', // 可以显示当前页面的名称
-        style: TextStyle(
-          color: Colors.black,
-          fontSize: 26,
-          fontFamily: 'MiSansLight', // 使用自定义字体
-        ),
-      ),
-    ),
-    Row(
-      children: [
-        // 最小化按钮
-        IconButton(
-          icon: Image.asset('assets/mini.png'),
-          onPressed: () {
-            windowManager.minimize();
-          },
-        ),
-        // 关闭按钮
-        IconButton(
-          icon: Image.asset('assets/close.png'),
-          onPressed: () {
-            windowManager.close();
-          },
-        ),
-      ],
-    ),
-  ],
-),
-
+                mainAxisAlignment: MainAxisAlignment.spaceBetween, // 左右对齐
+                children: [
+                  Padding(
+                    padding: const EdgeInsets.only(top: 20), // 调整这个值控制标题往下移动的距离
+                    child: Text(
+                      l10n.settingsPageTitle,
+                      style: const TextStyle(
+                        color: Colors.black,
+                        fontSize: 26,
+                        fontFamily: 'MiSansLight', // 使用自定义字体
+                      ),
+                    ),
+                  ),
+                  Row(
+                    children: [
+                      IconButton(
+                        icon: Image.asset('assets/mini.png'),
+                        onPressed: () {
+                          windowManager.minimize();
+                        },
+                      ),
+                      IconButton(
+                        icon: Image.asset('assets/close.png'),
+                        onPressed: () {
+                          windowManager.close();
+                        },
+                      ),
+                    ],
+                  ),
+                ],
+              ),
             ),
           ),
         ),
       ),
       body: Column(
-        
-  children: [
-    const SizedBox(height: 10), // 添加空隙
-    // 固定版本号文本，居左对齐
-    const Padding(
-      padding: EdgeInsets.symmetric(vertical: 0, horizontal: 20.0),
-      child: Align(
-        alignment: Alignment.centerLeft,
-        child: Text(
-          '版本: 16.0   开发&设计: Gnayoah', // 版本号文本
-          style: TextStyle(fontSize: 16, fontFamily: 'MiSansLight'),
-        ),
-      ),
-    ),
-    const SizedBox(height: 15), // 添加空隙
-    Expanded(
-      child: ListView(
-        padding: const EdgeInsets.only(left:20.0,right:20,bottom:20), // 列表的外边距
         children: [
-
-          // 添加自定义文本在隐私政策上方
-          const Padding(
-            padding: EdgeInsets.symmetric(vertical: 10, horizontal: 0),
+          const SizedBox(height: 10),
+          Padding(
+            padding: const EdgeInsets.symmetric(vertical: 0, horizontal: 20.0),
             child: Align(
               alignment: Alignment.centerLeft,
               child: Text(
-                '常见问题',
-                style: TextStyle(fontSize: 15,color: Color.fromARGB(255, 154, 154, 154),fontFamily: 'MiSansLight'),
+                l10n.settingsVersionLabel(currentVersion),
+                style: const TextStyle(fontSize: 16, fontFamily: 'MiSansLight'),
               ),
             ),
           ),
-          const SizedBox(height: 2), // 添加空隙
-          _buildOptionCard(context, '常见问题', '不会使用、无法连接或无法操作，请先阅读常见问题说明', 'assets/icons/help_24dp_5F6368_FILL0_wght400_GRAD0_opsz24.png'),
-          const SizedBox(height: 10), // 添加空隙
-          _buildOptionCard(context, '捐赠', '本项目为免费项目，感谢捐赠支持 (❁´◡`❁)', 'assets/icons/volunteer_activism_24dp_5F6368_FILL0_wght400_GRAD0_opsz24.png'),
-          const SizedBox(height: 10), // 添加空隙
-          _buildOptionCard(context, '问题反馈', '反馈 Bug 或其他问题，请先阅读常见问题，如无法解决请向我们反馈', 'assets/icons/feedback_24dp_5F6368_FILL0_wght400_GRAD0_opsz24.png', isEmail: true),
-          const SizedBox(height: 10), // 添加空隙
-          
-
-          // 添加自定义文本在隐私政策上方
-          const Padding(
-            padding: EdgeInsets.symmetric(vertical: 10, horizontal: 5),
-            child: Align(
-              alignment: Alignment.centerLeft,
-              child: Text(
-                '用户协议',
-                  style: TextStyle(fontSize: 15,color: Color.fromARGB(255, 154, 154, 154),fontFamily: 'MiSansLight'),
-              ),
+          const SizedBox(height: 15),
+          Expanded(
+            child: ListView(
+              padding: const EdgeInsets.only(left: 20.0, right: 20, bottom: 20),
+              children: [
+                _buildSectionTitle(l10n.setting_config),
+                const SizedBox(height: 2),
+                _buildLanguageCard(context, l10n),
+                const SizedBox(height: 10),
+                _buildSectionTitle(l10n.settingsSectionFaq),
+                const SizedBox(height: 2),
+                ..._buildOptions(context, faqOptions),
+                const SizedBox(height: 10),
+                _buildSectionTitle(l10n.settingsSectionAgreements),
+                const SizedBox(height: 2),
+                ..._buildOptions(context, agreementOptions),
+                const SizedBox(height: 10),
+                _buildSectionTitle(l10n.settingsSectionVisit),
+                const SizedBox(height: 2),
+                ..._buildOptions(context, visitOptions),
+                const SizedBox(height: 10),
+                Padding(
+                  padding:
+                      const EdgeInsets.symmetric(vertical: 10, horizontal: 5),
+                  child: Align(
+                    alignment: Alignment.centerLeft,
+                    child: Text(
+                      l10n.settingsFooter,
+                      style: const TextStyle(
+                        fontSize: 15,
+                        color: Color.fromARGB(255, 154, 154, 154),
+                        fontFamily: 'MiSansLight',
+                      ),
+                    ),
+                  ),
+                ),
+                const SizedBox(height: 5),
+              ],
             ),
           ),
-const SizedBox(height: 2), // 添加空隙
-          _buildOptionCard(context, '隐私政策', '请确保阅读并理解我们的隐私政策', 'assets/icons/verified_user_24dp_5F6368_FILL0_wght400_GRAD0_opsz24.png'),
-          const SizedBox(height: 10), // 添加空隙
-          _buildOptionCard(context, '用户协议', '请确保阅读并理解我们的用户协议', 'assets/icons/developer_guide_24dp_5F6368_FILL0_wght400_GRAD0_opsz24.png'),
-const SizedBox(height: 10), // 添加空隙
-          // 添加自定义文本在隐私政策上方
-          const Padding(
-            padding: EdgeInsets.symmetric(vertical: 10, horizontal: 5),
-            child: Align(
-              alignment: Alignment.centerLeft,
-              child: Text(
-                '访问官网',
-                 style: TextStyle(fontSize: 15,color: Color.fromARGB(255, 154, 154, 154),fontFamily: 'MiSansLight'),
-              ),
-            ),
-          ),
-
-const SizedBox(height: 2), // 添加空隙
-_buildOptionCard(context, '官网', '柚坛手表助手', 'assets/icons/watch_24dp_5F6368_FILL0_wght400_GRAD0_opsz24.png', url: 'http://wear.gnayoah.com'),
-          const SizedBox(height: 10), // 添加空隙
-        
-          _buildOptionCard(context, '柚坛社区', '玩机交流社群', 'assets/icons/uotan.png', url: 'http://uotan.cn'),
-          const SizedBox(height: 10), // 添加空隙
-const SizedBox(height: 10), // 添加空隙
-          // 添加自定义文本在隐私政策上方
-          const Padding(
-            padding: EdgeInsets.symmetric(vertical: 10, horizontal: 5),
-            child: Align(
-              alignment: Alignment.centerLeft,
-              
-              child: Text(
-                '柚坛手表助手\n© 2020-2024 Gnayoah.com All rights reserved.',
-                 style: TextStyle(fontSize: 15,color: Color.fromARGB(255, 154, 154, 154),fontFamily: 'MiSansLight'),
-              ),
-              
-            ),
-          ),
-          const SizedBox(height: 5), // 添加空隙
         ],
       ),
-    ),
-  ],
-),
     );
   }
 
-  Widget _buildOptionCard(BuildContext context, String title, String subtitle, String iconPath, {String? url, bool isEmail = false}) {
+  Widget _buildLanguageCard(BuildContext context, AppLocalizations l10n) {
+    final currentSelection = currentLocale?.languageCode ?? 'system';
     return Material(
-      color: const Color(0xFFF9F9F9), // Card 背景颜色为 #F9F9F9
+      color: const Color(0xFFF9F9F9),
       shape: RoundedRectangleBorder(
-        borderRadius: BorderRadius.circular(8.0), // 设置圆角
+        borderRadius: BorderRadius.circular(8.0),
+      ),
+      child: Padding(
+        padding: const EdgeInsets.all(5.0),
+        child: ListTile(
+          leading: Image.asset(
+            'assets/icons/globe_24dp_5F6368_FILL0_wght400_GRAD0_opsz24.png',
+            width: 20,
+            height: 20,
+            color: const Color.fromARGB(255, 0, 0, 0),
+          ),
+          title: Text(l10n.settingsLanguageTitle),
+          subtitle: Text(l10n.settingsLanguageSubtitle),
+          trailing: DropdownButton<String>(
+            value: currentSelection,
+            underline: const SizedBox.shrink(),
+            onChanged: (value) {
+              if (value == null) {
+                return;
+              }
+              if (value == 'system') {
+                onLocaleChanged(null);
+              } else {
+                onLocaleChanged(Locale(value));
+              }
+            },
+            items: [
+              DropdownMenuItem(
+                value: 'system',
+                child: Text(l10n.languageSystem),
+              ),
+              DropdownMenuItem(
+                value: 'zh',
+                child: Text(l10n.languageChinese),
+              ),
+              DropdownMenuItem(
+                value: 'en',
+                child: Text(l10n.languageEnglish),
+              ),
+            ],
+          ),
+        ),
+      ),
+    );
+  }
+
+  Padding _buildSectionTitle(String title) {
+    return Padding(
+      padding: const EdgeInsets.symmetric(vertical: 10, horizontal: 0),
+      child: Align(
+        alignment: Alignment.centerLeft,
+        child: Text(
+          title,
+          style: const TextStyle(
+            fontSize: 15,
+            color: Color.fromARGB(255, 154, 154, 154),
+            fontFamily: 'MiSansLight',
+          ),
+        ),
+      ),
+    );
+  }
+
+  List<Widget> _buildOptions(
+      BuildContext context, List<_SettingOption> options) {
+    final widgets = <Widget>[];
+    for (final option in options) {
+      widgets.add(_buildOptionCard(context, option));
+      widgets.add(const SizedBox(height: 10));
+    }
+    if (widgets.isNotEmpty) {
+      widgets.removeLast();
+    }
+    return widgets;
+  }
+
+  Widget _buildOptionCard(BuildContext context, _SettingOption option) {
+    return Material(
+      color: const Color(0xFFF9F9F9),
+      shape: RoundedRectangleBorder(
+        borderRadius: BorderRadius.circular(8.0),
       ),
       child: InkWell(
-        borderRadius: BorderRadius.circular(8.0), // 设置悬浮时的圆角效果
-        onTap: () {
-          if (isEmail) {
-            _launchEmail(); // 发送邮件
-          } else if (url != null) {
-            _launchURL(url); // 打开指定URL
-          } else if (title == '捐赠') {
-            // 导航到捐赠页面
-            Navigator.push(
-              context,
-              MaterialPageRoute(builder: (context) => const DonatePage()),
-            );
-          } else if (title == '隐私政策') {
-            // 导航到捐赠页面
-            Navigator.push(
-              context,
-              MaterialPageRoute(builder: (context) => const PrivacyPage()),
-            );
-          }else if (title == '用户协议') {
-            // 导航到捐赠页面
-            Navigator.push(
-              context,
-              MaterialPageRoute(builder: (context) => const UserPage()),
-            );
-          } else if (title == '常见问题') {
-            // 导航到捐赠页面
-            Navigator.push(
-              context,
-              MaterialPageRoute(builder: (context) => const FAQPage()),
-            );
-          }  else {
-            print('$title 被点击');
-          }
-        },
+        borderRadius: BorderRadius.circular(8.0),
+        onTap: option.onTap,
         child: Padding(
           padding: const EdgeInsets.all(5.0),
           child: ListTile(
-            title: Text(title),
-            subtitle: Text(subtitle), // 添加小字文本
+            title: Text(option.title),
+            subtitle: Text(option.subtitle),
             leading: Image.asset(
-              iconPath,
-              width: 20, // 自定义图标的宽度
-              height: 20, // 自定义图标的高度
+              option.iconPath,
+              width: 20,
+              height: 20,
               color: const Color.fromARGB(255, 0, 0, 0),
             ),
             trailing: const Icon(
               Icons.arrow_forward_ios,
-              size: 14, // 设置trailing图标大小
+              size: 14,
             ),
           ),
         ),
@@ -221,31 +323,43 @@ const SizedBox(height: 10), // 添加空隙
     );
   }
 
-  // 打开指定的URL
-  void _launchURL(String url) async {
+  static Future<void> _launchURL(String url) async {
     final Uri uri = Uri.parse(url);
     if (await canLaunchUrl(uri)) {
-      await launchUrl(uri, mode: LaunchMode.externalApplication); // 在外部浏览器打开
+      await launchUrl(uri, mode: LaunchMode.externalApplication);
     } else {
-      print('无法打开URL: $url');
+      debugPrint('无法打开URL: $url');
     }
   }
 
-  // 发送邮件
-  void _launchEmail() async {
+  static Future<void> _launchEmail(String subject, String body) async {
     final Uri emailUri = Uri(
       scheme: 'mailto',
       path: 'feedback@Gnayoah.com',
       queryParameters: {
-        'subject': '柚坛手表助手-问题反馈',
-        'body': '系统版本：\n\n反馈内容：\n\n\n\n\n\n\n\n'
+        'subject': subject,
+        'body': body,
       },
     );
 
     if (await canLaunchUrl(emailUri)) {
       await launchUrl(emailUri);
     } else {
-      print('无法发送邮件至: ${emailUri.toString()}');
+      debugPrint('无法发送邮件至: ${emailUri.toString()}');
     }
   }
+}
+
+class _SettingOption {
+  const _SettingOption({
+    required this.iconPath,
+    required this.title,
+    required this.subtitle,
+    this.onTap,
+  });
+
+  final String iconPath;
+  final String title;
+  final String subtitle;
+  final VoidCallback? onTap;
 }

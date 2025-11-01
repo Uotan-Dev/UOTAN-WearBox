@@ -1,0 +1,54 @@
+{
+  "@@locale": "en",
+  "appTitle": "Uotan WearBox",
+  "navigationHome": "Home",
+  "navigationFeatures": "Tools",
+  "navigationAbout": "Settings",
+  "settingsPageTitle": "Uotan WearBox",
+  "settingsVersionLabel": "Version: {version}   Design & Development: Gnayoah",
+  "@settingsVersionLabel": {
+    "placeholders": {
+      "version": {}
+    }
+  },
+  "settingsSectionFaq": "FAQ",
+  "settingsSectionAgreements": "Agreements",
+  "settingsSectionVisit": "Visit Website",
+  "settingsFaqTitle": "Frequently Asked Questions",
+  "settingsFaqSubtitle": "Having trouble using or connecting? Start by reading the FAQ.",
+  "settingsDonateTitle": "Donate",
+  "settingsDonateSubtitle": "This project is free—thank you for supporting us! (❁´◡`❁)",
+  "settingsFeedbackTitle": "Feedback",
+  "settingsFeedbackSubtitle": "Please read the FAQ first. If it doesn't help, send us your feedback.",
+  "settingsPrivacyTitle": "Privacy Policy",
+  "settingsPrivacySubtitle": "Make sure you have read and understood our privacy policy.",
+  "settingsUserAgreementTitle": "User Agreement",
+  "settingsUserAgreementSubtitle": "Make sure you have read and understood our user agreement.",
+  "settingsWebsiteTitle": "Official Site",
+  "settingsWebsiteSubtitle": "Uotan WearBox",
+  "settingsCommunityTitle": "Uotan Community",
+  "settingsCommunitySubtitle": "Tech Device Users Community",
+  "settingsFooter": "Uotan WearBox\n© 2020-2025 Gnayoah.com All rights reserved.",
+  "settingsLanguageTitle": "Language",
+  "settingsLanguageSubtitle": "Switch the display language",
+  "languageSystem": "Follow system",
+  "languageChinese": "Simplified Chinese",
+  "languageEnglish": "English",
+  "feedbackEmailSubject": "Uotan WearBox - Feedback",
+  "feedbackEmailBody": "System version:\n\nFeedback:\n\n\n\n\n\n\n\n",
+  "updateDialogTitle": "Update available",
+  "updateDialogMessage": "New version found: {remoteVersion}\nRelease date: {releaseDate}",
+  "@updateDialogMessage": {
+    "placeholders": {
+      "remoteVersion": {},
+      "releaseDate": {}
+    }
+  },
+  "updateDialogUpdate": "Update now",
+  "networkErrorTitle": "Unable to reach the server",
+  "networkErrorMessage": "Please check your network connection or try again later.",
+  "networkErrorExit": "Exit",
+  "networkErrorRetry": "Retry",
+  "setting_config": "Settings",
+  "connect_successfully": "Connected! Please keep the device connected and enable USB debugging."
+}

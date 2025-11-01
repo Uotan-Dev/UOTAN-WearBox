@@ -1,3 +1,5 @@
+import 'dart:math';
+
 import 'package:flutter/material.dart';
 import 'package:watch_assistant/wireless.dart';
 import 'package:window_manager/window_manager.dart';
@@ -5,6 +7,8 @@ import 'adb_device_info.dart';
 import 'tutorial.dart';
 import 'package:url_launcher/url_launcher.dart';
 import 'driver.dart';
+import 'l10n/app_localizations.dart';
+import 'l10n/l10n.dart';
 
 class Page1 extends StatelessWidget {
   final List<AdbDeviceInfo> devices;
@@ -19,22 +23,24 @@ class Page1 extends StatelessWidget {
         child: Padding(
           padding: const EdgeInsets.only(top: 20),
           child: GestureDetector(
-            onPanStart: (details) => windowManager.startDragging(), 
+            onPanStart: (details) => windowManager.startDragging(),
             child: Container(
-              color: Colors.transparent, 
+              color: Colors.transparent,
               padding: const EdgeInsets.symmetric(horizontal: 18),
               child: Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween, 
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
-                 Row(        
-                  children: [
-                      SizedBox(width: 10,),
-                    Image.asset(
-                      'assets/new_logo.png',
-                      height: 35, 
-                    ),
-                  ],
-                ),
+                  Row(
+                    children: [
+                      SizedBox(
+                        width: 10,
+                      ),
+                      Image.asset(
+                        'assets/new_logo.png',
+                        height: 35,
+                      ),
+                    ],
+                  ),
                   Row(
                     children: [
                       // 最小化按钮
@@ -68,170 +74,164 @@ class Page1 extends StatelessWidget {
     );
   }
 
- // 构建设备未连接时的说明卡片
-Widget _buildNoDeviceConnected(BuildContext context) {
-  final greeting = _getGreetingBasedOnTime(); // 根据时间获取问候语
+  // 构建设备未连接时的说明卡片
+  Widget _buildNoDeviceConnected(BuildContext context) {
+    final greeting = _getGreetingBasedOnTime(); // 根据时间获取问候语
 
-  return Column(
-    crossAxisAlignment: CrossAxisAlignment.start,
-    children: [
-      const SizedBox(height: 0),
-      Padding(
-        padding: const EdgeInsets.only(left: 5.0), // 设置左边距
-        child: Text(
-          '$greeting\n欢迎使用柚坛手表助手',
-          style: const TextStyle(
-            fontSize: 34,
-            fontFamily: 'OPPOSansMed',
-            height: 1.25,
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        const SizedBox(height: 0),
+        Padding(
+          padding: const EdgeInsets.only(left: 5.0), // 设置左边距
+          child: Text(
+            '$greeting\n欢迎使用柚坛手表助手',
+            style: const TextStyle(
+              fontSize: 34,
+              fontFamily: 'OPPOSansMed',
+              height: 1.25,
+            ),
           ),
         ),
-      ),
-      const SizedBox(height: 6),
-      const Padding(
-        padding: EdgeInsets.only(left: 5.0), // 设置左边距
-        child: Text(
-          '未检测到手表, 请根据下方指引连接手表',
-          style: TextStyle(fontSize: 16),
-        ),
-      ),
-      
-      const SizedBox(height: 15),
-
-
-      
-      Card(
-        color: const Color(0xFFF9F9F9),  // 设置背景颜色为浅灰色
-        elevation: 0, // 可选：去除阴影效果或根据需要设置
-        child: Padding(
-          padding: const EdgeInsets.all(20.0),
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              const Text(
-                '支持的连接方式：',
-                style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
-              ),
-              const SizedBox(height: 10),
-              const Text(
-                '1. 使用数据线/充电底座连接电脑与手表（推荐）',
-                style: TextStyle(fontSize: 15),
-              ),
-              const SizedBox(height: 10),
-              Row(
-                children: [
-                  const Text(
-                    '2. 使用无线连接，请点击',
-                    style: TextStyle(fontSize: 15),
-                  ),
-                  MouseRegion(
-  cursor: SystemMouseCursors.click, // 设置鼠标光标为点击手的图标
-  child: GestureDetector(
-    onTap: () {
-      // 导航到教程页面
-      Navigator.push(
-        context,
-        MaterialPageRoute(builder: (context) => const WirelessPage()),
-      );
-    },
-    child: const Text(
-      ' 无线连接',
-      style: TextStyle(
-        fontSize: 15,
-        color: Colors.blue,
-      ),
-    ),
-  ),
-),
-                  const Text(
-                    ' 进行无线局域网或蓝牙连接',
-                    style: TextStyle(fontSize: 15),
-                  ),
-                ],
-              ),
-              const SizedBox(height: 20),
-              const Text(
-                '若无法连接请尝试：',
-                style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
-              ),
-              const SizedBox(height: 10),
-              Row(
-                children: [
-                  const Text(
-                    '1. 检查手表是否开启 USB 调试',
-                    style: TextStyle(fontSize: 15),
-                  ),
-                 MouseRegion(
-  cursor: SystemMouseCursors.click, // 设置鼠标光标为点击手的图标
-  child: GestureDetector(
-    onTap: () {
-      // 导航到教程页面
-      Navigator.push(
-        context,
-        MaterialPageRoute(builder: (context) => const TutorialPage()),
-      );
-    },
-    child: const Text(
-      ' 查看教程',
-      style: TextStyle(
-        fontSize: 15,
-        color: Colors.blue,
-      ),
-    ),
-  ),
-),
-
-                ],
-              ),
-              const SizedBox(height: 10),
-             Row(
-  children: [
-    const Text(
-      '2. 检查 USB 驱动是否安装',
-      style: TextStyle(fontSize: 15),
-    ),
-    MouseRegion(
-      cursor: SystemMouseCursors.click, // 设置鼠标光标为点击手势
-      child: GestureDetector(
-        onTap: () {
-          // 安装驱动点击事件
-         Navigator.push(
-        context,
-        MaterialPageRoute(builder: (context) => const DriverPage()),
-      );
-        },
-        child: const Text(
-          ' 安装驱动',
-          style: TextStyle(
-            fontSize: 15,
-            color: Colors.blue,
+        const SizedBox(height: 6),
+        const Padding(
+          padding: EdgeInsets.only(left: 5.0), // 设置左边距
+          child: Text(
+            '未检测到手表, 请根据下方指引连接手表',
+            style: TextStyle(fontSize: 16),
           ),
         ),
-      ),
-    ),
-  ],
-),
-
-              
-              const SizedBox(height: 10),
-              
-              const Text(
-                '3. 重新下载安装此应用，并检查应用版本更新',
-                style: TextStyle(fontSize: 15),
-              ),
-             const SizedBox(height: 10),
-              
-              const Text(
-                '4. 重新启动计算机、更换电脑或数据线并再次尝试连接',
-                style: TextStyle(fontSize: 15),
-              ),
-            ],
+        const SizedBox(height: 15),
+        Card(
+          color: const Color(0xFFF9F9F9), // 设置背景颜色为浅灰色
+          elevation: 0, // 可选：去除阴影效果或根据需要设置
+          child: Padding(
+            padding: const EdgeInsets.all(20.0),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                const Text(
+                  '支持的连接方式：',
+                  style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
+                ),
+                const SizedBox(height: 10),
+                const Text(
+                  '1. 使用数据线/充电底座连接电脑与手表（推荐）',
+                  style: TextStyle(fontSize: 15),
+                ),
+                const SizedBox(height: 10),
+                Row(
+                  children: [
+                    const Text(
+                      '2. 使用无线连接，请点击',
+                      style: TextStyle(fontSize: 15),
+                    ),
+                    MouseRegion(
+                      cursor: SystemMouseCursors.click, // 设置鼠标光标为点击手的图标
+                      child: GestureDetector(
+                        onTap: () {
+                          // 导航到教程页面
+                          Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                                builder: (context) => const WirelessPage()),
+                          );
+                        },
+                        child: const Text(
+                          ' 无线连接',
+                          style: TextStyle(
+                            fontSize: 15,
+                            color: Colors.blue,
+                          ),
+                        ),
+                      ),
+                    ),
+                    const Text(
+                      ' 进行无线局域网或蓝牙连接',
+                      style: TextStyle(fontSize: 15),
+                    ),
+                  ],
+                ),
+                const SizedBox(height: 20),
+                const Text(
+                  '若无法连接请尝试：',
+                  style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
+                ),
+                const SizedBox(height: 10),
+                Row(
+                  children: [
+                    const Text(
+                      '1. 检查手表是否开启 USB 调试',
+                      style: TextStyle(fontSize: 15),
+                    ),
+                    MouseRegion(
+                      cursor: SystemMouseCursors.click, // 设置鼠标光标为点击手的图标
+                      child: GestureDetector(
+                        onTap: () {
+                          // 导航到教程页面
+                          Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                                builder: (context) => const TutorialPage()),
+                          );
+                        },
+                        child: const Text(
+                          ' 查看教程',
+                          style: TextStyle(
+                            fontSize: 15,
+                            color: Colors.blue,
+                          ),
+                        ),
+                      ),
+                    ),
+                  ],
+                ),
+                const SizedBox(height: 10),
+                Row(
+                  children: [
+                    const Text(
+                      '2. 检查 USB 驱动是否安装',
+                      style: TextStyle(fontSize: 15),
+                    ),
+                    MouseRegion(
+                      cursor: SystemMouseCursors.click, // 设置鼠标光标为点击手势
+                      child: GestureDetector(
+                        onTap: () {
+                          // 安装驱动点击事件
+                          Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                                builder: (context) => const DriverPage()),
+                          );
+                        },
+                        child: const Text(
+                          ' 安装驱动',
+                          style: TextStyle(
+                            fontSize: 15,
+                            color: Colors.blue,
+                          ),
+                        ),
+                      ),
+                    ),
+                  ],
+                ),
+                const SizedBox(height: 10),
+                const Text(
+                  '3. 重新下载安装此应用，并检查应用版本更新',
+                  style: TextStyle(fontSize: 15),
+                ),
+                const SizedBox(height: 10),
+                const Text(
+                  '4. 重新启动计算机、更换电脑或数据线并再次尝试连接',
+                  style: TextStyle(fontSize: 15),
+                ),
+              ],
+            ),
           ),
         ),
-      ),
-    ],
-  );
-}
+      ],
+    );
+  }
 
 // 根据当前时间获取问候语
   String _getGreetingBasedOnTime() {
@@ -249,7 +249,7 @@ Widget _buildNoDeviceConnected(BuildContext context) {
     }
   }
 
- // 打开指定的URL
+  // 打开指定的URL
   void _launchURL(String url) async {
     final Uri uri = Uri.parse(url);
     if (await canLaunchUrl(uri)) {
@@ -261,6 +261,8 @@ Widget _buildNoDeviceConnected(BuildContext context) {
 
   // 构建设备连接时的界面
   Widget _buildDeviceInfo(BuildContext context, AdbDeviceInfo device) {
+    final l10n = context.l10n;
+
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
@@ -269,9 +271,9 @@ Widget _buildNoDeviceConnected(BuildContext context) {
           style: const TextStyle(fontSize: 22, fontWeight: FontWeight.bold),
         ),
         const SizedBox(height: 2),
-        const Text(
-          ' 已成功连接！请保持设备连接并开启USB调试',
-          style: TextStyle(fontSize: 16),
+        Text(
+          ' ${l10n.connect_successfully}',
+          style: const TextStyle(fontSize: 16),
         ),
         const SizedBox(height: 20),
         buildBasicInfoCard(context, '基本信息', [
@@ -308,9 +310,10 @@ Widget _buildNoDeviceConnected(BuildContext context) {
   }
 
   // 基本信息卡片
-  Widget buildBasicInfoCard(BuildContext context, String title, List<List<String>> info) {
+  Widget buildBasicInfoCard(
+      BuildContext context, String title, List<List<String>> info) {
     return Card(
-      color: const Color(0xFFF9F9F9),  // 设置背景颜色为浅灰色
+      color: const Color(0xFFF9F9F9), // 设置背景颜色为浅灰色
       elevation: 0, // 可选：去除阴影效果或根据需要设置
       child: Padding(
         padding: const EdgeInsets.all(12.0),
@@ -323,21 +326,21 @@ Widget _buildNoDeviceConnected(BuildContext context) {
             ),
             const SizedBox(height: 8),
             ...info.map((pair) => Row(
-              children: [
-                Expanded(
-                  child: Text(
-                    pair[0],
-                    style: const TextStyle(fontSize: 16),
-                  ),
-                ),
-                Expanded(
-                  child: Text(
-                    pair[1],
-                    style: const TextStyle(fontSize: 16),
-                  ),
-                ),
-              ],
-            )),
+                  children: [
+                    Expanded(
+                      child: Text(
+                        pair[0],
+                        style: const TextStyle(fontSize: 16),
+                      ),
+                    ),
+                    Expanded(
+                      child: Text(
+                        pair[1],
+                        style: const TextStyle(fontSize: 16),
+                      ),
+                    ),
+                  ],
+                )),
           ],
         ),
       ),
@@ -347,7 +350,7 @@ Widget _buildNoDeviceConnected(BuildContext context) {
   // 信息卡片
   Widget buildInfoCard(String title, List<String> info) {
     return Card(
-      color: const Color(0xFFF9F9F9),  // 设置背景颜色为浅灰色
+      color: const Color(0xFFF9F9F9), // 设置背景颜色为浅灰色
       elevation: 0, // 可选：去除阴影效果或根据需要设置
       child: Padding(
         padding: const EdgeInsets.all(12.0),

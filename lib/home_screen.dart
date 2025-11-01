@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:watch_assistant/utils.dart';
+import 'package:watch_assistant/l10n/l10n.dart';
 import 'package:window_manager/window_manager.dart';
 import 'package:http/http.dart' as http;
 import 'package:url_launcher/url_launcher.dart';
@@ -9,7 +10,14 @@ import 'page2.dart';
 import 'page3.dart';
 
 class HomeScreen extends StatefulWidget {
-  const HomeScreen({super.key});
+  const HomeScreen({
+    super.key,
+    required this.onLocaleChanged,
+    required this.locale,
+  });
+
+  final ValueChanged<Locale?> onLocaleChanged;
+  final Locale? locale;
 
   @override
   _HomeScreenState createState() => _HomeScreenState();
@@ -80,10 +88,12 @@ class _HomeScreenState extends State<HomeScreen> with WindowListener {
 
       if (response.statusCode == 200) {
         final lines = response.body.split('\n');
-        final remoteVersion = lines.firstWhere((line) => line.startsWith('[version]'))
+        final remoteVersion = lines
+            .firstWhere((line) => line.startsWith('[version]'))
             .replaceAll('[version]', '')
             .trim();
-        final releaseDate = lines.firstWhere((line) => line.startsWith('[date]'))
+        final releaseDate = lines
+            .firstWhere((line) => line.startsWith('[date]'))
             .replaceAll('[date]', '')
             .trim();
 
@@ -102,44 +112,51 @@ class _HomeScreenState extends State<HomeScreen> with WindowListener {
   void _showUpdateDialog(String remoteVersion, String releaseDate) {
     showDialog(
       context: context,
-      barrierDismissible: false,  // 设置为false，禁止点击对话框外部区域取消
+      barrierDismissible: false, // 设置为false，禁止点击对话框外部区域取消
       builder: (BuildContext context) {
+        final l10n = context.l10n;
         return AlertDialog(
           backgroundColor: const Color(0xFFF9F9F9), // 弹窗背景颜色
-          title: const Text('版本更新'),
-          content: Text('发现新版本: $remoteVersion\n发布日期: $releaseDate'),
+          title: Text(l10n.updateDialogTitle),
+          content: Text(l10n.updateDialogMessage(remoteVersion, releaseDate)),
           actions: [
             TextButton(
               style: ButtonStyle(
                 overlayColor: MaterialStateProperty.resolveWith<Color?>(
                   (Set<MaterialState> states) {
-                    if (states.contains(MaterialState.pressed) || states.contains(MaterialState.hovered)) {
-                      return const Color.fromARGB(255, 237, 237, 237); // 点击或悬浮时的背景颜色
+                    if (states.contains(MaterialState.pressed) ||
+                        states.contains(MaterialState.hovered)) {
+                      return const Color.fromARGB(
+                          255, 237, 237, 237); // 点击或悬浮时的背景颜色
                     }
                     return null; // 默认状态下不更改颜色
                   },
                 ),
-                foregroundColor: MaterialStateProperty.all<Color>(Colors.black), // 文本颜色
+                foregroundColor:
+                    MaterialStateProperty.all<Color>(Colors.black), // 文本颜色
               ),
-             // child: const Text('下次一定'),
-             child: const Text(''),
+              // child: const Text('下次一定'),
+              child: const Text(''),
               onPressed: () {
-              //  Navigator.of(context).pop(); // 关闭对话框
+                //  Navigator.of(context).pop(); // 关闭对话框
               },
             ),
             TextButton(
               style: ButtonStyle(
                 overlayColor: MaterialStateProperty.resolveWith<Color?>(
                   (Set<MaterialState> states) {
-                    if (states.contains(MaterialState.pressed) || states.contains(MaterialState.hovered)) {
-                      return const Color.fromARGB(255, 237, 237, 237); // 点击或悬浮时的背景颜色
+                    if (states.contains(MaterialState.pressed) ||
+                        states.contains(MaterialState.hovered)) {
+                      return const Color.fromARGB(
+                          255, 237, 237, 237); // 点击或悬浮时的背景颜色
                     }
                     return null; // 默认状态下不更改颜色
                   },
                 ),
-                foregroundColor: MaterialStateProperty.all<Color>(Colors.black), // 文本颜色
+                foregroundColor:
+                    MaterialStateProperty.all<Color>(Colors.black), // 文本颜色
               ),
-              child: const Text('立即更新'),
+              child: Text(l10n.updateDialogUpdate),
               onPressed: () {
                 _launchURL(); // 点击跳转到浏览器
               },
@@ -151,29 +168,33 @@ class _HomeScreenState extends State<HomeScreen> with WindowListener {
   }
 
   // 显示无网络连接或无法访问的提示框
-  void _showNoNetworkDialog(String message) {
+  void _showNoNetworkDialog([String? message]) {
     showDialog(
       context: context,
       barrierDismissible: false, // 设置为false，禁止点击对话框外部区域取消
       builder: (BuildContext context) {
+        final l10n = context.l10n;
         return AlertDialog(
           backgroundColor: const Color(0xFFF9F9F9), // 弹窗背景颜色
-          title: const Text('无法连接服务器'),
-          content: Text(message),
+          title: Text(l10n.networkErrorTitle),
+          content: Text(message ?? l10n.networkErrorMessage),
           actions: [
             TextButton(
               style: ButtonStyle(
                 overlayColor: MaterialStateProperty.resolveWith<Color?>(
                   (Set<MaterialState> states) {
-                    if (states.contains(MaterialState.pressed) || states.contains(MaterialState.hovered)) {
-                      return const Color.fromARGB(255, 237, 237, 237); // 点击或悬浮时的背景颜色
+                    if (states.contains(MaterialState.pressed) ||
+                        states.contains(MaterialState.hovered)) {
+                      return const Color.fromARGB(
+                          255, 237, 237, 237); // 点击或悬浮时的背景颜色
                     }
                     return null; // 默认状态下不更改颜色
                   },
                 ),
-                foregroundColor: MaterialStateProperty.all<Color>(Colors.black), // 文本颜色
+                foregroundColor:
+                    MaterialStateProperty.all<Color>(Colors.black), // 文本颜色
               ),
-              child: const Text('退出'),
+              child: Text(l10n.networkErrorExit),
               onPressed: () {
                 windowManager.close();
               },
@@ -182,15 +203,18 @@ class _HomeScreenState extends State<HomeScreen> with WindowListener {
               style: ButtonStyle(
                 overlayColor: MaterialStateProperty.resolveWith<Color?>(
                   (Set<MaterialState> states) {
-                    if (states.contains(MaterialState.pressed) || states.contains(MaterialState.hovered)) {
-                      return const Color.fromARGB(255, 237, 237, 237); // 点击或悬浮时的背景颜色
+                    if (states.contains(MaterialState.pressed) ||
+                        states.contains(MaterialState.hovered)) {
+                      return const Color.fromARGB(
+                          255, 237, 237, 237); // 点击或悬浮时的背景颜色
                     }
                     return null; // 默认状态下不更改颜色
                   },
                 ),
-                foregroundColor: MaterialStateProperty.all<Color>(Colors.black), // 文本颜色
+                foregroundColor:
+                    MaterialStateProperty.all<Color>(Colors.black), // 文本颜色
               ),
-              child: const Text('重试'),
+              child: Text(l10n.networkErrorRetry),
               onPressed: () {
                 Navigator.of(context).pop(); // 关闭对话框
                 _checkNetworkAndUpdate(); // 重新检查网络
@@ -214,10 +238,15 @@ class _HomeScreenState extends State<HomeScreen> with WindowListener {
 
   @override
   Widget build(BuildContext context) {
-    _pages.clear();
-    _pages.add(Page1(devices: _devices));
-    _pages.add(const Page2());
-    _pages.add(const Page3());
+    _pages
+      ..clear()
+      ..add(Page1(devices: _devices))
+      ..add(const Page2())
+      ..add(Page3(
+        onLocaleChanged: widget.onLocaleChanged,
+        currentLocale: widget.locale,
+        currentVersion: currentVersion,
+      ));
 
     return Scaffold(
       body: AnimatedSwitcher(
@@ -231,23 +260,21 @@ class _HomeScreenState extends State<HomeScreen> with WindowListener {
                 child: Column(
                   mainAxisAlignment: MainAxisAlignment.center, // 垂直居中对齐
                   children: [
-                   /// const SizedBox(height: 80),
-                   /// Image.asset(
-                   //   'assets/logo2.png', // 加载 logo
-                   //   width: 120, // 设置 Logo 的宽度
-                   //   height: 120, // 设置 Logo 的高度
-                  //  ),
-                  //  const SizedBox(height: 80),
+                    /// const SizedBox(height: 80),
+                    /// Image.asset(
+                    //   'assets/logo2.png', // 加载 logo
+                    //   width: 120, // 设置 Logo 的宽度
+                    //   height: 120, // 设置 Logo 的高度
+                    //  ),
+                    //  const SizedBox(height: 80),
                     const SizedBox(
-                        width: 60,  // 设置进度条的宽度
-                        height:60, // 设置进度条的高度
-                        child: CircularProgressIndicator(
-                          strokeWidth: 4,  // 设置进度条的粗细，默认是 4.0
-                          color: Colors.black,
-                        ),
+                      width: 60, // 设置进度条的宽度
+                      height: 60, // 设置进度条的高度
+                      child: CircularProgressIndicator(
+                        strokeWidth: 4, // 设置进度条的粗细，默认是 4.0
+                        color: Colors.black,
                       ),
-                   
-                   
+                    ),
                   ],
                 ),
               )
@@ -265,30 +292,31 @@ class _HomeScreenState extends State<HomeScreen> with WindowListener {
                     groupAlignment: 0.0, // 按钮上下居中
                     backgroundColor: const Color(0xFFF9F9F9), // 设置背景颜色为 #F9F9F9
                     useIndicator: true, // 启用指示器
-                    indicatorColor: const Color.fromARGB(255, 237, 237, 237), // 选中项的背景颜色
-                    destinations: const [
+                    indicatorColor:
+                        const Color.fromARGB(255, 237, 237, 237), // 选中项的背景颜色
+                    destinations: [
                       NavigationRailDestination(
-                        icon: Icon(Icons.home_filled),
-                        selectedIcon: Icon(Icons.home_filled),
+                        icon: const Icon(Icons.home_filled),
+                        selectedIcon: const Icon(Icons.home_filled),
                         label: Text(
-                          '主页',
-                          style: TextStyle(fontSize: 13), // 调整文本大小为13
+                          context.l10n.navigationHome,
+                          style: const TextStyle(fontSize: 13), // 调整文本大小为13
                         ),
                       ),
                       NavigationRailDestination(
-                        icon: Icon(Icons.view_cozy),
-                        selectedIcon: Icon(Icons.view_cozy),
+                        icon: const Icon(Icons.view_cozy),
+                        selectedIcon: const Icon(Icons.view_cozy),
                         label: Text(
-                          '功能',
-                          style: TextStyle(fontSize: 13), // 调整文本大小为13
+                          context.l10n.navigationFeatures,
+                          style: const TextStyle(fontSize: 13), // 调整文本大小为13
                         ),
                       ),
                       NavigationRailDestination(
-                        icon: Icon(Icons.settings),
-                        selectedIcon: Icon(Icons.settings),
+                        icon: const Icon(Icons.settings),
+                        selectedIcon: const Icon(Icons.settings),
                         label: Text(
-                          '关于',
-                          style: TextStyle(fontSize: 13), // 调整文本大小为13
+                          context.l10n.navigationAbout,
+                          style: const TextStyle(fontSize: 13), // 调整文本大小为13
                         ),
                       ),
                     ],
