@@ -6,6 +6,7 @@ import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:intl/intl.dart' as intl;
 
 import 'app_localizations_en.dart';
+import 'app_localizations_ja.dart';
 import 'app_localizations_zh.dart';
 
 // ignore_for_file: type=lint
@@ -92,6 +93,7 @@ abstract class AppLocalizations {
   /// A list of this localizations delegate's supported locales.
   static const List<Locale> supportedLocales = <Locale>[
     Locale('en'),
+    Locale('ja'),
     Locale('zh')
   ];
 
@@ -172,6 +174,72 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'This project is free—thank you for supporting us! (❁´◡`❁)'**
   String get settingsDonateSubtitle;
+
+  /// No description provided for @donationTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Support us'**
+  String get donationTitle;
+
+  /// No description provided for @donationChooseAmountLabel.
+  ///
+  /// In en, this message translates to:
+  /// **'Choose an amount:'**
+  String get donationChooseAmountLabel;
+
+  /// No description provided for @donationAmountLabel.
+  ///
+  /// In en, this message translates to:
+  /// **'¥{amount}'**
+  String donationAmountLabel(Object amount);
+
+  /// No description provided for @donationAmountCustom.
+  ///
+  /// In en, this message translates to:
+  /// **'Custom'**
+  String get donationAmountCustom;
+
+  /// No description provided for @donationSelectedAmount.
+  ///
+  /// In en, this message translates to:
+  /// **'¥{amount}'**
+  String donationSelectedAmount(Object amount);
+
+  /// No description provided for @donationSelectedAmountCustom.
+  ///
+  /// In en, this message translates to:
+  /// **'Custom amount'**
+  String get donationSelectedAmountCustom;
+
+  /// No description provided for @donationPaymentAlipay.
+  ///
+  /// In en, this message translates to:
+  /// **'Alipay'**
+  String get donationPaymentAlipay;
+
+  /// No description provided for @donationPaymentWeChat.
+  ///
+  /// In en, this message translates to:
+  /// **'WeChat'**
+  String get donationPaymentWeChat;
+
+  /// No description provided for @donationThanksMessage.
+  ///
+  /// In en, this message translates to:
+  /// **'Our team sincerely thanks you for your support.'**
+  String get donationThanksMessage;
+
+  /// No description provided for @donationNetworkErrorTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Network connection error'**
+  String get donationNetworkErrorTitle;
+
+  /// No description provided for @donationNetworkErrorBody.
+  ///
+  /// In en, this message translates to:
+  /// **'Unable to reach the server—please check your connection.'**
+  String get donationNetworkErrorBody;
 
   /// No description provided for @settingsFeedbackTitle.
   ///
@@ -268,6 +336,252 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'English'**
   String get languageEnglish;
+
+  /// No description provided for @wirelessPageTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Wireless connection'**
+  String get wirelessPageTitle;
+
+  /// No description provided for @wirelessHeaderIntro.
+  ///
+  /// In en, this message translates to:
+  /// **'Enter the device IP address and port'**
+  String get wirelessHeaderIntro;
+
+  /// No description provided for @wirelessIpLabel.
+  ///
+  /// In en, this message translates to:
+  /// **'Device IP address'**
+  String get wirelessIpLabel;
+
+  /// No description provided for @wirelessPortLabel.
+  ///
+  /// In en, this message translates to:
+  /// **'Port'**
+  String get wirelessPortLabel;
+
+  /// No description provided for @wirelessConnectButton.
+  ///
+  /// In en, this message translates to:
+  /// **'Connect'**
+  String get wirelessConnectButton;
+
+  /// No description provided for @wirelessErrorTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Error'**
+  String get wirelessErrorTitle;
+
+  /// No description provided for @wirelessSuccessTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Success'**
+  String get wirelessSuccessTitle;
+
+  /// No description provided for @wirelessInputIncomplete.
+  ///
+  /// In en, this message translates to:
+  /// **'Please enter both IP address and port'**
+  String get wirelessInputIncomplete;
+
+  /// No description provided for @wirelessConnectSuccess.
+  ///
+  /// In en, this message translates to:
+  /// **'Connected to {target}'**
+  String wirelessConnectSuccess(Object target);
+
+  /// No description provided for @wirelessConnectFailure.
+  ///
+  /// In en, this message translates to:
+  /// **'Connection failed: {details}'**
+  String wirelessConnectFailure(Object details);
+
+  /// No description provided for @wirelessExecutionFailed.
+  ///
+  /// In en, this message translates to:
+  /// **'Execution failed: {details}'**
+  String wirelessExecutionFailed(Object details);
+
+  /// No description provided for @faqPageTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Frequently Asked Questions'**
+  String get faqPageTitle;
+
+  /// No description provided for @faqMenuTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Contents'**
+  String get faqMenuTitle;
+
+  /// No description provided for @faqMenuDeviceCannotConnect.
+  ///
+  /// In en, this message translates to:
+  /// **'Device cannot connect'**
+  String get faqMenuDeviceCannotConnect;
+
+  /// No description provided for @faqMenuHowEnableUsbDebug.
+  ///
+  /// In en, this message translates to:
+  /// **'How to enable USB debugging'**
+  String get faqMenuHowEnableUsbDebug;
+
+  /// No description provided for @faqMenuWhyAdbDebug.
+  ///
+  /// In en, this message translates to:
+  /// **'Why does my device show ADB debugging'**
+  String get faqMenuWhyAdbDebug;
+
+  /// No description provided for @faqMenuHowWirelessConnect.
+  ///
+  /// In en, this message translates to:
+  /// **'How to connect wirelessly'**
+  String get faqMenuHowWirelessConnect;
+
+  /// No description provided for @faqMenuHowGetWirelessIpPort.
+  ///
+  /// In en, this message translates to:
+  /// **'How to get wireless debugging IP and port'**
+  String get faqMenuHowGetWirelessIpPort;
+
+  /// No description provided for @faqMenuFeatureNoResponse.
+  ///
+  /// In en, this message translates to:
+  /// **'Some features don\'t respond'**
+  String get faqMenuFeatureNoResponse;
+
+  /// No description provided for @faqQ1Title.
+  ///
+  /// In en, this message translates to:
+  /// **'1. Device cannot connect or be detected'**
+  String get faqQ1Title;
+
+  /// No description provided for @faqQ1Body.
+  ///
+  /// In en, this message translates to:
+  /// **'Make sure USB debugging is enabled and authorize USB debugging when connecting. This is required for Uotan WearBox to communicate with your device.'**
+  String get faqQ1Body;
+
+  /// No description provided for @faqQ2Title.
+  ///
+  /// In en, this message translates to:
+  /// **'2. How to enable USB debugging'**
+  String get faqQ2Title;
+
+  /// No description provided for @faqQ2Intro.
+  ///
+  /// In en, this message translates to:
+  /// **'Follow these steps:'**
+  String get faqQ2Intro;
+
+  /// No description provided for @faqQ2Step1.
+  ///
+  /// In en, this message translates to:
+  /// **'• Open <b>Settings</b> and tap <b>About</b>.'**
+  String get faqQ2Step1;
+
+  /// No description provided for @faqQ2Step2.
+  ///
+  /// In en, this message translates to:
+  /// **'• Tap <b>Build number</b> several times until developer mode is enabled.'**
+  String get faqQ2Step2;
+
+  /// No description provided for @faqQ2Step3.
+  ///
+  /// In en, this message translates to:
+  /// **'• Go back to <b>Settings</b> and open <b>Developer options</b>.'**
+  String get faqQ2Step3;
+
+  /// No description provided for @faqQ2Step4.
+  ///
+  /// In en, this message translates to:
+  /// **'• Enable <b>USB debugging</b>.'**
+  String get faqQ2Step4;
+
+  /// No description provided for @faqQ3Title.
+  ///
+  /// In en, this message translates to:
+  /// **'3. Why does my device show ADB debugging'**
+  String get faqQ3Title;
+
+  /// No description provided for @faqQ3Body.
+  ///
+  /// In en, this message translates to:
+  /// **'ADB debugging and USB debugging are essentially the same. ADB communicates with the device over USB, so there is no difference.'**
+  String get faqQ3Body;
+
+  /// No description provided for @faqQ4Title.
+  ///
+  /// In en, this message translates to:
+  /// **'4. How to connect wirelessly'**
+  String get faqQ4Title;
+
+  /// No description provided for @faqQ4Intro.
+  ///
+  /// In en, this message translates to:
+  /// **'To enable wireless debugging, ensure the following:'**
+  String get faqQ4Intro;
+
+  /// No description provided for @faqQ4Bullet1.
+  ///
+  /// In en, this message translates to:
+  /// **'• Your computer and watch are on the same local network (2.4G or 5G is fine; they must be on the same IP subnet).'**
+  String get faqQ4Bullet1;
+
+  /// No description provided for @faqQ4Bullet2.
+  ///
+  /// In en, this message translates to:
+  /// **'• In Developer options on the watch, enable <b>Wireless debugging</b> or <b>WLAN debugging</b>.'**
+  String get faqQ4Bullet2;
+
+  /// No description provided for @faqQ4Conclusion.
+  ///
+  /// In en, this message translates to:
+  /// **'After enabling wireless debugging, you can operate the watch wirelessly with Uotan WearBox.'**
+  String get faqQ4Conclusion;
+
+  /// No description provided for @faqQ5Title.
+  ///
+  /// In en, this message translates to:
+  /// **'5. How to get the wireless debugging IP and port'**
+  String get faqQ5Title;
+
+  /// No description provided for @faqQ5Intro.
+  ///
+  /// In en, this message translates to:
+  /// **'You can obtain them as follows:'**
+  String get faqQ5Intro;
+
+  /// No description provided for @faqQ5Body.
+  ///
+  /// In en, this message translates to:
+  /// **'Open Developer options on the watch and tap Wireless debugging information to view the current IP address and port.'**
+  String get faqQ5Body;
+
+  /// No description provided for @faqQ6Title.
+  ///
+  /// In en, this message translates to:
+  /// **'6. Some features don\'t respond'**
+  String get faqQ6Title;
+
+  /// No description provided for @faqQ6Body1.
+  ///
+  /// In en, this message translates to:
+  /// **'Some features may be unavailable due to OEM system limitations, especially on customized Android systems. Uotan WearBox supports about 90% of features on customized Android, e.g., OPPO Watch, Meizu Watch.'**
+  String get faqQ6Body1;
+
+  /// No description provided for @faqQ6Body2.
+  ///
+  /// In en, this message translates to:
+  /// **'WearOS by Google devices support about 99% of features, e.g., Pixel Watch, Mi Watch, TicWatch. You can try the operation multiple times.'**
+  String get faqQ6Body2;
+
+  /// No description provided for @faqQ6Body3.
+  ///
+  /// In en, this message translates to:
+  /// **'If a feature doesn\'t work, try again or reconnect the device.'**
+  String get faqQ6Body3;
 
   /// No description provided for @feedbackEmailSubject.
   ///
@@ -1480,6 +1794,138 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Unable to check device connection: {error}'**
   String typeConnectionCheckFailure(Object error);
+
+  /// No description provided for @viewOnGithub.
+  ///
+  /// In en, this message translates to:
+  /// **'Github'**
+  String get viewOnGithub;
+
+  /// No description provided for @githubDescription.
+  ///
+  /// In en, this message translates to:
+  /// **'Open-sourced under the APGL-3.0 License'**
+  String get githubDescription;
+
+  /// No description provided for @driverTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'USB Driver Installation Guide'**
+  String get driverTitle;
+
+  /// No description provided for @driverIntro.
+  ///
+  /// In en, this message translates to:
+  /// **'This tutorial applies only to Windows. Users on macOS or Linux do not need to install the USB driver.'**
+  String get driverIntro;
+
+  /// No description provided for @driverStep1Title.
+  ///
+  /// In en, this message translates to:
+  /// **'1. Download the USB driver'**
+  String get driverStep1Title;
+
+  /// No description provided for @driverStep1LinkPrefix.
+  ///
+  /// In en, this message translates to:
+  /// **'Open the'**
+  String get driverStep1LinkPrefix;
+
+  /// No description provided for @driverStep1LinkText.
+  ///
+  /// In en, this message translates to:
+  /// **'Android USB Driver'**
+  String get driverStep1LinkText;
+
+  /// No description provided for @driverStep1LinkSuffix.
+  ///
+  /// In en, this message translates to:
+  /// **'download page'**
+  String get driverStep1LinkSuffix;
+
+  /// No description provided for @driverStep1DownloadInstructions.
+  ///
+  /// In en, this message translates to:
+  /// **'Click \"Download the Google USB Driver ZIP file (ZIP)\", accept the license, then download \"usb_driver_r13-windows.zip\" and extract it anywhere.'**
+  String get driverStep1DownloadInstructions;
+
+  /// No description provided for @driverStep2Title.
+  ///
+  /// In en, this message translates to:
+  /// **'2. Open Device Manager'**
+  String get driverStep2Title;
+
+  /// No description provided for @driverStep2Description.
+  ///
+  /// In en, this message translates to:
+  /// **'Open Settings and go to System Information, then open Device Manager.'**
+  String get driverStep2Description;
+
+  /// No description provided for @driverStep3Title.
+  ///
+  /// In en, this message translates to:
+  /// **'3. Connect your device'**
+  String get driverStep3Title;
+
+  /// No description provided for @driverStep3Description.
+  ///
+  /// In en, this message translates to:
+  /// **'Connect your device to the computer via cable or charging dock, then find and expand Other devices or Portable devices in Device Manager.'**
+  String get driverStep3Description;
+
+  /// No description provided for @driverStep4Title.
+  ///
+  /// In en, this message translates to:
+  /// **'4. Update the driver'**
+  String get driverStep4Title;
+
+  /// No description provided for @driverStep4Description.
+  ///
+  /// In en, this message translates to:
+  /// **'Right-click the device entry and choose Update driver.'**
+  String get driverStep4Description;
+
+  /// No description provided for @driverStep5Title.
+  ///
+  /// In en, this message translates to:
+  /// **'5. In the dialog that appears, choose \"Browse my computer for drivers\"'**
+  String get driverStep5Title;
+
+  /// No description provided for @driverStep6Title.
+  ///
+  /// In en, this message translates to:
+  /// **'6. Select the driver folder'**
+  String get driverStep6Title;
+
+  /// No description provided for @driverStep6Description.
+  ///
+  /// In en, this message translates to:
+  /// **'Click Browse and locate the USB driver folder you extracted, \"usb_driver_r13-windows\".'**
+  String get driverStep6Description;
+
+  /// No description provided for @driverStep7Title.
+  ///
+  /// In en, this message translates to:
+  /// **'7. Install the driver'**
+  String get driverStep7Title;
+
+  /// No description provided for @driverStep7Description.
+  ///
+  /// In en, this message translates to:
+  /// **'Click Next to install the driver and finish the setup.'**
+  String get driverStep7Description;
+
+  /// No description provided for @driverUrlLaunchError.
+  ///
+  /// In en, this message translates to:
+  /// **'Unable to open link: {url}'**
+  String driverUrlLaunchError(Object url);
+
+  /// No description provided for @tutorialTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'USB debugging setup guide (applicable to most devices)'**
+  String get tutorialTitle;
 }
 
 class _AppLocalizationsDelegate extends LocalizationsDelegate<AppLocalizations> {
@@ -1491,7 +1937,7 @@ class _AppLocalizationsDelegate extends LocalizationsDelegate<AppLocalizations> 
   }
 
   @override
-  bool isSupported(Locale locale) => <String>['en', 'zh'].contains(locale.languageCode);
+  bool isSupported(Locale locale) => <String>['en', 'ja', 'zh'].contains(locale.languageCode);
 
   @override
   bool shouldReload(_AppLocalizationsDelegate old) => false;
@@ -1503,6 +1949,7 @@ AppLocalizations lookupAppLocalizations(Locale locale) {
   // Lookup logic when only language code is specified.
   switch (locale.languageCode) {
     case 'en': return AppLocalizationsEn();
+    case 'ja': return AppLocalizationsJa();
     case 'zh': return AppLocalizationsZh();
   }
 

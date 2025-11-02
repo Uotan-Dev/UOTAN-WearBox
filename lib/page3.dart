@@ -50,15 +50,15 @@ class Page3 extends StatelessWidget {
           );
         },
       ),
-      _SettingOption(
-        iconPath:
-            'assets/icons/feedback_24dp_5F6368_FILL0_wght400_GRAD0_opsz24.png',
-        title: l10n.settingsFeedbackTitle,
-        subtitle: l10n.settingsFeedbackSubtitle,
-        onTap: () {
-          _launchEmail(l10n.feedbackEmailSubject, l10n.feedbackEmailBody);
-        },
-      ),
+      //_SettingOption(
+      //  iconPath:
+      //      'assets/icons/feedback_24dp_5F6368_FILL0_wght400_GRAD0_opsz24.png',
+      //  title: l10n.settingsFeedbackTitle,
+      //  subtitle: l10n.settingsFeedbackSubtitle,
+      //  onTap: () {
+      //    _launchEmail(l10n.feedbackEmailSubject, l10n.feedbackEmailBody);
+      //  },
+      //),
     ];
 
     final agreementOptions = [
@@ -104,6 +104,14 @@ class Page3 extends StatelessWidget {
         subtitle: l10n.settingsCommunitySubtitle,
         onTap: () {
           _launchURL('https://www.uotan.cn');
+        },
+      ),
+      _SettingOption(
+        iconPath: 'assets/icons/github-mark.png',
+        title: l10n.viewOnGithub,
+        subtitle: l10n.githubDescription,
+        onTap: () {
+          _launchURL('https://github.com/Uotan-Dev/UOTAN-WearBox');
         },
       ),
     ];
@@ -178,7 +186,11 @@ class Page3 extends StatelessWidget {
                 const SizedBox(height: 10),
                 _buildSectionTitle(l10n.settingsSectionFaq),
                 const SizedBox(height: 2),
+
+                // 问题反馈
                 ..._buildOptions(context, faqOptions),
+                // 问题反馈
+
                 const SizedBox(height: 10),
                 _buildSectionTitle(l10n.settingsSectionAgreements),
                 const SizedBox(height: 2),
@@ -255,6 +267,10 @@ class Page3 extends StatelessWidget {
               const DropdownMenuItem(
                 value: 'en',
                 child: Text('English'),
+              ),
+              const DropdownMenuItem(
+                value: 'ja',
+                child: Text('日本語'),
               ),
             ],
           ),

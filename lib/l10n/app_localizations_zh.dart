@@ -50,6 +50,43 @@ class AppLocalizationsZh extends AppLocalizations {
   String get settingsDonateSubtitle => '本项目为免费项目，感谢捐赠支持 (❁´◡`❁)';
 
   @override
+  String get donationTitle => '支持我们';
+
+  @override
+  String get donationChooseAmountLabel => '选择金额：';
+
+  @override
+  String donationAmountLabel(Object amount) {
+    return '$amount元';
+  }
+
+  @override
+  String get donationAmountCustom => '自定义';
+
+  @override
+  String donationSelectedAmount(Object amount) {
+    return '￥$amount';
+  }
+
+  @override
+  String get donationSelectedAmountCustom => '自定义金额';
+
+  @override
+  String get donationPaymentAlipay => '支付宝';
+
+  @override
+  String get donationPaymentWeChat => '微信';
+
+  @override
+  String get donationThanksMessage => '开发团队衷心感谢您的捐赠';
+
+  @override
+  String get donationNetworkErrorTitle => '网络连接错误';
+
+  @override
+  String get donationNetworkErrorBody => '无法连接服务器，请检查您的网络连接。';
+
+  @override
   String get settingsFeedbackTitle => '问题反馈';
 
   @override
@@ -96,6 +133,135 @@ class AppLocalizationsZh extends AppLocalizations {
 
   @override
   String get languageEnglish => 'English';
+
+  @override
+  String get wirelessPageTitle => '无线连接设备';
+
+  @override
+  String get wirelessHeaderIntro => '输入设备 IP 地址和端口';
+
+  @override
+  String get wirelessIpLabel => '设备 IP 地址';
+
+  @override
+  String get wirelessPortLabel => '端口号';
+
+  @override
+  String get wirelessConnectButton => '连接设备';
+
+  @override
+  String get wirelessErrorTitle => '错误';
+
+  @override
+  String get wirelessSuccessTitle => '成功';
+
+  @override
+  String get wirelessInputIncomplete => '请填写完整的 IP 地址和端口号';
+
+  @override
+  String wirelessConnectSuccess(Object target) {
+    return '设备已成功连接到 $target';
+  }
+
+  @override
+  String wirelessConnectFailure(Object details) {
+    return '连接失败: $details';
+  }
+
+  @override
+  String wirelessExecutionFailed(Object details) {
+    return '执行失败: $details';
+  }
+
+  @override
+  String get faqPageTitle => '常见问题';
+
+  @override
+  String get faqMenuTitle => '目录';
+
+  @override
+  String get faqMenuDeviceCannotConnect => '设备无法连接';
+
+  @override
+  String get faqMenuHowEnableUsbDebug => '如何启用 USB 调试';
+
+  @override
+  String get faqMenuWhyAdbDebug => '为什么我的设备显示的是 ADB 调试';
+
+  @override
+  String get faqMenuHowWirelessConnect => '如何通过无线连接';
+
+  @override
+  String get faqMenuHowGetWirelessIpPort => '如何获取无线调试IP地址和端口号';
+
+  @override
+  String get faqMenuFeatureNoResponse => '部分功能没反应';
+
+  @override
+  String get faqQ1Title => '1. 设备无法连接或无法检测到设备';
+
+  @override
+  String get faqQ1Body => '请确保已启用 USB 调试功能，并在设备连接时授权 USB 调试权限。这是柚坛手表助手与您的设备进行通信的必要条件。';
+
+  @override
+  String get faqQ2Title => '2. 如何启用 USB 调试模式';
+
+  @override
+  String get faqQ2Intro => '请按照以下步骤操作：';
+
+  @override
+  String get faqQ2Step1 => '• 进入 <b>系统设置</b>，找到并点击 <b>关于本机</b>。';
+
+  @override
+  String get faqQ2Step2 => '• 连续点击 <b>版本号</b> 数次，直至提示已进入开发者模式。';
+
+  @override
+  String get faqQ2Step3 => '• 返回 <b>设置</b> 主界面，进入 <b>开发者选项</b>。';
+
+  @override
+  String get faqQ2Step4 => '• 在开发者选项中，启用 <b>USB 调试</b> 功能。';
+
+  @override
+  String get faqQ3Title => '3. 为什么我的设备显示的是 ADB 调试';
+
+  @override
+  String get faqQ3Body => 'ADB 调试 与 USB 调试 实质上是相同的功能。ADB 调试是通过 USB 接口与设备进行通信和调试的方式，因此两者没有区别。';
+
+  @override
+  String get faqQ4Title => '4. 如何通过无线连接';
+
+  @override
+  String get faqQ4Intro => '要实现设备的无线调试连接，请确保以下设置正确：';
+
+  @override
+  String get faqQ4Bullet1 => '• 确保您的计算机和手表设备处于同一局域网内（无论是 2.4GHz 还是 5GHz 网络，关键在于设备需位于相同的 IP 网段内）。';
+
+  @override
+  String get faqQ4Bullet2 => '• 在手表的开发者选项中，启用 <b>无线调试</b> 或 <b>WLAN 调试</b> 功能。';
+
+  @override
+  String get faqQ4Conclusion => '启用无线调试选项后，即可通过柚坛手表助手与手表进行无线操作。';
+
+  @override
+  String get faqQ5Title => '5. 如何获取无线调试IP地址和端口号';
+
+  @override
+  String get faqQ5Intro => '您可以通过以下步骤获取：';
+
+  @override
+  String get faqQ5Body => '进入手表的开发者选项，找到并点击“无线调试信息”，即可查看当前设备的 IP 地址和端口号。';
+
+  @override
+  String get faqQ6Title => '6. 部分功能没反应';
+
+  @override
+  String get faqQ6Body1 => '部分功能可能会因为不同品牌系统的限制而不可用，特别是定制安卓系统。柚坛手表助手支持90%的定制安卓系统功能，典型设备如 OPPO Watch、Meizu Watch 等。';
+
+  @override
+  String get faqQ6Body2 => 'WearOS by Google 系统设备支持 99% 的功能，典型设备如 Pixel Watch、Mi Watch、TicWatch 等。您可以多次重试操作。';
+
+  @override
+  String get faqQ6Body3 => '如遇某功能无效，您可以重试操作或重新连接设备。';
 
   @override
   String get feedbackEmailSubject => '柚坛手表助手-问题反馈';
@@ -830,4 +996,72 @@ class AppLocalizationsZh extends AppLocalizations {
   String typeConnectionCheckFailure(Object error) {
     return '无法检测设备连接状态: $error';
   }
+
+  @override
+  String get viewOnGithub => 'Github';
+
+  @override
+  String get githubDescription => '在 APGL-3.0 License 下开源';
+
+  @override
+  String get driverTitle => 'USB 驱动安装指南';
+
+  @override
+  String get driverIntro => '本教程仅适用于 Windows 系统，使用 MacOS 或 Linux 系统的用户无需安装 USB 驱动';
+
+  @override
+  String get driverStep1Title => '1. 下载 USB 驱动程序';
+
+  @override
+  String get driverStep1LinkPrefix => '进入';
+
+  @override
+  String get driverStep1LinkText => 'Android USB 驱动';
+
+  @override
+  String get driverStep1LinkSuffix => '下载页面（此网址可在中国大陆直接访问）';
+
+  @override
+  String get driverStep1DownloadInstructions => '点击“Download the Google USB Driver ZIP file (ZIP)”同意许可后下载“usb_driver_r13-windows.zip”并解压至任意位置。';
+
+  @override
+  String get driverStep2Title => '2. 打开“设备管理器”';
+
+  @override
+  String get driverStep2Description => '打开设置并进入系统信息，打开“设备管理器”。';
+
+  @override
+  String get driverStep3Title => '3. 连接设备';
+
+  @override
+  String get driverStep3Description => '将您的设备通过数据线/充电底座连接电脑，在设备管理器中找到其它设备或便携式设备选项并展开。';
+
+  @override
+  String get driverStep4Title => '4. 更新驱动程序';
+
+  @override
+  String get driverStep4Description => '右键单击您连接的设备的名称，然后选择“更新驱动程序”。';
+
+  @override
+  String get driverStep5Title => '5. 在弹出的窗口中选择“浏览我的电脑以查找驱动程序”';
+
+  @override
+  String get driverStep6Title => '6. 选择驱动程序';
+
+  @override
+  String get driverStep6Description => '点击“浏览”然后找到您刚下载的 USB 驱动程序文件夹“usb_driver_r13-windows”。';
+
+  @override
+  String get driverStep7Title => '7. 安装驱动程序';
+
+  @override
+  String get driverStep7Description => '点击“下一步”安装驱动程序，随后安装完成。';
+
+  @override
+  String driverUrlLaunchError(Object url) {
+    return '无法打开链接: $url';
+  }
+
+  @override
+  String get tutorialTitle => '开启USB调试教程（适用于多数设备）';
 }

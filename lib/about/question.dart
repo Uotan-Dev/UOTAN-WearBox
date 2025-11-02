@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:window_manager/window_manager.dart';
+import 'package:watch_assistant/l10n/l10n.dart';
 
 class FAQPage extends StatefulWidget {
   const FAQPage({super.key});
@@ -31,6 +32,38 @@ class _FAQPageState extends State<FAQPage> {
     }
   }
 
+  // 将包含 <b>...</b> 标记的本地化字符串渲染为富文本
+  Widget _buildRichText(String text, {double fontSize = 16}) {
+    final normalStyle = TextStyle(fontSize: fontSize);
+    final boldStyle = TextStyle(fontSize: fontSize, fontWeight: FontWeight.bold);
+
+    final spans = <TextSpan>[];
+    int start = 0;
+    while (true) {
+      final open = text.indexOf('<b>', start);
+      if (open == -1) {
+        if (start < text.length) {
+          spans.add(TextSpan(text: text.substring(start), style: normalStyle));
+        }
+        break;
+      }
+      if (open > start) {
+        spans.add(TextSpan(text: text.substring(start, open), style: normalStyle));
+      }
+      final close = text.indexOf('</b>', open + 3);
+      if (close == -1) {
+        // 若缺少结束标签，将剩余部分按普通文本处理
+        spans.add(TextSpan(text: text.substring(open), style: normalStyle));
+        break;
+      }
+      final boldText = text.substring(open + 3, close);
+      spans.add(TextSpan(text: boldText, style: boldStyle));
+      start = close + 4;
+    }
+
+    return Text.rich(TextSpan(children: spans));
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -57,9 +90,9 @@ class _FAQPageState extends State<FAQPage> {
                         },
                       ),
                       const SizedBox(width: 5),
-                      const Text(
-                        '常见问题', // 页面标题
-                        style: TextStyle(
+                      Text(
+                        context.l10n.faqPageTitle,
+                        style: const TextStyle(
                           color: Colors.black,
                           fontSize: 26,
                           fontFamily: 'MiSansLight', // 使用自定义字体
@@ -89,13 +122,13 @@ class _FAQPageState extends State<FAQPage> {
           padding: EdgeInsets.zero,
           children: <Widget>[
             
-            const DrawerHeader(
+            DrawerHeader(
               decoration: BoxDecoration(
                 color: Colors.white,
               ),
               child: Text(
-                '目录',
-                style: TextStyle(
+                context.l10n.faqMenuTitle,
+                style: const TextStyle(
                   color: Color.fromARGB(255, 0, 0, 0),
                   fontSize: 24,
                 ),
@@ -103,7 +136,7 @@ class _FAQPageState extends State<FAQPage> {
             ),
             // 点击菜单滚动到第一个问题
             ListTile(
-              title: const Text('设备无法连接'),
+              title: Text(context.l10n.faqMenuDeviceCannotConnect),
               onTap: () {
                 Navigator.pop(context); // 关闭 Drawer
                 _scrollToSection(_keyQuestion1); // 滚动到第一个问题
@@ -111,7 +144,7 @@ class _FAQPageState extends State<FAQPage> {
             ),
             // 点击菜单滚动到第二个问题
             ListTile(
-              title: const Text('如何启用 USB 调试'),
+              title: Text(context.l10n.faqMenuHowEnableUsbDebug),
               onTap: () {
                 Navigator.pop(context); // 关闭 Drawer
                 _scrollToSection(_keyQuestion2); // 滚动到第二个问题
@@ -119,7 +152,7 @@ class _FAQPageState extends State<FAQPage> {
             ),
             // 点击菜单滚动到第三个问题
             ListTile(
-              title: const Text('为什么我的设备显示的是 ADB 调试'),
+              title: Text(context.l10n.faqMenuWhyAdbDebug),
               onTap: () {
                 Navigator.pop(context); // 关闭 Drawer
                 _scrollToSection(_keyQuestion3); // 滚动到第三个问题
@@ -127,7 +160,7 @@ class _FAQPageState extends State<FAQPage> {
             ),
             // 点击菜单滚动到第四个问题
             ListTile(
-              title: const Text('如何通过无线连接'),
+              title: Text(context.l10n.faqMenuHowWirelessConnect),
               onTap: () {
                 Navigator.pop(context); // 关闭 Drawer
                 _scrollToSection(_keyQuestion4); // 滚动到第四个问题
@@ -135,7 +168,7 @@ class _FAQPageState extends State<FAQPage> {
             ),
             // 点击菜单滚动到第五个问题
             ListTile(
-              title: const Text('如何获取无线调试IP地址和端口号'),
+              title: Text(context.l10n.faqMenuHowGetWirelessIpPort),
               onTap: () {
                 Navigator.pop(context); // 关闭 Drawer
                 _scrollToSection(_keyQuestion5); // 滚动到第五个问题
@@ -143,7 +176,7 @@ class _FAQPageState extends State<FAQPage> {
             ),
             // 点击菜单滚动到第六个问题
             ListTile(
-              title: const Text('部分功能没反应'),
+              title: Text(context.l10n.faqMenuFeatureNoResponse),
               onTap: () {
                 Navigator.pop(context); // 关闭 Drawer
                 _scrollToSection(_keyQuestion6); // 滚动到第六个问题
@@ -162,19 +195,19 @@ class _FAQPageState extends State<FAQPage> {
             // 第一个问题
             Container(
               key: _keyQuestion1, // 关键点，用于滚动到这里
-              child: const Column(
+              child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   Text(
-                    '1. 设备无法连接或无法检测到设备',
-                    style: TextStyle(
+                    context.l10n.faqQ1Title,
+                    style: const TextStyle(
                       fontSize: 20,
                     ),
                   ),
                   SizedBox(height: 6),
                   Text(
-                    '请确保已启用 USB 调试功能，并在设备连接时授权 USB 调试权限。这是柚坛手表助手与您的设备进行通信的必要条件。',
-                    style: TextStyle(
+                    context.l10n.faqQ1Body,
+                    style: const TextStyle(
                       fontSize: 16,
                     ),
                   ),
@@ -185,55 +218,27 @@ class _FAQPageState extends State<FAQPage> {
             // 第二个问题
             Container(
               key: _keyQuestion2,
-              child: const Column(
+              child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   Text(
-                    '2. 如何启用 USB 调试模式',
-                    style: TextStyle(
+                    context.l10n.faqQ2Title,
+                    style: const TextStyle(
                       fontSize: 20,
                     ),
                   ),
                   SizedBox(height: 6),
                   Text(
-                    '请按照以下步骤操作：',
-                    style: TextStyle(
+                    context.l10n.faqQ2Intro,
+                    style: const TextStyle(
                       fontSize: 16,
                     ),
                   ),
                   SizedBox(height: 6),
-                  Row(
-                    children: [
-                      Text('• 进入 ', style: TextStyle(fontSize: 16)),
-                      Text('系统设置', style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold)),
-                      Text('，找到并点击 ', style: TextStyle(fontSize: 16)),
-                      Text('关于本机', style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold)),
-                      Text('。', style: TextStyle(fontSize: 16)),
-                    ],
-                  ),
-                  Row(
-                    children: [
-                      Text('• 连续点击 ', style: TextStyle(fontSize: 16)),
-                      Text('版本号', style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold)),
-                      Text(' 数次，直至提示已进入开发者模式。', style: TextStyle(fontSize: 16)),
-                    ],
-                  ),
-                  Row(
-                    children: [
-                      Text('• 返回 ', style: TextStyle(fontSize: 16)),
-                      Text('设置', style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold)),
-                      Text(' 主界面，进入 ', style: TextStyle(fontSize: 16)),
-                      Text('开发者选项', style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold)),
-                      Text('。', style: TextStyle(fontSize: 16)),
-                    ],
-                  ),
-                  Row(
-                    children: [
-                      Text('• 在开发者选项中，启用 ', style: TextStyle(fontSize: 16)),
-                      Text('USB 调试', style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold)),
-                      Text(' 功能。', style: TextStyle(fontSize: 16)),
-                    ],
-                  ),
+                  _buildRichText(context.l10n.faqQ2Step1),
+                  _buildRichText(context.l10n.faqQ2Step2),
+                  _buildRichText(context.l10n.faqQ2Step3),
+                  _buildRichText(context.l10n.faqQ2Step4),
                 ],
               ),
             ),
@@ -241,19 +246,19 @@ class _FAQPageState extends State<FAQPage> {
             // 第三个问题
             Container(
               key: _keyQuestion3,
-              child: const Column(
+              child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   Text(
-                    '3. 为什么我的设备显示的是 ADB 调试',
-                    style: TextStyle(
+                    context.l10n.faqQ3Title,
+                    style: const TextStyle(
                       fontSize: 20,
                     ),
                   ),
                   SizedBox(height: 6),
                   Text(
-                    'ADB 调试 与 USB 调试 实质上是相同的功能。ADB 调试是通过 USB 接口与设备进行通信和调试的方式，因此两者没有区别。',
-                    style: TextStyle(
+                    context.l10n.faqQ3Body,
+                    style: const TextStyle(
                       fontSize: 16,
                     ),
                   ),
@@ -264,43 +269,35 @@ class _FAQPageState extends State<FAQPage> {
             // 第四个问题
             Container(
               key: _keyQuestion4,
-              child: const Column(
+              child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   Text(
-                    '4. 如何通过无线连接',
-                    style: TextStyle(
+                    context.l10n.faqQ4Title,
+                    style: const TextStyle(
                       fontSize: 20,
                     ),
                   ),
                   SizedBox(height: 6),
                   Text(
-                    '要实现设备的无线调试连接，请确保以下设置正确：',
-                    style: TextStyle(
+                    context.l10n.faqQ4Intro,
+                    style: const TextStyle(
                       fontSize: 16,
                     ),
                   ),
                   SizedBox(height: 6),
                   Text(
-                    '• 确保您的计算机和手表设备处于同一局域网内（无论是 2.4GHz 还是 5GHz 网络，关键在于设备需位于相同的 IP 网段内）。',
-                    style: TextStyle(
+                    context.l10n.faqQ4Bullet1,
+                    style: const TextStyle(
                       fontSize: 16,
                     ),
                   ),
                   SizedBox(height: 6),
-                  Row(
-                    children: [
-                      Text('• 在手表的开发者选项中，启用 ', style: TextStyle(fontSize: 16)),
-                      Text('无线调试', style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold)),
-                      Text(' 或 ', style: TextStyle(fontSize: 16)),
-                      Text('WLAN 调试', style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold)),
-                      Text(' 功能。', style: TextStyle(fontSize: 16)),
-                    ],
-                  ),
+                  _buildRichText(context.l10n.faqQ4Bullet2),
                   SizedBox(height: 6),
                   Text(
-                    '启用无线调试选项后，即可通过柚坛手表助手与手表进行无线操作。',
-                    style: TextStyle(
+                    context.l10n.faqQ4Conclusion,
+                    style: const TextStyle(
                       fontSize: 16,
                     ),
                   ),
@@ -311,26 +308,26 @@ class _FAQPageState extends State<FAQPage> {
             // 第五个问题
             Container(
               key: _keyQuestion5,
-              child: const Column(
+              child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   Text(
-                    '5. 如何获取无线调试IP地址和端口号',
-                    style: TextStyle(
+                    context.l10n.faqQ5Title,
+                    style: const TextStyle(
                       fontSize: 20,
                     ),
                   ),
                   SizedBox(height: 6),
                   Text(
-                    '您可以通过以下步骤获取：',
-                    style: TextStyle(
+                    context.l10n.faqQ5Intro,
+                    style: const TextStyle(
                       fontSize: 16,
                     ),
                   ),
                   SizedBox(height: 6),
                   Text(
-                    '进入手表的开发者选项，找到并点击“无线调试信息”，即可查看当前设备的 IP 地址和端口号。',
-                    style: TextStyle(
+                    context.l10n.faqQ5Body,
+                    style: const TextStyle(
                       fontSize: 16,
                     ),
                   ),
@@ -341,33 +338,33 @@ class _FAQPageState extends State<FAQPage> {
             // 第六个问题：新增的功能没反应问题
             Container(
               key: _keyQuestion6,
-              child: const Column(
+              child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   Text(
-                    '6. 部分功能没反应',
-                    style: TextStyle(
+                    context.l10n.faqQ6Title,
+                    style: const TextStyle(
                       fontSize: 20,
                     ),
                   ),
                   SizedBox(height: 6),
                   Text(
-                    '部分功能可能会因为不同品牌系统的限制而不可用，特别是定制安卓系统。柚坛手表助手支持90%的定制安卓系统功能，典型设备如 OPPO Watch、Meizu Watch 等。',
-                    style: TextStyle(
+                    context.l10n.faqQ6Body1,
+                    style: const TextStyle(
                       fontSize: 16,
                     ),
                   ),
                   SizedBox(height: 6),
                   Text(
-                    'WearOS by Google 系统设备支持 99% 的功能，典型设备如 Pixel Watch、Mi Watch、TicWatch 等。您可以多次重试操作。',
-                    style: TextStyle(
+                    context.l10n.faqQ6Body2,
+                    style: const TextStyle(
                       fontSize: 16,
                     ),
                   ),
                   SizedBox(height: 6),
                   Text(
-                    '如遇某功能无效，您可以重试操作或重新连接设备。',
-                    style: TextStyle(
+                    context.l10n.faqQ6Body3,
+                    style: const TextStyle(
                       fontSize: 16,
                     ),
                   ),

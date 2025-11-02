@@ -50,6 +50,43 @@ class AppLocalizationsEn extends AppLocalizations {
   String get settingsDonateSubtitle => 'This project is free—thank you for supporting us! (❁´◡`❁)';
 
   @override
+  String get donationTitle => 'Support us';
+
+  @override
+  String get donationChooseAmountLabel => 'Choose an amount:';
+
+  @override
+  String donationAmountLabel(Object amount) {
+    return '¥$amount';
+  }
+
+  @override
+  String get donationAmountCustom => 'Custom';
+
+  @override
+  String donationSelectedAmount(Object amount) {
+    return '¥$amount';
+  }
+
+  @override
+  String get donationSelectedAmountCustom => 'Custom amount';
+
+  @override
+  String get donationPaymentAlipay => 'Alipay';
+
+  @override
+  String get donationPaymentWeChat => 'WeChat';
+
+  @override
+  String get donationThanksMessage => 'Our team sincerely thanks you for your support.';
+
+  @override
+  String get donationNetworkErrorTitle => 'Network connection error';
+
+  @override
+  String get donationNetworkErrorBody => 'Unable to reach the server—please check your connection.';
+
+  @override
   String get settingsFeedbackTitle => 'Feedback';
 
   @override
@@ -96,6 +133,135 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get languageEnglish => 'English';
+
+  @override
+  String get wirelessPageTitle => 'Wireless connection';
+
+  @override
+  String get wirelessHeaderIntro => 'Enter the device IP address and port';
+
+  @override
+  String get wirelessIpLabel => 'Device IP address';
+
+  @override
+  String get wirelessPortLabel => 'Port';
+
+  @override
+  String get wirelessConnectButton => 'Connect';
+
+  @override
+  String get wirelessErrorTitle => 'Error';
+
+  @override
+  String get wirelessSuccessTitle => 'Success';
+
+  @override
+  String get wirelessInputIncomplete => 'Please enter both IP address and port';
+
+  @override
+  String wirelessConnectSuccess(Object target) {
+    return 'Connected to $target';
+  }
+
+  @override
+  String wirelessConnectFailure(Object details) {
+    return 'Connection failed: $details';
+  }
+
+  @override
+  String wirelessExecutionFailed(Object details) {
+    return 'Execution failed: $details';
+  }
+
+  @override
+  String get faqPageTitle => 'Frequently Asked Questions';
+
+  @override
+  String get faqMenuTitle => 'Contents';
+
+  @override
+  String get faqMenuDeviceCannotConnect => 'Device cannot connect';
+
+  @override
+  String get faqMenuHowEnableUsbDebug => 'How to enable USB debugging';
+
+  @override
+  String get faqMenuWhyAdbDebug => 'Why does my device show ADB debugging';
+
+  @override
+  String get faqMenuHowWirelessConnect => 'How to connect wirelessly';
+
+  @override
+  String get faqMenuHowGetWirelessIpPort => 'How to get wireless debugging IP and port';
+
+  @override
+  String get faqMenuFeatureNoResponse => 'Some features don\'t respond';
+
+  @override
+  String get faqQ1Title => '1. Device cannot connect or be detected';
+
+  @override
+  String get faqQ1Body => 'Make sure USB debugging is enabled and authorize USB debugging when connecting. This is required for Uotan WearBox to communicate with your device.';
+
+  @override
+  String get faqQ2Title => '2. How to enable USB debugging';
+
+  @override
+  String get faqQ2Intro => 'Follow these steps:';
+
+  @override
+  String get faqQ2Step1 => '• Open <b>Settings</b> and tap <b>About</b>.';
+
+  @override
+  String get faqQ2Step2 => '• Tap <b>Build number</b> several times until developer mode is enabled.';
+
+  @override
+  String get faqQ2Step3 => '• Go back to <b>Settings</b> and open <b>Developer options</b>.';
+
+  @override
+  String get faqQ2Step4 => '• Enable <b>USB debugging</b>.';
+
+  @override
+  String get faqQ3Title => '3. Why does my device show ADB debugging';
+
+  @override
+  String get faqQ3Body => 'ADB debugging and USB debugging are essentially the same. ADB communicates with the device over USB, so there is no difference.';
+
+  @override
+  String get faqQ4Title => '4. How to connect wirelessly';
+
+  @override
+  String get faqQ4Intro => 'To enable wireless debugging, ensure the following:';
+
+  @override
+  String get faqQ4Bullet1 => '• Your computer and watch are on the same local network (2.4G or 5G is fine; they must be on the same IP subnet).';
+
+  @override
+  String get faqQ4Bullet2 => '• In Developer options on the watch, enable <b>Wireless debugging</b> or <b>WLAN debugging</b>.';
+
+  @override
+  String get faqQ4Conclusion => 'After enabling wireless debugging, you can operate the watch wirelessly with Uotan WearBox.';
+
+  @override
+  String get faqQ5Title => '5. How to get the wireless debugging IP and port';
+
+  @override
+  String get faqQ5Intro => 'You can obtain them as follows:';
+
+  @override
+  String get faqQ5Body => 'Open Developer options on the watch and tap Wireless debugging information to view the current IP address and port.';
+
+  @override
+  String get faqQ6Title => '6. Some features don\'t respond';
+
+  @override
+  String get faqQ6Body1 => 'Some features may be unavailable due to OEM system limitations, especially on customized Android systems. Uotan WearBox supports about 90% of features on customized Android, e.g., OPPO Watch, Meizu Watch.';
+
+  @override
+  String get faqQ6Body2 => 'WearOS by Google devices support about 99% of features, e.g., Pixel Watch, Mi Watch, TicWatch. You can try the operation multiple times.';
+
+  @override
+  String get faqQ6Body3 => 'If a feature doesn\'t work, try again or reconnect the device.';
 
   @override
   String get feedbackEmailSubject => 'Uotan WearBox - Feedback';
@@ -830,4 +996,72 @@ class AppLocalizationsEn extends AppLocalizations {
   String typeConnectionCheckFailure(Object error) {
     return 'Unable to check device connection: $error';
   }
+
+  @override
+  String get viewOnGithub => 'Github';
+
+  @override
+  String get githubDescription => 'Open-sourced under the APGL-3.0 License';
+
+  @override
+  String get driverTitle => 'USB Driver Installation Guide';
+
+  @override
+  String get driverIntro => 'This tutorial applies only to Windows. Users on macOS or Linux do not need to install the USB driver.';
+
+  @override
+  String get driverStep1Title => '1. Download the USB driver';
+
+  @override
+  String get driverStep1LinkPrefix => 'Open the';
+
+  @override
+  String get driverStep1LinkText => 'Android USB Driver';
+
+  @override
+  String get driverStep1LinkSuffix => 'download page';
+
+  @override
+  String get driverStep1DownloadInstructions => 'Click \"Download the Google USB Driver ZIP file (ZIP)\", accept the license, then download \"usb_driver_r13-windows.zip\" and extract it anywhere.';
+
+  @override
+  String get driverStep2Title => '2. Open Device Manager';
+
+  @override
+  String get driverStep2Description => 'Open Settings and go to System Information, then open Device Manager.';
+
+  @override
+  String get driverStep3Title => '3. Connect your device';
+
+  @override
+  String get driverStep3Description => 'Connect your device to the computer via cable or charging dock, then find and expand Other devices or Portable devices in Device Manager.';
+
+  @override
+  String get driverStep4Title => '4. Update the driver';
+
+  @override
+  String get driverStep4Description => 'Right-click the device entry and choose Update driver.';
+
+  @override
+  String get driverStep5Title => '5. In the dialog that appears, choose \"Browse my computer for drivers\"';
+
+  @override
+  String get driverStep6Title => '6. Select the driver folder';
+
+  @override
+  String get driverStep6Description => 'Click Browse and locate the USB driver folder you extracted, \"usb_driver_r13-windows\".';
+
+  @override
+  String get driverStep7Title => '7. Install the driver';
+
+  @override
+  String get driverStep7Description => 'Click Next to install the driver and finish the setup.';
+
+  @override
+  String driverUrlLaunchError(Object url) {
+    return 'Unable to open link: $url';
+  }
+
+  @override
+  String get tutorialTitle => 'USB debugging setup guide (applicable to most devices)';
 }

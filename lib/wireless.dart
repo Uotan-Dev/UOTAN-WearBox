@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:window_manager/window_manager.dart';
+import 'package:watch_assistant/l10n/l10n.dart';
 import 'dart:io';
 
 class WirelessPage extends StatefulWidget {
@@ -37,9 +38,9 @@ class _WirelessPageState extends State<WirelessPage> {
                         },
                       ),
                       const SizedBox(width: 5),
-                      const Text(
-                        '无线连接设备',
-                        style: TextStyle(
+                      Text(
+                        context.l10n.wirelessPageTitle,
+                        style: const TextStyle(
                           color: Colors.black,
                           fontSize: 26,
                           fontFamily: 'MiSansLight',
@@ -58,22 +59,19 @@ class _WirelessPageState extends State<WirelessPage> {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            const Text(
-              "输入设备 IP 地址和端口",
-              style: TextStyle(fontSize: 18, ),
-            ),
+            Text(context.l10n.wirelessHeaderIntro, style: const TextStyle(fontSize: 18)),
             const SizedBox(height: 10),
             
             // IP 地址输入框
-            _buildTextField("设备 IP 地址", _ipController),
+            _buildTextField(context.l10n.wirelessIpLabel, _ipController),
             const SizedBox(height: 10),
 
             // 端口输入框
-            _buildTextField("端口号", _portController, isNumeric: true),
+            _buildTextField(context.l10n.wirelessPortLabel, _portController, isNumeric: true),
             const SizedBox(height: 20),
 
             // 连接按钮
-            _buildButton("连接设备", _connectDevice),
+            _buildButton(context.l10n.wirelessConnectButton, _connectDevice),
           ],
         ),
       ),
@@ -129,7 +127,7 @@ class _WirelessPageState extends State<WirelessPage> {
     String port = _portController.text.trim();
 
     if (ip.isEmpty || port.isEmpty) {
-      _showMessage(context, "错误", "请填写完整的 IP 地址和端口号");
+      _showMessage(context, context.l10n.wirelessErrorTitle, context.l10n.wirelessInputIncomplete);
       return;
     }
 
@@ -137,12 +135,12 @@ class _WirelessPageState extends State<WirelessPage> {
     try {
       ProcessResult result = await Process.run('adb', ['connect', target]);
       if (result.stdout.contains("connected to")) {
-        _showMessage(context, "成功", "设备已成功连接到 $target");
+        _showMessage(context, context.l10n.wirelessSuccessTitle, context.l10n.wirelessConnectSuccess(target));
       } else {
-        _showMessage(context, "错误", "连接失败: ${result.stdout}\n${result.stderr}");
+        _showMessage(context, context.l10n.wirelessErrorTitle, context.l10n.wirelessConnectFailure("${result.stdout}\n${result.stderr}"));
       }
     } catch (e) {
-      _showMessage(context, "错误", "执行失败: $e");
+      _showMessage(context, context.l10n.wirelessErrorTitle, context.l10n.wirelessExecutionFailed(e.toString()));
     }
   }
 
@@ -168,7 +166,7 @@ class _WirelessPageState extends State<WirelessPage> {
                 ),
                 foregroundColor: WidgetStateProperty.all<Color>(Colors.black),
               ),
-              child: const Text('确定'),
+              child: Text(context.l10n.dialogOk),
               onPressed: () {
                 Navigator.of(context).pop();
               },

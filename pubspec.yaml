@@ -121,6 +121,8 @@ flutter:
       - assets/icons/volunteer_activism_24dp_5F6368_FILL0_wght400_GRAD0_opsz24.png
       - assets/icons/watch_24dp_5F6368_FILL0_wght400_GRAD0_opsz24.png
       - assets/icons/uotan.png
+      - assets/icons/github-mark.png
+
       - assets/icons/globe_24dp_5F6368_FILL0_wght400_GRAD0_opsz24.png
       - assets/icons/help_24dp_5F6368_FILL0_wght400_GRAD0_opsz24.png
       - assets/icons/feedback_24dp_5F6368_FILL0_wght400_GRAD0_opsz24.png
@@ -139,15 +141,15 @@ flutter:
       - assets/icons/developer_guide_24dp_5F6368_FILL0_wght400_GRAD0_opsz24.png
       
   fonts:
-    - family: OPPOSans
+    - family: MiSans
       fonts:
-        - asset: assets/fonts/OPPOSans-Regular.ttf
+        - asset: assets/fonts/MiSans-Regular.ttf
 
     - family: MiSansLight
       fonts:
         - asset: assets/fonts/MiSans-Light.ttf
 
-    - family: OPPOSansMed
+    - family: MiSansMed
       fonts:
-        - asset: assets/fonts/OPPOSans-Medium.ttf
+        - asset: assets/fonts/MiSans-Medium.ttf
 

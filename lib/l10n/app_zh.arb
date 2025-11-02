@@ -18,6 +18,27 @@
   "settingsFaqSubtitle": "不会使用、无法连接或无法操作，请先阅读常见问题说明",
   "settingsDonateTitle": "捐赠",
   "settingsDonateSubtitle": "本项目为免费项目，感谢捐赠支持 (❁´◡`❁)",
+  "donationTitle": "支持我们",
+  "donationChooseAmountLabel": "选择金额：",
+  "donationAmountLabel": "{amount}元",
+  "@donationAmountLabel": {
+    "placeholders": {
+      "amount": {}
+    }
+  },
+  "donationAmountCustom": "自定义",
+  "donationSelectedAmount": "￥{amount}",
+  "@donationSelectedAmount": {
+    "placeholders": {
+      "amount": {}
+    }
+  },
+  "donationSelectedAmountCustom": "自定义金额",
+  "donationPaymentAlipay": "支付宝",
+  "donationPaymentWeChat": "微信",
+  "donationThanksMessage": "开发团队衷心感谢您的捐赠",
+  "donationNetworkErrorTitle": "网络连接错误",
+  "donationNetworkErrorBody": "无法连接服务器，请检查您的网络连接。",
   "settingsFeedbackTitle": "问题反馈",
   "settingsFeedbackSubtitle": "反馈 Bug 或其他问题，请先阅读常见问题，如无法解决请向我们反馈",
   "settingsPrivacyTitle": "隐私政策",
@@ -34,6 +55,62 @@
   "languageChinese": "简体中文",
   "languageSystem": "跟随系统",
   "languageEnglish": "English",
+  "wirelessPageTitle": "无线连接设备",
+  "wirelessHeaderIntro": "输入设备 IP 地址和端口",
+  "wirelessIpLabel": "设备 IP 地址",
+  "wirelessPortLabel": "端口号",
+  "wirelessConnectButton": "连接设备",
+  "wirelessErrorTitle": "错误",
+  "wirelessSuccessTitle": "成功",
+  "wirelessInputIncomplete": "请填写完整的 IP 地址和端口号",
+  "wirelessConnectSuccess": "设备已成功连接到 {target}",
+  "@wirelessConnectSuccess": {
+    "placeholders": {
+      "target": {}
+    }
+  },
+  "wirelessConnectFailure": "连接失败: {details}",
+  "@wirelessConnectFailure": {
+    "placeholders": {
+      "details": {}
+    }
+  },
+  "wirelessExecutionFailed": "执行失败: {details}",
+  "@wirelessExecutionFailed": {
+    "placeholders": {
+      "details": {}
+    }
+  },
+  "faqPageTitle": "常见问题",
+  "faqMenuTitle": "目录",
+  "faqMenuDeviceCannotConnect": "设备无法连接",
+  "faqMenuHowEnableUsbDebug": "如何启用 USB 调试",
+  "faqMenuWhyAdbDebug": "为什么我的设备显示的是 ADB 调试",
+  "faqMenuHowWirelessConnect": "如何通过无线连接",
+  "faqMenuHowGetWirelessIpPort": "如何获取无线调试IP地址和端口号",
+  "faqMenuFeatureNoResponse": "部分功能没反应",
+  "faqQ1Title": "1. 设备无法连接或无法检测到设备",
+  "faqQ1Body": "请确保已启用 USB 调试功能，并在设备连接时授权 USB 调试权限。这是柚坛手表助手与您的设备进行通信的必要条件。",
+  "faqQ2Title": "2. 如何启用 USB 调试模式",
+  "faqQ2Intro": "请按照以下步骤操作：",
+  "faqQ2Step1": "• 进入 <b>系统设置</b>，找到并点击 <b>关于本机</b>。",
+  "faqQ2Step2": "• 连续点击 <b>版本号</b> 数次，直至提示已进入开发者模式。",
+  "faqQ2Step3": "• 返回 <b>设置</b> 主界面，进入 <b>开发者选项</b>。",
+  "faqQ2Step4": "• 在开发者选项中，启用 <b>USB 调试</b> 功能。",
+  "faqQ3Title": "3. 为什么我的设备显示的是 ADB 调试",
+  "faqQ3Body": "ADB 调试 与 USB 调试 实质上是相同的功能。ADB 调试是通过 USB 接口与设备进行通信和调试的方式，因此两者没有区别。",
+  "faqQ4Title": "4. 如何通过无线连接",
+  "faqQ4Intro": "要实现设备的无线调试连接，请确保以下设置正确：",
+  "faqQ4Bullet1": "• 确保您的计算机和手表设备处于同一局域网内（无论是 2.4GHz 还是 5GHz 网络，关键在于设备需位于相同的 IP 网段内）。",
+  "faqQ4Bullet2": "• 在手表的开发者选项中，启用 <b>无线调试</b> 或 <b>WLAN 调试</b> 功能。",
+  "faqQ4Conclusion": "启用无线调试选项后，即可通过柚坛手表助手与手表进行无线操作。",
+  "faqQ5Title": "5. 如何获取无线调试IP地址和端口号",
+  "faqQ5Intro": "您可以通过以下步骤获取：",
+  "faqQ5Body": "进入手表的开发者选项，找到并点击“无线调试信息”，即可查看当前设备的 IP 地址和端口号。",
+  "faqQ6Title": "6. 部分功能没反应",
+  "faqQ6Body1": "部分功能可能会因为不同品牌系统的限制而不可用，特别是定制安卓系统。柚坛手表助手支持90%的定制安卓系统功能，典型设备如 OPPO Watch、Meizu Watch 等。",
+  "faqQ6Body2": "WearOS by Google 系统设备支持 99% 的功能，典型设备如 Pixel Watch、Mi Watch、TicWatch 等。您可以多次重试操作。",
+  "faqQ6Body3": "如遇某功能无效，您可以重试操作或重新连接设备。",
   "feedbackEmailSubject": "柚坛手表助手-问题反馈",
   "feedbackEmailBody": "系统版本：\n\n反馈内容：\n\n\n\n\n\n\n\n",
   "updateDialogTitle": "版本更新",
@@ -556,5 +633,32 @@
     "placeholders": {
       "error": {}
     }
-  }
+  },
+  "viewOnGithub": "Github",
+  "githubDescription": "在 APGL-3.0 License 下开源",
+  "driverTitle": "USB 驱动安装指南",
+  "driverIntro": "本教程仅适用于 Windows 系统，使用 MacOS 或 Linux 系统的用户无需安装 USB 驱动",
+  "driverStep1Title": "1. 下载 USB 驱动程序",
+  "driverStep1LinkPrefix": "进入",
+  "driverStep1LinkText": "Android USB 驱动",
+  "driverStep1LinkSuffix": "下载页面（此网址可在中国大陆直接访问）",
+  "driverStep1DownloadInstructions": "点击“Download the Google USB Driver ZIP file (ZIP)”同意许可后下载“usb_driver_r13-windows.zip”并解压至任意位置。",
+  "driverStep2Title": "2. 打开“设备管理器”",
+  "driverStep2Description": "打开设置并进入系统信息，打开“设备管理器”。",
+  "driverStep3Title": "3. 连接设备",
+  "driverStep3Description": "将您的设备通过数据线/充电底座连接电脑，在设备管理器中找到其它设备或便携式设备选项并展开。",
+  "driverStep4Title": "4. 更新驱动程序",
+  "driverStep4Description": "右键单击您连接的设备的名称，然后选择“更新驱动程序”。",
+  "driverStep5Title": "5. 在弹出的窗口中选择“浏览我的电脑以查找驱动程序”",
+  "driverStep6Title": "6. 选择驱动程序",
+  "driverStep6Description": "点击“浏览”然后找到您刚下载的 USB 驱动程序文件夹“usb_driver_r13-windows”。",
+  "driverStep7Title": "7. 安装驱动程序",
+  "driverStep7Description": "点击“下一步”安装驱动程序，随后安装完成。",
+  "driverUrlLaunchError": "无法打开链接: {url}",
+  "@driverUrlLaunchError": {
+    "placeholders": {
+      "url": {}
+    }
+  },
+  "tutorialTitle": "开启USB调试教程（适用于多数设备）"
 }

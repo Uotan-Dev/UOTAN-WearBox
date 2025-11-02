@@ -1,49 +1,44 @@
 import 'package:flutter/material.dart';
-import 'package:window_manager/window_manager.dart';
 import 'package:http/http.dart' as http;
+import 'package:window_manager/window_manager.dart';
+
+import 'l10n/app_localizations.dart';
+import 'l10n/l10n.dart';
 
 class DonatePage extends StatefulWidget {
   const DonatePage({super.key});
-  
+
   @override
-  _DonatePageState createState() => _DonatePageState();
+  State<DonatePage> createState() => _DonatePageState();
 }
 
-class _DonatePageState extends State<DonatePage> with SingleTickerProviderStateMixin {
-  String currentQrCodeUrl = 'https://wear.gnayoah.com/donate/alipay3.png'; // 初始化默认的二维码图片链接
-  String selectedAmount = '3.00元'; // 初始化默认选中的金额
-  String currentPaymentMethod = 'alipay'; // 当前支付方式，初始化为支付宝
-  
+class _DonatePageState extends State<DonatePage>
+    with SingleTickerProviderStateMixin {
+  static const Map<String, String> _qrCodeSuffixes = {
+    '3': '3',
+    '6': '6',
+    '9': '9',
+    '12': '12',
+    '15': '15',
+    'custom': '',
+  };
 
   late TabController _tabController;
+  String currentPaymentMethod = 'alipay';
+  String selectedAmountCode = '3';
+  String currentQrCodeUrl = 'https://wear.gnayoah.com/donate/alipay3.png';
 
-  // 按钮对应的二维码链接
-  final Map<String, String> qrCodeUrls = {
-    '3.00元': '3',
-    '6.00元': '6',
-    '9.00元': '9',
-    '12.00元': '12',
-    '15.00元': '15',
-    '自定义': '',
-  };
-  
   @override
   void initState() {
     super.initState();
-    _tabController = TabController(length: 2, vsync: this); // 创建 TabController
+    _tabController = TabController(length: 2, vsync: this);
     _tabController.addListener(() {
-     
       setState(() {
-         // 检查网络连接
-    _checkNetworkConnection();
-        // 切换支付方式时更新支付方式
-        
+        _checkNetworkConnection();
         currentPaymentMethod = _tabController.index == 0 ? 'alipay' : 'wx';
-        _updateQrCodeUrl(); // 更新二维码URL
+        _updateQrCodeUrl();
       });
     });
-
-    
   }
 
   Future<void> _checkNetworkConnection() async {
@@ -58,31 +53,34 @@ class _DonatePageState extends State<DonatePage> with SingleTickerProviderStateM
   }
 
   void _showNoNetworkDialog() {
+    final l10n = context.l10n;
     showDialog(
       context: context,
       builder: (BuildContext context) {
         return AlertDialog(
-          backgroundColor: const Color(0xFFF9F9F9), // 弹窗背景颜色
-          title: const Text('网络连接错误'),
-          content: const Text('无法连接服务器，请检查您的网络连接。'),
+          backgroundColor: const Color(0xFFF9F9F9),
+          title: Text(l10n.donationNetworkErrorTitle),
+          content: Text(l10n.donationNetworkErrorBody),
           actions: [
             TextButton(
               style: ButtonStyle(
                 overlayColor: MaterialStateProperty.resolveWith<Color?>(
                   (Set<MaterialState> states) {
-                    if (states.contains(MaterialState.pressed) || states.contains(MaterialState.hovered)) {
-                      return const Color.fromARGB(255, 237, 237, 237); // 点击或悬浮时的背景颜色
+                    if (states.contains(MaterialState.pressed) ||
+                        states.contains(MaterialState.hovered)) {
+                      return const Color.fromARGB(255, 237, 237, 237);
                     }
-                    return null; // 默认状态下不更改颜色
+                    return null;
                   },
                 ),
-                foregroundColor: MaterialStateProperty.all<Color>(Colors.black), // 文本颜色
+                foregroundColor: MaterialStateProperty.all<Color>(Colors.black),
               ),
               onPressed: () {
                 Navigator.of(context).pop();
-                Navigator.pop(context); // 返回到上一个页面
+                Navigator.pop(context);
               },
-              child: const Text('确认', style: TextStyle(color: Colors.black)),
+              child: Text(l10n.dialogConfirm,
+                  style: const TextStyle(color: Colors.black)),
             ),
           ],
         );
@@ -91,44 +89,88 @@ class _DonatePageState extends State<DonatePage> with SingleTickerProviderStateM
   }
 
   void _updateQrCodeUrl() {
-    final code = qrCodeUrls[selectedAmount];
-    if (code != null && code.isNotEmpty) {
-      currentQrCodeUrl = 'https://wear.gnayoah.com/donate/${currentPaymentMethod}${code}.png';
+    final suffix = _qrCodeSuffixes[selectedAmountCode] ?? '';
+    if (suffix.isNotEmpty) {
+      currentQrCodeUrl =
+          'https://wear.gnayoah.com/donate/${currentPaymentMethod}$suffix.png';
     } else {
-      currentQrCodeUrl = 'https://wear.gnayoah.com/donate/${currentPaymentMethod}.png'; // 自定义二维码
+      currentQrCodeUrl =
+          'https://wear.gnayoah.com/donate/$currentPaymentMethod.png';
     }
+  }
+
+  List<_DonationOption> _buildDonationOptions(AppLocalizations l10n) {
+    return [
+      _DonationOption(
+          code: '3',
+          label: l10n.donationAmountLabel('3.00'),
+          summary: l10n.donationSelectedAmount('3.00')),
+      _DonationOption(
+          code: '6',
+          label: l10n.donationAmountLabel('6.00'),
+          summary: l10n.donationSelectedAmount('6.00')),
+      _DonationOption(
+          code: '9',
+          label: l10n.donationAmountLabel('9.00'),
+          summary: l10n.donationSelectedAmount('9.00')),
+      _DonationOption(
+          code: '12',
+          label: l10n.donationAmountLabel('12.00'),
+          summary: l10n.donationSelectedAmount('12.00')),
+      _DonationOption(
+          code: '15',
+          label: l10n.donationAmountLabel('15.00'),
+          summary: l10n.donationSelectedAmount('15.00')),
+      _DonationOption(
+          code: 'custom',
+          label: l10n.donationAmountCustom,
+          summary: l10n.donationSelectedAmountCustom),
+    ];
+  }
+
+  String _selectedAmountSummary(AppLocalizations l10n) {
+    final options = _buildDonationOptions(l10n);
+    final match = options.firstWhere(
+      (option) => option.code == selectedAmountCode,
+      orElse: () => options.first,
+    );
+    return match.summary;
   }
 
   @override
   Widget build(BuildContext context) {
+    final l10n = context.l10n;
+    final donationOptions = _buildDonationOptions(l10n);
+
     return Scaffold(
       appBar: PreferredSize(
-        preferredSize: const Size.fromHeight(90.0), // 设置 AppBar 的高度
+        preferredSize: const Size.fromHeight(90.0),
         child: Padding(
-          padding: const EdgeInsets.only(top: 40), // 设置顶部边距
+          padding: const EdgeInsets.only(top: 40),
           child: GestureDetector(
-            onPanStart: (details) => windowManager.startDragging(), // 允许拖动窗口
+            onPanStart: (details) => windowManager.startDragging(),
             child: Container(
-              color: Colors.transparent, // 设置为透明背景
+              color: Colors.transparent,
               padding: const EdgeInsets.symmetric(horizontal: 18),
               child: Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween, // 左右对齐
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
                   Row(
                     children: [
                       IconButton(
-                        icon: const Icon(Icons.arrow_back, color: Colors.black, size: 20), // 返回图标
+                        icon: const Icon(Icons.arrow_back,
+                            color: Colors.black, size: 20),
                         onPressed: () {
-                          Navigator.pop(context); // 返回到上一个页面
+                          Navigator.pop(context);
                         },
                       ),
                       const SizedBox(width: 5),
-                      const Text(
-                        '支持我们', // 页面标题
-                        style: TextStyle(
+                      Text(
+                        l10n.donationTitle,
+                        style: const TextStyle(
                           color: Colors.black,
                           fontSize: 26,
-                          fontFamily: 'MiSansLight', // 使用自定义字体
+                          fontFamily: 'MiSansLight',
                         ),
                       ),
                     ],
@@ -140,45 +182,52 @@ class _DonatePageState extends State<DonatePage> with SingleTickerProviderStateM
         ),
       ),
       body: Padding(
-        padding: const EdgeInsets.only(top:25.0,right:25,bottom:25,left:28), // 设置页面内边距
+        padding:
+            const EdgeInsets.only(top: 25.0, right: 25, bottom: 25, left: 28),
         child: Row(
           children: [
             Expanded(
-              flex: 2, // 设置按钮部分所占比例
+              flex: 2,
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   const SizedBox(height: 25),
-                  const Text(
-                    '选择金额：',
-                    style: TextStyle(fontSize: 18),
+                  Text(
+                    l10n.donationChooseAmountLabel,
+                    style: const TextStyle(fontSize: 18),
                   ),
-                  const SizedBox(height: 20), // 添加一些间距
+                  const SizedBox(height: 20),
                   Expanded(
                     child: GridView.count(
-                      crossAxisCount: 2, // 两列
-                      crossAxisSpacing: 10, // 列间距
-                      mainAxisSpacing: 10, // 行间距
-                      childAspectRatio: 3, // 按钮的宽高比，设置为较宽的比例
-                      children: qrCodeUrls.keys.map((buttonLabel) {
+                      crossAxisCount: 2,
+                      crossAxisSpacing: 10,
+                      mainAxisSpacing: 10,
+                      childAspectRatio: 3,
+                      children: donationOptions.map((option) {
+                        final isSelected = option.code == selectedAmountCode;
                         return Card(
-                          color: const Color(0xFFF9F9F9), // 设置卡片背景颜色
-                          elevation: 0, // 去掉阴影
+                          color: const Color(0xFFF9F9F9),
+                          elevation: 0,
                           shape: RoundedRectangleBorder(
-                            borderRadius: BorderRadius.circular(8.0), // 圆角效果
+                            borderRadius: BorderRadius.circular(8.0),
                           ),
                           child: InkWell(
-                            borderRadius: BorderRadius.circular(8.0), // 设置悬浮时的圆角效果
+                            borderRadius: BorderRadius.circular(8.0),
                             onTap: () {
                               setState(() {
-                                selectedAmount = buttonLabel; // 更新选中的金额
-                                _updateQrCodeUrl(); // 更新二维码URL
+                                selectedAmountCode = option.code;
+                                _updateQrCodeUrl();
                               });
                             },
                             child: Center(
                               child: Text(
-                                buttonLabel,
-                                style: const TextStyle(fontSize: 16),
+                                option.label,
+                                style: TextStyle(
+                                  fontSize: 16,
+                                  fontWeight: isSelected
+                                      ? FontWeight.w600
+                                      : FontWeight.normal,
+                                ),
                               ),
                             ),
                           ),
@@ -189,50 +238,52 @@ class _DonatePageState extends State<DonatePage> with SingleTickerProviderStateM
                 ],
               ),
             ),
-            const SizedBox(width: 20), // 左右部分的间距
+            const SizedBox(width: 20),
             Expanded(
-              flex: 1, // 设置二维码部分所占比例
+              flex: 1,
               child: Column(
                 children: [
                   const SizedBox(height: 50),
-                  Container(
+                  SizedBox(
                     width: 180,
                     child: Card(
-                      color: const Color(0xFFF9F9F9), // 设置卡片背景颜色
-                      elevation: 0, // 去掉阴影
+                      color: const Color(0xFFF9F9F9),
+                      elevation: 0,
                       shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(16.0), // 圆角效果
+                        borderRadius: BorderRadius.circular(16.0),
                       ),
                       child: InkWell(
                         child: Center(
                           child: Container(
-                            padding: const EdgeInsets.symmetric(vertical: 4.0, horizontal: 4.0), // 添加上下和左右的内边距
+                            padding: const EdgeInsets.symmetric(
+                                vertical: 4.0, horizontal: 4.0),
                             decoration: BoxDecoration(
-                              color: const Color(0xFFF9F9F9), // 设置 TabBar 背景颜色
-                              borderRadius: BorderRadius.circular(8.0), // 设置圆角效果
+                              color: const Color(0xFFF9F9F9),
+                              borderRadius: BorderRadius.circular(8.0),
                             ),
                             child: TabBar(
                               controller: _tabController,
                               indicator: const BoxDecoration(
-                                color: Colors.white, // 选中的标签背景颜色
-                                borderRadius: BorderRadius.all(Radius.circular(8.0)), // 圆角效果
+                                color: Colors.white,
+                                borderRadius:
+                                    BorderRadius.all(Radius.circular(8.0)),
                               ),
-                              indicatorSize: TabBarIndicatorSize.tab, // 设置指示器大小与整个Tab等宽
-                              indicatorPadding: EdgeInsets.zero, // 移除指示器内边距
+                              indicatorSize: TabBarIndicatorSize.tab,
+                              indicatorPadding: EdgeInsets.zero,
                               labelColor: Colors.black,
                               unselectedLabelColor: Colors.grey,
-                              indicatorColor: Colors.transparent, // 去除下划线
-                              dividerColor: Colors.transparent, // 去除分割线
+                              indicatorColor: Colors.transparent,
+                              dividerColor: Colors.transparent,
                               tabs: [
                                 Container(
-                                  height: 26, // 设置固定高度
+                                  height: 26,
                                   alignment: Alignment.center,
-                                  child: const Text(' 支付宝 '),
+                                  child: Text(l10n.donationPaymentAlipay),
                                 ),
                                 Container(
-                                  height: 26, // 设置固定高度
+                                  height: 26,
                                   alignment: Alignment.center,
-                                  child: const Text(' 微信 '),
+                                  child: Text(l10n.donationPaymentWeChat),
                                 ),
                               ],
                             ),
@@ -241,6 +292,7 @@ class _DonatePageState extends State<DonatePage> with SingleTickerProviderStateM
                       ),
                     ),
                   ),
+
                   const SizedBox(height: 12), // 添加一些间距
                   Stack(
                     alignment: Alignment.center,
@@ -253,7 +305,8 @@ class _DonatePageState extends State<DonatePage> with SingleTickerProviderStateM
                         width: 155, // 固定宽度
                         height: 155, // 固定高度，确保是正方形
                         fit: BoxFit.cover,
-                        loadingBuilder: (BuildContext context, Widget child, ImageChunkEvent? loadingProgress) {
+                        loadingBuilder: (BuildContext context, Widget child,
+                            ImageChunkEvent? loadingProgress) {
                           if (loadingProgress == null) {
                             return child;
                           } else {
@@ -265,13 +318,17 @@ class _DonatePageState extends State<DonatePage> with SingleTickerProviderStateM
                   ),
                   const SizedBox(height: 10),
                   Text(
-                    '￥${selectedAmount.replaceAll('元', '')}',
+                    _selectedAmountSummary(l10n),
                     style: const TextStyle(fontSize: 20),
                   ),
-                   const SizedBox(height: 2),
-                   const Text(
-                    '开发团队衷心感谢您的捐赠',
-                    style: TextStyle(fontSize: 14,color: Color.fromARGB(255, 131, 131, 131),fontFamily: 'MiSansLight', ),
+                  const SizedBox(height: 2),
+                  Text(
+                    l10n.donationThanksMessage,
+                    style: const TextStyle(
+                      fontSize: 14,
+                      color: Color.fromARGB(255, 131, 131, 131),
+                      fontFamily: 'MiSansLight',
+                    ),
                   ),
                 ],
               ),
@@ -281,4 +338,16 @@ class _DonatePageState extends State<DonatePage> with SingleTickerProviderStateM
       ),
     );
   }
+}
+
+class _DonationOption {
+  const _DonationOption({
+    required this.code,
+    required this.label,
+    required this.summary,
+  });
+
+  final String code;
+  final String label;
+  final String summary;
 }

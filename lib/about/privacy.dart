@@ -22,7 +22,8 @@ class PrivacyPage extends StatelessWidget {
                   Row(
                     children: [
                       IconButton(
-                        icon: const Icon(Icons.arrow_back, color: Colors.black, size: 20), // 返回图标
+                        icon: const Icon(Icons.arrow_back,
+                            color: Colors.black, size: 20), // 返回图标
                         onPressed: () {
                           Navigator.pop(context); // 返回到上一个页面
                         },
@@ -45,55 +46,62 @@ class PrivacyPage extends StatelessWidget {
         ),
       ),
       body: const SingleChildScrollView(
-        padding: EdgeInsets.only(left: 30.0, right: 30, bottom: 30, top: 20), // 设置页面内边距
+        padding: EdgeInsets.only(
+            left: 30.0, right: 30, bottom: 30, top: 20), // 设置页面内边距
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             Text(
               '柚坛手表助手隐私政策',
-              style: TextStyle(fontSize: 24,fontFamily: 'OPPOSansMed', ),
+              style: TextStyle(
+                fontSize: 24,
+                fontFamily: 'MiSansMed',
+              ),
             ),
             SizedBox(height: 2),
             Text(
-                  '更新日期：2024年9月19日',
-                  style: TextStyle(fontSize: 16),
-                ),
-                 SizedBox(height: 16),
-            Text(
-              '欢迎使用柚坛手表助手（以下简称“本应用”）。我们深刻理解个人信息对您的重要性，并承诺严格遵守相关法律法规的要求，采取适当的安全保护措施，保障您的个人信息安全。请您在使用本应用前，仔细阅读并充分理解本隐私政策的全部内容。',
-              style: TextStyle(fontSize: 16,),
+              '更新日期：2024年9月19日',
+              style: TextStyle(fontSize: 16),
             ),
             SizedBox(height: 16),
-           
-             Text(
-              '一、我们收集的信息 ',
-              style: TextStyle(fontSize: 20, fontFamily: 'OPPOSansMed',),
+            Text(
+              '欢迎使用柚坛手表助手（以下简称“本应用”）。我们深刻理解个人信息对您的重要性，并承诺严格遵守相关法律法规的要求，采取适当的安全保护措施，保障您的个人信息安全。请您在使用本应用前，仔细阅读并充分理解本隐私政策的全部内容。',
+              style: TextStyle(
+                fontSize: 16,
+              ),
             ),
-          
+            SizedBox(height: 16),
+            Text(
+              '一、我们收集的信息 ',
+              style: TextStyle(
+                fontSize: 20,
+                fontFamily: 'MiSansMed',
+              ),
+            ),
             SizedBox(height: 6),
             Text(
-                  '1. 互联网协议地址：为确保本应用的正常运行和系统安全，我们仅在必要情况下收集您的互联网协议地址。除互联网协议地址外，我们不收集任何其他可识别您个人身份的信息。',
-                  style: TextStyle(fontSize: 16),
-                ),
+              '1. 互联网协议地址：为确保本应用的正常运行和系统安全，我们仅在必要情况下收集您的互联网协议地址。除互联网协议地址外，我们不收集任何其他可识别您个人身份的信息。',
+              style: TextStyle(fontSize: 16),
+            ),
             SizedBox(height: 6),
-            
-      
             Text(
               '2. 必要的权限获取:',
               style: TextStyle(fontSize: 16),
             ),
             SizedBox(height: 6),
-           
-           
             Text(
               '     - 网络访问权限：本应用需要获取网络访问权限，以实现数据传输、服务器通信和功能更新。\n     - 读取设备信息权限：为优化应用性能、提升兼容性，我们可能需要读取您的设备信息，例如设备型号、操作系统版本等。\n     - 读写存储权限：本应用可能需要读取和写入设备存储空间，以缓存数据、保存用户设置并提供离线功能。',
-              style: TextStyle(fontSize: 16, ),
+              style: TextStyle(
+                fontSize: 16,
+              ),
             ),
-          
             SizedBox(height: 16),
             Text(
               '二、我们如何使用信息 ',
-              style: TextStyle(fontSize: 20, fontFamily: 'OPPOSansMed',),
+              style: TextStyle(
+                fontSize: 20,
+                fontFamily: 'MiSansMed',
+              ),
             ),
             SizedBox(height: 6),
             Text(
@@ -105,10 +113,13 @@ class PrivacyPage extends StatelessWidget {
               '2. 安全保障：使用互联网协议地址和设备信息进行安全监测和风险防范，包括但不限于预防欺诈、网络攻击和其他可能危害系统安全的活动。',
               style: TextStyle(fontSize: 16),
             ),
-             SizedBox(height: 16),
+            SizedBox(height: 16),
             Text(
               '三、处理个人信息的法律依据',
-              style: TextStyle(fontSize: 20, fontFamily: 'OPPOSansMed',),
+              style: TextStyle(
+                fontSize: 20,
+                fontFamily: 'MiSansMed',
+              ),
             ),
             SizedBox(height: 6),
             Text(
@@ -118,29 +129,32 @@ class PrivacyPage extends StatelessWidget {
             SizedBox(height: 16),
             Text(
               '四、信息的共享、转让和公开披露',
-              style: TextStyle(fontSize: 20, fontFamily: 'OPPOSansMed',),
+              style: TextStyle(
+                fontSize: 20,
+                fontFamily: 'MiSansMed',
+              ),
             ),
-             SizedBox(height: 6),
+            SizedBox(height: 6),
             Text(
               '1. 法律法规要求：在符合法律法规的前提下，若司法机关或政府主管部门依法要求，我们可能会披露您的个人信息。',
               style: TextStyle(fontSize: 16),
             ),
-               SizedBox(height: 6),
+            SizedBox(height: 6),
             Text(
               '2. 业务转让：在涉及合并、收购、资产转让或其他类似交易时，您的个人信息可能作为资产之一被转移。我们将要求新的持有方继续受本隐私政策的约束，否则将要求其重新取得您的授权同意。',
               style: TextStyle(fontSize: 16),
             ),
-             SizedBox(height: 6),
+            SizedBox(height: 6),
             Text(
               '3. 未经授权的披露：除非获得您的明确同意，我们不会公开披露您的个人信息。',
               style: TextStyle(fontSize: 16),
             ),
-             SizedBox(height: 6),
+            SizedBox(height: 6),
             Text(
               '4. 共享、转让、公开披露个人信息授权同意的例外',
               style: TextStyle(fontSize: 16),
             ),
-             SizedBox(height: 6),
+            SizedBox(height: 6),
             Text(
               '根据相关法律法规的规定，在以下情形中，我们可能在不征得您的授权同意的情况下共享、转让、公开披露您的个人信息：',
               style: TextStyle(fontSize: 16),
@@ -153,7 +167,10 @@ class PrivacyPage extends StatelessWidget {
             SizedBox(height: 16),
             Text(
               '五、信息的存储和保护',
-              style: TextStyle(fontSize: 20, fontFamily: 'OPPOSansMed',),
+              style: TextStyle(
+                fontSize: 20,
+                fontFamily: 'MiSansMed',
+              ),
             ),
             SizedBox(height: 6),
             Text(
@@ -178,7 +195,10 @@ class PrivacyPage extends StatelessWidget {
             SizedBox(height: 16),
             Text(
               '六、您的权利',
-              style: TextStyle(fontSize: 20, fontFamily: 'OPPOSansMed',),
+              style: TextStyle(
+                fontSize: 20,
+                fontFamily: 'MiSansMed',
+              ),
             ),
             SizedBox(height: 6),
             Text(
@@ -190,10 +210,13 @@ class PrivacyPage extends StatelessWidget {
               '2. 删除和撤回同意权：在符合法律法规的情况下，您有权请求删除您的个人信息或撤回对我们的授权同意。请注意，删除或撤回同意可能导致我们无法继续为您提供部分或全部服务。',
               style: TextStyle(fontSize: 16),
             ),
-             SizedBox(height: 16),
+            SizedBox(height: 16),
             Text(
               '七、未成年人保护',
-              style: TextStyle(fontSize: 20, fontFamily: 'OPPOSansMed',),
+              style: TextStyle(
+                fontSize: 20,
+                fontFamily: 'MiSansMed',
+              ),
             ),
             SizedBox(height: 6),
             Text(
@@ -203,17 +226,23 @@ class PrivacyPage extends StatelessWidget {
             SizedBox(height: 16),
             Text(
               '八、隐私政策的更新',
-              style: TextStyle(fontSize: 20, fontFamily: 'OPPOSansMed',),
+              style: TextStyle(
+                fontSize: 20,
+                fontFamily: 'MiSansMed',
+              ),
             ),
             SizedBox(height: 6),
             Text(
               '鉴于业务的发展或法律法规的变化，我们可能会适时修订本隐私政策。修订后的隐私政策将在本页面上发布，并自发布之日起生效。我们建议您定期查阅本政策，以了解最新的隐私保护措施。',
               style: TextStyle(fontSize: 16),
             ),
-             SizedBox(height: 16),
+            SizedBox(height: 16),
             Text(
               '九、适用法律与争议解决',
-              style: TextStyle(fontSize: 20, fontFamily: 'OPPOSansMed',),
+              style: TextStyle(
+                fontSize: 20,
+                fontFamily: 'MiSansMed',
+              ),
             ),
             SizedBox(height: 6),
             Text(
@@ -223,15 +252,17 @@ class PrivacyPage extends StatelessWidget {
             SizedBox(height: 16),
             Text(
               '十、联系我们',
-              style: TextStyle(fontSize: 20, fontFamily: 'OPPOSansMed',),
+              style: TextStyle(
+                fontSize: 20,
+                fontFamily: 'MiSansMed',
+              ),
             ),
-             SizedBox(height: 6),
+            SizedBox(height: 6),
             Text(
               '如您对本隐私政策有任何疑问、意见或建议，或需要行使您的相关权利，请通过以下方式与我们联系：\n电子邮箱：support@Gnayoah.com',
               style: TextStyle(fontSize: 16),
             ),
             SizedBox(height: 6),
-           
             Text(
               '我们将尽快审核所涉问题，并在收到您的请求后及时予以回复。',
               style: TextStyle(fontSize: 16),
@@ -247,6 +278,4 @@ class PrivacyPage extends StatelessWidget {
       ),
     );
   }
-
-  
 }

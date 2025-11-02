@@ -26,7 +26,7 @@ class HomeScreen extends StatefulWidget {
 class _HomeScreenState extends State<HomeScreen> with WindowListener {
   int _selectedIndex = 0;
   List<AdbDeviceInfo> _devices = []; // 用于存储设备信息
-  String currentVersion = '16.0'; // 当前应用版本号
+  double currentVersion = 16.1; // 当前应用版本号
   bool _isCheckingUpdate = true; // 是否正在检查更新的状态
 
   @override
@@ -88,16 +88,24 @@ class _HomeScreenState extends State<HomeScreen> with WindowListener {
 
       if (response.statusCode == 200) {
         final lines = response.body.split('\n');
-        final remoteVersion = lines
-            .firstWhere((line) => line.startsWith('[version]'))
-            .replaceAll('[version]', '')
-            .trim();
+        double _safeParseDouble(String s) {
+          return double.tryParse(s) ?? 0.0;
+        }
+
+// 使用
+        final remoteVersion = _safeParseDouble(
+          lines
+              .firstWhere((line) => line.startsWith('[version]'))
+              .replaceAll('[version]', '')
+              .trim(),
+        );
+
         final releaseDate = lines
             .firstWhere((line) => line.startsWith('[date]'))
             .replaceAll('[date]', '')
             .trim();
 
-        if (remoteVersion != currentVersion) {
+        if (remoteVersion > currentVersion) {
           _showUpdateDialog(remoteVersion, releaseDate);
         }
       } else {
@@ -109,7 +117,7 @@ class _HomeScreenState extends State<HomeScreen> with WindowListener {
   }
 
   // 显示更新提示框，带有发布日期和去更新按钮
-  void _showUpdateDialog(String remoteVersion, String releaseDate) {
+  void _showUpdateDialog(double remoteVersion, String releaseDate) {
     showDialog(
       context: context,
       barrierDismissible: false, // 设置为false，禁止点击对话框外部区域取消
@@ -245,7 +253,7 @@ class _HomeScreenState extends State<HomeScreen> with WindowListener {
       ..add(Page3(
         onLocaleChanged: widget.onLocaleChanged,
         currentLocale: widget.locale,
-        currentVersion: currentVersion,
+        currentVersion: '$currentVersion',
       ));
 
     return Scaffold(

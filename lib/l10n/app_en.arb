@@ -18,6 +18,27 @@
   "settingsFaqSubtitle": "Having trouble using or connecting? Start by reading the FAQ.",
   "settingsDonateTitle": "Donate",
   "settingsDonateSubtitle": "This project is free—thank you for supporting us! (❁´◡`❁)",
+  "donationTitle": "Support us",
+  "donationChooseAmountLabel": "Choose an amount:",
+  "donationAmountLabel": "¥{amount}",
+  "@donationAmountLabel": {
+    "placeholders": {
+      "amount": {}
+    }
+  },
+  "donationAmountCustom": "Custom",
+  "donationSelectedAmount": "¥{amount}",
+  "@donationSelectedAmount": {
+    "placeholders": {
+      "amount": {}
+    }
+  },
+  "donationSelectedAmountCustom": "Custom amount",
+  "donationPaymentAlipay": "Alipay",
+  "donationPaymentWeChat": "WeChat",
+  "donationThanksMessage": "Our team sincerely thanks you for your support.",
+  "donationNetworkErrorTitle": "Network connection error",
+  "donationNetworkErrorBody": "Unable to reach the server—please check your connection.",
   "settingsFeedbackTitle": "Feedback",
   "settingsFeedbackSubtitle": "Please read the FAQ first. If it doesn't help, send us your feedback.",
   "settingsPrivacyTitle": "Privacy Policy",
@@ -34,6 +55,62 @@
   "languageSystem": "Follow system",
   "languageChinese": "Simplified Chinese",
   "languageEnglish": "English",
+  "wirelessPageTitle": "Wireless connection",
+  "wirelessHeaderIntro": "Enter the device IP address and port",
+  "wirelessIpLabel": "Device IP address",
+  "wirelessPortLabel": "Port",
+  "wirelessConnectButton": "Connect",
+  "wirelessErrorTitle": "Error",
+  "wirelessSuccessTitle": "Success",
+  "wirelessInputIncomplete": "Please enter both IP address and port",
+  "wirelessConnectSuccess": "Connected to {target}",
+  "@wirelessConnectSuccess": {
+    "placeholders": {
+      "target": {}
+    }
+  },
+  "wirelessConnectFailure": "Connection failed: {details}",
+  "@wirelessConnectFailure": {
+    "placeholders": {
+      "details": {}
+    }
+  },
+  "wirelessExecutionFailed": "Execution failed: {details}",
+  "@wirelessExecutionFailed": {
+    "placeholders": {
+      "details": {}
+    }
+  },
+  "faqPageTitle": "Frequently Asked Questions",
+  "faqMenuTitle": "Contents",
+  "faqMenuDeviceCannotConnect": "Device cannot connect",
+  "faqMenuHowEnableUsbDebug": "How to enable USB debugging",
+  "faqMenuWhyAdbDebug": "Why does my device show ADB debugging",
+  "faqMenuHowWirelessConnect": "How to connect wirelessly",
+  "faqMenuHowGetWirelessIpPort": "How to get wireless debugging IP and port",
+  "faqMenuFeatureNoResponse": "Some features don't respond",
+  "faqQ1Title": "1. Device cannot connect or be detected",
+  "faqQ1Body": "Make sure USB debugging is enabled and authorize USB debugging when connecting. This is required for Uotan WearBox to communicate with your device.",
+  "faqQ2Title": "2. How to enable USB debugging",
+  "faqQ2Intro": "Follow these steps:",
+  "faqQ2Step1": "• Open <b>Settings</b> and tap <b>About</b>.",
+  "faqQ2Step2": "• Tap <b>Build number</b> several times until developer mode is enabled.",
+  "faqQ2Step3": "• Go back to <b>Settings</b> and open <b>Developer options</b>.",
+  "faqQ2Step4": "• Enable <b>USB debugging</b>.",
+  "faqQ3Title": "3. Why does my device show ADB debugging",
+  "faqQ3Body": "ADB debugging and USB debugging are essentially the same. ADB communicates with the device over USB, so there is no difference.",
+  "faqQ4Title": "4. How to connect wirelessly",
+  "faqQ4Intro": "To enable wireless debugging, ensure the following:",
+  "faqQ4Bullet1": "• Your computer and watch are on the same local network (2.4G or 5G is fine; they must be on the same IP subnet).",
+  "faqQ4Bullet2": "• In Developer options on the watch, enable <b>Wireless debugging</b> or <b>WLAN debugging</b>.",
+  "faqQ4Conclusion": "After enabling wireless debugging, you can operate the watch wirelessly with Uotan WearBox.",
+  "faqQ5Title": "5. How to get the wireless debugging IP and port",
+  "faqQ5Intro": "You can obtain them as follows:",
+  "faqQ5Body": "Open Developer options on the watch and tap Wireless debugging information to view the current IP address and port.",
+  "faqQ6Title": "6. Some features don't respond",
+  "faqQ6Body1": "Some features may be unavailable due to OEM system limitations, especially on customized Android systems. Uotan WearBox supports about 90% of features on customized Android, e.g., OPPO Watch, Meizu Watch.",
+  "faqQ6Body2": "WearOS by Google devices support about 99% of features, e.g., Pixel Watch, Mi Watch, TicWatch. You can try the operation multiple times.",
+  "faqQ6Body3": "If a feature doesn't work, try again or reconnect the device.",
   "feedbackEmailSubject": "Uotan WearBox - Feedback",
   "feedbackEmailBody": "System version:\n\nFeedback:\n\n\n\n\n\n\n\n",
   "updateDialogTitle": "Update available",
@@ -556,5 +633,32 @@
     "placeholders": {
       "error": {}
     }
-  }
+  },
+  "viewOnGithub": "Github",
+  "githubDescription": "Open-sourced under the APGL-3.0 License",
+  "driverTitle": "USB Driver Installation Guide",
+  "driverIntro": "This tutorial applies only to Windows. Users on macOS or Linux do not need to install the USB driver.",
+  "driverStep1Title": "1. Download the USB driver",
+  "driverStep1LinkPrefix": "Open the",
+  "driverStep1LinkText": "Android USB Driver",
+  "driverStep1LinkSuffix": "download page",
+  "driverStep1DownloadInstructions": "Click \"Download the Google USB Driver ZIP file (ZIP)\", accept the license, then download \"usb_driver_r13-windows.zip\" and extract it anywhere.",
+  "driverStep2Title": "2. Open Device Manager",
+  "driverStep2Description": "Open Settings and go to System Information, then open Device Manager.",
+  "driverStep3Title": "3. Connect your device",
+  "driverStep3Description": "Connect your device to the computer via cable or charging dock, then find and expand Other devices or Portable devices in Device Manager.",
+  "driverStep4Title": "4. Update the driver",
+  "driverStep4Description": "Right-click the device entry and choose Update driver.",
+  "driverStep5Title": "5. In the dialog that appears, choose \"Browse my computer for drivers\"",
+  "driverStep6Title": "6. Select the driver folder",
+  "driverStep6Description": "Click Browse and locate the USB driver folder you extracted, \"usb_driver_r13-windows\".",
+  "driverStep7Title": "7. Install the driver",
+  "driverStep7Description": "Click Next to install the driver and finish the setup.",
+  "driverUrlLaunchError": "Unable to open link: {url}",
+  "@driverUrlLaunchError": {
+    "placeholders": {
+      "url": {}
+    }
+  },
+  "tutorialTitle": "USB debugging setup guide (applicable to most devices)"
 }

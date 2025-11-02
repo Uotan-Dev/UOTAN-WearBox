@@ -1,0 +1,664 @@
+{
+  "@@locale": "ja",
+  "appTitle": "Uotan WearBox",
+  "navigationHome": "ホーム",
+  "navigationFeatures": "ツール",
+  "navigationAbout": "設定",
+  "settingsPageTitle": "Uotan WearBox",
+  "settingsVersionLabel": "バージョン: {version}   開発・デザイン: Gnayoah",
+  "@settingsVersionLabel": {
+    "placeholders": {
+      "version": {}
+    }
+  },
+  "settingsSectionFaq": "よくある質問",
+  "settingsSectionAgreements": "利用規約",
+  "settingsSectionVisit": "公式サイトへ",
+  "settingsFaqTitle": "よくある質問",
+  "settingsFaqSubtitle": "使用方法・接続・操作に問題がある場合は、まずこちらをご確認ください。",
+  "settingsDonateTitle": "寄付",
+  "settingsDonateSubtitle": "本プロジェクトは無料でご利用いただけます。ご支援いただけると幸いです (❁´◡`❁)",
+  "donationTitle": "ご支援のお願い",
+  "donationChooseAmountLabel": "金額を選択：",
+  "donationAmountLabel": "{amount}円",
+  "@donationAmountLabel": {
+    "placeholders": {
+      "amount": {}
+    }
+  },
+  "donationAmountCustom": "カスタム",
+  "donationSelectedAmount": "￥{amount}",
+  "@donationSelectedAmount": {
+    "placeholders": {
+      "amount": {}
+    }
+  },
+  "donationSelectedAmountCustom": "任意の金額",
+  "donationPaymentAlipay": "Alipay",
+  "donationPaymentWeChat": "WeChat",
+  "donationThanksMessage": "ご支援いただきありがとうございます。心より感謝申し上げます。",
+  "donationNetworkErrorTitle": "ネットワークエラー",
+  "donationNetworkErrorBody": "サーバーに接続できません。ネットワーク設定をご確認ください。",
+  "settingsFeedbackTitle": "フィードバック",
+  "settingsFeedbackSubtitle": "バグや問題については、まず FAQ をご確認の上、解決しない場合にご連絡ください。",
+  "settingsPrivacyTitle": "プライバシーポリシー",
+  "settingsPrivacySubtitle": "内容をご確認の上、ご理解いただいた上でご利用ください。",
+  "settingsUserAgreementTitle": "利用規約",
+  "settingsUserAgreementSubtitle": "内容をご確認の上、ご理解いただいた上でご利用ください。",
+  "settingsWebsiteTitle": "公式サイト",
+  "settingsWebsiteSubtitle": "Uotan WearBox",
+  "settingsCommunityTitle": "コミュニティ",
+  "settingsCommunitySubtitle": "デバイスユーザー交流コミュニティ",
+  "settingsFooter": "Uotan WearBox\n© 2020-2025 Gnayoah.com All rights reserved.",
+  "settingsLanguageTitle": "言語設定",
+  "settingsLanguageSubtitle": "表示言語を切り替える",
+  "languageChinese": "簡体字中国語",
+  "languageSystem": "システムに合わせる",
+  "languageEnglish": "英語",
+  "wirelessPageTitle": "ワイヤレス接続",
+  "wirelessHeaderIntro": "デバイスの IP アドレスとポート番号を入力してください",
+  "wirelessIpLabel": "デバイス IP アドレス",
+  "wirelessPortLabel": "ポート番号",
+  "wirelessConnectButton": "接続",
+  "wirelessErrorTitle": "エラー",
+  "wirelessSuccessTitle": "成功",
+  "wirelessInputIncomplete": "IP アドレスとポート番号を入力してください",
+  "wirelessConnectSuccess": "{target} に接続しました",
+  "@wirelessConnectSuccess": {
+    "placeholders": {
+      "target": {}
+    }
+  },
+  "wirelessConnectFailure": "接続に失敗しました: {details}",
+  "@wirelessConnectFailure": {
+    "placeholders": {
+      "details": {}
+    }
+  },
+  "wirelessExecutionFailed": "実行に失敗しました: {details}",
+  "@wirelessExecutionFailed": {
+    "placeholders": {
+      "details": {}
+    }
+  },
+  "faqPageTitle": "よくある質問",
+  "faqMenuTitle": "目次",
+  "faqMenuDeviceCannotConnect": "デバイスが接続できない",
+  "faqMenuHowEnableUsbDebug": "USB デバッグを有効にする方法",
+  "faqMenuWhyAdbDebug": "ADB デバッグと表示される理由",
+  "faqMenuHowWirelessConnect": "ワイヤレス接続の方法",
+  "faqMenuHowGetWirelessIpPort": "ワイヤレスデバッグの IP とポートの確認方法",
+  "faqMenuFeatureNoResponse": "一部の機能が反応しない",
+  "faqQ1Title": "1. デバイスが接続できない・認識されない",
+  "faqQ1Body": "USB デバッグが有効であること、接続時にデバッグ許可を与えたことをご確認ください。これは Uotan WearBox が通信するために必要です。",
+  "faqQ2Title": "2. USB デバッグを有効にする方法",
+  "faqQ2Intro": "以下の手順で有効にできます：",
+  "faqQ2Step1": "• <b>設定</b> → <b>端末情報</b> を開きます。",
+  "faqQ2Step2": "• <b>ビルド番号</b> を数回タップし、開発者モードを有効にします。",
+  "faqQ2Step3": "• 設定に戻り、<b>開発者向けオプション</b> を開きます。",
+  "faqQ2Step4": "• <b>USB デバッグ</b> を有効にします。",
+  "faqQ3Title": "3. なぜ ADB デバッグと表示されるのか",
+  "faqQ3Body": "ADB デバッグと USB デバッグは本質的に同じ機能です。USB を通じて通信するため名称が異なるだけです。",
+  "faqQ4Title": "4. ワイヤレス接続の方法",
+  "faqQ4Intro": "ワイヤレスデバッグを利用するには以下をご確認ください：",
+  "faqQ4Bullet1": "• PC とデバイスが同一ネットワーク内にあること（2.4GHz / 5GHz は問いません）。",
+  "faqQ4Bullet2": "• 開発者向けオプションで <b>ワイヤレスデバッグ</b> を有効にすること。",
+  "faqQ4Conclusion": "ワイヤレスデバッグが有効になれば、Uotan WearBox でワイヤレス操作が可能になります。",
+  "faqQ5Title": "5. ワイヤレスデバッグの IP とポートの確認方法",
+  "faqQ5Intro": "以下の手順で確認できます：",
+  "faqQ5Body": "開発者向けオプションの「ワイヤレスデバッグ情報」で現在の IP アドレスとポートを確認できます。",
+  "faqQ6Title": "6. 一部の機能が反応しない",
+  "faqQ6Body1": "メーカー独自の Android システムを使用している場合、一部の機能が制限されることがあります（OPPO Watch、Meizu Watch など）。",
+  "faqQ6Body2": "Google の WearOS デバイスでは 99% の機能が利用できます（Pixel Watch、Mi Watch、TicWatch など）。複数回お試しください。",
+  "faqQ6Body3": "動作しない場合は、再接続・再試行してください。",
+  "feedbackEmailSubject": "Uotan WearBox - フィードバック",
+  "feedbackEmailBody": "システムバージョン：\n\nフィードバック内容：\n\n\n\n\n\n\n\n",
+  "updateDialogTitle": "アップデートがあります",
+  "updateDialogMessage": "新しいバージョン: {remoteVersion}\nリリース日: {releaseDate}",
+  "@updateDialogMessage": {
+    "placeholders": {
+      "remoteVersion": {},
+      "releaseDate": {}
+    }
+  },
+  "updateDialogUpdate": "今すぐ更新",
+  "networkErrorTitle": "サーバーに接続できません",
+  "networkErrorMessage": "ネットワークをご確認の上、再度お試しください。",
+  "networkErrorExit": "終了",
+  "networkErrorRetry": "再試行",
+  "homeGreetingEarlyMorning": "おはようございます（早朝）",
+  "homeGreetingMorning": "おはようございます",
+  "homeGreetingAfternoon": "こんにちは",
+  "homeGreetingEvening": "こんばんは",
+  "homeWelcomeMessage": "Uotan WearBox へようこそ",
+  "homeNoDeviceDetected": "デバイスが検出されません。以下の手順に従って接続してください。",
+  "homeConnectionMethodsTitle": "対応している接続方法：",
+  "homeConnectionWired": "1. ケーブル／充電ドックで PC と接続（推奨）",
+  "homeConnectionWirelessPrefix": "2. ",
+  "homeConnectionWirelessLink": "ワイヤレス接続",
+  "homeConnectionWirelessSuffix": " を開いて Wi-Fi または Bluetooth 接続を開始",
+  "homeTroubleshootTitle": "接続できない場合は次をお試しください：",
+  "homeTroubleshootUsbDebug": "1. USB デバッグが有効か確認",
+  "homeTroubleshootUsbDebugLink": "手順を見る",
+  "homeTroubleshootDriver": "2. USB ドライバーがインストールされているか確認",
+  "homeTroubleshootDriverLink": "ドライバーのインストール",
+  "homeTroubleshootReinstall": "3. アプリを再インストールし、最新版か確認",
+  "homeTroubleshootRestart": "4. PC やケーブルを変更し、再起動して再試行",
+  "deviceBasicInfoTitle": "基本情報",
+  "deviceBatteryStatusTitle": "バッテリー状況",
+  "deviceSystemVersionTitle": "システムバージョン",
+  "deviceBrand": "ブランド: {brand}",
+  "@deviceBrand": {
+    "placeholders": {
+      "brand": {}
+    }
+  },
+  "deviceResolution": "解像度: {resolution}",
+  "@deviceResolution": {
+    "placeholders": {
+      "resolution": {}
+    }
+  },
+  "deviceModel": "モデル: {model}",
+  "@deviceModel": {
+    "placeholders": {
+      "model": {}
+    }
+  },
+  "deviceDpi": "DPI: {dpi}",
+  "@deviceDpi": {
+    "placeholders": {
+      "dpi": {}
+    }
+  },
+  "deviceSerial": "シリアル番号: {serial}",
+  "@deviceSerial": {
+    "placeholders": {
+      "serial": {}
+    }
+  },
+  "deviceMemory": "メモリ: {memory}",
+  "@deviceMemory": {
+    "placeholders": {
+      "memory": {}
+    }
+  },
+  "deviceUptime": "稼働時間: {uptime}",
+  "@deviceUptime": {
+    "placeholders": {
+      "uptime": {}
+    }
+  },
+  "deviceStorage": "ストレージ: {storage}",
+  "@deviceStorage": {
+    "placeholders": {
+      "storage": {}
+    }
+  },
+  "deviceBootloader": "BL ロック: {bootloader}",
+  "@deviceBootloader": {
+    "placeholders": {
+      "bootloader": {}
+    }
+  },
+  "deviceArchitecture": "アーキテクチャ: {architecture}",
+  "@deviceArchitecture": {
+    "placeholders": {
+      "architecture": {}
+    }
+  },
+  "deviceBatteryLevel": "電池残量: {level}%",
+  "@deviceBatteryLevel": {
+    "placeholders": {
+      "level": {}
+    }
+  },
+  "deviceBatteryHealth": "バッテリー健康度: {health}",
+  "@deviceBatteryHealth": {
+    "placeholders": {
+      "health": {}
+    }
+  },
+  "deviceBatteryVoltage": "電圧: {voltage}mV",
+  "@deviceBatteryVoltage": {
+    "placeholders": {
+      "voltage": {}
+    }
+  },
+  "deviceBatteryTemperature": "温度: {temperature}°C",
+  "@deviceBatteryTemperature": {
+    "placeholders": {
+      "temperature": {}
+    }
+  },
+  "deviceAndroidVersion": "Android バージョン: {androidVersion}",
+  "@deviceAndroidVersion": {
+    "placeholders": {
+      "androidVersion": {}
+    }
+  },
+  "devicePatchDate": "パッチ日: {patchDate}",
+  "@devicePatchDate": {
+    "placeholders": {
+      "patchDate": {}
+    }
+  },
+  "deviceSoftwareVersion": "ソフトウェアバージョン: {softwareVersion}",
+  "@deviceSoftwareVersion": {
+    "placeholders": {
+      "softwareVersion": {}
+    }
+  },
+  "deviceKernelVersion": "カーネルバージョン: {kernelVersion}",
+  "@deviceKernelVersion": {
+    "placeholders": {
+      "kernelVersion": {}
+    }
+  },
+  "featuresTitle": "ツール一覧",
+  "featureInstallApp": "アプリをインストール",
+  "featureAppManagement": "アプリ管理",
+  "featureFileManagement": "ファイル管理",
+  "featureSendText": "テキスト送信",
+  "featureDisplaySettings": "表示設定",
+  "featureMemoryClean": "メモリクリーニング",
+  "featureKeySimulation": "キー操作シミュレーション",
+  "featureBatteryManager": "バッテリー管理",
+  "featureRotateScreen": "画面の強制回転",
+  "featureCapture": "スクリーンショット / 画面録画",
+  "featureRePair": "WearOS 再ペアリング",
+  "featureFlashTool": "フラッシュツール",
+  "featureComingSoonTitle": "近日公開",
+  "featureComingSoonMessage": "現在この機能（{feature}）は再構築中のためご利用いただけません。今後の更新で追加予定です。",
+  "@featureComingSoonMessage": {
+    "placeholders": {
+      "feature": {}
+    }
+  },
+  "dialogOk": "OK",
+  "setting_config": "設定",
+  "connect_successfully": "接続に成功しました！デバイスを接続したまま USB デバッグを有効にしてください。",
+  "installApptoWatch": "アプリ（APK）を手表にインストール",
+  "selectApptoInstall": "インストールする APK を選択",
+  "installingWaiting": "インストール中です…しばらくお待ちください。",
+  "installNoDeviceTitle": "デバイスが未接続",
+  "installNoDeviceMessage": "デバイスが検出されません。接続状態をご確認ください。",
+  "installSuccessTitle": "インストール完了",
+  "installSuccessMessage": "アプリが正常にインストールされました！",
+  "installFailureTitle": "インストール失敗",
+  "installFailureMessage": "インストール中に問題が発生しました。",
+  "installFailureWithReason": "エラー：{error}",
+  "@installFailureWithReason": {
+    "placeholders": {
+      "error": {}
+    }
+  },
+  "installErrorOutput": "エラー: {details}",
+  "@installErrorOutput": {
+    "placeholders": {
+      "details": {}
+    }
+  },
+  "installTipTitle": "確認",
+  "installNoFileSelected": "ファイルが選択されていません。",
+  "commonErrorTitle": "エラー",
+  "commonNoticeTitle": "通知",
+  "buttonPageTitle": "キー操作シミュレーター",
+  "buttonDeviceNotConnectedTitle": "デバイス未接続",
+  "buttonDeviceNotConnectedMessage": "デバイスが PC に接続され、USB デバッグが有効かご確認ください。",
+  "buttonConnectFirstMessage": "まずデバイスを接続してください。",
+  "buttonSendKeySuccess": "キーコード {keycode} を送信しました。",
+  "@buttonSendKeySuccess": {
+    "placeholders": {
+      "keycode": {}
+    }
+  },
+  "buttonExecutionFailed": "実行に失敗しました: {details}",
+  "@buttonExecutionFailed": {
+    "placeholders": {
+      "details": {}
+    }
+  },
+  "buttonNameHome": "ホーム",
+  "buttonNameBack": "戻る",
+  "buttonNamePower": "電源",
+  "buttonNameVolumeUp": "音量＋",
+  "buttonNameVolumeDown": "音量−",
+  "buttonNameSpeakerMute": "スピーカーミュート",
+  "buttonNameMicMute": "マイクミュート",
+  "buttonNameCallDial": "発信",
+  "buttonNameCallEnd": "通話終了",
+  "buttonNamePlayPause": "再生 / 一時停止",
+  "buttonNameNextTrack": "次の曲",
+  "buttonNamePreviousTrack": "前の曲",
+  "buttonNameScreenOn": "画面オン",
+  "buttonNameScreenOff": "画面オフ",
+  "displayPageTitle": "表示設定",
+  "displayValueUnknown": "取得不可",
+  "displayValueUnavailable": "利用できません",
+  "displayDeviceNotConnectedMessage": "デバイスが検出されません。接続を確認してください。",
+  "displayErrorCheckingConnection": "デバイス接続を確認できません: {error}",
+  "@displayErrorCheckingConnection": {
+    "placeholders": {
+      "error": {}
+    }
+  },
+  "displayCurrentDpi": "現在の DPI: {value}",
+  "@displayCurrentDpi": {
+    "placeholders": {
+      "value": {}
+    }
+  },
+  "displaySelectedDpi": "選択中: {value}",
+  "@displaySelectedDpi": {
+    "placeholders": {
+      "value": {}
+    }
+  },
+  "displayDpiLabel": "DPI：",
+  "displayResetDefaultButton": "デフォルトに戻す",
+  "displayApplyDpiButton": "DPI を適用",
+  "displayCurrentResolution": "現在の解像度: {value}",
+  "@displayCurrentResolution": {
+    "placeholders": {
+      "value": {}
+    }
+  },
+  "displaySelectedResolution": "選択中: {value}",
+  "@displaySelectedResolution": {
+    "placeholders": {
+      "value": {}
+    }
+  },
+  "displayWidthLabel": "幅：",
+  "displayHeightLabel": "高さ：",
+  "displayApplyResolutionButton": "解像度を適用",
+  "displayDpiSetSuccess": "DPI を {value} に変更しました",
+  "@displayDpiSetSuccess": {
+    "placeholders": {
+      "value": {}
+    }
+  },
+  "displayDpiSetFailure": "DPI を変更できません: {error}",
+  "@displayDpiSetFailure": {
+    "placeholders": {
+      "error": {}
+    }
+  },
+  "displayResolutionSetSuccess": "解像度を {value} に変更しました",
+  "@displayResolutionSetSuccess": {
+    "placeholders": {
+      "value": {}
+    }
+  },
+  "displayResolutionSetFailure": "解像度を変更できません: {error}",
+  "@displayResolutionSetFailure": {
+    "placeholders": {
+      "error": {}
+    }
+  },
+  "displayDpiResetSuccess": "DPI をデフォルトに戻しました",
+  "displayDpiResetFailure": "DPI を初期化できません: {error}",
+  "@displayDpiResetFailure": {
+    "placeholders": {
+      "error": {}
+    }
+  },
+  "displayResolutionResetSuccess": "解像度をデフォルトに戻しました",
+  "displayResolutionResetFailure": "解像度を初期化できません: {error}",
+  "@displayResolutionResetFailure": {
+    "placeholders": {
+      "error": {}
+    }
+  },
+  "displayDeviceDisconnectedMessage": "デバイスが切断されました。",
+  "dialogCancel": "キャンセル",
+  "dialogConfirm": "確認",
+  "appManageTitle": "アプリ管理",
+  "appManageShowSystemApps": "システムアプリを表示",
+  "appManageNoAppsOrDevice": "アプリが検出されない、またはデバイスが接続されていません。",
+  "appManageCannotFetch": "アプリ一覧を取得できません: {error}",
+  "@appManageCannotFetch": {
+    "placeholders": {
+      "error": {}
+    }
+  },
+  "appManageDeviceDisconnected": "デバイスが切断されました。",
+  "appManageTooltipUnfreeze": "解凍",
+  "appManageTooltipFreeze": "凍結",
+  "appManageTooltipExportApk": "APK を抽出",
+  "appManageTooltipUninstall": "アンインストール",
+  "appManageConfirmUninstallTitle": "アンインストール確認",
+  "appManageConfirmUninstallMessage": "{packageName} をアンインストールしますか？",
+  "@appManageConfirmUninstallMessage": {
+    "placeholders": {
+      "packageName": {}
+    }
+  },
+  "appManagePullProgress": "APK を抽出中…",
+  "appManagePullSuccess": "APK を保存しました：{path}",
+  "@appManagePullSuccess": {
+    "placeholders": {
+      "path": {}
+    }
+  },
+  "appManagePullFailure": "APK を抽出できません: {error}",
+  "@appManagePullFailure": {
+    "placeholders": {
+      "error": {}
+    }
+  },
+  "appManageUninstallSuccess": "{packageName} をアンインストールしました",
+  "@appManageUninstallSuccess": {
+    "placeholders": {
+      "packageName": {}
+    }
+  },
+  "appManageUninstallFailure": "アンインストールに失敗しました: {error}",
+  "@appManageUninstallFailure": {
+    "placeholders": {
+      "error": {}
+    }
+  },
+  "appManageFreezeSuccess": "{packageName} を凍結しました",
+  "@appManageFreezeSuccess": {
+    "placeholders": {
+      "packageName": {}
+    }
+  },
+  "appManageFreezeFailure": "アプリを凍結できません: {error}",
+  "@appManageFreezeFailure": {
+    "placeholders": {
+      "error": {}
+    }
+  },
+  "appManageUnfreezeSuccess": "{packageName} を解凍しました",
+  "@appManageUnfreezeSuccess": {
+    "placeholders": {
+      "packageName": {}
+    }
+  },
+  "appManageUnfreezeFailure": "解凍に失敗しました: {error}",
+  "@appManageUnfreezeFailure": {
+    "placeholders": {
+      "error": {}
+    }
+  },
+  "fileManagerListFailure": "{path} 以下のファイル一覧を取得できません。デバイス接続をご確認ください。",
+  "@fileManagerListFailure": {
+    "placeholders": {
+      "path": {}
+    }
+  },
+  "fileManagerErrorMessage": "エラー: {error}",
+  "@fileManagerErrorMessage": {
+    "placeholders": {
+      "error": {}
+    }
+  },
+  "fileManagerSuccessTitle": "成功",
+  "fileManagerConfirmDeleteTitle": "削除確認",
+  "fileManagerConfirmDeleteMessage": "{entry} を削除しますか？",
+  "@fileManagerConfirmDeleteMessage": {
+    "placeholders": {
+      "entry": {}
+    }
+  },
+  "fileManagerDeleteButton": "削除",
+  "fileManagerDeleteProgress": "{entry} を削除中…",
+  "@fileManagerDeleteProgress": {
+    "placeholders": {
+      "entry": {}
+    }
+  },
+  "fileManagerDeleteSuccess": "{entry} を削除しました",
+  "@fileManagerDeleteSuccess": {
+    "placeholders": {
+      "entry": {}
+    }
+  },
+  "fileManagerDeleteFailure": "{entry} を削除できませんでした",
+  "@fileManagerDeleteFailure": {
+    "placeholders": {
+      "entry": {}
+    }
+  },
+  "fileManagerRenameTitle": "名前変更",
+  "fileManagerRenameLabel": "新しい名前を入力",
+  "fileManagerRenameAction": "変更",
+  "fileManagerSaveDialogTitle": "保存先を選択",
+  "fileManagerSaveProgress": "{file} を保存中…",
+  "@fileManagerSaveProgress": {
+    "placeholders": {
+      "file": {}
+    }
+  },
+  "fileManagerSaveSuccess": "{path} に保存しました",
+  "@fileManagerSaveSuccess": {
+    "placeholders": {
+      "path": {}
+    }
+  },
+  "fileManagerSaveFailure": "PC にコピーできませんでした。",
+  "fileManagerUploadProgress": "アップロード中…",
+  "fileManagerUploadSuccess": "{path} にアップロードしました",
+  "@fileManagerUploadSuccess": {
+    "placeholders": {
+      "path": {}
+    }
+  },
+  "fileManagerUploadFailure": "デバイスにアップロードできませんでした。",
+  "fileManagerContextRename": "名前変更",
+  "fileManagerContextCopy": "PC にコピー",
+  "fileManagerContextDelete": "削除",
+  "fileManagerTitle": "ファイル管理 ({path})",
+  "@fileManagerTitle": {
+    "placeholders": {
+      "path": {}
+    }
+  },
+  "fileManagerRootLabel": "内部ストレージ",
+  "pairingPageTitle": "初期化なしで再ペアリング（WearOS）",
+  "pairingStepTitle": "ステップ {step}",
+  "@pairingStepTitle": {
+    "placeholders": {
+      "step": {}
+    }
+  },
+  "pairingStepDescription1": "旧スマホ側で、手表との Bluetooth ペアリングを解除してください。",
+  "pairingClearServicesButton": "Google サービスをクリアして再起動",
+  "pairingStepDescription4": "新しいスマホで WearOS アプリを開き、再ペアリングしてください。",
+  "pairingEnableBluetoothButton": "Bluetooth の検出モードを有効化",
+  "pairingClearFailure": "Google サービスのクリアに失敗しました: {error}",
+  "@pairingClearFailure": {
+    "placeholders": {
+      "error": {}
+    }
+  },
+  "pairingRebooting": "デバイスを再起動しています…",
+  "pairingRebootFailure": "再起動に失敗しました: {error}",
+  "@pairingRebootFailure": {
+    "placeholders": {
+      "error": {}
+    }
+  },
+  "pairingExecuteFailure": "コマンドの実行に失敗しました: {error}",
+  "@pairingExecuteFailure": {
+    "placeholders": {
+      "error": {}
+    }
+  },
+  "pairingBluetoothEnabled": "Bluetooth の検出モードが有効になりました。",
+  "rotatePageTitle": "画面回転",
+  "rotateButtonLeft": "左回転",
+  "rotateButtonRight": "右回転",
+  "rotateButtonFlip": "上下反転",
+  "rotateButtonReset": "リセット",
+  "rotateSuccessMessage": "画面を{direction}へ回転しました",
+  "@rotateSuccessMessage": {
+    "placeholders": {
+      "direction": {}
+    }
+  },
+  "rotateExecuteFailure": "回転の適用に失敗しました: {error}",
+  "@rotateExecuteFailure": {
+    "placeholders": {
+      "error": {}
+    }
+  },
+  "typePageTitle": "テキストを手表へ送信",
+  "typeHint": "ここにテキストを入力してください…",
+  "typeImportButton": "テキストをインポート",
+  "typeClearButton": "クリア",
+  "typeSendButton": "手表へ送信",
+  "typeImportFailure": "テキストファイルを読み込めませんでした: {error}",
+  "@typeImportFailure": {
+    "placeholders": {
+      "error": {}
+    }
+  },
+  "typeNoDeviceMessage": "デバイスが検出されません。接続をご確認ください。",
+  "typeEmptyTextMessage": "テキストを入力してください。",
+  "typeSendingProgress": "送信中…",
+  "typePermissionDenied": "権限がありません。「USB デバッグ（インストール設定）」を有効にして再度お試しください。",
+  "typeSendSuccess": "テキストを送信しました。",
+  "typeSendFailure": "エラーが発生しました: {error}",
+  "@typeSendFailure": {
+    "placeholders": {
+      "error": {}
+    }
+  },
+  "typeConnectionCheckFailure": "接続状態を確認できません: {error}",
+  "@typeConnectionCheckFailure": {
+    "placeholders": {
+      "error": {}
+    }
+  },
+  "viewOnGithub": "Github",
+  "githubDescription": "APGL-3.0 ライセンスでオープンソース公開",
+  "driverTitle": "USB ドライバーインストールガイド",
+  "driverIntro": "このガイドは Windows 向けです。macOS / Linux ユーザーは USB ドライバーをインストールする必要はありません。",
+  "driverStep1Title": "1. USB ドライバーをダウンロード",
+  "driverStep1LinkPrefix": "",
+  "driverStep1LinkText": "Android USB Driver",
+  "driverStep1LinkSuffix": " のダウンロードページを開きます",
+  "driverStep1DownloadInstructions": "「Download the Google USB Driver ZIP file (ZIP)」をクリックし、ライセンスに同意して「usb_driver_r13-windows.zip」をダウンロードし、任意の場所に解凍してください。",
+  "driverStep2Title": "2. デバイスマネージャーを開く",
+  "driverStep2Description": "Windows の設定からシステム情報に入り、「デバイスマネージャー」を開きます。",
+  "driverStep3Title": "3. デバイスを接続",
+  "driverStep3Description": "手表をケーブルまたは充電ドックで PC に接続し、デバイスマネージャー内の「その他のデバイス」または「ポータブルデバイス」を展開します。",
+  "driverStep4Title": "4. ドライバーを更新",
+  "driverStep4Description": "表示されたデバイス名を右クリックし、「ドライバーの更新」を選択します。",
+  "driverStep5Title": "5. 「コンピューターを参照してドライバーを検索」を選択",
+  "driverStep6Title": "6. ドライバーフォルダーを選択",
+  "driverStep6Description": "「参照」をクリックし、先ほど解凍したフォルダー「usb_driver_r13-windows」を選択します。",
+  "driverStep7Title": "7. ドライバーをインストール",
+  "driverStep7Description": "「次へ」をクリックするとドライバーがインストールされ、設定が完了します。",
+  "driverUrlLaunchError": "リンクを開けませんでした: {url}",
+  "@driverUrlLaunchError": {
+    "placeholders": {
+      "url": {}
+    }
+  },
+  "tutorialTitle": "USB デバッグ有効化ガイド（多くのデバイスに対応）"
+}

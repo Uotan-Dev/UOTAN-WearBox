@@ -82,7 +82,7 @@ class Page1 extends StatelessWidget {
             '$greeting\n${l10n.homeWelcomeMessage}',
             style: const TextStyle(
               fontSize: 34,
-              fontFamily: 'OPPOSansMed',
+              fontFamily: 'MiSansMed',
               height: 1.25,
             ),
           ),

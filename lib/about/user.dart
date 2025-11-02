@@ -46,8 +46,8 @@ class UserPage extends StatelessWidget {
         ),
       ),
       body: const SingleChildScrollView(
-        padding:
-            EdgeInsets.only(left: 30.0, right: 30, bottom: 30, top: 20), // 设置页面内边距
+        padding: EdgeInsets.only(
+            left: 30.0, right: 30, bottom: 30, top: 20), // 设置页面内边距
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
@@ -55,7 +55,7 @@ class UserPage extends StatelessWidget {
               '柚坛手表助手用户协议',
               style: TextStyle(
                 fontSize: 24,
-                fontFamily: 'OPPOSansMed',
+                fontFamily: 'MiSansMed',
               ),
             ),
             SizedBox(height: 2),
@@ -73,13 +73,9 @@ class UserPage extends StatelessWidget {
               '一、 隐私政策的独立性',
               style: TextStyle(
                 fontSize: 20,
-                fontFamily: 'OPPOSansMed',
+                fontFamily: 'MiSansMed',
               ),
             ),
-          
-
-           
-          
             SizedBox(height: 6),
             Text(
               '柚坛社区的隐私政策与柚坛手表助手的隐私政策完全独立，互不关联。如您需要查阅柚坛社区的隐私政策，敬请前往柚坛社区官方网站。本应用的隐私政策仅适用于柚坛手表助手，特此声明。',
@@ -90,7 +86,7 @@ class UserPage extends StatelessWidget {
               '二、协议的接受与变更',
               style: TextStyle(
                 fontSize: 20,
-                fontFamily: 'OPPOSansMed',
+                fontFamily: 'MiSansMed',
               ),
             ),
             SizedBox(height: 6),
@@ -124,7 +120,7 @@ class UserPage extends StatelessWidget {
               '三、服务内容与使用规范',
               style: TextStyle(
                 fontSize: 20,
-                fontFamily: 'OPPOSansMed',
+                fontFamily: 'MiSansMed',
               ),
             ),
             SizedBox(height: 6),
@@ -158,7 +154,7 @@ class UserPage extends StatelessWidget {
               '四、用户行为准则',
               style: TextStyle(
                 fontSize: 20,
-                fontFamily: 'OPPOSansMed',
+                fontFamily: 'MiSansMed',
               ),
             ),
             SizedBox(height: 6),
@@ -205,7 +201,7 @@ class UserPage extends StatelessWidget {
               '五、知识产权保护',
               style: TextStyle(
                 fontSize: 20,
-                fontFamily: 'OPPOSansMed',
+                fontFamily: 'MiSansMed',
               ),
             ),
             SizedBox(height: 6),
@@ -252,7 +248,7 @@ class UserPage extends StatelessWidget {
               '六、隐私政策与数据保护',
               style: TextStyle(
                 fontSize: 20,
-                fontFamily: 'OPPOSansMed',
+                fontFamily: 'MiSansMed',
               ),
             ),
             SizedBox(height: 6),
@@ -286,7 +282,7 @@ class UserPage extends StatelessWidget {
               '七、免责声明与责任限制',
               style: TextStyle(
                 fontSize: 20,
-                fontFamily: 'OPPOSansMed',
+                fontFamily: 'MiSansMed',
               ),
             ),
             SizedBox(height: 6),
@@ -333,7 +329,7 @@ class UserPage extends StatelessWidget {
               '八、违约责任与救济措施',
               style: TextStyle(
                 fontSize: 20,
-                fontFamily: 'OPPOSansMed',
+                fontFamily: 'MiSansMed',
               ),
             ),
             SizedBox(height: 6),
@@ -367,7 +363,7 @@ class UserPage extends StatelessWidget {
               '九、协议的终止与后果',
               style: TextStyle(
                 fontSize: 20,
-                fontFamily: 'OPPOSansMed',
+                fontFamily: 'MiSansMed',
               ),
             ),
             SizedBox(height: 6),
@@ -401,7 +397,7 @@ class UserPage extends StatelessWidget {
               '十、不可抗力条款',
               style: TextStyle(
                 fontSize: 20,
-                fontFamily: 'OPPOSansMed',
+                fontFamily: 'MiSansMed',
               ),
             ),
             SizedBox(height: 6),
@@ -414,7 +410,7 @@ class UserPage extends StatelessWidget {
               '十一、适用法律与争议解决',
               style: TextStyle(
                 fontSize: 20,
-                fontFamily: 'OPPOSansMed',
+                fontFamily: 'MiSansMed',
               ),
             ),
             SizedBox(height: 6),
@@ -448,7 +444,7 @@ class UserPage extends StatelessWidget {
               '十二、解释权',
               style: TextStyle(
                 fontSize: 20,
-                fontFamily: 'OPPOSansMed',
+                fontFamily: 'MiSansMed',
               ),
             ),
             SizedBox(height: 6),
@@ -461,7 +457,7 @@ class UserPage extends StatelessWidget {
               '十三、其他条款',
               style: TextStyle(
                 fontSize: 20,
-                fontFamily: 'OPPOSansMed',
+                fontFamily: 'MiSansMed',
               ),
             ),
             SizedBox(height: 6),
@@ -521,7 +517,7 @@ class UserPage extends StatelessWidget {
               '十四、联系我们',
               style: TextStyle(
                 fontSize: 20,
-                fontFamily: 'OPPOSansMed',
+                fontFamily: 'MiSansMed',
               ),
             ),
             SizedBox(height: 6),
@@ -550,6 +546,4 @@ class UserPage extends StatelessWidget {
       ),
     );
   }
-
-  
 }
