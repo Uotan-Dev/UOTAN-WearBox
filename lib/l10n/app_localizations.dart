@@ -626,7 +626,7 @@ abstract class AppLocalizations {
   /// No description provided for @featureRePair.
   ///
   /// In en, this message translates to:
-  /// **'Re-pair'**
+  /// **'WearOS Re-pair'**
   String get featureRePair;
 
   /// No description provided for @featureFlashTool.

@@ -61,7 +61,8 @@ class _DisplaySettingsPageState extends State<DisplaySettingsPage> {
       String output = result.stdout as String;
       return output.split('\n').any((line) => line.contains('\tdevice'));
     } catch (e) {
-      _showErrorDialog(context.l10n.displayErrorCheckingConnection(e.toString()));
+      _showErrorDialog(
+          context.l10n.displayErrorCheckingConnection(e.toString()));
       return false;
     }
   }
@@ -69,11 +70,14 @@ class _DisplaySettingsPageState extends State<DisplaySettingsPage> {
   // 获取当前DPI
   Future<void> _fetchCurrentDPI() async {
     try {
-      ProcessResult result = await Process.run('adb', ['shell', 'wm', 'density']);
+      ProcessResult result =
+          await Process.run('adb', ['shell', 'wm', 'density']);
       String output = result.stdout as String;
       if (!mounted) return;
       setState(() {
-        currentDPI = output.contains('Physical density') ? output.split(':').last.trim() : '';
+        currentDPI = output.contains('Physical density')
+            ? output.split(':').last.trim()
+            : '';
         dpiValue = double.tryParse(currentDPI) ?? 160;
       });
     } catch (e) {
@@ -92,7 +96,9 @@ class _DisplaySettingsPageState extends State<DisplaySettingsPage> {
       String output = result.stdout as String;
       if (!mounted) return;
       setState(() {
-        currentResolution = output.contains('Physical size') ? output.split(':').last.trim() : '';
+        currentResolution = output.contains('Physical size')
+            ? output.split(':').last.trim()
+            : '';
         List<String> resolutionParts = currentResolution.split('x');
         if (resolutionParts.length == 2) {
           widthValue = double.tryParse(resolutionParts[0]) ?? 1080;
@@ -129,7 +135,8 @@ class _DisplaySettingsPageState extends State<DisplaySettingsPage> {
                     Row(
                       children: [
                         IconButton(
-                          icon: const Icon(Icons.arrow_back, color: Colors.black, size: 20), // 返回图标
+                          icon: const Icon(Icons.arrow_back,
+                              color: Colors.black, size: 20), // 返回图标
                           onPressed: isLoading
                               ? null // 加载时禁用返回按钮
                               : () {
@@ -178,8 +185,9 @@ class _DisplaySettingsPageState extends State<DisplaySettingsPage> {
   // 构建DPI设置卡片
   Widget _buildDpiCard(BuildContext context) {
     final l10n = context.l10n;
-    final String currentDpiDisplay =
-        currentDPI.isEmpty ? (isLoading ? l10n.displayValueUnknown : l10n.displayValueUnavailable) : currentDPI;
+    final String currentDpiDisplay = currentDPI.isEmpty
+        ? (isLoading ? l10n.displayValueUnknown : l10n.displayValueUnavailable)
+        : currentDPI;
     final String selectedDpiDisplay = dpiValue.toInt().toString();
     return Card(
       color: const Color(0xFFF9F9F9), // 卡片背景颜色
@@ -208,16 +216,20 @@ class _DisplaySettingsPageState extends State<DisplaySettingsPage> {
             const SizedBox(height: 10),
             Row(
               children: [
-                Text(l10n.displayDpiLabel, style: const TextStyle(fontSize: 16)),
+                Text(l10n.displayDpiLabel,
+                    style: const TextStyle(fontSize: 16)),
                 Expanded(
                   child: SliderTheme(
                     data: SliderTheme.of(context).copyWith(
-                      activeTrackColor: const Color.fromARGB(255, 30, 93, 229), // 激活轨道颜色
+                      activeTrackColor:
+                          const Color.fromARGB(255, 30, 93, 229), // 激活轨道颜色
                       inactiveTrackColor: Colors.grey, // 非激活轨道颜色
                       activeTickMarkColor: Colors.transparent, // 隐藏激活状态的刻度点
                       inactiveTickMarkColor: Colors.transparent, // 隐藏非激活状态的刻度点
-                      thumbColor: const Color.fromARGB(255, 30, 93, 229), // 滑块的控制点颜色（蓝色）
-                      overlayColor: const Color.fromARGB(50, 30, 93, 229), // 滑块拖动时的外圈颜色（淡蓝色）
+                      thumbColor: const Color.fromARGB(
+                          255, 30, 93, 229), // 滑块的控制点颜色（蓝色）
+                      overlayColor: const Color.fromARGB(
+                          50, 30, 93, 229), // 滑块拖动时的外圈颜色（淡蓝色）
                     ),
                     child: Slider(
                       value: dpiValue,
@@ -235,7 +247,8 @@ class _DisplaySettingsPageState extends State<DisplaySettingsPage> {
                 ),
                 _buildCardButton(l10n.displayResetDefaultButton, _resetDPI),
                 const SizedBox(width: 10),
-                _buildCardButton(l10n.displayApplyDpiButton, () => _setDPI(dpiValue.toInt().toString())),
+                _buildCardButton(l10n.displayApplyDpiButton,
+                    () => _setDPI(dpiValue.toInt().toString())),
               ],
             ),
           ],
@@ -247,9 +260,11 @@ class _DisplaySettingsPageState extends State<DisplaySettingsPage> {
   // 构建分辨率设置卡片
   Widget _buildResolutionCard(BuildContext context) {
     final l10n = context.l10n;
-    final String currentResolutionDisplay =
-        currentResolution.isEmpty ? (isLoading ? l10n.displayValueUnknown : l10n.displayValueUnavailable) : currentResolution;
-    final String selectedResolutionDisplay = '${widthValue.toInt()}x${heightValue.toInt()}';
+    final String currentResolutionDisplay = currentResolution.isEmpty
+        ? (isLoading ? l10n.displayValueUnknown : l10n.displayValueUnavailable)
+        : currentResolution;
+    final String selectedResolutionDisplay =
+        '${widthValue.toInt()}x${heightValue.toInt()}';
     return Card(
       color: const Color(0xFFF9F9F9), // 卡片背景颜色
       elevation: 0, // 去除阴影
@@ -265,11 +280,13 @@ class _DisplaySettingsPageState extends State<DisplaySettingsPage> {
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
                 Text(
-                  l10n.displayCurrentResolution(currentResolutionDisplay), // 显示当前分辨率
+                  l10n.displayCurrentResolution(
+                      currentResolutionDisplay), // 显示当前分辨率
                   style: const TextStyle(fontSize: 18, color: Colors.black),
                 ),
                 Text(
-                  l10n.displaySelectedResolution(selectedResolutionDisplay), // 显示即将修改的分辨率
+                  l10n.displaySelectedResolution(
+                      selectedResolutionDisplay), // 显示即将修改的分辨率
                   style: const TextStyle(fontSize: 18, color: Colors.black),
                 ),
               ],
@@ -277,16 +294,20 @@ class _DisplaySettingsPageState extends State<DisplaySettingsPage> {
             const SizedBox(height: 10),
             Row(
               children: [
-                Text(l10n.displayWidthLabel, style: const TextStyle(fontSize: 16)),
+                Text(l10n.displayWidthLabel,
+                    style: const TextStyle(fontSize: 16)),
                 Expanded(
                   child: SliderTheme(
                     data: SliderTheme.of(context).copyWith(
-                      activeTrackColor: const Color.fromARGB(255, 30, 93, 229), // 激活轨道颜色
+                      activeTrackColor:
+                          const Color.fromARGB(255, 30, 93, 229), // 激活轨道颜色
                       inactiveTrackColor: Colors.grey, // 非激活轨道颜色
                       activeTickMarkColor: Colors.transparent, // 隐藏激活状态的刻度点
                       inactiveTickMarkColor: Colors.transparent, // 隐藏非激活状态的刻度点
-                      thumbColor: const Color.fromARGB(255, 30, 93, 229), // 滑块的控制点颜色（蓝色）
-                      overlayColor: const Color.fromARGB(50, 30, 93, 229), // 滑块拖动时的外圈颜色（淡蓝色）
+                      thumbColor: const Color.fromARGB(
+                          255, 30, 93, 229), // 滑块的控制点颜色（蓝色）
+                      overlayColor: const Color.fromARGB(
+                          50, 30, 93, 229), // 滑块拖动时的外圈颜色（淡蓝色）
                     ),
                     child: Slider(
                       value: widthValue,
@@ -306,16 +327,20 @@ class _DisplaySettingsPageState extends State<DisplaySettingsPage> {
             ),
             Row(
               children: [
-                Text(l10n.displayHeightLabel, style: const TextStyle(fontSize: 16)),
+                Text(l10n.displayHeightLabel,
+                    style: const TextStyle(fontSize: 16)),
                 Expanded(
                   child: SliderTheme(
                     data: SliderTheme.of(context).copyWith(
-                      activeTrackColor: const Color.fromARGB(255, 30, 93, 229), // 激活轨道颜色
+                      activeTrackColor:
+                          const Color.fromARGB(255, 30, 93, 229), // 激活轨道颜色
                       inactiveTrackColor: Colors.grey, // 非激活轨道颜色
                       activeTickMarkColor: Colors.transparent, // 隐藏激活状态的刻度点
                       inactiveTickMarkColor: Colors.transparent, // 隐藏非激活状态的刻度点
-                      thumbColor: const Color.fromARGB(255, 30, 93, 229), // 滑块的控制点颜色（蓝色）
-                      overlayColor: const Color.fromARGB(50, 30, 93, 229), // 滑块拖动时的外圈颜色（淡蓝色）
+                      thumbColor: const Color.fromARGB(
+                          255, 30, 93, 229), // 滑块的控制点颜色（蓝色）
+                      overlayColor: const Color.fromARGB(
+                          50, 30, 93, 229), // 滑块拖动时的外圈颜色（淡蓝色）
                     ),
                     child: Slider(
                       value: heightValue,
@@ -331,7 +356,8 @@ class _DisplaySettingsPageState extends State<DisplaySettingsPage> {
                     ),
                   ),
                 ),
-                _buildCardButton(l10n.displayResetDefaultButton, _resetResolution),
+                _buildCardButton(
+                    l10n.displayResetDefaultButton, _resetResolution),
                 const SizedBox(width: 10),
                 _buildCardButton(
                   l10n.displayApplyResolutionButton,
@@ -357,7 +383,8 @@ class _DisplaySettingsPageState extends State<DisplaySettingsPage> {
         borderRadius: BorderRadius.circular(6.0), // 设置悬浮时的圆角效果
         onTap: onPressed,
         child: Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 20.0, vertical: 10.0), // 保持按钮大小不变
+          padding: const EdgeInsets.symmetric(
+              horizontal: 20.0, vertical: 10.0), // 保持按钮大小不变
           child: Text(
             text,
             style: const TextStyle(color: Colors.black, fontSize: 15),
@@ -382,7 +409,8 @@ class _DisplaySettingsPageState extends State<DisplaySettingsPage> {
               onPressed: () {
                 Navigator.of(context).pop();
               },
-              child: Text(l10n.dialogOk, style: const TextStyle(color: Colors.black)),
+              child: Text(l10n.dialogOk,
+                  style: const TextStyle(color: Colors.black)),
             ),
           ],
         );
@@ -390,7 +418,7 @@ class _DisplaySettingsPageState extends State<DisplaySettingsPage> {
     );
   }
 
- // 显示未连接弹窗
+  // 显示未连接弹窗
   void _shownoconnectDialog(String message) {
     showDialog(
       context: context,
@@ -405,19 +433,23 @@ class _DisplaySettingsPageState extends State<DisplaySettingsPage> {
               style: ButtonStyle(
                 overlayColor: MaterialStateProperty.resolveWith<Color?>(
                   (Set<MaterialState> states) {
-                    if (states.contains(MaterialState.pressed) || states.contains(MaterialState.hovered)) {
-                      return const Color.fromARGB(255, 237, 237, 237); // 点击或悬浮时的背景颜色
+                    if (states.contains(MaterialState.pressed) ||
+                        states.contains(MaterialState.hovered)) {
+                      return const Color.fromARGB(
+                          255, 237, 237, 237); // 点击或悬浮时的背景颜色
                     }
                     return null; // 默认状态下不更改颜色
                   },
                 ),
-                foregroundColor: MaterialStateProperty.all<Color>(Colors.black), // 文本颜色
+                foregroundColor:
+                    MaterialStateProperty.all<Color>(Colors.black), // 文本颜色
               ),
               onPressed: () {
                 Navigator.of(context).pop();
                 Navigator.pop(context); // 返回到上一个页面
               },
-              child: Text(l10n.dialogOk, style: const TextStyle(color: Colors.black)),
+              child: Text(l10n.dialogOk,
+                  style: const TextStyle(color: Colors.black)),
             ),
           ],
         );
@@ -427,7 +459,8 @@ class _DisplaySettingsPageState extends State<DisplaySettingsPage> {
 
   // 设置DPI的方法
   void _setDPI(String dpi) async {
-    if (dpi.isNotEmpty && await _isDeviceConnected()) { // 检测设备是否连接
+    if (dpi.isNotEmpty && await _isDeviceConnected()) {
+      // 检测设备是否连接
       try {
         await Process.run('adb', ['shell', 'wm', 'density', dpi]);
         _showInfoDialog(context.l10n.displayDpiSetSuccess(dpi));
@@ -442,13 +475,15 @@ class _DisplaySettingsPageState extends State<DisplaySettingsPage> {
 
   // 设置分辨率的方法
   void _setResolution(String resolution) async {
-    if (resolution.isNotEmpty && await _isDeviceConnected()) { // 检测设备是否连接
+    if (resolution.isNotEmpty && await _isDeviceConnected()) {
+      // 检测设备是否连接
       try {
         await Process.run('adb', ['shell', 'wm', 'size', resolution]);
         _showInfoDialog(context.l10n.displayResolutionSetSuccess(resolution));
         _fetchCurrentResolution(); // 更新当前分辨率
       } catch (e) {
-        _showErrorDialog(context.l10n.displayResolutionSetFailure(e.toString()));
+        _showErrorDialog(
+            context.l10n.displayResolutionSetFailure(e.toString()));
       }
     } else {
       _shownoconnectDialog(context.l10n.displayDeviceNotConnectedMessage);
@@ -457,7 +492,8 @@ class _DisplaySettingsPageState extends State<DisplaySettingsPage> {
 
   // 恢复默认DPI的方法
   void _resetDPI() async {
-    if (await _isDeviceConnected()) { // 检测设备是否连接
+    if (await _isDeviceConnected()) {
+      // 检测设备是否连接
       try {
         await Process.run('adb', ['shell', 'wm', 'density', 'reset']);
         _showInfoDialog(context.l10n.displayDpiResetSuccess);
@@ -472,13 +508,15 @@ class _DisplaySettingsPageState extends State<DisplaySettingsPage> {
 
   // 恢复默认分辨率的方法
   void _resetResolution() async {
-    if (await _isDeviceConnected()) { // 检测设备是否连接
+    if (await _isDeviceConnected()) {
+      // 检测设备是否连接
       try {
         await Process.run('adb', ['shell', 'wm', 'size', 'reset']);
         _showInfoDialog(context.l10n.displayResolutionResetSuccess);
         _fetchCurrentResolution(); // 更新当前分辨率
       } catch (e) {
-        _showErrorDialog(context.l10n.displayResolutionResetFailure(e.toString()));
+        _showErrorDialog(
+            context.l10n.displayResolutionResetFailure(e.toString()));
       }
     } else {
       _shownoconnectDialog(context.l10n.displayDeviceNotConnectedMessage);
@@ -500,7 +538,8 @@ class _DisplaySettingsPageState extends State<DisplaySettingsPage> {
               onPressed: () {
                 Navigator.of(context).pop();
               },
-              child: Text(l10n.dialogOk, style: const TextStyle(color: Colors.black)),
+              child: Text(l10n.dialogOk,
+                  style: const TextStyle(color: Colors.black)),
             ),
           ],
         );

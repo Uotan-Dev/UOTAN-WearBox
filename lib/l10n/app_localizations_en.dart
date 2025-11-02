@@ -313,7 +313,7 @@ class AppLocalizationsEn extends AppLocalizations {
   String get featureCapture => 'Screenshot / Recording';
 
   @override
-  String get featureRePair => 'Re-pair';
+  String get featureRePair => 'WearOS Re-pair';
 
   @override
   String get featureFlashTool => 'Flash tool';

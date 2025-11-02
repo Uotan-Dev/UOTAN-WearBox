@@ -189,7 +189,7 @@
   "featureBatteryManager": "Battery manager",
   "featureRotateScreen": "Force screen rotation",
   "featureCapture": "Screenshot / Recording",
-  "featureRePair": "Re-pair",
+  "featureRePair": "WearOS Re-pair",
   "featureFlashTool": "Flash tool",
   "featureComingSoonTitle": "Coming soon",
   "featureComingSoonMessage": "This feature ({feature}) is not available in this rebuild yet. We will add it soon.",

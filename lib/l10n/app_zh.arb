@@ -189,7 +189,7 @@
   "featureBatteryManager": "电池管理",
   "featureRotateScreen": "强制旋转屏幕",
   "featureCapture": "截屏录屏",
-  "featureRePair": "重新配对",
+  "featureRePair": "WearOS 重新配对",
   "featureFlashTool": "刷机工具",
   "featureComingSoonTitle": "敬请期待",
   "featureComingSoonMessage": "由于软件重制，当前版本暂不支持 {feature}，我们将尽快更新支持。",

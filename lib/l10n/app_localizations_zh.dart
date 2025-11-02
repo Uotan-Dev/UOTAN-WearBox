@@ -313,7 +313,7 @@ class AppLocalizationsZh extends AppLocalizations {
   String get featureCapture => '截屏录屏';
 
   @override
-  String get featureRePair => '重新配对';
+  String get featureRePair => 'WearOS 重新配对';
 
   @override
   String get featureFlashTool => '刷机工具';
