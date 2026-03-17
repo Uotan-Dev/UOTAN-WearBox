@@ -9,6 +9,7 @@ import 'function/flash.dart';
 import 'function/installApp.dart';
 import 'function/type.dart';
 import 'function/button.dart';
+import 'function/battery.dart';
 import 'function/pair.dart';
 import 'function/rotate.dart';
 import 'function/memory.dart';
@@ -163,6 +164,12 @@ class Page2 extends StatelessWidget {
                       );
                       break;
                     case _FeatureAction.batteryManager:
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                            builder: (context) => const BatteryManagerPage()),
+                      );
+                      break;
                     case _FeatureAction.capture:
                       _showMessage(
                         context,
@@ -260,7 +267,6 @@ class Page2 extends StatelessWidget {
         iconPath: 'assets/icons/battery_profile.png',
         label: l10n.featureBatteryManager,
         action: _FeatureAction.batteryManager,
-        isImplemented: false,
       ),
       _FeatureItemData(
         iconPath:

@@ -126,14 +126,6 @@ class _MemoryCleanPageState extends State<MemoryCleanPage> {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.center,
             children: <Widget>[
-              const Align(
-                alignment: Alignment.centerLeft,
-                child: Text(
-                  '环形图',
-                  style: TextStyle(fontSize: 20, fontFamily: 'MiSansLight'),
-                ),
-              ),
-              const SizedBox(height: 12),
               Expanded(
                 child: Center(
                   child: Column(
