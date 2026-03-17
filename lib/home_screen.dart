@@ -26,7 +26,7 @@ class HomeScreen extends StatefulWidget {
 class _HomeScreenState extends State<HomeScreen> with WindowListener {
   int _selectedIndex = 0;
   List<AdbDeviceInfo> _devices = []; // 用于存储设备信息
-  double currentVersion = 16.1; // 当前应用版本号
+  double currentVersion = 16.2; // 当前应用版本号
   bool _isCheckingUpdate = true; // 是否正在检查更新的状态
 
   @override
