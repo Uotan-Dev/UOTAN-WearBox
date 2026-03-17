@@ -1,8 +1,12 @@
 <div align="center">
-
 <h3>Uotan WearBox project utilizes the following languages for documentation</h3>
 
 [简体中文](#chinese) ｜ [日本語](#japanese) ｜ [English](#english)
+
+	
+#
+
+<img width="1280" height="640" alt="Desktop 12" src="https://github.com/user-attachments/assets/930b933e-7bcf-44d8-8af4-2a165c55d493" />
 
 </div>
 
