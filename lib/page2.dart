@@ -11,6 +11,7 @@ import 'function/type.dart';
 import 'function/button.dart';
 import 'function/pair.dart';
 import 'function/rotate.dart';
+import 'function/memory.dart';
 import 'l10n/app_localizations.dart';
 import 'l10n/l10n.dart';
 
@@ -72,7 +73,7 @@ class Page2 extends StatelessWidget {
         padding: const EdgeInsets.only(top: 25, left: 20, right: 20),
         child: GridView.builder(
           gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-            crossAxisCount: 4,
+            crossAxisCount: 5,
             crossAxisSpacing: 8.0,
             mainAxisSpacing: 8.0,
             childAspectRatio: 3,
@@ -83,10 +84,10 @@ class Page2 extends StatelessWidget {
             return Material(
               color: const Color(0xFFF9F9F9),
               shape: RoundedRectangleBorder(
-                borderRadius: BorderRadius.circular(8.0),
+                borderRadius: BorderRadius.circular(12.0),
               ),
               child: InkWell(
-                borderRadius: BorderRadius.circular(8.0),
+                borderRadius: BorderRadius.circular(12.0),
                 onTap: () {
                   if (!item.isImplemented) {
                     _showMessage(
@@ -155,6 +156,12 @@ class Page2 extends StatelessWidget {
                       );
                       break;
                     case _FeatureAction.memoryClean:
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                            builder: (context) => const MemoryCleanPage()),
+                      );
+                      break;
                     case _FeatureAction.batteryManager:
                     case _FeatureAction.capture:
                       _showMessage(
@@ -242,7 +249,6 @@ class Page2 extends StatelessWidget {
             'assets/icons/memory_24dp_5F6368_FILL0_wght400_GRAD0_opsz24.png',
         label: l10n.featureMemoryClean,
         action: _FeatureAction.memoryClean,
-        isImplemented: false,
       ),
       _FeatureItemData(
         iconPath:

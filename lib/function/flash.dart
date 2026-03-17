@@ -84,7 +84,7 @@ class _FlashToolPageState extends State<FlashToolPage> {
                     ),
                     const SizedBox(width: 5),
                     const Text(
-                      '刷机工具',
+                      '自定义刷入',
                       style: TextStyle(
                         color: Colors.black,
                         fontSize: 26,
