@@ -117,7 +117,7 @@ class AppLocalizationsEn extends AppLocalizations {
   String get settingsCommunitySubtitle => 'Tech Device Users Community';
 
   @override
-  String get settingsFooter => 'Uotan WearBox\n© 2020-2025 Gnayoah.com All rights reserved.';
+  String get settingsFooter => 'Uotan WearBox\n© 2020-2026 Gnayoah.com All rights reserved.';
 
   @override
   String get settingsLanguageTitle => 'Language';
@@ -464,7 +464,7 @@ class AppLocalizationsEn extends AppLocalizations {
   String get featureDisplaySettings => 'Display settings';
 
   @override
-  String get featureMemoryClean => 'Memory cleanup';
+  String get featureMemoryClean => 'Storage / Memory cleanup';
 
   @override
   String get featureKeySimulation => 'Button simulation';
@@ -482,7 +482,7 @@ class AppLocalizationsEn extends AppLocalizations {
   String get featureRePair => 'WearOS Re-pair';
 
   @override
-  String get featureFlashTool => 'Flash tool';
+  String get featureFlashTool => 'Custom flash';
 
   @override
   String get featureComingSoonTitle => 'Coming soon';

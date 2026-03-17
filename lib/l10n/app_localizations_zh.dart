@@ -117,7 +117,7 @@ class AppLocalizationsZh extends AppLocalizations {
   String get settingsCommunitySubtitle => '玩机交流社群';
 
   @override
-  String get settingsFooter => '柚坛手表助手\n© 2020-2025 Gnayoah.com All rights reserved.';
+  String get settingsFooter => '柚坛手表助手\n© 2020-2026 Gnayoah.com All rights reserved.';
 
   @override
   String get settingsLanguageTitle => '语言设置';
@@ -464,7 +464,7 @@ class AppLocalizationsZh extends AppLocalizations {
   String get featureDisplaySettings => '显示设置';
 
   @override
-  String get featureMemoryClean => '内存清理';
+  String get featureMemoryClean => '储存/内存清理';
 
   @override
   String get featureKeySimulation => '按键模拟';
@@ -482,7 +482,7 @@ class AppLocalizationsZh extends AppLocalizations {
   String get featureRePair => 'WearOS 重新配对';
 
   @override
-  String get featureFlashTool => '刷机工具';
+  String get featureFlashTool => '自定义刷入';
 
   @override
   String get featureComingSoonTitle => '敬请期待';

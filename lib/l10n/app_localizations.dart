@@ -304,7 +304,7 @@ abstract class AppLocalizations {
   /// No description provided for @settingsFooter.
   ///
   /// In en, this message translates to:
-  /// **'Uotan WearBox\n© 2020-2025 Gnayoah.com All rights reserved.'**
+  /// **'Uotan WearBox\n© 2020-2026 Gnayoah.com All rights reserved.'**
   String get settingsFooter;
 
   /// No description provided for @settingsLanguageTitle.
@@ -910,7 +910,7 @@ abstract class AppLocalizations {
   /// No description provided for @featureMemoryClean.
   ///
   /// In en, this message translates to:
-  /// **'Memory cleanup'**
+  /// **'Storage / Memory cleanup'**
   String get featureMemoryClean;
 
   /// No description provided for @featureKeySimulation.
@@ -946,7 +946,7 @@ abstract class AppLocalizations {
   /// No description provided for @featureFlashTool.
   ///
   /// In en, this message translates to:
-  /// **'Flash tool'**
+  /// **'Custom flash'**
   String get featureFlashTool;
 
   /// No description provided for @featureComingSoonTitle.
