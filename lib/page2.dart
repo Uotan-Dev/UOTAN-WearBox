@@ -5,6 +5,7 @@ import 'package:window_manager/window_manager.dart';
 import 'function/app.dart';
 import 'function/display.dart';
 import 'function/file.dart';
+import 'function/flash.dart';
 import 'function/installApp.dart';
 import 'function/type.dart';
 import 'function/button.dart';
@@ -156,11 +157,17 @@ class Page2 extends StatelessWidget {
                     case _FeatureAction.memoryClean:
                     case _FeatureAction.batteryManager:
                     case _FeatureAction.capture:
-                    case _FeatureAction.flashTool:
                       _showMessage(
                         context,
                         l10n.featureComingSoonTitle,
                         l10n.featureComingSoonMessage(item.label),
+                      );
+                      break;
+                    case _FeatureAction.flashTool:
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                            builder: (context) => const FlashToolPage()),
                       );
                       break;
                   }
@@ -273,7 +280,6 @@ class Page2 extends StatelessWidget {
             'assets/icons/android_24dp_5F6368_FILL0_wght400_GRAD0_opsz24.png',
         label: l10n.featureFlashTool,
         action: _FeatureAction.flashTool,
-        isImplemented: false,
       ),
     ];
   }
