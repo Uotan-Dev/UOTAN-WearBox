@@ -1,3 +1,5 @@
+﻿import 'dart:io';
+
 import 'package:flutter/material.dart';
 import 'package:watch_assistant/wireless.dart';
 import 'package:window_manager/window_manager.dart';
@@ -102,6 +104,7 @@ class Page1 extends StatelessWidget {
           showConnectionStatus: false,
           showDeviceName: false,
           hideBatteryUnits: true,
+          showRebootActions: false,
         ),
         const SizedBox(height: 5),
         Row(
@@ -297,6 +300,7 @@ class Page1 extends StatelessWidget {
     bool showConnectionStatus = true,
     bool showDeviceName = true,
     bool hideBatteryUnits = false,
+    bool showRebootActions = true,
   }) {
     final l10n = context.l10n;
 
@@ -328,12 +332,90 @@ class Page1 extends StatelessWidget {
             ),
           ),
         const SizedBox(height: 8),
-        buildMergedInfoCard(l10n, device, hideBatteryUnits: hideBatteryUnits),
+        buildMergedInfoCard(
+          context,
+          l10n,
+          device,
+          hideBatteryUnits: hideBatteryUnits,
+        ),
+        if (showRebootActions) ...[
+          const SizedBox(height: 8),
+          Card(
+            color: const Color(0xFFF9F9F9),
+            elevation: 0,
+            child: Padding(
+              padding: const EdgeInsets.all(18.0),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  const Text(
+                    '重启至',
+                    style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
+                  ),
+                  const SizedBox(height: 8),
+                  SingleChildScrollView(
+                    scrollDirection: Axis.horizontal,
+                    child: Row(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Column(
+                          mainAxisSize: MainAxisSize.min,
+                          children: [
+                            _buildRebootButton(
+                              context,
+                              text: 'Recovery',
+                              adbArgs: const ['reboot', 'recovery'],
+                            ),
+                            const SizedBox(height: 8),
+                            _buildRebootButton(
+                              context,
+                              text: 'Bootloader',
+                              adbArgs: const ['reboot', 'bootloader'],
+                            ),
+                          ],
+                        ),
+                        const SizedBox(width: 8),
+                        Column(
+                          mainAxisSize: MainAxisSize.min,
+                          children: [
+                            _buildRebootButton(
+                              context,
+                              text: 'Fastbootd',
+                              adbArgs: const ['reboot', 'fastboot'],
+                            ),
+                            const SizedBox(height: 8),
+                            _buildRebootButton(
+                              context,
+                              text: '关机',
+                              adbArgs: const ['shell', 'reboot', '-p'],
+                            ),
+                          ],
+                        ),
+                        const SizedBox(width: 8),
+                        Column(
+                          mainAxisSize: MainAxisSize.min,
+                          children: [
+                            _buildRebootButton(
+                              context,
+                              text: '9008',
+                              adbArgs: const ['reboot', 'edl'],
+                            ),
+                          ],
+                        ),
+                      ],
+                    ),
+                  ),
+                ],
+              ),
+            ),
+          ),
+        ],
       ],
     );
   }
 
   Widget buildMergedInfoCard(
+    BuildContext context,
     AppLocalizations l10n,
     AdbDeviceInfo device, {
     bool hideBatteryUnits = false,
@@ -406,6 +488,67 @@ class Page1 extends StatelessWidget {
         ),
       ),
     );
+  }
+
+  Widget _buildRebootButton(
+    BuildContext context, {
+    required String text,
+    required List<String> adbArgs,
+  }) {
+    return SizedBox(
+      width: 132,
+      child: Card(
+        color: const Color.fromARGB(255, 237, 237, 237),
+        elevation: 0,
+        shape: RoundedRectangleBorder(
+          borderRadius: BorderRadius.circular(8.0),
+        ),
+        child: InkWell(
+          borderRadius: BorderRadius.circular(6.0),
+          onTap: () => _runAdbCommand(context, adbArgs),
+          child: Padding(
+            padding:
+                const EdgeInsets.symmetric(horizontal: 16.0, vertical: 8.0),
+            child: Text(
+              text,
+              textAlign: TextAlign.center,
+              style: const TextStyle(color: Colors.black, fontSize: 14),
+            ),
+          ),
+        ),
+      ),
+    );
+  }
+
+  Future<void> _runAdbCommand(BuildContext context, List<String> args) async {
+    try {
+      final ProcessResult result = await Process.run('adb', args);
+      if (!context.mounted) {
+        return;
+      }
+      final messenger = ScaffoldMessenger.of(context);
+      final String stderr = result.stderr.toString().trim();
+      if (result.exitCode == 0) {
+        messenger.showSnackBar(
+          const SnackBar(content: Text('命令已发送')),
+        );
+      } else {
+        messenger.showSnackBar(
+          SnackBar(
+            content: Text(
+              stderr.isNotEmpty ? stderr : '执行失败: ${result.exitCode}',
+            ),
+          ),
+        );
+      }
+    } catch (e) {
+      if (!context.mounted) {
+        return;
+      }
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(content: Text('ADB 执行异常: $e')),
+      );
+    }
   }
 
   Widget _buildTitleValueCell(String rawText) {
