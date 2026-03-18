@@ -3,103 +3,103 @@ import 'dart:io';
 
 import 'adb_device_info.dart';
 
+Future<List<AdbDeviceInfo>> fetchAdbDevices() async {
+  final ProcessResult result = await Process.run('adb', <String>['devices']);
+  final String output = result.stdout.toString();
+  if (!output.contains('device')) {
+    return <AdbDeviceInfo>[];
+  }
+
+  final List<AdbDeviceInfo> devices = <AdbDeviceInfo>[];
+  final List<String> lines = output.split('\n');
+  for (final String line in lines) {
+    if (!line.contains('\tdevice')) {
+      continue;
+    }
+    final String adbId = line.split('\t')[0];
+
+    final String brand = await getAdbDeviceProperty(adbId, 'ro.product.brand');
+    final String model = await getAdbDeviceProperty(adbId, 'ro.product.model');
+    final String serial = await getAdbDeviceProperty(adbId, 'ro.serialno');
+    final String memory = await getMemoryInfo(adbId);
+    final String storage = await getStorageInfo(adbId);
+    final String androidVersion =
+        await getAdbDeviceProperty(adbId, 'ro.build.version.release');
+    final String apiLevel =
+        await getAdbDeviceProperty(adbId, 'ro.build.version.sdk');
+    final String patchDate =
+        await getAdbDeviceProperty(adbId, 'ro.build.version.security_patch');
+    final String softwareVersion =
+        await getAdbDeviceProperty(adbId, 'ro.build.version.incremental');
+    final String cpuArch =
+        await getAdbDeviceProperty(adbId, 'ro.product.cpu.abi');
+
+    final String resolution = await getAdbShellOutput(adbId, 'wm size');
+    final String dpi = await getAdbShellOutput(adbId, 'wm density');
+    final String bootloaderStatusRaw =
+        await getAdbDeviceProperty(adbId, 'ro.boot.verifiedbootstate');
+    final String bootloaderStatus = mapBootloaderStatus(bootloaderStatusRaw);
+    final String uptime = await getAdbShellOutput(adbId, 'uptime');
+    final String kernelVersionRaw = await getAdbShellOutput(adbId, 'uname -r');
+    final String kernelVersion = kernelVersionRaw.split('-')[0];
+
+    final String batteryLevel =
+        await getAdbShellOutput(adbId, 'dumpsys battery | grep level');
+    final String batteryHealthRaw =
+        await getAdbShellOutput(adbId, 'dumpsys battery | grep health');
+    final String batteryHealth =
+        mapBatteryHealth(batteryHealthRaw.split(':').last.trim());
+    final String batteryVoltage =
+        await getAdbShellOutput(adbId, 'dumpsys battery | grep voltage');
+    final String batteryTemperatureRaw =
+        await getAdbShellOutput(adbId, 'dumpsys battery | grep temperature');
+
+    final int tempRaw =
+        int.tryParse(batteryTemperatureRaw.split(':').last.trim()) ?? 0;
+    final String batteryTemperature = (tempRaw / 10).toStringAsFixed(1);
+
+    final String fullAndroidVersion = '$androidVersion ($apiLevel)';
+
+    devices.add(
+      AdbDeviceInfo(
+        adbId: adbId,
+        deviceId: serial,
+        brand: brand,
+        model: model,
+        memory: memory,
+        storage: storage,
+        androidVersion: fullAndroidVersion,
+        apiLevel: apiLevel,
+        patchDate: patchDate,
+        softwareVersion: softwareVersion,
+        kernelVersion: kernelVersion,
+        batteryLevel: batteryLevel.split(':').last.trim(),
+        batteryHealth: batteryHealth,
+        batteryVoltage: batteryVoltage.split(':').last.trim(),
+        batteryTemperature: batteryTemperature,
+        resolution: resolution.split(':').last.trim(),
+        dpi: dpi.split(':').last.trim(),
+        bootloaderStatus: bootloaderStatus,
+        uptime: uptime.split('up ').last.split(',')[0].trim(),
+        cpuArch: cpuArch,
+      ),
+    );
+  }
+
+  return devices;
+}
+
 void checkAdbDevicesPeriodically({
   required Function(void Function()) setState,
   required Function(List<AdbDeviceInfo>) onDevicesUpdated,
 }) {
   Timer.periodic(const Duration(seconds: 3), (timer) async {
     try {
-      final ProcessResult result =
-          await Process.run('adb', <String>['devices']);
-      final String output = result.stdout.toString();
-
-      if (output.contains('device')) {
-        final List<AdbDeviceInfo> devices = <AdbDeviceInfo>[];
-        final List<String> lines = output.split('\n');
-
-        for (final String line in lines) {
-          if (!line.contains('\tdevice')) {
-            continue;
-          }
-          final String deviceId = line.split('\t')[0];
-
-          final String brand =
-              await getAdbDeviceProperty(deviceId, 'ro.product.brand');
-          final String model =
-              await getAdbDeviceProperty(deviceId, 'ro.product.model');
-          final String serial =
-              await getAdbDeviceProperty(deviceId, 'ro.serialno');
-          final String memory = await getMemoryInfo(deviceId);
-          final String storage = await getStorageInfo(deviceId);
-          final String androidVersion =
-              await getAdbDeviceProperty(deviceId, 'ro.build.version.release');
-          final String apiLevel =
-              await getAdbDeviceProperty(deviceId, 'ro.build.version.sdk');
-          final String patchDate = await getAdbDeviceProperty(
-              deviceId, 'ro.build.version.security_patch');
-          final String softwareVersion = await getAdbDeviceProperty(
-              deviceId, 'ro.build.version.incremental');
-          final String cpuArch =
-              await getAdbDeviceProperty(deviceId, 'ro.product.cpu.abi');
-
-          final String resolution =
-              await getAdbShellOutput(deviceId, 'wm size');
-          final String dpi = await getAdbShellOutput(deviceId, 'wm density');
-          final String bootloaderStatusRaw =
-              await getAdbDeviceProperty(deviceId, 'ro.boot.verifiedbootstate');
-          final String bootloaderStatus =
-              mapBootloaderStatus(bootloaderStatusRaw);
-          final String uptime = await getAdbShellOutput(deviceId, 'uptime');
-          final String kernelVersionRaw =
-              await getAdbShellOutput(deviceId, 'uname -r');
-          final String kernelVersion = kernelVersionRaw.split('-')[0];
-
-          final String batteryLevel =
-              await getAdbShellOutput(deviceId, 'dumpsys battery | grep level');
-          final String batteryHealthRaw = await getAdbShellOutput(
-              deviceId, 'dumpsys battery | grep health');
-          final String batteryHealth =
-              mapBatteryHealth(batteryHealthRaw.split(':').last.trim());
-          final String batteryVoltage = await getAdbShellOutput(
-              deviceId, 'dumpsys battery | grep voltage');
-          final String batteryTemperatureRaw = await getAdbShellOutput(
-              deviceId, 'dumpsys battery | grep temperature');
-
-          final int tempRaw =
-              int.tryParse(batteryTemperatureRaw.split(':').last.trim()) ?? 0;
-          final String batteryTemperature = (tempRaw / 10).toStringAsFixed(1);
-
-          final String fullAndroidVersion = '$androidVersion ($apiLevel)';
-
-          devices.add(
-            AdbDeviceInfo(
-              deviceId: serial,
-              brand: brand,
-              model: model,
-              memory: memory,
-              storage: storage,
-              androidVersion: fullAndroidVersion,
-              apiLevel: apiLevel,
-              patchDate: patchDate,
-              softwareVersion: softwareVersion,
-              kernelVersion: kernelVersion,
-              batteryLevel: batteryLevel.split(':').last.trim(),
-              batteryHealth: batteryHealth,
-              batteryVoltage: batteryVoltage.split(':').last.trim(),
-              batteryTemperature: batteryTemperature,
-              resolution: resolution.split(':').last.trim(),
-              dpi: dpi.split(':').last.trim(),
-              bootloaderStatus: bootloaderStatus,
-              uptime: uptime.split('up ').last.split(',')[0].trim(),
-              cpuArch: cpuArch,
-            ),
-          );
-        }
-        onDevicesUpdated(devices);
-      } else {
+      final List<AdbDeviceInfo> devices = await fetchAdbDevices();
+      if (devices.isEmpty) {
         print('No adb devices connected');
-        onDevicesUpdated(<AdbDeviceInfo>[]);
       }
+      onDevicesUpdated(devices);
     } catch (e) {
       print('Failed to run adb command: $e');
     }
