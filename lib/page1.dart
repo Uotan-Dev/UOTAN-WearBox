@@ -81,7 +81,7 @@ class Page1 extends StatelessWidget {
           child: Text(
             '$greeting, ${l10n.homeWelcomeMessage}',
             style: const TextStyle(
-              fontSize: 30,
+              fontSize: 24,
               fontFamily: 'MiSansMed',
               height: 1.25,
             ),
@@ -251,7 +251,7 @@ class Page1 extends StatelessWidget {
   }
 
   AdbDeviceInfo _buildPlaceholderDeviceInfo() {
-    const placeholder = '-';
+    const placeholder = '--';
     return AdbDeviceInfo(
       deviceId: placeholder,
       brand: placeholder,
@@ -305,9 +305,9 @@ class Page1 extends StatelessWidget {
           Padding(
             padding: const EdgeInsets.only(left: 5.0),
             child: Text(
-              '${device.model}',
+              device.model,
               style: const TextStyle(
-                fontSize: 30,
+                fontSize: 24,
                 fontFamily: 'MiSansMed',
                 height: 1.25,
               ),
@@ -325,7 +325,7 @@ class Page1 extends StatelessWidget {
               style: const TextStyle(fontSize: 16),
             ),
           ),
-        SizedBox(height: 8),
+        const SizedBox(height: 8),
         buildMergedInfoCard(l10n, device),
       ],
     );
@@ -381,12 +381,11 @@ class Page1 extends StatelessWidget {
                 child: Row(
                   children: [
                     Expanded(
-                      child:
-                          Text(pair[0], style: const TextStyle(fontSize: 16)),
+                      child: _buildTitleValueCell(pair[0]),
                     ),
+                    const SizedBox(width: 18),
                     Expanded(
-                      child:
-                          Text(pair[1], style: const TextStyle(fontSize: 16)),
+                      child: _buildTitleValueCell(pair[1]),
                     ),
                   ],
                 ),
@@ -396,5 +395,44 @@ class Page1 extends StatelessWidget {
         ),
       ),
     );
+  }
+
+  Widget _buildTitleValueCell(String rawText) {
+    final (title, value) = _splitTitleValue(rawText);
+    return Row(
+      children: [
+        Expanded(
+          flex: 5,
+          child: Text(
+            title,
+            style: const TextStyle(fontSize: 16),
+            overflow: TextOverflow.ellipsis,
+          ),
+        ),
+        const SizedBox(width: 8),
+        Expanded(
+          flex: 7,
+          child: Text(
+            value,
+            style: const TextStyle(
+              fontSize: 16,
+              color: Color.fromARGB(255, 132, 132, 132),
+            ),
+            textAlign: TextAlign.right,
+            overflow: TextOverflow.ellipsis,
+          ),
+        ),
+      ],
+    );
+  }
+
+  (String, String) _splitTitleValue(String text) {
+    final int separatorIndex = text.indexOf(RegExp(r'[:：]'));
+    if (separatorIndex == -1) {
+      return (text.trim(), '-');
+    }
+    final String title = text.substring(0, separatorIndex).trim();
+    final String value = text.substring(separatorIndex + 1).trim();
+    return (title, value);
   }
 }
