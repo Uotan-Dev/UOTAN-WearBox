@@ -26,7 +26,11 @@
 #
 <br><img width="1280" height="640" alt="Desktop 12" src="https://github.com/user-attachments/assets/930b933e-7bcf-44d8-8af4-2a165c55d493" />
 
-<img width="2559" height="1440" alt="1ddb5d28-34dd-45c1-9c8e-d4822f5ab8ae" src="https://github.com/user-attachments/assets/9de60761-5bea-4fcc-a219-368dc87d70b9" />
+<img width="2559" height="1440" alt="81ffdd33-f7d0-4a12-b0a9-d5799c554985" src="https://github.com/user-attachments/assets/f08fd0d7-5607-47bf-b079-082653ae4fec" />
+
+<img width="2559" height="1440" alt="a741cd93-a474-4f4f-89ff-f51957fced0e" src="https://github.com/user-attachments/assets/5a139272-58b9-4e06-801b-4d47bb4623d6" />
+
+
 
 <img width="2559" height="1440" alt="f0d120e2-166d-490f-bc3c-f545353869c1" src="https://github.com/user-attachments/assets/e82a4f20-82ae-49ff-b103-1eab8919db2a" />
 
