@@ -92,8 +92,8 @@ class Page3 extends StatelessWidget {
       _SettingOption(
         iconPath:
             'assets/icons/watch_24dp_5F6368_FILL0_wght400_GRAD0_opsz24.png',
-        title: l10n.settingsWebsiteTitle,
-        subtitle: l10n.settingsWebsiteSubtitle,
+        title: l10n.settingsWebsiteSubtitle,
+        subtitle: 'wearbox.uotan.cn',
         onTap: () {
           _launchURL('https://wearbox.uotan.cn/');
         },
@@ -101,7 +101,7 @@ class Page3 extends StatelessWidget {
       _SettingOption(
         iconPath: 'assets/icons/uotan.png',
         title: l10n.settingsCommunityTitle,
-        subtitle: l10n.settingsCommunitySubtitle,
+        subtitle: 'uotan.cn',
         onTap: () {
           _launchURL('https://www.uotan.cn');
         },
