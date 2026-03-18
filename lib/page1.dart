@@ -98,7 +98,7 @@ class _Page1State extends State<Page1> {
         ),
       ),
       body: Padding(
-        padding: const EdgeInsets.only(right: 25, left: 25, top: 20),
+        padding: const EdgeInsets.only(right: 25, left: 25, top: 15),
         child: selectedDevice == null
             ? _buildNoDeviceConnected(context)
             : _buildDeviceInfo(
@@ -134,7 +134,8 @@ class _Page1State extends State<Page1> {
         Padding(
           padding: const EdgeInsets.only(left: 5.0),
           child: Text(
-            '$greeting, ${l10n.homeWelcomeMessage}',
+            greeting,
+            // '$greeting, ${l10n.homeWelcomeMessage}',
             style: const TextStyle(
               fontSize: 24,
               fontFamily: 'MiSansMed',
@@ -162,154 +163,142 @@ class _Page1State extends State<Page1> {
           showRebootActions: false,
         ),
         const SizedBox(height: 5),
-        Row(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            Expanded(
-              child: Card(
-                color: const Color(0xFFF9F9F9),
-                elevation: 0,
-                child: Padding(
-                  padding: const EdgeInsets.all(18.0),
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Text(
-                        l10n.homeConnectionMethodsTitle,
-                        style: const TextStyle(
-                          fontSize: 16,
-                          fontWeight: FontWeight.bold,
-                        ),
-                      ),
-                      const SizedBox(height: 8),
-                      Text(
-                        l10n.homeConnectionWired,
-                        style: const TextStyle(fontSize: 15),
-                      ),
-                      const SizedBox(height: 8),
-                      Row(
-                        children: [
-                          const Text(
-                            '2. 使用',
-                            style: TextStyle(fontSize: 15),
+        SizedBox(
+          height: 162,
+          child: Row(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Expanded(
+                child: Card(
+                  color: const Color(0xFFF9F9F9),
+                  elevation: 0,
+                  child: Padding(
+                    padding: const EdgeInsets.all(18.0),
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Text(
+                          '连接帮助',
+                          style: const TextStyle(
+                            fontSize: 16,
+                            fontWeight: FontWeight.bold,
                           ),
-                          const SizedBox(width: 4),
-                          MouseRegion(
-                            cursor: SystemMouseCursors.click,
-                            child: GestureDetector(
-                              onTap: () {
-                                Navigator.push(
-                                  context,
-                                  MaterialPageRoute(
-                                    builder: (context) => const WirelessPage(),
+                        ),
+                        const SizedBox(height: 8),
+                        Text(
+                          l10n.homeConnectionWired,
+                          style: const TextStyle(fontSize: 15),
+                        ),
+                        const SizedBox(height: 8),
+                        Row(
+                          children: [
+                            const Text(
+                              '2. 使用',
+                              style: TextStyle(fontSize: 15),
+                            ),
+                            const SizedBox(width: 4),
+                            MouseRegion(
+                              cursor: SystemMouseCursors.click,
+                              child: GestureDetector(
+                                onTap: () {
+                                  Navigator.push(
+                                    context,
+                                    MaterialPageRoute(
+                                      builder: (context) =>
+                                          const WirelessPage(),
+                                    ),
+                                  );
+                                },
+                                child: Text(
+                                  l10n.homeConnectionWirelessLink,
+                                  style: const TextStyle(
+                                    fontSize: 15,
+                                    color: Colors.blue,
                                   ),
-                                );
-                              },
-                              child: Text(
-                                l10n.homeConnectionWirelessLink,
-                                style: const TextStyle(
-                                  fontSize: 15,
-                                  color: Colors.blue,
                                 ),
                               ),
                             ),
-                          ),
-                          const SizedBox(width: 4),
-                          Text(
-                            l10n.homeConnectionWirelessSuffix,
-                            style: const TextStyle(fontSize: 15),
-                          ),
-                        ],
-                      ),
-                    ],
+                            const SizedBox(width: 4),
+                            Text(
+                              l10n.homeConnectionWirelessSuffix,
+                              style: const TextStyle(fontSize: 15),
+                            ),
+                          ],
+                        ),
+                        const SizedBox(height: 8),
+                        Row(
+                          children: [
+                            const Text(
+                              '3. 检查是否已开启',
+                              style: TextStyle(fontSize: 15),
+                            ),
+                            const SizedBox(width: 4),
+                            MouseRegion(
+                              cursor: SystemMouseCursors.click,
+                              child: GestureDetector(
+                                onTap: () {
+                                  Navigator.push(
+                                    context,
+                                    MaterialPageRoute(
+                                      builder: (context) =>
+                                          const TutorialPage(),
+                                    ),
+                                  );
+                                },
+                                child: const Text(
+                                  'USB 调试',
+                                  style: TextStyle(
+                                    fontSize: 15,
+                                    color: Colors.blue,
+                                  ),
+                                ),
+                              ),
+                            ),
+                            const SizedBox(width: 4),
+                            const Text(
+                              '并安装了',
+                              style: TextStyle(fontSize: 15),
+                            ),
+                            const SizedBox(width: 4),
+                            MouseRegion(
+                              cursor: SystemMouseCursors.click,
+                              child: GestureDetector(
+                                onTap: () {
+                                  Navigator.push(
+                                    context,
+                                    MaterialPageRoute(
+                                      builder: (context) => const DriverPage(),
+                                    ),
+                                  );
+                                },
+                                child: const Text(
+                                  'ADB 驱动',
+                                  style: TextStyle(
+                                    fontSize: 15,
+                                    color: Colors.blue,
+                                  ),
+                                ),
+                              ),
+                            ),
+                            const SizedBox(width: 4),
+                            const Text(
+                              '程序',
+                              style: TextStyle(fontSize: 15),
+                            ),
+                          ],
+                        ),
+                      ],
+                    ),
                   ),
                 ),
               ),
-            ),
-            const SizedBox(width: 5),
-            Expanded(
-              child: Card(
-                color: const Color(0xFFF9F9F9),
-                elevation: 0,
-                child: Padding(
-                  padding: const EdgeInsets.all(18.0),
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Text(
-                        l10n.homeTroubleshootTitle,
-                        style: const TextStyle(
-                          fontSize: 16,
-                          fontWeight: FontWeight.bold,
-                        ),
-                      ),
-                      const SizedBox(height: 8),
-                      Row(
-                        children: [
-                          Text(
-                            l10n.homeTroubleshootUsbDebug,
-                            style: const TextStyle(fontSize: 15),
-                          ),
-                          const SizedBox(width: 4),
-                          MouseRegion(
-                            cursor: SystemMouseCursors.click,
-                            child: GestureDetector(
-                              onTap: () {
-                                Navigator.push(
-                                  context,
-                                  MaterialPageRoute(
-                                    builder: (context) => const TutorialPage(),
-                                  ),
-                                );
-                              },
-                              child: Text(
-                                l10n.homeTroubleshootUsbDebugLink,
-                                style: const TextStyle(
-                                  fontSize: 15,
-                                  color: Colors.blue,
-                                ),
-                              ),
-                            ),
-                          ),
-                        ],
-                      ),
-                      const SizedBox(height: 8),
-                      Row(
-                        children: [
-                          Text(
-                            l10n.homeTroubleshootDriver,
-                            style: const TextStyle(fontSize: 15),
-                          ),
-                          const SizedBox(width: 4),
-                          MouseRegion(
-                            cursor: SystemMouseCursors.click,
-                            child: GestureDetector(
-                              onTap: () {
-                                Navigator.push(
-                                  context,
-                                  MaterialPageRoute(
-                                    builder: (context) => const DriverPage(),
-                                  ),
-                                );
-                              },
-                              child: Text(
-                                l10n.homeTroubleshootDriverLink,
-                                style: const TextStyle(
-                                  fontSize: 15,
-                                  color: Colors.blue,
-                                ),
-                              ),
-                            ),
-                          ),
-                        ],
-                      ),
-                    ],
-                  ),
-                ),
-              ),
-            ),
-          ],
-        ),
+              const SizedBox(width: 5),
+              Expanded(
+                child: _buildSelectDeviceCard(context, const <AdbDeviceInfo>[]),
+              )
+            ],
+          ),
+        )
       ],
     );
   }
@@ -402,94 +391,98 @@ class _Page1State extends State<Page1> {
           hideBatteryUnits: hideBatteryUnits,
         ),
         if (showRebootActions) ...[
-          const SizedBox(height: 4),
-          Row(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              Expanded(
-                child: Card(
-                  color: const Color(0xFFF9F9F9),
-                  elevation: 0,
-                  child: Padding(
-                    padding: const EdgeInsets.all(18.0),
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        const Text(
-                          '重启至',
-                          style: TextStyle(
-                            fontSize: 16,
-                            fontWeight: FontWeight.bold,
+          const SizedBox(height: 5),
+          SizedBox(
+            height: 162,
+            child: Row(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Expanded(
+                  child: Card(
+                    color: const Color(0xFFF9F9F9),
+                    elevation: 0,
+                    child: Padding(
+                      padding:
+                          const EdgeInsets.only(left: 18.0, right: 18, top: 18),
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          const Text(
+                            '重启至',
+                            style: TextStyle(
+                              fontSize: 16,
+                              fontWeight: FontWeight.bold,
+                            ),
                           ),
-                        ),
-                        const SizedBox(height: 6),
-                        SingleChildScrollView(
-                          scrollDirection: Axis.horizontal,
-                          child: Row(
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: [
-                              Column(
-                                mainAxisSize: MainAxisSize.min,
-                                children: [
-                                  _buildRebootButton(
-                                    context,
-                                    text: 'Recovery',
-                                    selectedAdbId: selectedAdbId,
-                                    adbArgs: const ['reboot', 'recovery'],
-                                  ),
-                                  const SizedBox(height: 2),
-                                  _buildRebootButton(
-                                    context,
-                                    text: 'Bootloader',
-                                    selectedAdbId: selectedAdbId,
-                                    adbArgs: const ['reboot', 'bootloader'],
-                                  ),
-                                ],
-                              ),
-                              const SizedBox(width: 4),
-                              Column(
-                                mainAxisSize: MainAxisSize.min,
-                                children: [
-                                  _buildRebootButton(
-                                    context,
-                                    text: 'Fastbootd',
-                                    selectedAdbId: selectedAdbId,
-                                    adbArgs: const ['reboot', 'fastboot'],
-                                  ),
-                                  const SizedBox(height: 2),
-                                  _buildRebootButton(
-                                    context,
-                                    text: '系统',
-                                    selectedAdbId: selectedAdbId,
-                                    adbArgs: const ['shell', 'reboot', '-p'],
-                                  ),
-                                ],
-                              ),
-                              const SizedBox(width: 4),
-                              Column(
-                                mainAxisSize: MainAxisSize.min,
-                                children: [
-                                  _buildRebootButton(
-                                    context,
-                                    text: '9008',
-                                    selectedAdbId: selectedAdbId,
-                                    adbArgs: const ['reboot', 'edl'],
-                                  ),
-                                ],
-                              ),
-                            ],
+                          const SizedBox(height: 6),
+                          SingleChildScrollView(
+                            scrollDirection: Axis.horizontal,
+                            child: Row(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: [
+                                Column(
+                                  mainAxisSize: MainAxisSize.min,
+                                  children: [
+                                    _buildRebootButton(
+                                      context,
+                                      text: 'Recovery',
+                                      selectedAdbId: selectedAdbId,
+                                      adbArgs: const ['reboot', 'recovery'],
+                                    ),
+                                    const SizedBox(height: 2),
+                                    _buildRebootButton(
+                                      context,
+                                      text: 'Bootloader',
+                                      selectedAdbId: selectedAdbId,
+                                      adbArgs: const ['reboot', 'bootloader'],
+                                    ),
+                                  ],
+                                ),
+                                const SizedBox(width: 4),
+                                Column(
+                                  mainAxisSize: MainAxisSize.min,
+                                  children: [
+                                    _buildRebootButton(
+                                      context,
+                                      text: 'Fastbootd',
+                                      selectedAdbId: selectedAdbId,
+                                      adbArgs: const ['reboot', 'fastboot'],
+                                    ),
+                                    const SizedBox(height: 2),
+                                    _buildRebootButton(
+                                      context,
+                                      text: '系统',
+                                      selectedAdbId: selectedAdbId,
+                                      adbArgs: const ['shell', 'reboot', '-p'],
+                                    ),
+                                  ],
+                                ),
+                                const SizedBox(width: 4),
+                                Column(
+                                  mainAxisSize: MainAxisSize.min,
+                                  children: [
+                                    _buildRebootButton(
+                                      context,
+                                      text: '9008',
+                                      selectedAdbId: selectedAdbId,
+                                      adbArgs: const ['reboot', 'edl'],
+                                    ),
+                                  ],
+                                ),
+                              ],
+                            ),
                           ),
-                        ),
-                      ],
+                        ],
+                      ),
                     ),
                   ),
                 ),
-              ),
-              const SizedBox(width: 5),
-              Expanded(
-                child: _buildSelectDeviceCard(context, availableDevices),
-              ),
-            ],
+                const SizedBox(width: 5),
+                Expanded(
+                  child: _buildSelectDeviceCard(context, availableDevices),
+                ),
+              ],
+            ),
           ),
         ],
       ],
@@ -508,7 +501,7 @@ class _Page1State extends State<Page1> {
       color: const Color(0xFFF9F9F9),
       elevation: 0,
       child: Padding(
-        padding: const EdgeInsets.all(18.0),
+        padding: const EdgeInsets.only(left: 18.0, right: 18, top: 18),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
@@ -542,7 +535,9 @@ class _Page1State extends State<Page1> {
                   ),
                 ),
                 dropdownColor: Colors.white,
-                hint: const Text('选择设备'),
+                hint: const Text(
+                  '无已连接设备',
+                ),
                 items: devices
                     .map(
                       (AdbDeviceInfo device) => DropdownMenuItem<String>(
