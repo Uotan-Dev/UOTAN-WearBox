@@ -13,6 +13,7 @@ import 'function/battery.dart';
 import 'function/pair.dart';
 import 'function/rotate.dart';
 import 'function/memory.dart';
+import 'function/capture.dart';
 import 'l10n/app_localizations.dart';
 import 'l10n/l10n.dart';
 
@@ -90,15 +91,6 @@ class Page2 extends StatelessWidget {
               child: InkWell(
                 borderRadius: BorderRadius.circular(12.0),
                 onTap: () {
-                  if (!item.isImplemented) {
-                    _showMessage(
-                      context,
-                      l10n.featureComingSoonTitle,
-                      l10n.featureComingSoonMessage(item.label),
-                    );
-                    return;
-                  }
-
                   switch (item.action) {
                     case _FeatureAction.installApp:
                       Navigator.push(
@@ -171,10 +163,10 @@ class Page2 extends StatelessWidget {
                       );
                       break;
                     case _FeatureAction.capture:
-                      _showMessage(
+                      Navigator.push(
                         context,
-                        l10n.featureComingSoonTitle,
-                        l10n.featureComingSoonMessage(item.label),
+                        MaterialPageRoute(
+                            builder: (context) => const CapturePage()),
                       );
                       break;
                     case _FeatureAction.flashTool:
@@ -279,7 +271,6 @@ class Page2 extends StatelessWidget {
             'assets/icons/screenshot_tablet_24dp_5F6368_FILL0_wght400_GRAD0_opsz24.png',
         label: l10n.featureCapture,
         action: _FeatureAction.capture,
-        isImplemented: false,
       ),
       _FeatureItemData(
         iconPath:
@@ -294,40 +285,6 @@ class Page2 extends StatelessWidget {
         action: _FeatureAction.flashTool,
       ),
     ];
-  }
-
-  void _showMessage(BuildContext context, String title, String message) {
-    final l10n = context.l10n;
-    showDialog(
-      context: context,
-      builder: (BuildContext context) {
-        return AlertDialog(
-          backgroundColor: const Color(0xFFF9F9F9),
-          title: Text(title),
-          content: Text(message),
-          actions: <Widget>[
-            TextButton(
-              style: ButtonStyle(
-                overlayColor: MaterialStateProperty.resolveWith<Color?>(
-                  (Set<MaterialState> states) {
-                    if (states.contains(MaterialState.pressed) ||
-                        states.contains(MaterialState.hovered)) {
-                      return const Color.fromARGB(255, 237, 237, 237);
-                    }
-                    return null;
-                  },
-                ),
-                foregroundColor: MaterialStateProperty.all<Color>(Colors.black),
-              ),
-              child: Text(l10n.dialogOk),
-              onPressed: () {
-                Navigator.of(context).pop();
-              },
-            ),
-          ],
-        );
-      },
-    );
   }
 }
 
@@ -351,11 +308,9 @@ class _FeatureItemData {
     required this.iconPath,
     required this.label,
     required this.action,
-    this.isImplemented = true,
   });
 
   final String iconPath;
   final String label;
   final _FeatureAction action;
-  final bool isImplemented;
 }
