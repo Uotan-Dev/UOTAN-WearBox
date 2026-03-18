@@ -1,9 +1,19 @@
 <div align="center">
 <h3>Uotan WearBox project utilizes the following languages for documentation</h3>
 
-[简体中文](#chinese) ｜ [日本語](#japanese) ｜ [English](#english)
+[简体中文](#chinese)  ｜ [English](#english)
 
-	
+<div id="header" align="center">
+
+<br>
+
+<div id="badges">
+		<a href="https://github.com/Gnayoah/UotanWatchAssistant/blob/main/LICENSE"><img src="https://img.shields.io/github/license/Gnayoah/UotanWatchAssistant?style=for-the-badge"/></a>
+		<a href="https://github.com/Gnayoah/UotanWatchAssistant"><img src="https://img.shields.io/github/created-at/Gnayoah/UotanWatchAssistant?style=for-the-badge"/></a>
+		<a href="https://github.com/Gnayoah/UotanWatchAssistant"><img src="https://img.shields.io/github/v/release/Gnayoah/UotanWatchAssistant?style=for-the-badge"/></a>
+	</div>
+
+</div>
 
 
 
@@ -16,64 +26,18 @@
 #
 <br><img width="1280" height="640" alt="Desktop 12" src="https://github.com/user-attachments/assets/930b933e-7bcf-44d8-8af4-2a165c55d493" />
 
-<div id="header" align="center">
-	<br>
-	<img src="https://wearbox.uotan.cn/wp-content/uploads/2025/07/画板-8.png" height="70"></img> 
-
-	<div id="badges">
-		<a href="https://github.com/Gnayoah/UotanWatchAssistant/blob/main/LICENSE"><img src="https://img.shields.io/github/license/Gnayoah/UotanWatchAssistant?style=for-the-badge"/></a>
-		<a href="https://github.com/Gnayoah/UotanWatchAssistant"><img src="https://img.shields.io/github/created-at/Gnayoah/UotanWatchAssistant?style=for-the-badge"/></a>
-		<a href="https://github.com/Gnayoah/UotanWatchAssistant"><img src="https://img.shields.io/github/v/release/Gnayoah/UotanWatchAssistant?style=for-the-badge"/></a>
-	</div>
-
-<br><br><br>
 
 
 
 
-<a id="japanese"></a>
 
-#
 
-<br>
-<div align="center">
-	<br>
-	<img src="https://wearbox.uotan.cn/wp-content/uploads/2025/07/画板-8.png" height="70"></img> 
-<h3>瞬時に広がる力、無限の可能性をあなたの腕に</h3>
-<p>自由な発想で使いこなすために生まれた――それが「Uotan WearBox」。</p>
-<p>あらゆるウェアラブル端末が、もっと柔軟に、もっと自分らしく。アプリを自由に追加し、使い方そのものを思いのままに創り変えられます。</p>
-<p>今日から、あなたのデバイスは“特別”になります。</p>
-	<div>
-		<a href="https://github.com/Gnayoah/UotanWatchAssistant/blob/main/LICENSE"><img src="https://img.shields.io/github/license/Gnayoah/UotanWatchAssistant?style=for-the-badge"/></a>
-		<a href="https://github.com/Gnayoah/UotanWatchAssistant"><img src="https://img.shields.io/github/created-at/Gnayoah/UotanWatchAssistant?style=for-the-badge"/></a>
-		<a href="https://github.com/Gnayoah/UotanWatchAssistant"><img src="https://img.shields.io/github/v/release/Gnayoah/UotanWatchAssistant?style=for-the-badge"/></a>
-	</div>
-</div>
-
-<br><br><br>
-
-<img src="https://wearbox.uotan.cn/wp-content/uploads/2025/11/分组-4-1.png"></img>
 
 
 <a id="english"></a>
 
 #
 
-<br>
-<div align="center">
-	<br>
-	<img src="https://wearbox.uotan.cn/wp-content/uploads/2025/07/画板-8.png" height="70"></img> 
-	<h3>Instant Empowerment, Infinite Possibilities</h3>
-	<p>Born for limitless exploration—meet the “Uotan WearBox”.</p>
-	<p>Turn every wearable device into pure potential. Install apps freely and unlock endless ways to play.</p>
-	<p>Your device will never be the same again.</p><br>
-	<div>
-		<a href="https://github.com/Gnayoah/UotanWatchAssistant/blob/main/LICENSE"><img src="https://img.shields.io/github/license/Gnayoah/UotanWatchAssistant?style=for-the-badge"/></a>
-		<a href="https://github.com/Gnayoah/UotanWatchAssistant"><img src="https://img.shields.io/github/created-at/Gnayoah/UotanWatchAssistant?style=for-the-badge"/></a>
-		<a href="https://github.com/Gnayoah/UotanWatchAssistant"><img src="https://img.shields.io/github/v/release/Gnayoah/UotanWatchAssistant?style=for-the-badge"/></a>
-	</div>
-</div>
+<br><img width="1280" height="686" alt="Desktop 13" src="https://github.com/user-attachments/assets/a360600d-b7cc-40e7-9639-0be771fe611d" />
 
-<br><br><br>
 
-<img src="https://wearbox.uotan.cn/wp-content/uploads/2025/11/分组-4.png"></img>
