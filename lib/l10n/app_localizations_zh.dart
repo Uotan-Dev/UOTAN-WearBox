@@ -296,7 +296,7 @@ class AppLocalizationsZh extends AppLocalizations {
   String get homeGreetingEarlyMorning => '凌晨好';
 
   @override
-  String get homeGreetingMorning => '早上好';
+  String get homeGreetingMorning => '贵安';
 
   @override
   String get homeGreetingAfternoon => '下午好';
@@ -308,7 +308,7 @@ class AppLocalizationsZh extends AppLocalizations {
   String get homeWelcomeMessage => '欢迎使用柚坛手表助手';
 
   @override
-  String get homeNoDeviceDetected => '未检测到手表，请根据下方指引连接手表';
+  String get homeNoDeviceDetected => '未检测到设备，请根据下方指引连接手表';
 
   @override
   String get homeConnectionMethodsTitle => '支持的连接方式：';

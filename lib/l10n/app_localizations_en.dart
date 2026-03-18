@@ -308,7 +308,7 @@ class AppLocalizationsEn extends AppLocalizations {
   String get homeWelcomeMessage => 'Welcome to Uotan WearBox';
 
   @override
-  String get homeNoDeviceDetected => 'No watch detected. Follow the steps below to connect.';
+  String get homeNoDeviceDetected => 'No device detected. Follow the steps below to connect.';
 
   @override
   String get homeConnectionMethodsTitle => 'Supported connection methods:';

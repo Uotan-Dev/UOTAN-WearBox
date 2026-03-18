@@ -131,7 +131,7 @@
   "homeGreetingAfternoon": "下午好",
   "homeGreetingEvening": "晚上好",
   "homeWelcomeMessage": "欢迎使用柚坛手表助手",
-  "homeNoDeviceDetected": "未检测到手表，请根据下方指引连接手表",
+  "homeNoDeviceDetected": "未检测到设备，请根据下方指引连接手表",
   "homeConnectionMethodsTitle": "支持的连接方式：",
   "homeConnectionWired": "1. 使用数据线/充电底座连接电脑与手表（推荐）",
   "homeConnectionWirelessPrefix": "2. 使用无线连接，请点击",

@@ -101,6 +101,7 @@ class Page1 extends StatelessWidget {
           _buildPlaceholderDeviceInfo(),
           showConnectionStatus: false,
           showDeviceName: false,
+          hideBatteryUnits: true,
         ),
         const SizedBox(height: 5),
         Row(
@@ -295,6 +296,7 @@ class Page1 extends StatelessWidget {
     AdbDeviceInfo device, {
     bool showConnectionStatus = true,
     bool showDeviceName = true,
+    bool hideBatteryUnits = false,
   }) {
     final l10n = context.l10n;
 
@@ -326,12 +328,26 @@ class Page1 extends StatelessWidget {
             ),
           ),
         const SizedBox(height: 8),
-        buildMergedInfoCard(l10n, device),
+        buildMergedInfoCard(l10n, device, hideBatteryUnits: hideBatteryUnits),
       ],
     );
   }
 
-  Widget buildMergedInfoCard(AppLocalizations l10n, AdbDeviceInfo device) {
+  Widget buildMergedInfoCard(
+    AppLocalizations l10n,
+    AdbDeviceInfo device, {
+    bool hideBatteryUnits = false,
+  }) {
+    final String batteryLevelText = hideBatteryUnits
+        ? '${_splitTitleValue(l10n.deviceBatteryLevel('0')).$1}: ${device.batteryLevel}'
+        : l10n.deviceBatteryLevel(device.batteryLevel);
+    final String batteryVoltageText = hideBatteryUnits
+        ? '${_splitTitleValue(l10n.deviceBatteryVoltage('0')).$1}: ${device.batteryVoltage}'
+        : l10n.deviceBatteryVoltage(device.batteryVoltage);
+    final String batteryTemperatureText = hideBatteryUnits
+        ? '${_splitTitleValue(l10n.deviceBatteryTemperature('0')).$1}: ${device.batteryTemperature}'
+        : l10n.deviceBatteryTemperature(device.batteryTemperature);
+
     final allInfoRows = <List<String>>[
       [
         l10n.deviceBrand(device.brand),
@@ -344,14 +360,8 @@ class Page1 extends StatelessWidget {
         l10n.deviceBootloader(device.bootloaderStatus),
         l10n.deviceArchitecture(device.cpuArch)
       ],
-      [
-        l10n.deviceBatteryLevel(device.batteryLevel),
-        l10n.deviceBatteryHealth(device.batteryHealth)
-      ],
-      [
-        l10n.deviceBatteryVoltage(device.batteryVoltage),
-        l10n.deviceBatteryTemperature(device.batteryTemperature)
-      ],
+      [batteryLevelText, l10n.deviceBatteryHealth(device.batteryHealth)],
+      [batteryVoltageText, batteryTemperatureText],
       [
         l10n.deviceAndroidVersion(device.androidVersion),
         l10n.devicePatchDate(device.patchDate)
@@ -366,7 +376,8 @@ class Page1 extends StatelessWidget {
       color: const Color(0xFFF9F9F9),
       elevation: 0,
       child: Padding(
-        padding: const EdgeInsets.all(18.0),
+        padding:
+            const EdgeInsets.only(top: 18, right: 18, left: 18, bottom: 12),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
