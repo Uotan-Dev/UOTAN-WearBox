@@ -459,7 +459,7 @@ class _Page1State extends State<Page1> {
                                   const SizedBox(height: 2),
                                   _buildRebootButton(
                                     context,
-                                    text: '鍏虫満',
+                                    text: '系统',
                                     selectedAdbId: selectedAdbId,
                                     adbArgs: const ['shell', 'reboot', '-p'],
                                   ),
@@ -516,62 +516,141 @@ class _Page1State extends State<Page1> {
               '选择设备',
               style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
             ),
-            const SizedBox(height: 10),
-            DropdownButtonFormField<String>(
-              initialValue: dropdownValue,
-              isExpanded: true,
-              decoration: const InputDecoration(
-                border: OutlineInputBorder(),
-                contentPadding:
-                    EdgeInsets.symmetric(horizontal: 10, vertical: 8),
-              ),
-              hint: const Text('选择设备'),
-              items: devices
-                  .map(
-                    (AdbDeviceInfo device) => DropdownMenuItem<String>(
-                      value: device.adbId,
-                      child: Text(
-                        '${device.model} (${device.deviceId})',
-                        overflow: TextOverflow.ellipsis,
+            const SizedBox(height: 8),
+            SizedBox(
+              height: 40,
+              child: DropdownButtonFormField<String>(
+                initialValue: dropdownValue,
+                isExpanded: true,
+                decoration: InputDecoration(
+                  filled: true,
+                  fillColor: Colors.white,
+                  isDense: true,
+                  contentPadding:
+                      const EdgeInsets.symmetric(horizontal: 12, vertical: 11),
+                  border: OutlineInputBorder(
+                    borderRadius: BorderRadius.circular(10),
+                    borderSide: const BorderSide(color: Color(0xFFDCDCDC)),
+                  ),
+                  enabledBorder: OutlineInputBorder(
+                    borderRadius: BorderRadius.circular(10),
+                    borderSide: const BorderSide(color: Color(0xFFDCDCDC)),
+                  ),
+                  focusedBorder: OutlineInputBorder(
+                    borderRadius: BorderRadius.circular(10),
+                    borderSide: const BorderSide(color: Color(0xFFDCDCDC)),
+                  ),
+                ),
+                dropdownColor: Colors.white,
+                hint: const Text('选择设备'),
+                items: devices
+                    .map(
+                      (AdbDeviceInfo device) => DropdownMenuItem<String>(
+                        value: device.adbId,
+                        child: Text(
+                          '${device.model} (${device.deviceId})',
+                          overflow: TextOverflow.ellipsis,
+                        ),
                       ),
-                    ),
-                  )
-                  .toList(),
-              onChanged: (String? value) {
-                setState(() {
-                  _selectedAdbId = value;
-                });
-              },
+                    )
+                    .toList(),
+                onChanged: (String? value) {
+                  setState(() {
+                    _selectedAdbId = value;
+                  });
+                },
+              ),
             ),
-            const SizedBox(height: 10),
+            const SizedBox(height: 4),
             Row(
               children: [
                 Expanded(
-                  child: OutlinedButton.icon(
-                    onPressed: _isRefreshing ? null : _refreshDevices,
-                    icon: _isRefreshing
-                        ? const SizedBox(
-                            width: 14,
-                            height: 14,
-                            child: CircularProgressIndicator(strokeWidth: 2),
-                          )
-                        : const Icon(Icons.refresh, size: 18),
-                    label: Text(_isRefreshing ? '刷新中...' : '刷新设备'),
+                  child: Card(
+                    color: const Color.fromARGB(255, 237, 237, 237),
+                    elevation: 0,
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(8.0),
+                    ),
+                    child: InkWell(
+                      borderRadius: BorderRadius.circular(6.0),
+                      onTap: _isRefreshing ? null : _refreshDevices,
+                      child: Padding(
+                        padding: const EdgeInsets.symmetric(
+                            horizontal: 16.0, vertical: 8.0),
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                            if (_isRefreshing)
+                              const Padding(
+                                padding: EdgeInsetsGeometry.only(right: 4),
+                                child: SizedBox(
+                                  width: 12,
+                                  height: 12,
+                                  child: CircularProgressIndicator(
+                                    strokeWidth: 1.5,
+                                    color: Colors.black,
+                                  ),
+                                ),
+                              ),
+                            if (!_isRefreshing)
+                              const Icon(
+                                Icons.refresh,
+                                size: 18,
+                                color: Colors.black,
+                              ),
+                            const SizedBox(
+                              width: 4,
+                            ),
+                            Text(
+                              _isRefreshing ? '刷新中...' : '刷新设备',
+                              textAlign: TextAlign.center,
+                              style: const TextStyle(
+                                  color: Colors.black, fontSize: 14),
+                            )
+                          ],
+                        ),
+                      ),
+                    ),
                   ),
                 ),
                 const SizedBox(width: 8),
                 Expanded(
-                  child: ElevatedButton.icon(
-                    onPressed: () {
-                      Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                          builder: (context) => const WirelessPage(),
+                  child: Card(
+                    color: const Color.fromARGB(255, 237, 237, 237),
+                    elevation: 0,
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(8.0),
+                    ),
+                    child: InkWell(
+                      borderRadius: BorderRadius.circular(6.0),
+                      onTap: () {
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                            builder: (context) => const WirelessPage(),
+                          ),
+                        );
+                      },
+                      child: const Padding(
+                        padding: EdgeInsets.symmetric(
+                            horizontal: 16.0, vertical: 8.0),
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                            Icon(Icons.wifi, size: 18),
+                            SizedBox(
+                              width: 4,
+                            ),
+                            Text(
+                              '无线连接',
+                              textAlign: TextAlign.center,
+                              style:
+                                  TextStyle(color: Colors.black, fontSize: 14),
+                            )
+                          ],
                         ),
-                      );
-                    },
-                    icon: const Icon(Icons.wifi, size: 18),
-                    label: const Text('无线连接'),
+                      ),
+                    ),
                   ),
                 ),
               ],
@@ -693,7 +772,7 @@ class _Page1State extends State<Page1> {
     required List<String> adbArgs,
   }) {
     return SizedBox(
-      width: 132,
+      width: 125,
       child: Card(
         color: const Color.fromARGB(255, 237, 237, 237),
         elevation: 0,
