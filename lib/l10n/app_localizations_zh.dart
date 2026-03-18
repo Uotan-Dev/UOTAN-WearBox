@@ -397,7 +397,7 @@ class AppLocalizationsZh extends AppLocalizations {
 
   @override
   String deviceBootloader(Object bootloader) {
-    return 'BL锁: $bootloader';
+    return 'Bootloader 锁: $bootloader';
   }
 
   @override
@@ -412,17 +412,17 @@ class AppLocalizationsZh extends AppLocalizations {
 
   @override
   String deviceBatteryHealth(Object health) {
-    return '健康: $health';
+    return '电池健康: $health';
   }
 
   @override
   String deviceBatteryVoltage(Object voltage) {
-    return '电压: ${voltage}mV';
+    return '电池电压: ${voltage}mV';
   }
 
   @override
   String deviceBatteryTemperature(Object temperature) {
-    return '温度: $temperature°C';
+    return '电池温度: $temperature°C';
   }
 
   @override

@@ -814,7 +814,7 @@ abstract class AppLocalizations {
   /// No description provided for @deviceBootloader.
   ///
   /// In en, this message translates to:
-  /// **'Bootloader: {bootloader}'**
+  /// **'Bootloader Lock: {bootloader}'**
   String deviceBootloader(Object bootloader);
 
   /// No description provided for @deviceArchitecture.
@@ -832,19 +832,19 @@ abstract class AppLocalizations {
   /// No description provided for @deviceBatteryHealth.
   ///
   /// In en, this message translates to:
-  /// **'Health: {health}'**
+  /// **'Battery Health: {health}'**
   String deviceBatteryHealth(Object health);
 
   /// No description provided for @deviceBatteryVoltage.
   ///
   /// In en, this message translates to:
-  /// **'Voltage: {voltage} mV'**
+  /// **'Battery Voltage: {voltage} mV'**
   String deviceBatteryVoltage(Object voltage);
 
   /// No description provided for @deviceBatteryTemperature.
   ///
   /// In en, this message translates to:
-  /// **'Temperature: {temperature} °C'**
+  /// **'Battery Temperature: {temperature} °C'**
   String deviceBatteryTemperature(Object temperature);
 
   /// No description provided for @deviceAndroidVersion.

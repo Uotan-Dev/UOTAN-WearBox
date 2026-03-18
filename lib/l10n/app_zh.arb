@@ -195,7 +195,7 @@
       "storage": {}
     }
   },
-  "deviceBootloader": "BL锁: {bootloader}",
+  "deviceBootloader": "Bootloader 锁: {bootloader}",
   "@deviceBootloader": {
     "placeholders": {
       "bootloader": {}
@@ -213,19 +213,19 @@
       "level": {}
     }
   },
-  "deviceBatteryHealth": "健康: {health}",
+  "deviceBatteryHealth": "电池健康: {health}",
   "@deviceBatteryHealth": {
     "placeholders": {
       "health": {}
     }
   },
-  "deviceBatteryVoltage": "电压: {voltage}mV",
+  "deviceBatteryVoltage": "电池电压: {voltage}mV",
   "@deviceBatteryVoltage": {
     "placeholders": {
       "voltage": {}
     }
   },
-  "deviceBatteryTemperature": "温度: {temperature}°C",
+  "deviceBatteryTemperature": "电池温度: {temperature}°C",
   "@deviceBatteryTemperature": {
     "placeholders": {
       "temperature": {}
