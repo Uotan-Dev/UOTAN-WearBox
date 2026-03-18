@@ -4,9 +4,8 @@
 [简体中文](#chinese) ｜ [日本語](#japanese) ｜ [English](#english)
 
 	
-#
 
-<img width="1280" height="640" alt="Desktop 12" src="https://github.com/user-attachments/assets/930b933e-7bcf-44d8-8af4-2a165c55d493" />
+
 
 </div>
 
@@ -15,24 +14,21 @@
 <a id="chinese"></a>
 
 #
-<br>
+<br><img width="1280" height="640" alt="Desktop 12" src="https://github.com/user-attachments/assets/930b933e-7bcf-44d8-8af4-2a165c55d493" />
+
 <div id="header" align="center">
 	<br>
 	<img src="https://wearbox.uotan.cn/wp-content/uploads/2025/07/画板-8.png" height="70"></img> 
-	<h3>瞬息赋能 万境自随心</h3>
-	<p>为自由探索而生，来认识「柚坛手表助手」。</p>
-	<p>让每一台智能穿戴设备都成为可能，自由安装应用，解锁无限玩法，</p>
-	<p>你的设备，从此与众不同。</p><br>
+
 	<div id="badges">
 		<a href="https://github.com/Gnayoah/UotanWatchAssistant/blob/main/LICENSE"><img src="https://img.shields.io/github/license/Gnayoah/UotanWatchAssistant?style=for-the-badge"/></a>
 		<a href="https://github.com/Gnayoah/UotanWatchAssistant"><img src="https://img.shields.io/github/created-at/Gnayoah/UotanWatchAssistant?style=for-the-badge"/></a>
 		<a href="https://github.com/Gnayoah/UotanWatchAssistant"><img src="https://img.shields.io/github/v/release/Gnayoah/UotanWatchAssistant?style=for-the-badge"/></a>
 	</div>
-</div>
 
 <br><br><br>
 
-<img src="https://wearbox.uotan.cn/wp-content/uploads/2024/09/分组-2-2.png"></img>
+
 
 
 <a id="japanese"></a>
