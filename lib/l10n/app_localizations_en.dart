@@ -397,7 +397,7 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String deviceBootloader(Object bootloader) {
-    return 'Bootloader: $bootloader';
+    return 'Bootloader Lock: $bootloader';
   }
 
   @override
@@ -412,17 +412,17 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String deviceBatteryHealth(Object health) {
-    return 'Health: $health';
+    return 'Battery Health: $health';
   }
 
   @override
   String deviceBatteryVoltage(Object voltage) {
-    return 'Voltage: $voltage mV';
+    return 'Battery Voltage: $voltage mV';
   }
 
   @override
   String deviceBatteryTemperature(Object temperature) {
-    return 'Temperature: $temperature °C';
+    return 'Battery Temperature: $temperature °C';
   }
 
   @override

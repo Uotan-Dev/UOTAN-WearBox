@@ -15,6 +15,8 @@ void main() async {
     center: true,
     backgroundColor: Colors.transparent,
     titleBarStyle: TitleBarStyle.hidden,
+    minimumSize: Size(1000, 680),
+    maximumSize: Size(1000, 680),
   );
 
   windowManager.waitUntilReadyToShow(windowOptions, () async {

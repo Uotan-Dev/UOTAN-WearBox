@@ -195,7 +195,7 @@
       "storage": {}
     }
   },
-  "deviceBootloader": "Bootloader: {bootloader}",
+  "deviceBootloader": "Bootloader Lock: {bootloader}",
   "@deviceBootloader": {
     "placeholders": {
       "bootloader": {}
@@ -213,19 +213,19 @@
       "level": {}
     }
   },
-  "deviceBatteryHealth": "Health: {health}",
+  "deviceBatteryHealth": "Battery Health: {health}",
   "@deviceBatteryHealth": {
     "placeholders": {
       "health": {}
     }
   },
-  "deviceBatteryVoltage": "Voltage: {voltage} mV",
+  "deviceBatteryVoltage": "Battery Voltage: {voltage} mV",
   "@deviceBatteryVoltage": {
     "placeholders": {
       "voltage": {}
     }
   },
-  "deviceBatteryTemperature": "Temperature: {temperature} °C",
+  "deviceBatteryTemperature": "Battery Temperature: {temperature} °C",
   "@deviceBatteryTemperature": {
     "placeholders": {
       "temperature": {}

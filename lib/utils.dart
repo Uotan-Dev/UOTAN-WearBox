@@ -9,7 +9,8 @@ void checkAdbDevicesPeriodically({
 }) {
   Timer.periodic(const Duration(seconds: 3), (timer) async {
     try {
-      final ProcessResult result = await Process.run('adb', <String>['devices']);
+      final ProcessResult result =
+          await Process.run('adb', <String>['devices']);
       final String output = result.stdout.toString();
 
       if (output.contains('device')) {
@@ -41,11 +42,13 @@ void checkAdbDevicesPeriodically({
           final String cpuArch =
               await getAdbDeviceProperty(deviceId, 'ro.product.cpu.abi');
 
-          final String resolution = await getAdbShellOutput(deviceId, 'wm size');
+          final String resolution =
+              await getAdbShellOutput(deviceId, 'wm size');
           final String dpi = await getAdbShellOutput(deviceId, 'wm density');
-          final String bootloaderStatusRaw = await getAdbDeviceProperty(
-              deviceId, 'ro.boot.verifiedbootstate');
-          final String bootloaderStatus = mapBootloaderStatus(bootloaderStatusRaw);
+          final String bootloaderStatusRaw =
+              await getAdbDeviceProperty(deviceId, 'ro.boot.verifiedbootstate');
+          final String bootloaderStatus =
+              mapBootloaderStatus(bootloaderStatusRaw);
           final String uptime = await getAdbShellOutput(deviceId, 'uptime');
           final String kernelVersionRaw =
               await getAdbShellOutput(deviceId, 'uname -r');
@@ -53,19 +56,18 @@ void checkAdbDevicesPeriodically({
 
           final String batteryLevel =
               await getAdbShellOutput(deviceId, 'dumpsys battery | grep level');
-          final String batteryHealthRaw =
-              await getAdbShellOutput(deviceId, 'dumpsys battery | grep health');
+          final String batteryHealthRaw = await getAdbShellOutput(
+              deviceId, 'dumpsys battery | grep health');
           final String batteryHealth =
               mapBatteryHealth(batteryHealthRaw.split(':').last.trim());
-          final String batteryVoltage =
-              await getAdbShellOutput(deviceId, 'dumpsys battery | grep voltage');
+          final String batteryVoltage = await getAdbShellOutput(
+              deviceId, 'dumpsys battery | grep voltage');
           final String batteryTemperatureRaw = await getAdbShellOutput(
               deviceId, 'dumpsys battery | grep temperature');
 
           final int tempRaw =
               int.tryParse(batteryTemperatureRaw.split(':').last.trim()) ?? 0;
-          final String batteryTemperature =
-              (tempRaw / 10).toStringAsFixed(1);
+          final String batteryTemperature = (tempRaw / 10).toStringAsFixed(1);
 
           final String fullAndroidVersion = '$androidVersion ($apiLevel)';
 
@@ -189,7 +191,6 @@ String _parseStorageFromDfOutput(String output) {
   }
 
   for (final String line in candidates) {
-
     final List<String> parts =
         line.split(RegExp(r'\s+')).where((String s) => s.isNotEmpty).toList();
     if (parts.length < 4) {
@@ -253,8 +254,11 @@ String mapBatteryHealth(String healthCode) {
 String mapBootloaderStatus(String status) {
   switch (status.toLowerCase()) {
     case 'green':
+      return 'locked';
     case 'yellow':
+      return 'locked';
     case 'orange':
+      return 'locked';
     case 'red':
       return 'unlocked';
     default:
