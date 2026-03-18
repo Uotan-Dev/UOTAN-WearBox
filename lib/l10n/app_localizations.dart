@@ -670,7 +670,7 @@ abstract class AppLocalizations {
   /// No description provided for @homeNoDeviceDetected.
   ///
   /// In en, this message translates to:
-  /// **'No watch detected. Follow the steps below to connect.'**
+  /// **'No device detected. Follow the steps below to connect.'**
   String get homeNoDeviceDetected;
 
   /// No description provided for @homeConnectionMethodsTitle.

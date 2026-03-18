@@ -131,7 +131,7 @@
   "homeGreetingAfternoon": "Good afternoon",
   "homeGreetingEvening": "Good evening",
   "homeWelcomeMessage": "Welcome to Uotan WearBox",
-  "homeNoDeviceDetected": "No watch detected. Follow the steps below to connect.",
+  "homeNoDeviceDetected": "No device detected. Follow the steps below to connect.",
   "homeConnectionMethodsTitle": "Supported connection methods:",
   "homeConnectionWired": "1. Connect the watch to your computer with a cable or charging dock (recommended)",
   "homeConnectionWirelessPrefix": "2. Tap",
