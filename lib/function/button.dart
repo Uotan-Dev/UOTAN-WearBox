@@ -18,19 +18,18 @@ class _ButtonPageState extends State<ButtonPage> {
   @override
   void initState() {
     super.initState();
-    _checkDeviceConnection().then((connected) {
-      if (!mounted) {
-        return;
-      }
-      setState(() {
-        _isDeviceConnected = connected;
-      });
-      if (!connected) {
-        final l10n = context.l10n;
-        _showMessage(context, l10n.buttonDeviceNotConnectedTitle,
-            l10n.buttonDeviceNotConnectedMessage);
-      }
-    });
+    //_checkDeviceConnection().then((connected) {
+    //  if (!mounted) {
+    //     return;
+    //  }
+    //   setState(() {
+    //     _isDeviceConnected = connected;
+    //   });
+    //   if (!connected) {
+    // //    _showMessage(context, l10n.buttonDeviceNotConnectedTitle,
+    //        l10n.buttonDeviceNotConnectedMessage);
+    //   }
+    //   });
   }
 
   @override
