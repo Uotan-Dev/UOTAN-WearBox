@@ -79,6 +79,20 @@ class _HomeScreenState extends State<HomeScreen> with WindowListener {
     }
   }
 
+  Future<void> _refreshDevicesNow() async {
+    try {
+      final List<AdbDeviceInfo> devices = await fetchAdbDevices();
+      if (!mounted) {
+        return;
+      }
+      setState(() {
+        _devices = devices;
+      });
+    } catch (e) {
+      print('Failed to refresh devices: $e');
+    }
+  }
+
   // 检查远程版本号是否最新
   Future<void> _checkForUpdates() async {
     try {
@@ -248,7 +262,10 @@ class _HomeScreenState extends State<HomeScreen> with WindowListener {
   Widget build(BuildContext context) {
     _pages
       ..clear()
-      ..add(Page1(devices: _devices))
+      ..add(Page1(
+        devices: _devices,
+        onRefreshDevices: _refreshDevicesNow,
+      ))
       ..add(const Page2())
       ..add(Page3(
         onLocaleChanged: widget.onLocaleChanged,

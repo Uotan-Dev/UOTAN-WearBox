@@ -10,13 +10,49 @@ import 'l10n/app_localizations.dart';
 import 'l10n/l10n.dart';
 import 'tutorial.dart';
 
-class Page1 extends StatelessWidget {
+class Page1 extends StatefulWidget {
   final List<AdbDeviceInfo> devices;
+  final Future<void> Function() onRefreshDevices;
 
-  const Page1({super.key, required this.devices});
+  const Page1({
+    super.key,
+    required this.devices,
+    required this.onRefreshDevices,
+  });
+
+  @override
+  State<Page1> createState() => _Page1State();
+}
+
+class _Page1State extends State<Page1> {
+  String? _selectedAdbId;
+  bool _isRefreshing = false;
+
+  @override
+  void initState() {
+    super.initState();
+    _selectedAdbId =
+        widget.devices.isNotEmpty ? widget.devices.first.adbId : null;
+  }
+
+  @override
+  void didUpdateWidget(covariant Page1 oldWidget) {
+    super.didUpdateWidget(oldWidget);
+    if (widget.devices.isEmpty) {
+      _selectedAdbId = null;
+      return;
+    }
+    final bool selectedExists = widget.devices.any(
+      (AdbDeviceInfo device) => device.adbId == _selectedAdbId,
+    );
+    if (!selectedExists) {
+      _selectedAdbId = widget.devices.first.adbId;
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
+    final AdbDeviceInfo? selectedDevice = _getSelectedDeviceOrNull();
     return Scaffold(
       appBar: PreferredSize(
         preferredSize: const Size.fromHeight(70.0),
@@ -63,11 +99,28 @@ class Page1 extends StatelessWidget {
       ),
       body: Padding(
         padding: const EdgeInsets.only(right: 25, left: 25, top: 20),
-        child: devices.isEmpty
+        child: selectedDevice == null
             ? _buildNoDeviceConnected(context)
-            : _buildDeviceInfo(context, devices[0]),
+            : _buildDeviceInfo(
+                context,
+                selectedDevice,
+                availableDevices: widget.devices,
+                selectedAdbId: _selectedAdbId,
+              ),
       ),
     );
+  }
+
+  AdbDeviceInfo? _getSelectedDeviceOrNull() {
+    if (widget.devices.isEmpty) {
+      return null;
+    }
+    for (final AdbDeviceInfo device in widget.devices) {
+      if (device.adbId == _selectedAdbId) {
+        return device;
+      }
+    }
+    return widget.devices.first;
   }
 
   Widget _buildNoDeviceConnected(BuildContext context) {
@@ -101,6 +154,8 @@ class Page1 extends StatelessWidget {
         _buildDeviceInfo(
           context,
           _buildPlaceholderDeviceInfo(),
+          availableDevices: const <AdbDeviceInfo>[],
+          selectedAdbId: null,
           showConnectionStatus: false,
           showDeviceName: false,
           hideBatteryUnits: true,
@@ -122,7 +177,9 @@ class Page1 extends StatelessWidget {
                       Text(
                         l10n.homeConnectionMethodsTitle,
                         style: const TextStyle(
-                            fontSize: 16, fontWeight: FontWeight.bold),
+                          fontSize: 16,
+                          fontWeight: FontWeight.bold,
+                        ),
                       ),
                       const SizedBox(height: 8),
                       Text(
@@ -144,8 +201,8 @@ class Page1 extends StatelessWidget {
                                 Navigator.push(
                                   context,
                                   MaterialPageRoute(
-                                      builder: (context) =>
-                                          const WirelessPage()),
+                                    builder: (context) => const WirelessPage(),
+                                  ),
                                 );
                               },
                               child: Text(
@@ -182,7 +239,9 @@ class Page1 extends StatelessWidget {
                       Text(
                         l10n.homeTroubleshootTitle,
                         style: const TextStyle(
-                            fontSize: 16, fontWeight: FontWeight.bold),
+                          fontSize: 16,
+                          fontWeight: FontWeight.bold,
+                        ),
                       ),
                       const SizedBox(height: 8),
                       Row(
@@ -199,8 +258,8 @@ class Page1 extends StatelessWidget {
                                 Navigator.push(
                                   context,
                                   MaterialPageRoute(
-                                      builder: (context) =>
-                                          const TutorialPage()),
+                                    builder: (context) => const TutorialPage(),
+                                  ),
                                 );
                               },
                               child: Text(
@@ -229,7 +288,8 @@ class Page1 extends StatelessWidget {
                                 Navigator.push(
                                   context,
                                   MaterialPageRoute(
-                                      builder: (context) => const DriverPage()),
+                                    builder: (context) => const DriverPage(),
+                                  ),
                                 );
                               },
                               child: Text(
@@ -257,6 +317,7 @@ class Page1 extends StatelessWidget {
   AdbDeviceInfo _buildPlaceholderDeviceInfo() {
     const placeholder = '--';
     return AdbDeviceInfo(
+      adbId: placeholder,
       deviceId: placeholder,
       brand: placeholder,
       model: placeholder,
@@ -297,6 +358,8 @@ class Page1 extends StatelessWidget {
   Widget _buildDeviceInfo(
     BuildContext context,
     AdbDeviceInfo device, {
+    required List<AdbDeviceInfo> availableDevices,
+    required String? selectedAdbId,
     bool showConnectionStatus = true,
     bool showDeviceName = true,
     bool hideBatteryUnits = false,
@@ -323,7 +386,7 @@ class Page1 extends StatelessWidget {
           const SizedBox(
             height: 4,
           ),
-        if (showDeviceName)
+        if (showDeviceName && showConnectionStatus)
           Padding(
             padding: const EdgeInsets.only(left: 5.0, bottom: 5),
             child: Text(
@@ -339,79 +402,212 @@ class Page1 extends StatelessWidget {
           hideBatteryUnits: hideBatteryUnits,
         ),
         if (showRebootActions) ...[
-          const SizedBox(height: 8),
-          Card(
-            color: const Color(0xFFF9F9F9),
-            elevation: 0,
-            child: Padding(
-              padding: const EdgeInsets.all(18.0),
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  const Text(
-                    '重启至',
-                    style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
-                  ),
-                  const SizedBox(height: 8),
-                  SingleChildScrollView(
-                    scrollDirection: Axis.horizontal,
-                    child: Row(
+          const SizedBox(height: 4),
+          Row(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Expanded(
+                child: Card(
+                  color: const Color(0xFFF9F9F9),
+                  elevation: 0,
+                  child: Padding(
+                    padding: const EdgeInsets.all(18.0),
+                    child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
-                        Column(
-                          mainAxisSize: MainAxisSize.min,
-                          children: [
-                            _buildRebootButton(
-                              context,
-                              text: 'Recovery',
-                              adbArgs: const ['reboot', 'recovery'],
-                            ),
-                            const SizedBox(height: 8),
-                            _buildRebootButton(
-                              context,
-                              text: 'Bootloader',
-                              adbArgs: const ['reboot', 'bootloader'],
-                            ),
-                          ],
+                        const Text(
+                          '重启至',
+                          style: TextStyle(
+                            fontSize: 16,
+                            fontWeight: FontWeight.bold,
+                          ),
                         ),
-                        const SizedBox(width: 8),
-                        Column(
-                          mainAxisSize: MainAxisSize.min,
-                          children: [
-                            _buildRebootButton(
-                              context,
-                              text: 'Fastbootd',
-                              adbArgs: const ['reboot', 'fastboot'],
-                            ),
-                            const SizedBox(height: 8),
-                            _buildRebootButton(
-                              context,
-                              text: '关机',
-                              adbArgs: const ['shell', 'reboot', '-p'],
-                            ),
-                          ],
-                        ),
-                        const SizedBox(width: 8),
-                        Column(
-                          mainAxisSize: MainAxisSize.min,
-                          children: [
-                            _buildRebootButton(
-                              context,
-                              text: '9008',
-                              adbArgs: const ['reboot', 'edl'],
-                            ),
-                          ],
+                        const SizedBox(height: 6),
+                        SingleChildScrollView(
+                          scrollDirection: Axis.horizontal,
+                          child: Row(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              Column(
+                                mainAxisSize: MainAxisSize.min,
+                                children: [
+                                  _buildRebootButton(
+                                    context,
+                                    text: 'Recovery',
+                                    selectedAdbId: selectedAdbId,
+                                    adbArgs: const ['reboot', 'recovery'],
+                                  ),
+                                  const SizedBox(height: 2),
+                                  _buildRebootButton(
+                                    context,
+                                    text: 'Bootloader',
+                                    selectedAdbId: selectedAdbId,
+                                    adbArgs: const ['reboot', 'bootloader'],
+                                  ),
+                                ],
+                              ),
+                              const SizedBox(width: 4),
+                              Column(
+                                mainAxisSize: MainAxisSize.min,
+                                children: [
+                                  _buildRebootButton(
+                                    context,
+                                    text: 'Fastbootd',
+                                    selectedAdbId: selectedAdbId,
+                                    adbArgs: const ['reboot', 'fastboot'],
+                                  ),
+                                  const SizedBox(height: 2),
+                                  _buildRebootButton(
+                                    context,
+                                    text: '鍏虫満',
+                                    selectedAdbId: selectedAdbId,
+                                    adbArgs: const ['shell', 'reboot', '-p'],
+                                  ),
+                                ],
+                              ),
+                              const SizedBox(width: 4),
+                              Column(
+                                mainAxisSize: MainAxisSize.min,
+                                children: [
+                                  _buildRebootButton(
+                                    context,
+                                    text: '9008',
+                                    selectedAdbId: selectedAdbId,
+                                    adbArgs: const ['reboot', 'edl'],
+                                  ),
+                                ],
+                              ),
+                            ],
+                          ),
                         ),
                       ],
                     ),
                   ),
-                ],
+                ),
               ),
-            ),
+              const SizedBox(width: 5),
+              Expanded(
+                child: _buildSelectDeviceCard(context, availableDevices),
+              ),
+            ],
           ),
         ],
       ],
     );
+  }
+
+  Widget _buildSelectDeviceCard(
+      BuildContext context, List<AdbDeviceInfo> devices) {
+    final String? dropdownValue = devices.any(
+      (AdbDeviceInfo device) => device.adbId == _selectedAdbId,
+    )
+        ? _selectedAdbId
+        : null;
+
+    return Card(
+      color: const Color(0xFFF9F9F9),
+      elevation: 0,
+      child: Padding(
+        padding: const EdgeInsets.all(18.0),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            const Text(
+              '选择设备',
+              style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
+            ),
+            const SizedBox(height: 10),
+            DropdownButtonFormField<String>(
+              initialValue: dropdownValue,
+              isExpanded: true,
+              decoration: const InputDecoration(
+                border: OutlineInputBorder(),
+                contentPadding:
+                    EdgeInsets.symmetric(horizontal: 10, vertical: 8),
+              ),
+              hint: const Text('选择设备'),
+              items: devices
+                  .map(
+                    (AdbDeviceInfo device) => DropdownMenuItem<String>(
+                      value: device.adbId,
+                      child: Text(
+                        '${device.model} (${device.deviceId})',
+                        overflow: TextOverflow.ellipsis,
+                      ),
+                    ),
+                  )
+                  .toList(),
+              onChanged: (String? value) {
+                setState(() {
+                  _selectedAdbId = value;
+                });
+              },
+            ),
+            const SizedBox(height: 10),
+            Row(
+              children: [
+                Expanded(
+                  child: OutlinedButton.icon(
+                    onPressed: _isRefreshing ? null : _refreshDevices,
+                    icon: _isRefreshing
+                        ? const SizedBox(
+                            width: 14,
+                            height: 14,
+                            child: CircularProgressIndicator(strokeWidth: 2),
+                          )
+                        : const Icon(Icons.refresh, size: 18),
+                    label: Text(_isRefreshing ? '刷新中...' : '刷新设备'),
+                  ),
+                ),
+                const SizedBox(width: 8),
+                Expanded(
+                  child: ElevatedButton.icon(
+                    onPressed: () {
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                          builder: (context) => const WirelessPage(),
+                        ),
+                      );
+                    },
+                    icon: const Icon(Icons.wifi, size: 18),
+                    label: const Text('无线连接'),
+                  ),
+                ),
+              ],
+            ),
+          ],
+        ),
+      ),
+    );
+  }
+
+  Future<void> _refreshDevices() async {
+    setState(() {
+      _isRefreshing = true;
+    });
+    try {
+      await widget.onRefreshDevices();
+      if (!mounted) {
+        return;
+      }
+      ScaffoldMessenger.of(context).showSnackBar(
+        const SnackBar(content: Text('设备列表已刷新')),
+      );
+    } catch (e) {
+      if (!mounted) {
+        return;
+      }
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(content: Text('刷新设备失败: $e')),
+      );
+    } finally {
+      if (mounted) {
+        setState(() {
+          _isRefreshing = false;
+        });
+      }
+    }
   }
 
   Widget buildMergedInfoCard(
@@ -465,9 +661,9 @@ class Page1 extends StatelessWidget {
           children: [
             const Text(
               '设备信息',
-              style: TextStyle(fontSize: 17, fontWeight: FontWeight.bold),
+              style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
             ),
-            const SizedBox(height: 8),
+            const SizedBox(height: 6),
             ...allInfoRows.map(
               (pair) => Padding(
                 padding: const EdgeInsets.only(bottom: 6.0),
@@ -493,6 +689,7 @@ class Page1 extends StatelessWidget {
   Widget _buildRebootButton(
     BuildContext context, {
     required String text,
+    required String? selectedAdbId,
     required List<String> adbArgs,
   }) {
     return SizedBox(
@@ -505,7 +702,7 @@ class Page1 extends StatelessWidget {
         ),
         child: InkWell(
           borderRadius: BorderRadius.circular(6.0),
-          onTap: () => _runAdbCommand(context, adbArgs),
+          onTap: () => _runAdbCommand(selectedAdbId, adbArgs),
           child: Padding(
             padding:
                 const EdgeInsets.symmetric(horizontal: 16.0, vertical: 8.0),
@@ -520,10 +717,17 @@ class Page1 extends StatelessWidget {
     );
   }
 
-  Future<void> _runAdbCommand(BuildContext context, List<String> args) async {
+  Future<void> _runAdbCommand(String? selectedAdbId, List<String> args) async {
+    if (selectedAdbId == null || selectedAdbId.isEmpty) {
+      ScaffoldMessenger.of(context).showSnackBar(
+        const SnackBar(content: Text('请先选择设备')),
+      );
+      return;
+    }
     try {
-      final ProcessResult result = await Process.run('adb', args);
-      if (!context.mounted) {
+      final ProcessResult result =
+          await Process.run('adb', <String>['-s', selectedAdbId, ...args]);
+      if (!mounted) {
         return;
       }
       final messenger = ScaffoldMessenger.of(context);
@@ -542,7 +746,7 @@ class Page1 extends StatelessWidget {
         );
       }
     } catch (e) {
-      if (!context.mounted) {
+      if (!mounted) {
         return;
       }
       ScaffoldMessenger.of(context).showSnackBar(

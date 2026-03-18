@@ -1,4 +1,5 @@
 class AdbDeviceInfo {
+  final String adbId;
   final String deviceId;
   final String brand;
   final String model;
@@ -20,6 +21,7 @@ class AdbDeviceInfo {
   final String cpuArch; // CPU架构
 
   AdbDeviceInfo({
+    required this.adbId,
     required this.deviceId,
     required this.brand,
     required this.model,
