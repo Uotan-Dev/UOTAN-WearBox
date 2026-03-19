@@ -1,12 +1,15 @@
 # 受支持的设备
+- [小米 Xiaomi](#xiaomi)
+- [三星 Samsung](#samsung)
 
+<a id="xiaomi"></a>
 ## 小米 Xiaomi
 | 品牌        | 型号   |  
 | :--------  | :-----  |
 | Xiaomi | Watch 2 Pro |
 | Xiaomi | Mi Watch |
 
-
+<a id="samsung"></a>
 ## 三星 Samsung
 | 品牌        | 型号   |  
 | :--------  | :-----  |
