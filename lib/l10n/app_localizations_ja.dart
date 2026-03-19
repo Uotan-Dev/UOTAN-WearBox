@@ -402,7 +402,7 @@ class AppLocalizationsJa extends AppLocalizations {
 
   @override
   String deviceArchitecture(Object architecture) {
-    return 'アーキテクチャ: $architecture';
+    return 'CPU アーキテクチャ: $architecture';
   }
 
   @override

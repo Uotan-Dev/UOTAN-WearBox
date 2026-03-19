@@ -402,7 +402,7 @@ class AppLocalizationsZh extends AppLocalizations {
 
   @override
   String deviceArchitecture(Object architecture) {
-    return '架构: $architecture';
+    return 'CPU 架构: $architecture';
   }
 
   @override
