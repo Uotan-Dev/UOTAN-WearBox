@@ -2,7 +2,7 @@
 - [Xiaomi](#xiaomi)
 - [Samsung](#samsung)
 - [OPPO](#oppo)
-- [ONEPLUS](#oneplus)
+- [OnePlus](#oneplus)
 - [HUAWEI](#huawei)
 - [Google](#google)
 
