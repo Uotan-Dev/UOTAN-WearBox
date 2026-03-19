@@ -55,9 +55,9 @@ class _Page1State extends State<Page1> {
     final AdbDeviceInfo? selectedDevice = _getSelectedDeviceOrNull();
     return Scaffold(
       appBar: PreferredSize(
-        preferredSize: const Size.fromHeight(70.0),
+        preferredSize: const Size.fromHeight(50.0),
         child: Padding(
-          padding: const EdgeInsets.only(top: 20),
+          padding: const EdgeInsets.only(top: 00),
           child: GestureDetector(
             onPanStart: (details) => windowManager.startDragging(),
             child: Container(
@@ -68,10 +68,10 @@ class _Page1State extends State<Page1> {
                 children: [
                   Row(
                     children: [
-                      const SizedBox(width: 10),
+                      const SizedBox(width: 00),
                       Image.asset(
                         'assets/new_logo.png',
-                        height: 35,
+                        height: 0,
                       ),
                     ],
                   ),
@@ -98,7 +98,7 @@ class _Page1State extends State<Page1> {
         ),
       ),
       body: Padding(
-        padding: const EdgeInsets.only(right: 25, left: 25, top: 15),
+        padding: const EdgeInsets.only(right: 25, left: 25, top: 10),
         child: selectedDevice == null
             ? _buildNoDeviceConnected(context)
             : _buildDeviceInfo(

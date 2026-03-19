@@ -281,7 +281,7 @@ class _HomeScreenState extends State<HomeScreen> with WindowListener {
         },
         child: _isCheckingUpdate
             ? Center(
-                key: const ValueKey('loading'), // 唯一键值
+                key: ValueKey('loading'), // 唯一键值
                 child: Column(
                   mainAxisAlignment: MainAxisAlignment.center, // 垂直居中对齐
                   children: [
@@ -292,11 +292,21 @@ class _HomeScreenState extends State<HomeScreen> with WindowListener {
                     //   height: 120, // 设置 Logo 的高度
                     //  ),
                     //  const SizedBox(height: 80),
-                    const SizedBox(
-                      width: 60, // 设置进度条的宽度
-                      height: 60, // 设置进度条的高度
+                    SizedBox(
+                      height: 50,
+                    ),
+                    Image.asset(
+                      'assets/new_logo.png',
+                      height: 65,
+                    ),
+                    SizedBox(
+                      height: 50,
+                    ),
+                    SizedBox(
+                      width: 20, // 设置进度条的宽度
+                      height: 20, // 设置进度条的高度
                       child: CircularProgressIndicator(
-                        strokeWidth: 4, // 设置进度条的粗细，默认是 4.0
+                        strokeWidth: 2, // 设置进度条的粗细，默认是 4.0
                         color: Colors.black,
                       ),
                     ),

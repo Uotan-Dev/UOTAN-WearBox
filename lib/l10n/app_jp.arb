@@ -201,7 +201,7 @@
       "bootloader": {}
     }
   },
-  "deviceArchitecture": "アーキテクチャ: {architecture}",
+  "deviceArchitecture": "CPU アーキテクチャ: {architecture}",
   "@deviceArchitecture": {
     "placeholders": {
       "architecture": {}
