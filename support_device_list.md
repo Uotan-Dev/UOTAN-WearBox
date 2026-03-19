@@ -1,10 +1,10 @@
 # 受支持的设备
-- [小米 Xiaomi](#xiaomi)
-- [三星 Samsung](#samsung)
+- [Xiaomi](#xiaomi)
+- [Samsung](#samsung)
 - [OPPO](#oppo)
-- [一加 ONEPLUS](#oneplus)
-- [华为 HUAWEI](#huawei)
-- [谷歌 Google](#google)
+- [ONEPLUS](#oneplus)
+- [HUAWEI](#huawei)
+- [Google](#google)
 
 <a id="xiaomi"></a>
 ## 小米 Xiaomi
