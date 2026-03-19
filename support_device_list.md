@@ -12,10 +12,34 @@
 | :--------  | :-----  |
 | Samsung | Galaxy Watch Ultra |
 | Samsung | Galaxy Watch 7 |
-| Samsung | Galaxy Watch 6 Classic |
-| Samsung | Galaxy Watch 6 |
-| Samsung | Galaxy Watch 5 Pro |
-| Samsung | Galaxy Watch 5 |
-| Samsung | Galaxy Watch 4 Classic |
-| Samsung | Galaxy Watch 4 |
+| Samsung | Galaxy Watch 6 (Classic) |
+| Samsung | Galaxy Watch 5 (Pro) |
+| Samsung | Galaxy Watch 4 (Classic) |
 | Samsung | Gear Live |
+
+## OPPO 
+| 品牌        | 型号   |  
+| :--------  | :-----  |
+| OPPO | Oppo Watch 3 (Pro) |
+| OPPO | Oppo Watch 2 |
+| OPPO | OPPO Watch |
+
+## 一加 ONEPLUS
+| 品牌        | 型号   |  
+| :--------  | :-----  |
+| ONEPLUS | Watch 3 |
+| ONEPLUS | Watch 2 |
+
+## 华为 HUAWEI
+| 品牌        | 型号   |  
+| :--------  | :-----  |
+| HUAWEI | Watch 2 (Classic) |
+| HUAWEI | Watch |
+
+## 谷歌 Google
+| 品牌        | 型号   |  
+| :--------  | :-----  |
+| Pixel | Pixel Watch 4 |
+| Pixel | Pixel Watch 3 |
+| Pixel | Pixel Watch 2 |
+| Pixel | Pixel Watch |
