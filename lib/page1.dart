@@ -62,6 +62,8 @@ class _Page1State extends State<Page1> {
           child: GestureDetector(
             onPanStart: (details) => windowManager.startDragging(),
             child: Container(
+              // 固定高度：macOS 隐藏窗口按钮后标题栏不能因此塌缩，否则首页整体上移
+              height: 48,
               color: Colors.transparent,
               padding: const EdgeInsets.symmetric(horizontal: 18),
               child: Row(
