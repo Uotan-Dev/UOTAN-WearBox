@@ -1,4 +1,5 @@
 import 'dart:io';
+import '../platform_tools.dart';
 
 import 'package:file_picker/file_picker.dart';
 import 'package:flutter/material.dart';
@@ -312,7 +313,7 @@ class _CapturePageState extends State<CapturePage> {
       if (_saveTarget == _SaveTarget.device) {
         final String remotePath = '${_normalizedDeviceDirectory()}$fileName';
         final ProcessResult result = await Process.run(
-          'adb',
+          adbPath,
           <String>['shell', 'screencap', '-p', remotePath],
         );
         if (result.exitCode != 0) {
@@ -329,7 +330,7 @@ class _CapturePageState extends State<CapturePage> {
       Directory(localDir).createSync(recursive: true);
 
       final ProcessResult capResult = await Process.run(
-        'adb',
+        adbPath,
         <String>['shell', 'screencap', '-p', remotePath],
       );
       if (capResult.exitCode != 0) {
@@ -338,7 +339,7 @@ class _CapturePageState extends State<CapturePage> {
       }
 
       final ProcessResult pullResult = await Process.run(
-        'adb',
+        adbPath,
         <String>['pull', remotePath, localPath],
       );
       if (pullResult.exitCode != 0) {
@@ -346,7 +347,7 @@ class _CapturePageState extends State<CapturePage> {
         return;
       }
 
-      await Process.run('adb', <String>['shell', 'rm', '-f', remotePath]);
+      await Process.run(adbPath, <String>['shell', 'rm', '-f', remotePath]);
       _showInfoDialog('截屏已保存到电脑:\n$localPath');
     } catch (e) {
       _showErrorDialog('执行失败: $e');
@@ -373,7 +374,7 @@ class _CapturePageState extends State<CapturePage> {
     setState(() => _isBusy = true);
     try {
       final ProcessResult result = await Process.run(
-        'adb',
+        adbPath,
         <String>[
           'shell',
           'sh',
@@ -421,7 +422,7 @@ class _CapturePageState extends State<CapturePage> {
 
     setState(() => _isBusy = true);
     try {
-      await Process.run('adb', <String>['shell', 'kill', '-2', pid]);
+      await Process.run(adbPath, <String>['shell', 'kill', '-2', pid]);
       await Future<void>.delayed(const Duration(seconds: 1));
 
       if (target == _SaveTarget.device) {
@@ -437,7 +438,7 @@ class _CapturePageState extends State<CapturePage> {
       Directory(localDir).createSync(recursive: true);
 
       final ProcessResult pullResult = await Process.run(
-        'adb',
+        adbPath,
         <String>['pull', remotePath, localPath],
       );
       if (pullResult.exitCode != 0) {
@@ -445,7 +446,7 @@ class _CapturePageState extends State<CapturePage> {
         return;
       }
 
-      await Process.run('adb', <String>['shell', 'rm', '-f', remotePath]);
+      await Process.run(adbPath, <String>['shell', 'rm', '-f', remotePath]);
       _clearRecordState();
       _showInfoDialog('录屏已保存到电脑:\n$localPath');
     } catch (e) {
@@ -470,7 +471,7 @@ class _CapturePageState extends State<CapturePage> {
   Future<bool> _ensureDeviceConnected({bool showDialog = true}) async {
     try {
       final ProcessResult result =
-          await Process.run('adb', <String>['devices']);
+          await Process.run(adbPath, <String>['devices']);
       final List<String> lines = result.stdout
           .toString()
           .split('\n')

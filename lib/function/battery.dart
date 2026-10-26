@@ -1,4 +1,5 @@
 import 'dart:async';
+import '../platform_tools.dart';
 import 'dart:io';
 
 import 'package:flutter/material.dart';
@@ -619,7 +620,7 @@ class _BatteryManagerPageState extends State<BatteryManagerPage> {
     try {
       for (final MapEntry<String, String> entry in values) {
         final ProcessResult result = await Process.run(
-          'adb',
+          adbPath,
           <String>[
             'shell',
             'dumpsys',
@@ -674,7 +675,7 @@ class _BatteryManagerPageState extends State<BatteryManagerPage> {
 
     try {
       final ProcessResult result =
-          await Process.run('adb', args).timeout(_adbTimeout);
+          await Process.run(adbPath, args).timeout(_adbTimeout);
       final String stderr = result.stderr.toString().trim();
 
       if (result.exitCode != 0 && showDialogOnError) {
@@ -706,7 +707,7 @@ class _BatteryManagerPageState extends State<BatteryManagerPage> {
   Future<bool> _ensureDeviceConnected({bool showDialog = true}) async {
     try {
       final ProcessResult result =
-          await Process.run('adb', <String>['devices']).timeout(_adbTimeout);
+          await Process.run(adbPath, <String>['devices']).timeout(_adbTimeout);
       final List<String> lines = result.stdout
           .toString()
           .split('\n')

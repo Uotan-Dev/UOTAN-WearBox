@@ -1,4 +1,5 @@
 import 'dart:io'; // 导入用于运行进程的包
+import '../platform_tools.dart';
 import 'package:file_picker/file_picker.dart'; // 导入文件选择器包
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
@@ -213,7 +214,7 @@ class _TypeTextPageState extends State<TypeTextPage> {
 
       for (String line in lines) {
         // 使用 adb shell input text 命令发送每一行文本
-        ProcessResult result = await Process.run('adb', ['shell', 'input', 'text', Uri.encodeComponent(line)]);
+        ProcessResult result = await Process.run(adbPath, ['shell', 'input', 'text', Uri.encodeComponent(line)]);
         // 检查是否返回了权限错误
         if (result.stderr.toString().contains('INJECT_EVENTS permission')) {
           Navigator.of(context).pop(); // 关闭进度弹窗
@@ -221,7 +222,7 @@ class _TypeTextPageState extends State<TypeTextPage> {
           return;
         }
         // 模拟回车键以实现换行
-        await Process.run('adb', ['shell', 'input', 'keyevent', '66']); // KEYCODE_ENTER = 66
+        await Process.run(adbPath, ['shell', 'input', 'keyevent', '66']); // KEYCODE_ENTER = 66
       }
 
       Navigator.of(context).pop(); // 关闭进度弹窗
@@ -260,7 +261,7 @@ class _TypeTextPageState extends State<TypeTextPage> {
   // 检测设备是否连接
   Future<bool> _isDeviceConnected() async {
     try {
-      ProcessResult result = await Process.run('adb', ['devices']);
+      ProcessResult result = await Process.run(adbPath, ['devices']);
       String output = result.stdout as String;
       // 检查输出中是否有 "device" 状态，排除 "List of devices" 和空行
       return output.split('\n').any((line) => line.contains('\tdevice'));

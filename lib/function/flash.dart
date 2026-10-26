@@ -1,4 +1,5 @@
 import 'dart:convert';
+import '../platform_tools.dart';
 import 'dart:io';
 
 import 'package:file_picker/file_picker.dart';
@@ -456,7 +457,7 @@ class _FlashToolPageState extends State<FlashToolPage> {
 
     try {
       final ProcessResult result =
-          await Process.run('fastboot', <String>['getvar', 'current-slot']);
+          await Process.run(fastbootPath, <String>['getvar', 'current-slot']);
       final String mergedOutput =
           '${result.stdout}\n${result.stderr}'.toLowerCase();
       final RegExpMatch? match =
@@ -500,7 +501,7 @@ class _FlashToolPageState extends State<FlashToolPage> {
     _addLog('> fastboot ${args.join(' ')}');
 
     try {
-      final Process process = await Process.start('fastboot', args);
+      final Process process = await Process.start(fastbootPath, args);
       process.stdout.transform(utf8.decoder).listen(_appendProcessLog);
       process.stderr.transform(utf8.decoder).listen(_appendProcessLog);
 
@@ -526,7 +527,7 @@ class _FlashToolPageState extends State<FlashToolPage> {
   Future<bool> _ensureFastbootDeviceReady() async {
     try {
       final ProcessResult result =
-          await Process.run('fastboot', <String>['devices']);
+          await Process.run(fastbootPath, <String>['devices']);
       final String output = result.stdout.toString();
       final List<String> lines = output
           .split('\n')

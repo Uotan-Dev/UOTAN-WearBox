@@ -1,4 +1,5 @@
 import 'dart:io';
+import '../platform_tools.dart';
 
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
@@ -145,7 +146,7 @@ class _RotatePageState extends State<RotatePage> {
 
     try {
       ProcessResult result = await Process.run(
-          'adb', ['shell', 'settings', 'put', 'system', 'user_rotation', rotation]);
+          adbPath, ['shell', 'settings', 'put', 'system', 'user_rotation', rotation]);
       if (result.exitCode == 0) {
         _showMessage(context, context.l10n.fileManagerSuccessTitle, context.l10n.rotateSuccessMessage(directionLabel));
       } else {
@@ -158,7 +159,7 @@ class _RotatePageState extends State<RotatePage> {
 
   Future<bool> _checkDeviceConnection() async {
     try {
-      ProcessResult result = await Process.run('adb', ['devices']);
+      ProcessResult result = await Process.run(adbPath, ['devices']);
       String output = result.stdout.toString();
       List<String> lines = output.split('\n');
       for (var line in lines.skip(1)) {

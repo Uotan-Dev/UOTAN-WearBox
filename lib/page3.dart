@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:flutter/material.dart';
 import 'package:url_launcher/url_launcher.dart';
 import 'package:window_manager/window_manager.dart';
@@ -140,7 +142,9 @@ class Page3 extends StatelessWidget {
                       ),
                     ),
                   ),
-                  Row(
+                  // macOS 使用系统原生红绿灯按钮
+                  if (!Platform.isMacOS)
+                    Row(
                     children: [
                       IconButton(
                         icon: Image.asset('assets/mini.png'),

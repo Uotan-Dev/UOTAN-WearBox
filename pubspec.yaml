@@ -39,7 +39,7 @@ dependencies:
   cupertino_icons: ^1.0.8
   url_launcher: ^6.1.7
   file_picker: ^5.0.0
-  desktop_drop: ^0.1.0
+  desktop_drop: ^0.8.4
   http: ^0.13.4
   intl: ^0.20.2
   shared_preferences: ^2.2.3

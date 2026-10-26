@@ -1,4 +1,5 @@
 ﻿import 'dart:async';
+import '../platform_tools.dart';
 import 'dart:io';
 
 import 'package:flutter/material.dart';
@@ -485,7 +486,7 @@ class _MemoryCleanPageState extends State<MemoryCleanPage> {
     });
 
     try {
-      final ProcessResult result = await Process.run('adb', args);
+      final ProcessResult result = await Process.run(adbPath, args);
       final String stderr = result.stderr.toString().trim();
 
       if (result.exitCode == 0) {
@@ -515,7 +516,7 @@ class _MemoryCleanPageState extends State<MemoryCleanPage> {
   Future<bool> _ensureDeviceConnected({bool showDialog = true}) async {
     try {
       final ProcessResult result =
-          await Process.run('adb', <String>['devices']);
+          await Process.run(adbPath, <String>['devices']);
       final List<String> lines = result.stdout
           .toString()
           .split('\n')

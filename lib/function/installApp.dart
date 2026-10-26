@@ -1,4 +1,5 @@
 import 'dart:io';
+import '../platform_tools.dart';
 
 import 'package:file_picker/file_picker.dart';
 import 'package:flutter/foundation.dart';
@@ -141,7 +142,7 @@ class _InstallAppPageState extends State<InstallAppPage> {
       // 运行ADB命令进行安装
       try {
         // 使用 Process.start 来启动异步进程
-        Process process = await Process.start('adb', ['install', '-r', filePath]);
+        Process process = await Process.start(adbPath, ['install', '-r', filePath]);
 
         process.stdout.transform(const SystemEncoding().decoder).listen((data) {
           setState(() {
@@ -184,7 +185,7 @@ class _InstallAppPageState extends State<InstallAppPage> {
   // 检查是否有设备连接
   Future<bool> _checkDeviceConnection() async {
     try {
-      ProcessResult result = await Process.run('adb', ['devices']);
+      ProcessResult result = await Process.run(adbPath, ['devices']);
       String output = result.stdout.toString();
 
       // 过滤掉第一行标题，并检查是否有任何设备行存在
