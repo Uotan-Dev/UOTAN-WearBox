@@ -5,10 +5,10 @@
 // 'flutter create' template.
 
 // The application's name. By default this is also the title of the Flutter window.
-PRODUCT_NAME = Uotan Watch Assistant
+PRODUCT_NAME = Uotan WearBox
 
 // The application's bundle identifier
-PRODUCT_BUNDLE_IDENTIFIER = com.gnayoah.watchAssistant
+PRODUCT_BUNDLE_IDENTIFIER = com.gnayoah.wearbox
 
 // The copyright displayed in application information
 PRODUCT_COPYRIGHT = Copyright © 2024 Gnayoah.com All rights reserved.
