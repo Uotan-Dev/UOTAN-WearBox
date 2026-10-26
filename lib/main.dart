@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -20,6 +22,10 @@ void main() async {
   );
 
   windowManager.waitUntilReadyToShow(windowOptions, () async {
+    if (Platform.isMacOS) {
+      // 窗口尺寸固定，禁用原生红绿灯中的缩放（绿色）按钮
+      await windowManager.setMaximizable(false);
+    }
     await windowManager.show();
     await windowManager.focus();
   });

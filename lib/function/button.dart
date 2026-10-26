@@ -1,4 +1,5 @@
 import 'dart:io';
+import '../platform_tools.dart';
 
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
@@ -149,7 +150,7 @@ class _ButtonPageState extends State<ButtonPage> {
 
     try {
       ProcessResult result =
-          await Process.run('adb', ['shell', 'input', 'keyevent', keycode]);
+          await Process.run(adbPath, ['shell', 'input', 'keyevent', keycode]);
       if (result.exitCode == 0) {
         debugPrint(context.l10n.buttonSendKeySuccess(keycode));
       } else {
@@ -164,7 +165,7 @@ class _ButtonPageState extends State<ButtonPage> {
 
   Future<bool> _checkDeviceConnection() async {
     try {
-      ProcessResult result = await Process.run('adb', ['devices']);
+      ProcessResult result = await Process.run(adbPath, ['devices']);
       String output = result.stdout.toString();
       List<String> lines = output.split('\n');
       for (var line in lines.skip(1)) {

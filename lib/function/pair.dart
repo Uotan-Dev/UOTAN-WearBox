@@ -1,4 +1,5 @@
 import 'dart:io';
+import '../platform_tools.dart';
 
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
@@ -161,14 +162,14 @@ class _PairPageState extends State<PairPage> {
 
     try {
       // 清除 Google Play 服务
-      ProcessResult clearResult = await Process.run('adb', ['shell', 'pm', 'clear', 'com.google.android.gms']);
+      ProcessResult clearResult = await Process.run(adbPath, ['shell', 'pm', 'clear', 'com.google.android.gms']);
       if (clearResult.exitCode != 0) {
         _showMessage(context, context.l10n.commonErrorTitle, context.l10n.pairingClearFailure(clearResult.stderr.toString()));
         return;
       }
 
       // 重启设备
-      ProcessResult rebootResult = await Process.run('adb', ['shell', 'reboot']);
+      ProcessResult rebootResult = await Process.run(adbPath, ['shell', 'reboot']);
       if (rebootResult.exitCode == 0) {
         _showMessage(context, context.l10n.fileManagerSuccessTitle, context.l10n.pairingRebooting);
       } else {
@@ -188,7 +189,7 @@ class _PairPageState extends State<PairPage> {
     }
 
     try {
-      ProcessResult result = await Process.run('adb', [
+      ProcessResult result = await Process.run(adbPath, [
         'shell',
         'am',
         'start',
@@ -208,7 +209,7 @@ class _PairPageState extends State<PairPage> {
   /// **检查 ADB 设备连接**
   Future<bool> _checkDeviceConnection() async {
     try {
-      ProcessResult result = await Process.run('adb', ['devices']);
+      ProcessResult result = await Process.run(adbPath, ['devices']);
       String output = result.stdout.toString();
       List<String> lines = output.split('\n');
       for (var line in lines.skip(1)) {

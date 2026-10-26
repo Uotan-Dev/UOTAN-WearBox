@@ -1,4 +1,5 @@
 import 'dart:io';
+import '../platform_tools.dart';
 
 import 'package:file_picker/file_picker.dart';
 import 'package:flutter/foundation.dart';
@@ -42,7 +43,7 @@ class _AdbFileManagerPageState extends State<AdbFileManagerPage> {
     });
 
     try {
-      final result = await Process.run('adb', ['shell', 'ls', '-p', currentPath]);
+      final result = await Process.run(adbPath, ['shell', 'ls', '-p', currentPath]);
       if (result.exitCode == 0) {
         await Future.delayed(const Duration(milliseconds: 500)); // 延迟显示加载
         if (!mounted) return;
@@ -168,7 +169,7 @@ class _AdbFileManagerPageState extends State<AdbFileManagerPage> {
     final l10n = context.l10n;
     await _showProgressDialog(l10n.fileManagerDeleteProgress(entry));
     try {
-      final result = await Process.run('adb', ['shell', 'rm', '-rf', '$currentPath$entry']);
+      final result = await Process.run(adbPath, ['shell', 'rm', '-rf', '$currentPath$entry']);
       _closeProgressDialog();
       if (result.exitCode == 0) {
         _listFiles(); // 重新列出文件和文件夹
@@ -207,7 +208,7 @@ class _AdbFileManagerPageState extends State<AdbFileManagerPage> {
                 String newName = controller.text.trim();
                 if (newName.isNotEmpty && newName != oldName) {
                   await _showProgressDialog(l10n.fileManagerRenameAction);
-                  await Process.run('adb', [
+                  await Process.run(adbPath, [
                     'shell',
                     'mv',
                     '$currentPath$oldName',
@@ -238,7 +239,7 @@ class _AdbFileManagerPageState extends State<AdbFileManagerPage> {
 
     await _showProgressDialog(l10n.fileManagerSaveProgress(fileName));
     try {
-      final result = await Process.run('adb', ['pull', '$currentPath$fileName', savePath]);
+      final result = await Process.run(adbPath, ['pull', '$currentPath$fileName', savePath]);
       _closeProgressDialog();
       if (result.exitCode == 0) {
         _showSuccess(l10n.fileManagerSaveSuccess(savePath));
@@ -259,7 +260,7 @@ class _AdbFileManagerPageState extends State<AdbFileManagerPage> {
       String filePath = result.files.single.path!;
       await _showProgressDialog(context.l10n.fileManagerUploadProgress);
       try {
-        final uploadResult = await Process.run('adb', ['push', filePath, currentPath]);
+        final uploadResult = await Process.run(adbPath, ['push', filePath, currentPath]);
         _closeProgressDialog();
         if (uploadResult.exitCode == 0) {
           _showSuccess(context.l10n.fileManagerUploadSuccess(currentPath));

@@ -1,4 +1,5 @@
 ﻿import 'dart:io';
+import 'platform_tools.dart';
 
 import 'package:flutter/material.dart';
 import 'package:watch_assistant/wireless.dart';
@@ -75,7 +76,9 @@ class _Page1State extends State<Page1> {
                       ),
                     ],
                   ),
-                  Row(
+                  // macOS 使用系统原生红绿灯按钮
+                  if (!Platform.isMacOS)
+                    Row(
                     children: [
                       IconButton(
                         icon: Image.asset('assets/mini.png'),
@@ -800,7 +803,7 @@ class _Page1State extends State<Page1> {
     }
     try {
       final ProcessResult result =
-          await Process.run('adb', <String>['-s', selectedAdbId, ...args]);
+          await Process.run(adbPath, <String>['-s', selectedAdbId, ...args]);
       if (!mounted) {
         return;
       }
