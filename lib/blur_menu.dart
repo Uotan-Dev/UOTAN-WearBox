@@ -3,11 +3,12 @@ import 'dart:ui' as ui;
 
 import 'package:flutter/material.dart';
 
-/// 自绘下拉菜单：毛玻璃（高斯模糊）背景、圆角、柔和投影，选中项显示蓝色对勾
+/// 自绘下拉菜单：毛玻璃（高斯模糊）背景、圆角、柔和投影，选中项用灰色圆角底加粗显示
 
 const Color _menuTextColor = Color(0xE6000000);
-const Color _menuSelectedColor = Color(0xFF2F7CF6);
-const Color _menuHoverColor = Color(0x0F000000);
+const Color _menuUnselectedColor = Color(0xFF5C5C5C);
+const Color _menuSelectedBackground = Color(0x10000000);
+const Color _menuHoverColor = Color(0x0A000000);
 const Color _menuHintColor = Color(0xFF8A8A8A);
 
 class BlurMenuItem<T> {
@@ -21,13 +22,13 @@ class BlurMenuItem<T> {
 }
 
 /// 在 [anchor]（全局坐标）附近弹出菜单，返回选中的值；点击外部或按 Esc 关闭时返回 null。
-/// [selected] 不为空时菜单左侧预留对勾列，并高亮选中项。
+/// [highlightSelected] 为 true 时高亮 [selected] 对应的项，其余项文字变浅。
 Future<T?> showBlurMenu<T>({
   required BuildContext context,
   required Rect anchor,
   required List<BlurMenuItem<T>> items,
   T? selected,
-  bool showCheck = false,
+  bool highlightSelected = false,
   double minWidth = 0,
 }) {
   return Navigator.of(context, rootNavigator: true).push(
@@ -35,7 +36,7 @@ Future<T?> showBlurMenu<T>({
       anchor: anchor,
       items: items,
       selected: selected,
-      showCheck: showCheck,
+      highlightSelected: highlightSelected,
       minWidth: minWidth,
     ),
   );
@@ -46,14 +47,14 @@ class _BlurMenuRoute<T> extends PopupRoute<T> {
     required this.anchor,
     required this.items,
     required this.selected,
-    required this.showCheck,
+    required this.highlightSelected,
     required this.minWidth,
   });
 
   final Rect anchor;
   final List<BlurMenuItem<T>> items;
   final T? selected;
-  final bool showCheck;
+  final bool highlightSelected;
   final double minWidth;
 
   // 菜单是否向上弹出，由布局时的可用空间决定，用于缩放动画的原点
@@ -102,7 +103,7 @@ class _BlurMenuRoute<T> extends PopupRoute<T> {
         child: _BlurMenuPanel<T>(
           items: items,
           selected: selected,
-          showCheck: showCheck,
+          highlightSelected: highlightSelected,
           minWidth: minWidth,
           onSelected: (value) => Navigator.of(context).pop(value),
         ),
@@ -156,14 +157,14 @@ class _BlurMenuPanel<T> extends StatelessWidget {
   const _BlurMenuPanel({
     required this.items,
     required this.selected,
-    required this.showCheck,
+    required this.highlightSelected,
     required this.minWidth,
     required this.onSelected,
   });
 
   final List<BlurMenuItem<T>> items;
   final T? selected;
-  final bool showCheck;
+  final bool highlightSelected;
   final double minWidth;
   final ValueChanged<T> onSelected;
 
@@ -197,8 +198,8 @@ class _BlurMenuPanel<T> extends StatelessWidget {
                         _BlurMenuTile(
                           label: item.label,
                           color: item.color,
-                          selected: showCheck && item.value == selected,
-                          showCheck: showCheck,
+                          selected: highlightSelected && item.value == selected,
+                          highlightSelected: highlightSelected,
                           onTap: () => onSelected(item.value),
                         ),
                     ],
@@ -250,14 +251,14 @@ class _BlurMenuTile extends StatefulWidget {
     required this.label,
     required this.color,
     required this.selected,
-    required this.showCheck,
+    required this.highlightSelected,
     required this.onTap,
   });
 
   final String label;
   final Color? color;
   final bool selected;
-  final bool showCheck;
+  final bool highlightSelected;
   final VoidCallback onTap;
 
   @override
@@ -269,8 +270,10 @@ class _BlurMenuTileState extends State<_BlurMenuTile> {
 
   @override
   Widget build(BuildContext context) {
-    final Color textColor =
-        widget.selected ? _menuSelectedColor : (widget.color ?? _menuTextColor);
+    final Color textColor = widget.color ??
+        (widget.highlightSelected && !widget.selected
+            ? _menuUnselectedColor
+            : _menuTextColor);
     return MouseRegion(
       cursor: SystemMouseCursors.click,
       onEnter: (_) => setState(() => _hovered = true),
@@ -281,38 +284,21 @@ class _BlurMenuTileState extends State<_BlurMenuTile> {
         child: AnimatedContainer(
           duration: const Duration(milliseconds: 120),
           decoration: BoxDecoration(
-            color: _hovered ? _menuHoverColor : const Color(0x00000000),
+            color: widget.selected
+                ? _menuSelectedBackground
+                : (_hovered ? _menuHoverColor : const Color(0x00000000)),
             borderRadius: BorderRadius.circular(8),
           ),
-          padding: EdgeInsets.only(
-            left: widget.showCheck ? 10 : 14,
-            right: 18,
-            top: 10,
-            bottom: 10,
-          ),
-          child: Row(
-            children: [
-              if (widget.showCheck)
-                SizedBox(
-                  width: 26,
-                  child: widget.selected
-                      ? const Align(
-                          alignment: Alignment.centerLeft,
-                          child: CustomPaint(
-                            size: Size(16, 16),
-                            painter: _CheckPainter(color: _menuSelectedColor),
-                          ),
-                        )
-                      : null,
-                ),
-              Flexible(
-                child: Text(
-                  widget.label,
-                  overflow: TextOverflow.ellipsis,
-                  style: TextStyle(fontSize: 15, color: textColor),
-                ),
-              ),
-            ],
+          padding: const EdgeInsets.fromLTRB(14, 10, 18, 10),
+          child: Text(
+            widget.label,
+            overflow: TextOverflow.ellipsis,
+            style: TextStyle(
+              fontSize: 15,
+              color: textColor,
+              // 选中项使用中粗字重
+              fontFamily: widget.selected ? 'MiSansMed' : null,
+            ),
           ),
         ),
       ),
@@ -357,7 +343,7 @@ class _BlurDropdownState<T> extends State<BlurDropdown<T>> {
       anchor: anchor,
       items: widget.items,
       selected: widget.value,
-      showCheck: true,
+      highlightSelected: true,
       minWidth: widget.bordered ? anchor.width : 0,
     );
     if (!mounted) {
@@ -492,32 +478,4 @@ class ChevronPainter extends CustomPainter {
   @override
   bool shouldRepaint(ChevronPainter oldDelegate) =>
       oldDelegate.direction != direction || oldDelegate.color != color;
-}
-
-/// 对勾：等价 SVG <path d="M5 12.5 L9.5 17 L19 7.5" stroke-width="2.2" round/>
-class _CheckPainter extends CustomPainter {
-  const _CheckPainter({required this.color});
-
-  final Color color;
-
-  @override
-  void paint(Canvas canvas, Size size) {
-    canvas.scale(size.width / 24);
-    canvas.drawPath(
-      Path()
-        ..moveTo(5, 12.5)
-        ..lineTo(9.5, 17)
-        ..lineTo(19, 7.5),
-      Paint()
-        ..color = color
-        ..style = PaintingStyle.stroke
-        ..strokeWidth = 2.2
-        ..strokeCap = StrokeCap.round
-        ..strokeJoin = StrokeJoin.round
-        ..isAntiAlias = true,
-    );
-  }
-
-  @override
-  bool shouldRepaint(_CheckPainter oldDelegate) => oldDelegate.color != color;
 }
