@@ -6,6 +6,7 @@ import 'package:watch_assistant/wireless.dart';
 import 'package:window_manager/window_manager.dart';
 
 import 'adb_device_info.dart';
+import 'blur_menu.dart';
 import 'driver.dart';
 import 'l10n/app_localizations.dart';
 import 'l10n/l10n.dart';
@@ -556,51 +557,23 @@ class _Page1State extends State<Page1> {
               style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
             ),
             const SizedBox(height: 8),
-            SizedBox(
-              height: 40,
-              child: DropdownButtonFormField<String>(
-                initialValue: dropdownValue,
-                isExpanded: true,
-                decoration: InputDecoration(
-                  filled: true,
-                  fillColor: Colors.white,
-                  isDense: true,
-                  contentPadding:
-                      const EdgeInsets.symmetric(horizontal: 12, vertical: 11),
-                  border: OutlineInputBorder(
-                    borderRadius: BorderRadius.circular(10),
-                    borderSide: const BorderSide(color: Color(0xFFDCDCDC)),
-                  ),
-                  enabledBorder: OutlineInputBorder(
-                    borderRadius: BorderRadius.circular(10),
-                    borderSide: const BorderSide(color: Color(0xFFDCDCDC)),
-                  ),
-                  focusedBorder: OutlineInputBorder(
-                    borderRadius: BorderRadius.circular(10),
-                    borderSide: const BorderSide(color: Color(0xFFDCDCDC)),
-                  ),
-                ),
-                dropdownColor: Colors.white,
-                hint: const Text(
-                  '无已连接设备',
-                ),
-                items: devices
-                    .map(
-                      (AdbDeviceInfo device) => DropdownMenuItem<String>(
-                        value: device.adbId,
-                        child: Text(
-                          '${device.model} (${device.deviceId})',
-                          overflow: TextOverflow.ellipsis,
-                        ),
-                      ),
-                    )
-                    .toList(),
-                onChanged: (String? value) {
-                  setState(() {
-                    _selectedAdbId = value;
-                  });
-                },
-              ),
+            BlurDropdown<String>(
+              bordered: true,
+              value: dropdownValue,
+              hint: '无已连接设备',
+              items: devices
+                  .map(
+                    (AdbDeviceInfo device) => BlurMenuItem<String>(
+                      value: device.adbId,
+                      label: '${device.model} (${device.deviceId})',
+                    ),
+                  )
+                  .toList(),
+              onChanged: (String value) {
+                setState(() {
+                  _selectedAdbId = value;
+                });
+              },
             ),
             const SizedBox(height: 4),
             Row(
@@ -823,8 +796,8 @@ class _Page1State extends State<Page1> {
     Widget arrow({required bool left, required int? target}) => IconButton(
           icon: CustomPaint(
             size: const Size(16, 16),
-            painter: _ChevronPainter(
-              left: left,
+            painter: ChevronPainter(
+              direction: left ? AxisDirection.left : AxisDirection.right,
               color: target == null
                   ? const Color(0xFFC4C4C4)
                   : const Color(0xE6000000),
@@ -1027,44 +1000,4 @@ class _Page1State extends State<Page1> {
     final String value = text.substring(separatorIndex + 1).trim();
     return (title, value);
   }
-}
-
-/// 翻页箭头：按 24×24 的 SVG 路径绘制，圆头圆角线条，尖角处用曲线过渡更圆滑
-/// 等价 SVG：<path d="M14.5 6.5 L9.9 11.1 Q9 12 9.9 12.9 L14.5 17.5"
-///   stroke-width="2" stroke-linecap="round" stroke-linejoin="round" fill="none"/>
-class _ChevronPainter extends CustomPainter {
-  const _ChevronPainter({required this.left, required this.color});
-
-  final bool left;
-  final Color color;
-
-  @override
-  void paint(Canvas canvas, Size size) {
-    final double scale = size.width / 24;
-    canvas.scale(scale);
-    if (!left) {
-      // 右箭头为左箭头的水平镜像
-      canvas.translate(24, 0);
-      canvas.scale(-1, 1);
-    }
-    final Paint paint = Paint()
-      ..color = color
-      ..style = PaintingStyle.stroke
-      ..strokeWidth = 2
-      ..strokeCap = StrokeCap.round
-      ..strokeJoin = StrokeJoin.round
-      ..isAntiAlias = true;
-    canvas.drawPath(
-      Path()
-        ..moveTo(14.5, 6.5)
-        ..lineTo(9.9, 11.1)
-        ..quadraticBezierTo(9, 12, 9.9, 12.9)
-        ..lineTo(14.5, 17.5),
-      paint,
-    );
-  }
-
-  @override
-  bool shouldRepaint(_ChevronPainter oldDelegate) =>
-      oldDelegate.left != left || oldDelegate.color != color;
 }

@@ -1,5 +1,6 @@
 import 'dart:io';
 import '../platform_tools.dart';
+import '../blur_menu.dart';
 
 import 'package:file_picker/file_picker.dart';
 import 'package:flutter/foundation.dart';
@@ -303,22 +304,24 @@ class _AdbFileManagerPageState extends State<AdbFileManagerPage> {
 
   // 右键菜单操作
   void _showContextMenu(BuildContext context, String entry, bool isDirectory, Offset tapPosition) {
-    showMenu(
+    showBlurMenu<String>(
       context: context,
-      position: RelativeRect.fromLTRB(tapPosition.dx, tapPosition.dy, tapPosition.dx, tapPosition.dy),
+      anchor: Rect.fromLTWH(tapPosition.dx, tapPosition.dy, 0, 0),
+      minWidth: 140,
       items: [
-        PopupMenuItem<String>(
+        BlurMenuItem<String>(
           value: 'rename',
-          child: Text(context.l10n.fileManagerContextRename),
+          label: context.l10n.fileManagerContextRename,
         ),
         if (!isDirectory)
-          PopupMenuItem<String>(
+          BlurMenuItem<String>(
             value: 'copy',
-            child: Text(context.l10n.fileManagerContextCopy),
+            label: context.l10n.fileManagerContextCopy,
           ),
-        PopupMenuItem<String>(
+        BlurMenuItem<String>(
           value: 'delete',
-          child: Text(context.l10n.fileManagerContextDelete),
+          label: context.l10n.fileManagerContextDelete,
+          color: const Color(0xFFE5484D),
         ),
       ],
     ).then((selected) {

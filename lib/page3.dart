@@ -3,6 +3,7 @@ import 'package:url_launcher/url_launcher.dart';
 import 'package:window_manager/window_manager.dart';
 
 import 'about/privacy.dart';
+import 'blur_menu.dart';
 import 'about/question.dart';
 import 'about/user.dart';
 import 'donate.dart';
@@ -226,13 +227,9 @@ class Page3 extends StatelessWidget {
           ),
           title: Text(l10n.settingsLanguageTitle),
           subtitle: Text(l10n.settingsLanguageSubtitle),
-          trailing: DropdownButton<String>(
+          trailing: BlurDropdown<String>(
             value: currentSelection,
-            underline: const SizedBox.shrink(),
             onChanged: (value) {
-              if (value == null) {
-                return;
-              }
               if (value == 'system') {
                 onLocaleChanged(null);
               } else {
@@ -240,22 +237,10 @@ class Page3 extends StatelessWidget {
               }
             },
             items: [
-              DropdownMenuItem(
-                value: 'system',
-                child: Text(l10n.languageSystem),
-              ),
-              const DropdownMenuItem(
-                value: 'zh',
-                child: Text('简体中文'),
-              ),
-              const DropdownMenuItem(
-                value: 'en',
-                child: Text('English'),
-              ),
-              const DropdownMenuItem(
-                value: 'ja',
-                child: Text('日本語'),
-              ),
+              BlurMenuItem(value: 'system', label: l10n.languageSystem),
+              const BlurMenuItem(value: 'zh', label: '简体中文'),
+              const BlurMenuItem(value: 'en', label: 'English'),
+              const BlurMenuItem(value: 'ja', label: '日本語'),
             ],
           ),
         ),
