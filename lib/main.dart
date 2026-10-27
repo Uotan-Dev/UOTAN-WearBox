@@ -7,6 +7,7 @@ import 'package:window_manager/window_manager.dart';
 import 'home_screen.dart';
 import 'l10n/app_localizations.dart';
 import 'l10n/l10n.dart';
+import 'window_buttons.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -107,6 +108,22 @@ class _MyAppState extends State<MyApp> {
         GlobalCupertinoLocalizations.delegate,
       ],
       onGenerateTitle: (context) => context.l10n.appTitle,
+      // 最小化 / 关闭按钮统一叠加在所有页面右上角（macOS 使用原生红绿灯）
+      builder: (context, child) {
+        if (Platform.isMacOS) {
+          return child!;
+        }
+        return Stack(
+          children: [
+            child!,
+            const Positioned(
+              top: 0,
+              right: 18,
+              child: WindowButtons(),
+            ),
+          ],
+        );
+      },
       theme: ThemeData(
         primarySwatch: Colors.blue,
         fontFamily: 'MiSans',

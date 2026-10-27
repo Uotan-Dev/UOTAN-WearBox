@@ -1,5 +1,3 @@
-import 'dart:io';
-
 import 'package:flutter/material.dart';
 import 'package:url_launcher/url_launcher.dart';
 import 'package:window_manager/window_manager.dart';
@@ -141,24 +139,6 @@ class Page3 extends StatelessWidget {
                         fontFamily: 'MiSansLight', // 使用自定义字体
                       ),
                     ),
-                  ),
-                  // macOS 使用系统原生红绿灯按钮
-                  if (!Platform.isMacOS)
-                    Row(
-                    children: [
-                      IconButton(
-                        icon: Image.asset('assets/mini.png'),
-                        onPressed: () {
-                          windowManager.minimize();
-                        },
-                      ),
-                      IconButton(
-                        icon: Image.asset('assets/close.png'),
-                        onPressed: () {
-                          windowManager.close();
-                        },
-                      ),
-                    ],
                   ),
                 ],
               ),
