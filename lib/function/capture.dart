@@ -1,3 +1,4 @@
+import '../app_theme.dart';
 import 'dart:io';
 import '../platform_tools.dart';
 
@@ -53,8 +54,8 @@ class _CapturePageState extends State<CapturePage> {
                 child: Row(
                   children: <Widget>[
                     IconButton(
-                      icon: const Icon(Icons.arrow_back,
-                          color: Colors.black, size: 20),
+                      icon: Icon(Icons.arrow_back,
+                          color: context.palette.text, size: 20),
                       onPressed: (_isBusy || _isRecording)
                           ? null
                           : () => Navigator.pop(context),
@@ -62,8 +63,8 @@ class _CapturePageState extends State<CapturePage> {
                     const SizedBox(width: 5),
                     Text(
                       l10n.featureCapture,
-                      style: const TextStyle(
-                        color: Colors.black,
+                      style: TextStyle(
+                        color: context.palette.text,
                         fontSize: 26,
                         fontFamily: 'MiSansLight',
                       ),
@@ -77,7 +78,7 @@ class _CapturePageState extends State<CapturePage> {
         body: Padding(
           padding: const EdgeInsets.fromLTRB(20, 10, 20, 20),
           child: Card(
-            color: const Color(0xFFF9F9F9),
+            color: context.palette.surface,
             elevation: 0,
             shape: RoundedRectangleBorder(
               borderRadius: BorderRadius.circular(20),
@@ -122,9 +123,9 @@ class _CapturePageState extends State<CapturePage> {
                     padding: const EdgeInsets.symmetric(
                         horizontal: 12, vertical: 10),
                     decoration: BoxDecoration(
-                      color: Colors.white,
+                      color: context.palette.field,
                       borderRadius: BorderRadius.circular(10),
-                      border: Border.all(color: const Color(0xFFDCDCDC)),
+                      border: Border.all(color: context.palette.border),
                     ),
                     child: Text(
                       _saveTarget == _SaveTarget.computer
@@ -181,12 +182,12 @@ class _CapturePageState extends State<CapturePage> {
                   const SizedBox(height: 12),
                   Text(
                     context.l10n.captureLocationLockedHint,
-                    style: const TextStyle(fontSize: 14, color: Colors.black54),
+                    style: TextStyle(fontSize: 14, color: context.palette.textSecondary),
                   ),
                   if (_isBusy) ...<Widget>[
                     const SizedBox(height: 16),
-                    const Center(
-                      child: CircularProgressIndicator(color: Colors.black),
+                    Center(
+                      child: CircularProgressIndicator(color: context.palette.text),
                     ),
                   ],
                 ],
@@ -205,12 +206,12 @@ class _CapturePageState extends State<CapturePage> {
   }) {
     final Color bgColor = isActive
         ? const Color.fromARGB(255, 30, 93, 229)
-        : const Color.fromARGB(255, 237, 237, 237);
-    final Color fgColor = isActive ? Colors.white : Colors.black;
+        : context.palette.button;
+    final Color fgColor = isActive ? Colors.white : context.palette.text;
 
     return Card(
       margin: EdgeInsets.zero,
-      color: onTap == null ? const Color(0xFFE7E7E7) : bgColor,
+      color: onTap == null ? context.palette.border : bgColor,
       elevation: 0,
       shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(8.0)),
       child: InkWell(
@@ -221,7 +222,7 @@ class _CapturePageState extends State<CapturePage> {
           child: Text(
             text,
             style: TextStyle(
-              color: onTap == null ? Colors.black38 : fgColor,
+              color: onTap == null ? context.palette.disabled : fgColor,
               fontSize: 15,
             ),
           ),
@@ -236,7 +237,7 @@ class _CapturePageState extends State<CapturePage> {
   }) {
     return Card(
       margin: EdgeInsets.zero,
-      color: const Color.fromARGB(255, 237, 237, 237),
+      color: context.palette.button,
       elevation: 0,
       shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(8.0)),
       child: InkWell(
@@ -247,7 +248,7 @@ class _CapturePageState extends State<CapturePage> {
           child: Text(
             text,
             style: TextStyle(
-              color: onTap == null ? Colors.black38 : Colors.black,
+              color: onTap == null ? context.palette.disabled : context.palette.text,
               fontSize: 15,
             ),
           ),
@@ -273,7 +274,7 @@ class _CapturePageState extends State<CapturePage> {
       context: context,
       builder: (BuildContext context) {
         return AlertDialog(
-          backgroundColor: const Color(0xFFF9F9F9),
+          backgroundColor: context.palette.surface,
           title: Text(context.l10n.captureDeviceSavePath),
           content: TextField(
             controller: controller,
@@ -555,7 +556,7 @@ class _CapturePageState extends State<CapturePage> {
       context: context,
       builder: (BuildContext context) {
         return AlertDialog(
-          backgroundColor: const Color(0xFFF9F9F9),
+          backgroundColor: context.palette.surface,
           title: Text(context.l10n.commonErrorTitle),
           content: Text(message),
           actions: <Widget>[
@@ -574,7 +575,7 @@ class _CapturePageState extends State<CapturePage> {
       context: context,
       builder: (BuildContext context) {
         return AlertDialog(
-          backgroundColor: const Color(0xFFF9F9F9),
+          backgroundColor: context.palette.surface,
           title: Text(context.l10n.commonNoticeTitle),
           content: Text(message),
           actions: <Widget>[

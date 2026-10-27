@@ -319,6 +319,36 @@ abstract class AppLocalizations {
   /// **'Switch the display language'**
   String get settingsLanguageSubtitle;
 
+  /// No description provided for @settingsDarkModeTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Dark mode'**
+  String get settingsDarkModeTitle;
+
+  /// No description provided for @settingsDarkModeSubtitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Switch between light and dark appearance'**
+  String get settingsDarkModeSubtitle;
+
+  /// No description provided for @themeModeSystem.
+  ///
+  /// In en, this message translates to:
+  /// **'Follow system'**
+  String get themeModeSystem;
+
+  /// No description provided for @themeModeAlwaysOn.
+  ///
+  /// In en, this message translates to:
+  /// **'Always on'**
+  String get themeModeAlwaysOn;
+
+  /// No description provided for @themeModeAlwaysOff.
+  ///
+  /// In en, this message translates to:
+  /// **'Always off'**
+  String get themeModeAlwaysOff;
+
   /// No description provided for @languageSystem.
   ///
   /// In en, this message translates to:

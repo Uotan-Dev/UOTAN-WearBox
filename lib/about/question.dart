@@ -1,3 +1,4 @@
+import '../app_theme.dart';
 import 'package:flutter/material.dart';
 import 'package:window_manager/window_manager.dart';
 import 'package:watch_assistant/l10n/l10n.dart';
@@ -83,8 +84,8 @@ class _FAQPageState extends State<FAQPage> {
                     children: [
                       // 添加返回按钮
                       IconButton(
-                        icon: const Icon(Icons.arrow_back,
-                            color: Colors.black, size: 20), // 返回图标
+                        icon: Icon(Icons.arrow_back,
+                            color: context.palette.text, size: 20), // 返回图标
                         onPressed: () {
                           Navigator.pop(context); // 返回到上一个页面
                         },
@@ -92,8 +93,8 @@ class _FAQPageState extends State<FAQPage> {
                       const SizedBox(width: 5),
                       Text(
                         context.l10n.faqPageTitle,
-                        style: const TextStyle(
-                          color: Colors.black,
+                        style: TextStyle(
+                          color: context.palette.text,
                           fontSize: 26,
                           fontFamily: 'MiSansLight', // 使用自定义字体
                         ),
@@ -103,7 +104,7 @@ class _FAQPageState extends State<FAQPage> {
                   // 使用 Builder 包裹菜单图标
                   Builder(
                     builder: (context) => IconButton(
-                      icon: const Icon(Icons.menu, color: Colors.black, size: 24), // 菜单图标
+                      icon: Icon(Icons.menu, color: context.palette.text, size: 24), // 菜单图标
                       onPressed: () {
                         Scaffold.of(context).openEndDrawer(); // 打开 Drawer
                       },
@@ -117,19 +118,19 @@ class _FAQPageState extends State<FAQPage> {
       ),
       // 添加 Drawer 菜单
       endDrawer: Drawer(
-        backgroundColor: Color(0xFFf9f9f9), // 设置 Drawer 背景颜色为白色
+        backgroundColor: context.palette.surface, // 设置 Drawer 背景颜色为白色
         child: ListView(
           padding: EdgeInsets.zero,
           children: <Widget>[
             
             DrawerHeader(
               decoration: BoxDecoration(
-                color: Colors.white,
+                color: context.palette.background,
               ),
               child: Text(
                 context.l10n.faqMenuTitle,
-                style: const TextStyle(
-                  color: Color.fromARGB(255, 0, 0, 0),
+                style: TextStyle(
+                  color: context.palette.text,
                   fontSize: 24,
                 ),
               ),

@@ -1,3 +1,4 @@
+import '../app_theme.dart';
 import 'dart:io';
 import '../platform_tools.dart';
 
@@ -61,7 +62,7 @@ class _PairPageState extends State<PairPage> {
                   Row(
                     children: [
                       IconButton(
-                        icon: const Icon(Icons.arrow_back, color: Colors.black, size: 20),
+                        icon: Icon(Icons.arrow_back, color: context.palette.text, size: 20),
                         onPressed: () {
                           Navigator.pop(context);
                         },
@@ -69,8 +70,8 @@ class _PairPageState extends State<PairPage> {
                       const SizedBox(width: 5),
                       Text(
                         l10n.pairingPageTitle,
-                        style: const TextStyle(
-                          color: Colors.black,
+                        style: TextStyle(
+                          color: context.palette.text,
                           fontSize: 26,
                           fontFamily: 'MiSansLight',
                         ),
@@ -127,7 +128,7 @@ class _PairPageState extends State<PairPage> {
 
   Widget _buildButton(String text, VoidCallback onPressed) {
     return Card(
-      color: const Color(0xFFF9F9F9),
+      color: context.palette.surface,
       shape: RoundedRectangleBorder(
         borderRadius: BorderRadius.circular(8.0),
       ),
@@ -143,7 +144,7 @@ class _PairPageState extends State<PairPage> {
             child: Center(
               child: Text(
                 text,
-                style: const TextStyle(color: Colors.black, fontSize: 16),
+                style: TextStyle(color: context.palette.text, fontSize: 16),
               ),
             ),
           ),
@@ -230,7 +231,7 @@ class _PairPageState extends State<PairPage> {
       builder: (BuildContext context) {
         final l10n = context.l10n;
         return AlertDialog(
-          backgroundColor: const Color(0xFFF9F9F9),
+          backgroundColor: context.palette.surface,
           title: Text(title),
           content: Text(message),
           actions: <Widget>[
@@ -239,12 +240,12 @@ class _PairPageState extends State<PairPage> {
                 overlayColor: WidgetStateProperty.resolveWith<Color?>(
                   (Set<WidgetState> states) {
                     if (states.contains(WidgetState.pressed) || states.contains(WidgetState.hovered)) {
-                      return const Color.fromARGB(255, 237, 237, 237);
+                      return context.palette.button;
                     }
                     return null;
                   },
                 ),
-                foregroundColor: WidgetStateProperty.all<Color>(Colors.black),
+                foregroundColor: WidgetStateProperty.all<Color>(context.palette.text),
               ),
               child: Text(l10n.dialogOk),
               onPressed: () {

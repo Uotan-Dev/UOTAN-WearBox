@@ -3,13 +3,18 @@ import 'dart:ui' as ui;
 
 import 'package:flutter/material.dart';
 
+import 'app_theme.dart';
+
 /// 自绘下拉菜单：毛玻璃（高斯模糊）背景、圆角、柔和投影，选中项用灰色圆角底加粗显示
 
-const Color _menuTextColor = Color(0xE6000000);
-const Color _menuUnselectedColor = Color(0xFF5C5C5C);
-const Color _menuSelectedBackground = Color(0x10000000);
-const Color _menuHoverColor = Color(0x0A000000);
-const Color _menuHintColor = Color(0xFF8A8A8A);
+extension _MenuColors on AppPalette {
+  Color get menuSelected =>
+      isDark ? const Color(0x1AFFFFFF) : const Color(0x10000000);
+  Color get menuHover =>
+      isDark ? const Color(0x10FFFFFF) : const Color(0x0A000000);
+  Color get menuOutline =>
+      isDark ? const Color(0x1FFFFFFF) : const Color(0x14000000);
+}
 
 class BlurMenuItem<T> {
   const BlurMenuItem({required this.value, required this.label, this.color});
@@ -175,7 +180,7 @@ class _BlurMenuPanel<T> extends StatelessWidget {
     return Material(
       type: MaterialType.transparency,
       child: CustomPaint(
-        painter: const _OuterShadowPainter(radius: 14),
+        painter: _OuterShadowPainter(radius: 14, dark: context.palette.isDark),
         child: ClipRRect(
           borderRadius: _radius,
           child: BackdropFilter(
@@ -183,9 +188,10 @@ class _BlurMenuPanel<T> extends StatelessWidget {
             child: Container(
               constraints: BoxConstraints(minWidth: minWidth),
               decoration: BoxDecoration(
-                color: const Color(0xCCFFFFFF),
+                color: context.palette.menuPanel,
                 borderRadius: _radius,
-                border: Border.all(color: const Color(0x14000000), width: 0.5),
+                border:
+                    Border.all(color: context.palette.menuOutline, width: 0.5),
               ),
               padding: const EdgeInsets.all(6),
               child: IntrinsicWidth(
@@ -216,9 +222,12 @@ class _BlurMenuPanel<T> extends StatelessWidget {
 
 /// 只在面板外侧绘制投影：BoxShadow 会画在半透明面板下面把毛玻璃弄脏，这里先挖掉面板区域
 class _OuterShadowPainter extends CustomPainter {
-  const _OuterShadowPainter({required this.radius});
+  const _OuterShadowPainter({required this.radius, required this.dark});
 
   final double radius;
+
+  // 深色背景下投影需要更深才能看出层次
+  final bool dark;
 
   @override
   void paint(Canvas canvas, Size size) {
@@ -232,9 +241,17 @@ class _OuterShadowPainter extends CustomPainter {
         Path()..addRRect(rrect),
       ),
     );
-    for (final BoxShadow shadow in const [
-      BoxShadow(color: Color(0x1F000000), blurRadius: 24, offset: Offset(0, 8)),
-      BoxShadow(color: Color(0x0F000000), blurRadius: 4, offset: Offset(0, 1)),
+    for (final BoxShadow shadow in [
+      BoxShadow(
+        color: dark ? const Color(0x66000000) : const Color(0x1F000000),
+        blurRadius: 24,
+        offset: const Offset(0, 8),
+      ),
+      BoxShadow(
+        color: dark ? const Color(0x33000000) : const Color(0x0F000000),
+        blurRadius: 4,
+        offset: const Offset(0, 1),
+      ),
     ]) {
       canvas.drawRRect(rrect.shift(shadow.offset), shadow.toPaint());
     }
@@ -243,7 +260,7 @@ class _OuterShadowPainter extends CustomPainter {
 
   @override
   bool shouldRepaint(_OuterShadowPainter oldDelegate) =>
-      oldDelegate.radius != radius;
+      oldDelegate.radius != radius || oldDelegate.dark != dark;
 }
 
 class _BlurMenuTile extends StatefulWidget {
@@ -270,10 +287,11 @@ class _BlurMenuTileState extends State<_BlurMenuTile> {
 
   @override
   Widget build(BuildContext context) {
+    final AppPalette palette = context.palette;
     final Color textColor = widget.color ??
         (widget.highlightSelected && !widget.selected
-            ? _menuUnselectedColor
-            : _menuTextColor);
+            ? palette.subtext
+            : palette.text);
     return MouseRegion(
       cursor: SystemMouseCursors.click,
       onEnter: (_) => setState(() => _hovered = true),
@@ -285,8 +303,8 @@ class _BlurMenuTileState extends State<_BlurMenuTile> {
           duration: const Duration(milliseconds: 120),
           decoration: BoxDecoration(
             color: widget.selected
-                ? _menuSelectedBackground
-                : (_hovered ? _menuHoverColor : const Color(0x00000000)),
+                ? palette.menuSelected
+                : (_hovered ? palette.menuHover : const Color(0x00000000)),
             borderRadius: BorderRadius.circular(8),
           ),
           padding: const EdgeInsets.fromLTRB(14, 10, 18, 10),
@@ -357,6 +375,7 @@ class _BlurDropdownState<T> extends State<BlurDropdown<T>> {
 
   @override
   Widget build(BuildContext context) {
+    final AppPalette palette = context.palette;
     BlurMenuItem<T>? current;
     for (final item in widget.items) {
       if (item.value == widget.value) {
@@ -369,7 +388,7 @@ class _BlurDropdownState<T> extends State<BlurDropdown<T>> {
       overflow: TextOverflow.ellipsis,
       style: TextStyle(
         fontSize: 15,
-        color: showHint ? _menuHintColor : _menuTextColor,
+        color: showHint ? palette.textSecondary : palette.text,
       ),
     );
     final Widget chevron = AnimatedRotation(
@@ -380,7 +399,7 @@ class _BlurDropdownState<T> extends State<BlurDropdown<T>> {
         size: const Size(14, 14),
         painter: ChevronPainter(
           direction: AxisDirection.down,
-          color: _enabled ? const Color(0x99000000) : const Color(0x40000000),
+          color: palette.text.withValues(alpha: _enabled ? 0.6 : 0.25),
         ),
       ),
     );
@@ -390,12 +409,10 @@ class _BlurDropdownState<T> extends State<BlurDropdown<T>> {
             height: 40,
             padding: const EdgeInsets.symmetric(horizontal: 12),
             decoration: BoxDecoration(
-              color: Colors.white,
+              color: palette.field,
               borderRadius: BorderRadius.circular(10),
               border: Border.all(
-                color: _open || _hovered
-                    ? const Color(0xFFC4C4C4)
-                    : const Color(0xFFDCDCDC),
+                color: _open || _hovered ? palette.disabled : palette.border,
               ),
             ),
             child: Row(
@@ -410,7 +427,7 @@ class _BlurDropdownState<T> extends State<BlurDropdown<T>> {
             duration: const Duration(milliseconds: 120),
             padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 6),
             decoration: BoxDecoration(
-              color: _open || _hovered ? _menuHoverColor : Colors.transparent,
+              color: _open || _hovered ? palette.menuHover : Colors.transparent,
               borderRadius: BorderRadius.circular(8),
             ),
             child: Row(

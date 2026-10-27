@@ -1,3 +1,4 @@
+import 'app_theme.dart';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 import 'package:window_manager/window_manager.dart';
@@ -58,7 +59,7 @@ class _DonatePageState extends State<DonatePage>
       context: context,
       builder: (BuildContext context) {
         return AlertDialog(
-          backgroundColor: const Color(0xFFF9F9F9),
+          backgroundColor: context.palette.surface,
           title: Text(l10n.donationNetworkErrorTitle),
           content: Text(l10n.donationNetworkErrorBody),
           actions: [
@@ -68,19 +69,19 @@ class _DonatePageState extends State<DonatePage>
                   (Set<MaterialState> states) {
                     if (states.contains(MaterialState.pressed) ||
                         states.contains(MaterialState.hovered)) {
-                      return const Color.fromARGB(255, 237, 237, 237);
+                      return context.palette.button;
                     }
                     return null;
                   },
                 ),
-                foregroundColor: MaterialStateProperty.all<Color>(Colors.black),
+                foregroundColor: MaterialStateProperty.all<Color>(context.palette.text),
               ),
               onPressed: () {
                 Navigator.of(context).pop();
                 Navigator.pop(this.context);
               },
               child: Text(l10n.dialogConfirm,
-                  style: const TextStyle(color: Colors.black)),
+                  style: TextStyle(color: context.palette.text)),
             ),
           ],
         );
@@ -158,8 +159,8 @@ class _DonatePageState extends State<DonatePage>
                   Row(
                     children: [
                       IconButton(
-                        icon: const Icon(Icons.arrow_back,
-                            color: Colors.black, size: 20),
+                        icon: Icon(Icons.arrow_back,
+                            color: context.palette.text, size: 20),
                         onPressed: () {
                           Navigator.pop(context);
                         },
@@ -167,8 +168,8 @@ class _DonatePageState extends State<DonatePage>
                       const SizedBox(width: 5),
                       Text(
                         l10n.donationTitle,
-                        style: const TextStyle(
-                          color: Colors.black,
+                        style: TextStyle(
+                          color: context.palette.text,
                           fontSize: 26,
                           fontFamily: 'MiSansLight',
                         ),
@@ -206,7 +207,7 @@ class _DonatePageState extends State<DonatePage>
                       children: donationOptions.map((option) {
                         final isSelected = option.code == selectedAmountCode;
                         return Card(
-                          color: const Color(0xFFF9F9F9),
+                          color: context.palette.surface,
                           elevation: 0,
                           shape: RoundedRectangleBorder(
                             borderRadius: BorderRadius.circular(8.0),
@@ -247,7 +248,7 @@ class _DonatePageState extends State<DonatePage>
                   SizedBox(
                     width: 180,
                     child: Card(
-                      color: const Color(0xFFF9F9F9),
+                      color: context.palette.surface,
                       elevation: 0,
                       shape: RoundedRectangleBorder(
                         borderRadius: BorderRadius.circular(16.0),
@@ -258,19 +259,19 @@ class _DonatePageState extends State<DonatePage>
                             padding: const EdgeInsets.symmetric(
                                 vertical: 4.0, horizontal: 4.0),
                             decoration: BoxDecoration(
-                              color: const Color(0xFFF9F9F9),
+                              color: context.palette.surface,
                               borderRadius: BorderRadius.circular(8.0),
                             ),
                             child: TabBar(
                               controller: _tabController,
-                              indicator: const BoxDecoration(
-                                color: Colors.white,
+                              indicator: BoxDecoration(
+                                color: context.palette.field,
                                 borderRadius:
                                     BorderRadius.all(Radius.circular(8.0)),
                               ),
                               indicatorSize: TabBarIndicatorSize.tab,
                               indicatorPadding: EdgeInsets.zero,
-                              labelColor: Colors.black,
+                              labelColor: context.palette.text,
                               unselectedLabelColor: Colors.grey,
                               indicatorColor: Colors.transparent,
                               dividerColor: Colors.transparent,
@@ -297,8 +298,8 @@ class _DonatePageState extends State<DonatePage>
                   Stack(
                     alignment: Alignment.center,
                     children: [
-                      const CircularProgressIndicator(
-                        color: Colors.black, // 进度条颜色设置为黑色
+                      CircularProgressIndicator(
+                        color: context.palette.text, // 进度条颜色设置为黑色
                       ), // 在加载图片时显示进度条
                       Image.network(
                         currentQrCodeUrl, // 根据按钮点击事件更换二维码图片
@@ -324,9 +325,9 @@ class _DonatePageState extends State<DonatePage>
                   const SizedBox(height: 2),
                   Text(
                     l10n.donationThanksMessage,
-                    style: const TextStyle(
+                    style: TextStyle(
                       fontSize: 14,
-                      color: Color.fromARGB(255, 131, 131, 131),
+                      color: context.palette.textSecondary,
                       fontFamily: 'MiSansLight',
                     ),
                   ),

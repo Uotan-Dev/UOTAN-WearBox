@@ -1,3 +1,4 @@
+import '../app_theme.dart';
 import 'dart:io';
 import '../platform_tools.dart';
 import '../blur_menu.dart';
@@ -87,21 +88,21 @@ class _AdbFileManagerPageState extends State<AdbFileManagerPage> {
       builder: (BuildContext context) {
         final l10n = context.l10n;
         return AlertDialog(
-          backgroundColor: const Color(0xFFF9F9F9), // 弹窗背景颜色
+          backgroundColor: context.palette.surface, // 弹窗背景颜色
           title: Text(l10n.commonErrorTitle),
-          content: Text(message, style: const TextStyle(color: Colors.black)),
+          content: Text(message, style: TextStyle(color: context.palette.text)),
           actions: <Widget>[
             TextButton(
               style: ButtonStyle(
                 overlayColor: MaterialStateProperty.resolveWith<Color?>(
                   (Set<MaterialState> states) {
                     if (states.contains(MaterialState.pressed) || states.contains(MaterialState.hovered)) {
-                      return const Color.fromARGB(255, 237, 237, 237); // 点击或悬浮时的背景颜色
+                      return context.palette.button; // 点击或悬浮时的背景颜色
                     }
                     return null; // 默认状态下不更改颜色
                   },
                 ),
-                foregroundColor: MaterialStateProperty.all<Color>(Colors.black), // 文本颜色
+                foregroundColor: MaterialStateProperty.all<Color>(context.palette.text), // 文本颜色
               ),
               onPressed: () {
                 Navigator.of(context).pop();
@@ -285,8 +286,8 @@ class _AdbFileManagerPageState extends State<AdbFileManagerPage> {
         return AlertDialog(
           content: Row(
             children: [
-              const CircularProgressIndicator(
-                color: Colors.black, // 设置进度条颜色为黑色
+              CircularProgressIndicator(
+                color: context.palette.text, // 设置进度条颜色为黑色
               ),
               const SizedBox(width: 20),
               Expanded(child: Text(message)),
@@ -382,7 +383,7 @@ class _AdbFileManagerPageState extends State<AdbFileManagerPage> {
                           currentPath == '/storage/emulated/0/'
                               ? Icons.arrow_back // 根目录时显示返回图标
                               : Icons.arrow_upward, // 非根目录时显示向上图标
-                          color: Colors.black,
+                          color: context.palette.text,
                           size: 20,
                         ),
                         onPressed: _navigateBack,
@@ -390,8 +391,8 @@ class _AdbFileManagerPageState extends State<AdbFileManagerPage> {
                       const SizedBox(width: 5),
                       Text(
                         l10n.fileManagerTitle(displayPath), // 页面标题显示当前路径
-                        style: const TextStyle(
-                          color: Colors.black,
+                        style: TextStyle(
+                          color: context.palette.text,
                           fontSize: 26,
                           fontFamily: 'MiSansLight', // 使用自定义字体
                         ),
@@ -430,7 +431,7 @@ class _AdbFileManagerPageState extends State<AdbFileManagerPage> {
                         // 文件夹条目
                         final directory = directories[index];
                         return Card(
-                          color: const Color(0xFFF9F9F9), // 卡片背景颜色
+                          color: context.palette.surface, // 卡片背景颜色
                           elevation: 0, // 设置卡片阴影
                           shape: RoundedRectangleBorder(
                             borderRadius: BorderRadius.circular(8), // 设置卡片圆角
@@ -463,7 +464,7 @@ class _AdbFileManagerPageState extends State<AdbFileManagerPage> {
                         final file = files[index - directories.length];
                         return Card(
                           elevation: 0, // 设置卡片阴影
-                          color: const Color.fromARGB(255, 255, 255, 255), // 卡片背景颜色
+                          color: context.palette.background, // 卡片背景颜色
                           shape: RoundedRectangleBorder(
                             borderRadius: BorderRadius.circular(8), // 设置卡片圆角
                           ),
@@ -501,10 +502,10 @@ class _AdbFileManagerPageState extends State<AdbFileManagerPage> {
             ),
           if (isLoading)
             Container(
-              color: Colors.white.withOpacity(0.7), // 半透明背景以覆盖目录内容
-              child: const Center(
+              color: context.palette.background.withOpacity(0.7), // 半透明背景以覆盖目录内容
+              child: Center(
                 child: CircularProgressIndicator(
-                  color: Colors.black, // 黑色的进度条
+                  color: context.palette.text, // 黑色的进度条
                 ),
               ),
             ),

@@ -5,7 +5,7 @@ import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:window_manager/window_manager.dart';
 import 'home_screen.dart';
-import 'page_transition.dart';
+import 'app_theme.dart';
 import 'l10n/app_localizations.dart';
 import 'l10n/l10n.dart';
 import 'window_buttons.dart';
@@ -44,12 +44,41 @@ class MyApp extends StatefulWidget {
 
 class _MyAppState extends State<MyApp> {
   static const _localePrefsKey = 'selected_locale';
+  static const _themeModePrefsKey = 'theme_mode';
   Locale? _overrideLocale;
+  ThemeMode _themeMode = ThemeMode.system;
 
   @override
   void initState() {
     super.initState();
     _loadSavedLocale();
+    _loadSavedThemeMode();
+  }
+
+  void _handleThemeModeChanged(ThemeMode mode) {
+    if (_themeMode == mode) {
+      return;
+    }
+    setState(() {
+      _themeMode = mode;
+    });
+    SharedPreferences.getInstance()
+        .then((prefs) => prefs.setString(_themeModePrefsKey, mode.name));
+  }
+
+  Future<void> _loadSavedThemeMode() async {
+    final prefs = await SharedPreferences.getInstance();
+    final String? name = prefs.getString(_themeModePrefsKey);
+    final ThemeMode mode = ThemeMode.values.firstWhere(
+      (m) => m.name == name,
+      orElse: () => ThemeMode.system,
+    );
+    if (!mounted) {
+      return;
+    }
+    setState(() {
+      _themeMode = mode;
+    });
   }
 
   void _handleLocaleChanged(Locale? locale) {
@@ -125,21 +154,14 @@ class _MyAppState extends State<MyApp> {
           ],
         );
       },
-      theme: ThemeData(
-        primarySwatch: Colors.blue,
-        fontFamily: 'MiSans',
-        scaffoldBackgroundColor: Colors.white,
-        // 二级页面转场：宽屏为 Windows 11 设置风格左右钻入，窄屏为 iOS 风格
-        pageTransitionsTheme: PageTransitionsTheme(
-          builders: {
-            for (final TargetPlatform platform in TargetPlatform.values)
-              platform: const AppPageTransitionsBuilder(),
-          },
-        ),
-      ),
+      theme: buildAppTheme(Brightness.light),
+      darkTheme: buildAppTheme(Brightness.dark),
+      themeMode: _themeMode,
       home: HomeScreen(
         onLocaleChanged: _handleLocaleChanged,
         locale: _overrideLocale,
+        onThemeModeChanged: _handleThemeModeChanged,
+        themeMode: _themeMode,
       ),
     );
   }

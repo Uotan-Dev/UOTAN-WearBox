@@ -1,3 +1,4 @@
+import '../app_theme.dart';
 import 'dart:io';
 import '../platform_tools.dart';
 
@@ -37,8 +38,8 @@ class _InstallAppPageState extends State<InstallAppPage> {
                   Row(
                     children: [
                       IconButton(
-                        icon: const Icon(Icons.arrow_back,
-                            color: Colors.black, size: 20),
+                        icon: Icon(Icons.arrow_back,
+                            color: context.palette.text, size: 20),
                         onPressed: _isInstalling
                             ? null
                             : () {
@@ -49,8 +50,8 @@ class _InstallAppPageState extends State<InstallAppPage> {
                       const SizedBox(width: 5),
                       Text(
                         l10n.installApptoWatch,
-                        style: const TextStyle(
-                          color: Colors.black,
+                        style: TextStyle(
+                          color: context.palette.text,
                           fontSize: 26,
                           fontFamily: 'MiSansLight',
                         ),
@@ -69,7 +70,7 @@ class _InstallAppPageState extends State<InstallAppPage> {
           children: [
             if (!_isInstalling) // 当不在安装中时显示按钮
               Card(
-                color: const Color(0xFFF9F9F9), // 设置按钮背景颜色
+                color: context.palette.surface, // 设置按钮背景颜色
                 shape: RoundedRectangleBorder(
                   borderRadius: BorderRadius.circular(8.0), // 设置圆角
                 ),
@@ -90,7 +91,7 @@ class _InstallAppPageState extends State<InstallAppPage> {
                       child: Text(
                         l10n.selectApptoInstall,
                         style:
-                            const TextStyle(color: Colors.black, fontSize: 16),
+                            TextStyle(color: context.palette.text, fontSize: 16),
                       ),
                     ),
                   ),
@@ -100,9 +101,9 @@ class _InstallAppPageState extends State<InstallAppPage> {
             if (_isInstalling) // 当安装进行中时显示进度条
               Column(
                 children: [
-                  const CircularProgressIndicator(
+                  CircularProgressIndicator(
                     valueColor: AlwaysStoppedAnimation<Color>(
-                        Colors.black), // 设置进度条颜色为黑色
+                        context.palette.text), // 设置进度条颜色为黑色
                   ),
                   const SizedBox(height: 20),
                   Text(_installingMessage ?? l10n.installingWaiting),
@@ -209,7 +210,7 @@ class _InstallAppPageState extends State<InstallAppPage> {
       builder: (BuildContext context) {
         final l10n = context.l10n;
         return AlertDialog(
-          backgroundColor: const Color(0xFFF9F9F9), // 设置弹窗背景颜色为 #F9F9F9
+          backgroundColor: context.palette.surface, // 设置弹窗背景颜色为 #F9F9F9
           title: Text(title),
           content: Text(message),
           actions: <Widget>[
@@ -219,14 +220,13 @@ class _InstallAppPageState extends State<InstallAppPage> {
                   (Set<WidgetState> states) {
                     if (states.contains(WidgetState.pressed) ||
                         states.contains(WidgetState.hovered)) {
-                      return const Color.fromARGB(
-                          255, 237, 237, 237); // 点击或悬浮时的背景颜色
+                      return context.palette.button; // 点击或悬浮时的背景颜色
                     }
                     return null; // 默认状态下不更改颜色
                   },
                 ),
                 foregroundColor:
-                    WidgetStateProperty.all<Color>(Colors.black), // 文本颜色
+                    WidgetStateProperty.all<Color>(context.palette.text), // 文本颜色
               ),
               child: Text(l10n.dialogOk),
               onPressed: () {

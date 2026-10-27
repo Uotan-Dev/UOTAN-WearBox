@@ -1,3 +1,4 @@
+import 'app_theme.dart';
 import 'package:flutter/material.dart';
 import 'package:url_launcher/url_launcher.dart';
 import 'package:window_manager/window_manager.dart';
@@ -16,11 +17,15 @@ class Page3 extends StatelessWidget {
     required this.onLocaleChanged,
     required this.currentLocale,
     required this.currentVersion,
+    required this.onThemeModeChanged,
+    required this.themeMode,
   });
 
   final ValueChanged<Locale?> onLocaleChanged;
   final Locale? currentLocale;
   final String currentVersion;
+  final ValueChanged<ThemeMode> onThemeModeChanged;
+  final ThemeMode themeMode;
 
   @override
   Widget build(BuildContext context) {
@@ -134,8 +139,8 @@ class Page3 extends StatelessWidget {
                     padding: const EdgeInsets.only(top: 20), // 调整这个值控制标题往下移动的距离
                     child: Text(
                       l10n.settingsPageTitle,
-                      style: const TextStyle(
-                        color: Colors.black,
+                      style: TextStyle(
+                        color: context.palette.text,
                         fontSize: 26,
                         fontFamily: 'MiSansLight', // 使用自定义字体
                       ),
@@ -165,11 +170,13 @@ class Page3 extends StatelessWidget {
             child: ListView(
               padding: const EdgeInsets.only(left: 20.0, right: 20, bottom: 20),
               children: [
-                _buildSectionTitle(l10n.setting_config),
+                _buildSectionTitle(context, l10n.setting_config),
                 const SizedBox(height: 2),
                 _buildLanguageCard(context, l10n),
                 const SizedBox(height: 10),
-                _buildSectionTitle(l10n.settingsSectionFaq),
+                _buildThemeModeCard(context, l10n),
+                const SizedBox(height: 10),
+                _buildSectionTitle(context, l10n.settingsSectionFaq),
                 const SizedBox(height: 2),
 
                 // 问题反馈
@@ -177,11 +184,11 @@ class Page3 extends StatelessWidget {
                 // 问题反馈
 
                 const SizedBox(height: 10),
-                _buildSectionTitle(l10n.settingsSectionAgreements),
+                _buildSectionTitle(context, l10n.settingsSectionAgreements),
                 const SizedBox(height: 2),
                 ..._buildOptions(context, agreementOptions),
                 const SizedBox(height: 10),
-                _buildSectionTitle(l10n.settingsSectionVisit),
+                _buildSectionTitle(context, l10n.settingsSectionVisit),
                 const SizedBox(height: 2),
                 ..._buildOptions(context, visitOptions),
                 const SizedBox(height: 10),
@@ -192,9 +199,9 @@ class Page3 extends StatelessWidget {
                     alignment: Alignment.centerLeft,
                     child: Text(
                       l10n.settingsFooter,
-                      style: const TextStyle(
+                      style: TextStyle(
                         fontSize: 15,
-                        color: Color.fromARGB(255, 154, 154, 154),
+                        color: context.palette.textSecondary,
                         fontFamily: 'MiSansLight',
                       ),
                     ),
@@ -212,7 +219,7 @@ class Page3 extends StatelessWidget {
   Widget _buildLanguageCard(BuildContext context, AppLocalizations l10n) {
     final currentSelection = currentLocale?.languageCode ?? 'system';
     return Material(
-      color: const Color(0xFFF9F9F9),
+      color: context.palette.surface,
       shape: RoundedRectangleBorder(
         borderRadius: BorderRadius.circular(8.0),
       ),
@@ -223,7 +230,7 @@ class Page3 extends StatelessWidget {
             'assets/icons/globe_24dp_5F6368_FILL0_wght400_GRAD0_opsz24.png',
             width: 20,
             height: 20,
-            color: const Color.fromARGB(255, 0, 0, 0),
+            color: context.palette.text,
           ),
           title: Text(l10n.settingsLanguageTitle),
           subtitle: Text(l10n.settingsLanguageSubtitle),
@@ -248,16 +255,42 @@ class Page3 extends StatelessWidget {
     );
   }
 
-  Padding _buildSectionTitle(String title) {
+  Widget _buildThemeModeCard(BuildContext context, AppLocalizations l10n) {
+    return Material(
+      color: context.palette.surface,
+      shape: RoundedRectangleBorder(
+        borderRadius: BorderRadius.circular(8.0),
+      ),
+      child: Padding(
+        padding: const EdgeInsets.all(5.0),
+        child: ListTile(
+          leading: const Icon(Icons.dark_mode_outlined, size: 20),
+          title: Text(l10n.settingsDarkModeTitle),
+          subtitle: Text(l10n.settingsDarkModeSubtitle),
+          trailing: BlurDropdown<ThemeMode>(
+            value: themeMode,
+            onChanged: onThemeModeChanged,
+            items: [
+              BlurMenuItem(value: ThemeMode.system, label: l10n.themeModeSystem),
+              BlurMenuItem(value: ThemeMode.dark, label: l10n.themeModeAlwaysOn),
+              BlurMenuItem(value: ThemeMode.light, label: l10n.themeModeAlwaysOff),
+            ],
+          ),
+        ),
+      ),
+    );
+  }
+
+  Padding _buildSectionTitle(BuildContext context, String title) {
     return Padding(
       padding: const EdgeInsets.symmetric(vertical: 10, horizontal: 0),
       child: Align(
         alignment: Alignment.centerLeft,
         child: Text(
           title,
-          style: const TextStyle(
+          style: TextStyle(
             fontSize: 15,
-            color: Color.fromARGB(255, 154, 154, 154),
+            color: context.palette.textSecondary,
             fontFamily: 'MiSansLight',
           ),
         ),
@@ -280,7 +313,7 @@ class Page3 extends StatelessWidget {
 
   Widget _buildOptionCard(BuildContext context, _SettingOption option) {
     return Material(
-      color: const Color(0xFFF9F9F9),
+      color: context.palette.surface,
       shape: RoundedRectangleBorder(
         borderRadius: BorderRadius.circular(8.0),
       ),
@@ -296,7 +329,7 @@ class Page3 extends StatelessWidget {
               option.iconPath,
               width: 20,
               height: 20,
-              color: const Color.fromARGB(255, 0, 0, 0),
+              color: context.palette.text,
             ),
             trailing: const Icon(
               Icons.arrow_forward_ios,

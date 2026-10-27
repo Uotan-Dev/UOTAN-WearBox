@@ -1,3 +1,4 @@
+import 'app_theme.dart';
 import 'package:flutter/material.dart';
 import 'package:window_manager/window_manager.dart';
 import 'l10n/l10n.dart';
@@ -23,8 +24,8 @@ class TutorialPage extends StatelessWidget {
                   Row(
                     children: [
                       IconButton(
-                        icon: const Icon(Icons.arrow_back,
-                            color: Colors.black, size: 20),
+                        icon: Icon(Icons.arrow_back,
+                            color: context.palette.text, size: 20),
                         onPressed: () {
                           Navigator.pop(context);
                         },
@@ -32,8 +33,8 @@ class TutorialPage extends StatelessWidget {
                       const SizedBox(width: 5),
                       Text(
                         context.l10n.tutorialTitle,
-                        style: const TextStyle(
-                          color: Colors.black,
+                        style: TextStyle(
+                          color: context.palette.text,
                           fontSize: 26,
                           fontFamily: 'MiSansLight',
                         ),

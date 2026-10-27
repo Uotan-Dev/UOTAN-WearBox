@@ -126,6 +126,21 @@ class AppLocalizationsEn extends AppLocalizations {
   String get settingsLanguageSubtitle => 'Switch the display language';
 
   @override
+  String get settingsDarkModeTitle => 'Dark mode';
+
+  @override
+  String get settingsDarkModeSubtitle => 'Switch between light and dark appearance';
+
+  @override
+  String get themeModeSystem => 'Follow system';
+
+  @override
+  String get themeModeAlwaysOn => 'Always on';
+
+  @override
+  String get themeModeAlwaysOff => 'Always off';
+
+  @override
   String get languageSystem => 'Follow system';
 
   @override

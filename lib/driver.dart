@@ -1,3 +1,4 @@
+import 'app_theme.dart';
 import 'package:flutter/material.dart';
 import 'package:url_launcher/url_launcher.dart';
 import 'package:window_manager/window_manager.dart';
@@ -28,8 +29,8 @@ class DriverPage extends StatelessWidget {
                   Row(
                     children: [
                       IconButton(
-                        icon: const Icon(Icons.arrow_back,
-                            color: Colors.black, size: 20), // 返回图标
+                        icon: Icon(Icons.arrow_back,
+                            color: context.palette.text, size: 20), // 返回图标
                         onPressed: () {
                           Navigator.pop(context); // 返回到上一个页面
                         },
@@ -37,8 +38,8 @@ class DriverPage extends StatelessWidget {
                       const SizedBox(width: 5),
                       Text(
                         l10n.driverTitle,
-                        style: const TextStyle(
-                          color: Colors.black,
+                        style: TextStyle(
+                          color: context.palette.text,
                           fontSize: 26,
                           fontFamily: 'MiSansLight', // 使用自定义字体
                         ),

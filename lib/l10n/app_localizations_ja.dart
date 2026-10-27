@@ -126,6 +126,21 @@ class AppLocalizationsJa extends AppLocalizations {
   String get settingsLanguageSubtitle => '表示言語を切り替える';
 
   @override
+  String get settingsDarkModeTitle => 'ダークモード';
+
+  @override
+  String get settingsDarkModeSubtitle => 'ライトとダークの外観を切り替えます';
+
+  @override
+  String get themeModeSystem => 'システムに従う';
+
+  @override
+  String get themeModeAlwaysOn => '常にオン';
+
+  @override
+  String get themeModeAlwaysOff => '常にオフ';
+
+  @override
   String get languageSystem => 'システムに合わせる';
 
   @override

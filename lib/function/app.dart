@@ -1,3 +1,4 @@
+import '../app_theme.dart';
 import 'dart:io';
 import '../platform_tools.dart';
 
@@ -127,26 +128,26 @@ class _AppManagementPageState extends State<AppManagementPage> {
       builder: (BuildContext context) {
         final l10n = context.l10n;
         return AlertDialog(
-          backgroundColor: const Color(0xFFF9F9F9), // 弹窗背景颜色
+          backgroundColor: context.palette.surface, // 弹窗背景颜色
           title: Text(l10n.commonErrorTitle),
-          content: Text(message, style: const TextStyle(color: Colors.black)),
+          content: Text(message, style: TextStyle(color: context.palette.text)),
           actions: [
             TextButton(
               style: ButtonStyle(
                 overlayColor: MaterialStateProperty.resolveWith<Color?>(
                   (Set<MaterialState> states) {
                     if (states.contains(MaterialState.pressed) || states.contains(MaterialState.hovered)) {
-                      return const Color.fromARGB(255, 237, 237, 237); // 点击或悬浮时的背景颜色
+                      return context.palette.button; // 点击或悬浮时的背景颜色
                     }
                     return null; // 默认状态下不更改颜色
                   },
                 ),
-                foregroundColor: MaterialStateProperty.all<Color>(Colors.black), // 文本颜色
+                foregroundColor: MaterialStateProperty.all<Color>(context.palette.text), // 文本颜色
               ),
               onPressed: () {
                 Navigator.of(context).pop();
               },
-              child: Text(l10n.dialogOk, style: const TextStyle(color: Colors.black)),
+              child: Text(l10n.dialogOk, style: TextStyle(color: context.palette.text)),
             ),
           ],
         );
@@ -161,27 +162,27 @@ class _AppManagementPageState extends State<AppManagementPage> {
       builder: (BuildContext context) {
         final l10n = context.l10n;
         return AlertDialog(
-          backgroundColor: const Color(0xFFF9F9F9), // 弹窗背景颜色
+          backgroundColor: context.palette.surface, // 弹窗背景颜色
           title: Text(l10n.installNoDeviceTitle),
-          content: Text(message, style: const TextStyle(color: Colors.black)),
+          content: Text(message, style: TextStyle(color: context.palette.text)),
           actions: [
             TextButton(
               style: ButtonStyle(
                 overlayColor: MaterialStateProperty.resolveWith<Color?>(
                   (Set<MaterialState> states) {
                     if (states.contains(MaterialState.pressed) || states.contains(MaterialState.hovered)) {
-                      return const Color.fromARGB(255, 237, 237, 237); // 点击或悬浮时的背景颜色
+                      return context.palette.button; // 点击或悬浮时的背景颜色
                     }
                     return null; // 默认状态下不更改颜色
                   },
                 ),
-                foregroundColor: MaterialStateProperty.all<Color>(Colors.black), // 文本颜色
+                foregroundColor: MaterialStateProperty.all<Color>(context.palette.text), // 文本颜色
               ),
               onPressed: () {
                 Navigator.of(context).pop();
                 Navigator.pop(this.context); // 返回到上一个页面
               },
-              child: Text(l10n.dialogOk, style: const TextStyle(color: Colors.black)),
+              child: Text(l10n.dialogOk, style: TextStyle(color: context.palette.text)),
             ),
           ],
         );
@@ -212,7 +213,7 @@ class _AppManagementPageState extends State<AppManagementPage> {
                     Row(
                       children: [
                         IconButton(
-                          icon: const Icon(Icons.arrow_back, color: Colors.black, size: 20), // 返回图标
+                          icon: Icon(Icons.arrow_back, color: context.palette.text, size: 20), // 返回图标
                           onPressed: isLoading
                               ? null // 加载时禁用返回按钮
                               : () {
@@ -222,8 +223,8 @@ class _AppManagementPageState extends State<AppManagementPage> {
                         const SizedBox(width: 5),
                         Text(
                           l10n.appManageTitle, // 页面标题
-                          style: const TextStyle(
-                            color: Colors.black,
+                          style: TextStyle(
+                            color: context.palette.text,
                             fontSize: 26,
                             fontFamily: 'MiSansLight', // 使用自定义字体
                           ),
@@ -234,8 +235,8 @@ class _AppManagementPageState extends State<AppManagementPage> {
                       children: [
                         Text(
                           l10n.appManageShowSystemApps,
-                          style: const TextStyle(
-                            color: Colors.black,
+                          style: TextStyle(
+                            color: context.palette.text,
                             fontSize: 16,
                             fontFamily: 'MiSansLight', // 使用自定义字体
                           ),
@@ -262,12 +263,12 @@ class _AppManagementPageState extends State<AppManagementPage> {
           ),
         ),
         body: isLoading
-            ? const Center(
+            ? Center(
                 child: Column(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
                     CircularProgressIndicator(
-                      color: Colors.black, // 进度条颜色设置为黑色
+                      color: context.palette.text, // 进度条颜色设置为黑色
                     ),
                     SizedBox(height: 20),
                   ],
@@ -278,7 +279,7 @@ class _AppManagementPageState extends State<AppManagementPage> {
                 itemCount: installedApps.length,
                 itemBuilder: (context, index) {
                   return Card(
-                    color: const Color(0xFFF9F9F9), // 卡片背景颜色
+                    color: context.palette.surface, // 卡片背景颜色
                     shape: RoundedRectangleBorder(
                       borderRadius: BorderRadius.circular(8.0), // 设置圆角
                     ),
@@ -286,7 +287,7 @@ class _AppManagementPageState extends State<AppManagementPage> {
                     child: ListTile(
                       title: Text(
                         installedApps[index]['name'],
-                        style: const TextStyle(color: Colors.black),
+                        style: TextStyle(color: context.palette.text),
                       ),
                       trailing: Row(
                         mainAxisSize: MainAxisSize.min,
@@ -302,7 +303,7 @@ class _AppManagementPageState extends State<AppManagementPage> {
                                     : 'assets/icons/ac_unit_24dp_5F6368_FILL0_wght400_GRAD0_opsz24.png',
                                 width: 18,
                                 height: 18,
-                                color: Colors.black,
+                                color: context.palette.text,
                               ),
                               onPressed: () async {
                                 if (!await _isDeviceConnected()) {
@@ -324,7 +325,7 @@ class _AppManagementPageState extends State<AppManagementPage> {
                                 'assets/icons/upload_24dp_5F6368_FILL0_wght400_GRAD0_opsz24.png',
                                 width: 21,
                                 height: 21,
-                                color: Colors.black,
+                                color: context.palette.text,
                               ),
                               onPressed: () async {
                                 if (!await _isDeviceConnected()) {
@@ -343,7 +344,7 @@ class _AppManagementPageState extends State<AppManagementPage> {
                                   'assets/icons/delete_24dp_5F6368_FILL0_wght400_GRAD0_opsz24.png',
                                   width: 20,
                                   height: 20,
-                                  color: Colors.black,
+                                  color: context.palette.text,
                                 ),
                                 onPressed: () async {
                                   if (!await _isDeviceConnected()) {
@@ -371,21 +372,21 @@ class _AppManagementPageState extends State<AppManagementPage> {
       builder: (BuildContext context) {
         final l10n = context.l10n;
         return AlertDialog(
-          backgroundColor: const Color(0xFFF9F9F9),
+          backgroundColor: context.palette.surface,
           title: Text(l10n.appManageConfirmUninstallTitle),
-          content: Text(l10n.appManageConfirmUninstallMessage(packageName), style: const TextStyle(color: Colors.black)),
+          content: Text(l10n.appManageConfirmUninstallMessage(packageName), style: TextStyle(color: context.palette.text)),
           actions: [
             TextButton(
               style: ButtonStyle(
                 overlayColor: MaterialStateProperty.resolveWith<Color?>(
                   (Set<MaterialState> states) {
                     if (states.contains(MaterialState.pressed) || states.contains(MaterialState.hovered)) {
-                      return const Color.fromARGB(255, 237, 237, 237); // 点击或悬浮时的背景颜色
+                      return context.palette.button; // 点击或悬浮时的背景颜色
                     }
                     return null; // 默认状态下不更改颜色
                   },
                 ),
-                foregroundColor: MaterialStateProperty.all<Color>(Colors.black), // 文本颜色
+                foregroundColor: MaterialStateProperty.all<Color>(context.palette.text), // 文本颜色
               ),
               onPressed: () {
                 Navigator.of(context).pop(); // 取消卸载
@@ -397,12 +398,12 @@ class _AppManagementPageState extends State<AppManagementPage> {
                 overlayColor: MaterialStateProperty.resolveWith<Color?>(
                   (Set<MaterialState> states) {
                     if (states.contains(MaterialState.pressed) || states.contains(MaterialState.hovered)) {
-                      return const Color.fromARGB(255, 237, 237, 237); // 点击或悬浮时的背景颜色
+                      return context.palette.button; // 点击或悬浮时的背景颜色
                     }
                     return null; // 默认状态下不更改颜色
                   },
                 ),
-                foregroundColor: MaterialStateProperty.all<Color>(Colors.black), // 文本颜色
+                foregroundColor: MaterialStateProperty.all<Color>(context.palette.text), // 文本颜色
               ),
               onPressed: () async {
                 Navigator.of(context).pop();
@@ -450,16 +451,16 @@ class _AppManagementPageState extends State<AppManagementPage> {
       barrierDismissible: false, // 禁止点击外部关闭
       builder: (BuildContext context) {
         return AlertDialog(
-          backgroundColor: const Color(0xFFF9F9F9), // 弹窗背景颜色
+          backgroundColor: context.palette.surface, // 弹窗背景颜色
           content: Column(
             mainAxisSize: MainAxisSize.min,
             children: [
               const SizedBox(height: 10),
-              const CircularProgressIndicator(
-                color: Colors.black, // 进度条颜色设置为黑色
+              CircularProgressIndicator(
+                color: context.palette.text, // 进度条颜色设置为黑色
               ),
               const SizedBox(height: 20),
-              Text(message, style: const TextStyle(color: Colors.black)),
+              Text(message, style: TextStyle(color: context.palette.text)),
             ],
           ),
         );
@@ -521,26 +522,26 @@ class _AppManagementPageState extends State<AppManagementPage> {
       builder: (BuildContext context) {
         final l10n = context.l10n;
         return AlertDialog(
-          backgroundColor: const Color(0xFFF9F9F9), // 弹窗背景颜色
+          backgroundColor: context.palette.surface, // 弹窗背景颜色
           title: Text(l10n.commonNoticeTitle),
-          content: Text(message, style: const TextStyle(color: Colors.black)),
+          content: Text(message, style: TextStyle(color: context.palette.text)),
           actions: [
             TextButton(
               style: ButtonStyle(
                 overlayColor: MaterialStateProperty.resolveWith<Color?>(
                   (Set<MaterialState> states) {
                     if (states.contains(MaterialState.pressed) || states.contains(MaterialState.hovered)) {
-                      return const Color.fromARGB(255, 237, 237, 237); // 点击或悬浮时的背景颜色
+                      return context.palette.button; // 点击或悬浮时的背景颜色
                     }
                     return null; // 默认状态下不更改颜色
                   },
                 ),
-                foregroundColor: MaterialStateProperty.all<Color>(Colors.black), // 文本颜色
+                foregroundColor: MaterialStateProperty.all<Color>(context.palette.text), // 文本颜色
               ),
               onPressed: () {
                 Navigator.of(context).pop();
               },
-              child: Text(l10n.dialogOk, style: const TextStyle(color: Colors.black)),
+              child: Text(l10n.dialogOk, style: TextStyle(color: context.palette.text)),
             ),
           ],
         );

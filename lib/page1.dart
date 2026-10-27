@@ -1,3 +1,4 @@
+import 'app_theme.dart';
 import 'dart:io';
 import 'platform_tools.dart';
 
@@ -178,7 +179,7 @@ class _Page1State extends State<Page1> {
         _buildCardPair(
           context,
           Card(
-            color: const Color(0xFFF9F9F9),
+            color: context.palette.surface,
             elevation: 0,
             child: Padding(
               padding: const EdgeInsets.all(18.0),
@@ -397,7 +398,7 @@ class _Page1State extends State<Page1> {
           _buildCardPair(
             context,
             Card(
-              color: const Color(0xFFF9F9F9),
+              color: context.palette.surface,
               elevation: 0,
               child: Padding(
                 padding: _isNarrow(context)
@@ -547,7 +548,7 @@ class _Page1State extends State<Page1> {
         : null;
 
     return Card(
-      color: const Color(0xFFF9F9F9),
+      color: context.palette.surface,
       elevation: 0,
       child: Padding(
         padding: _isNarrow(context)
@@ -584,7 +585,7 @@ class _Page1State extends State<Page1> {
               children: [
                 Expanded(
                   child: Card(
-                    color: const Color.fromARGB(255, 237, 237, 237),
+                    color: context.palette.button,
                     elevation: 0,
                     shape: RoundedRectangleBorder(
                       borderRadius: BorderRadius.circular(8.0),
@@ -599,22 +600,22 @@ class _Page1State extends State<Page1> {
                           mainAxisAlignment: MainAxisAlignment.center,
                           children: [
                             if (_isRefreshing)
-                              const Padding(
+                              Padding(
                                 padding: EdgeInsetsGeometry.only(right: 4),
                                 child: SizedBox(
                                   width: 12,
                                   height: 12,
                                   child: CircularProgressIndicator(
                                     strokeWidth: 1.5,
-                                    color: Colors.black,
+                                    color: context.palette.text,
                                   ),
                                 ),
                               ),
                             if (!_isRefreshing)
-                              const Icon(
+                              Icon(
                                 Icons.refresh,
                                 size: 18,
-                                color: Colors.black,
+                                color: context.palette.text,
                               ),
                             const SizedBox(
                               width: 4,
@@ -624,8 +625,8 @@ class _Page1State extends State<Page1> {
                                   ? context.l10n.homeRefreshing
                                   : context.l10n.homeRefreshDevices,
                               textAlign: TextAlign.center,
-                              style: const TextStyle(
-                                  color: Colors.black, fontSize: 14),
+                              style: TextStyle(
+                                  color: context.palette.text, fontSize: 14),
                             )
                           ],
                         ),
@@ -636,7 +637,7 @@ class _Page1State extends State<Page1> {
                 const SizedBox(width: 8),
                 Expanded(
                   child: Card(
-                    color: const Color.fromARGB(255, 237, 237, 237),
+                    color: context.palette.button,
                     elevation: 0,
                     shape: RoundedRectangleBorder(
                       borderRadius: BorderRadius.circular(8.0),
@@ -664,8 +665,8 @@ class _Page1State extends State<Page1> {
                             Text(
                               context.l10n.wirelessPageTitle,
                               textAlign: TextAlign.center,
-                              style: const TextStyle(
-                                  color: Colors.black, fontSize: 14),
+                              style: TextStyle(
+                                  color: context.palette.text, fontSize: 14),
                             )
                           ],
                         ),
@@ -767,7 +768,7 @@ class _Page1State extends State<Page1> {
     ];
 
     return Card(
-      color: const Color(0xFFF9F9F9),
+      color: context.palette.surface,
       elevation: 0,
       child: Padding(
         padding:
@@ -823,8 +824,8 @@ class _Page1State extends State<Page1> {
             painter: ChevronPainter(
               direction: left ? AxisDirection.left : AxisDirection.right,
               color: target == null
-                  ? const Color(0xFFC4C4C4)
-                  : const Color(0xE6000000),
+                  ? context.palette.disabled
+                  : context.palette.text,
             ),
           ),
           padding: EdgeInsets.zero,
@@ -860,9 +861,9 @@ class _Page1State extends State<Page1> {
                 arrow(left: true, target: page > 0 ? page - 1 : null),
                 Text(
                   '${page + 1}/$pageCount',
-                  style: const TextStyle(
+                  style: TextStyle(
                     fontSize: 14,
-                    color: Color.fromARGB(255, 132, 132, 132),
+                    color: context.palette.textSecondary,
                   ),
                 ),
                 arrow(
@@ -926,7 +927,7 @@ class _Page1State extends State<Page1> {
     return SizedBox(
       width: 125,
       child: Card(
-        color: const Color.fromARGB(255, 237, 237, 237),
+        color: context.palette.button,
         elevation: 0,
         shape: RoundedRectangleBorder(
           borderRadius: BorderRadius.circular(8.0),
@@ -940,7 +941,7 @@ class _Page1State extends State<Page1> {
             child: Text(
               text,
               textAlign: TextAlign.center,
-              style: const TextStyle(color: Colors.black, fontSize: 14),
+              style: TextStyle(color: context.palette.text, fontSize: 14),
             ),
           ),
         ),
@@ -1005,9 +1006,9 @@ class _Page1State extends State<Page1> {
           flex: 7,
           child: Text(
             value,
-            style: const TextStyle(
+            style: TextStyle(
               fontSize: 16,
-              color: Color.fromARGB(255, 132, 132, 132),
+              color: context.palette.textSecondary,
             ),
             textAlign: TextAlign.right,
             overflow: TextOverflow.ellipsis,

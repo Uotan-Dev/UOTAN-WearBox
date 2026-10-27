@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:window_manager/window_manager.dart';
 
+import 'app_theme.dart';
+
 /// 自绘的最小化 / 最大化 / 关闭按钮（macOS 使用系统原生红绿灯，不显示）。
 ///
 /// 由 MaterialApp.builder 统一叠加在窗口右上角，所有页面位置一致。
@@ -13,9 +15,6 @@ class WindowButtons extends StatefulWidget {
 }
 
 class _WindowButtonsState extends State<WindowButtons> with WindowListener {
-  static const Color _hoverColor = Color(0x1A000000);
-  static const Color _pressedColor = Color(0x33000000);
-
   bool _maximized = false;
 
   @override
@@ -43,20 +42,24 @@ class _WindowButtonsState extends State<WindowButtons> with WindowListener {
 
   @override
   Widget build(BuildContext context) {
+    final AppPalette palette = context.palette;
+    // 浅色模式保持图标素材原色；深色模式统一着色为浅色文字颜色
+    final Color? iconColor = palette.isDark ? palette.text : null;
     return Row(
       mainAxisSize: MainAxisSize.min,
       children: [
         _CaptionButton(
-          hoverColor: _hoverColor,
-          pressedColor: _pressedColor,
+          hoverColor: palette.hover,
+          pressedColor: palette.pressed,
           onPressed: () {
             windowManager.minimize();
           },
-          iconBuilder: (color) => _assetIcon('assets/mini.png', color),
+          iconBuilder: (color) =>
+              _assetIcon('assets/mini.png', color ?? iconColor),
         ),
         _CaptionButton(
-          hoverColor: _hoverColor,
-          pressedColor: _pressedColor,
+          hoverColor: palette.hover,
+          pressedColor: palette.pressed,
           onPressed: () {
             if (_maximized) {
               windowManager.unmaximize();
@@ -67,7 +70,7 @@ class _WindowButtonsState extends State<WindowButtons> with WindowListener {
           iconBuilder: (color) => CustomPaint(
             painter: _MaximizeIconPainter(
               restore: _maximized,
-              color: color ?? _MaximizeIconPainter.defaultColor,
+              color: color ?? iconColor ?? _MaximizeIconPainter.defaultColor,
             ),
           ),
         ),
@@ -78,7 +81,8 @@ class _WindowButtonsState extends State<WindowButtons> with WindowListener {
           onPressed: () {
             windowManager.close();
           },
-          iconBuilder: (color) => _assetIcon('assets/close.png', color),
+          iconBuilder: (color) =>
+              _assetIcon('assets/close.png', color ?? iconColor),
         ),
       ],
     );

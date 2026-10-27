@@ -1,3 +1,4 @@
+import '../app_theme.dart';
 import 'dart:io';
 import '../platform_tools.dart';
 
@@ -136,8 +137,8 @@ class _DisplaySettingsPageState extends State<DisplaySettingsPage> {
                     Row(
                       children: [
                         IconButton(
-                          icon: const Icon(Icons.arrow_back,
-                              color: Colors.black, size: 20), // 返回图标
+                          icon: Icon(Icons.arrow_back,
+                              color: context.palette.text, size: 20), // 返回图标
                           onPressed: isLoading
                               ? null // 加载时禁用返回按钮
                               : () {
@@ -147,8 +148,8 @@ class _DisplaySettingsPageState extends State<DisplaySettingsPage> {
                         const SizedBox(width: 5),
                         Text(
                           l10n.displayPageTitle, // 页面标题
-                          style: const TextStyle(
-                            color: Colors.black,
+                          style: TextStyle(
+                            color: context.palette.text,
                             fontSize: 26,
                             fontFamily: 'MiSansLight', // 使用自定义字体
                           ),
@@ -162,9 +163,9 @@ class _DisplaySettingsPageState extends State<DisplaySettingsPage> {
           ),
         ),
         body: isLoading // 如果正在加载，显示加载动画
-            ? const Center(
+            ? Center(
                 child: CircularProgressIndicator(
-                  color: Colors.black,
+                  color: context.palette.text,
                 ),
               )
             : Padding(
@@ -191,7 +192,7 @@ class _DisplaySettingsPageState extends State<DisplaySettingsPage> {
         : currentDPI;
     final String selectedDpiDisplay = dpiValue.toInt().toString();
     return Card(
-      color: const Color(0xFFF9F9F9), // 卡片背景颜色
+      color: context.palette.surface, // 卡片背景颜色
       elevation: 0, // 去除阴影
       shape: RoundedRectangleBorder(
         borderRadius: BorderRadius.circular(12), // 设置圆角
@@ -206,11 +207,11 @@ class _DisplaySettingsPageState extends State<DisplaySettingsPage> {
               children: [
                 Text(
                   l10n.displayCurrentDpi(currentDpiDisplay), // 显示当前DPI
-                  style: const TextStyle(fontSize: 18, color: Colors.black),
+                  style: TextStyle(fontSize: 18, color: context.palette.text),
                 ),
                 Text(
                   l10n.displaySelectedDpi(selectedDpiDisplay), // 显示即将修改的DPI
-                  style: const TextStyle(fontSize: 18, color: Colors.black),
+                  style: TextStyle(fontSize: 18, color: context.palette.text),
                 ),
               ],
             ),
@@ -267,7 +268,7 @@ class _DisplaySettingsPageState extends State<DisplaySettingsPage> {
     final String selectedResolutionDisplay =
         '${widthValue.toInt()}x${heightValue.toInt()}';
     return Card(
-      color: const Color(0xFFF9F9F9), // 卡片背景颜色
+      color: context.palette.surface, // 卡片背景颜色
       elevation: 0, // 去除阴影
       shape: RoundedRectangleBorder(
         borderRadius: BorderRadius.circular(12), // 设置圆角
@@ -283,12 +284,12 @@ class _DisplaySettingsPageState extends State<DisplaySettingsPage> {
                 Text(
                   l10n.displayCurrentResolution(
                       currentResolutionDisplay), // 显示当前分辨率
-                  style: const TextStyle(fontSize: 18, color: Colors.black),
+                  style: TextStyle(fontSize: 18, color: context.palette.text),
                 ),
                 Text(
                   l10n.displaySelectedResolution(
                       selectedResolutionDisplay), // 显示即将修改的分辨率
-                  style: const TextStyle(fontSize: 18, color: Colors.black),
+                  style: TextStyle(fontSize: 18, color: context.palette.text),
                 ),
               ],
             ),
@@ -375,7 +376,7 @@ class _DisplaySettingsPageState extends State<DisplaySettingsPage> {
   // 构建卡片按钮
   Widget _buildCardButton(String text, VoidCallback onPressed) {
     return Card(
-      color: const Color.fromARGB(255, 237, 237, 237), // Card背景颜色
+      color: context.palette.button, // Card背景颜色
       elevation: 0, // 去掉阴影
       shape: RoundedRectangleBorder(
         borderRadius: BorderRadius.circular(8.0), // 设置圆角
@@ -388,7 +389,7 @@ class _DisplaySettingsPageState extends State<DisplaySettingsPage> {
               horizontal: 20.0, vertical: 10.0), // 保持按钮大小不变
           child: Text(
             text,
-            style: const TextStyle(color: Colors.black, fontSize: 15),
+            style: TextStyle(color: context.palette.text, fontSize: 15),
           ),
         ),
       ),
@@ -402,16 +403,16 @@ class _DisplaySettingsPageState extends State<DisplaySettingsPage> {
       builder: (BuildContext context) {
         final l10n = context.l10n;
         return AlertDialog(
-          backgroundColor: const Color(0xFFF9F9F9),
+          backgroundColor: context.palette.surface,
           title: Text(l10n.commonErrorTitle),
-          content: Text(message, style: const TextStyle(color: Colors.black)),
+          content: Text(message, style: TextStyle(color: context.palette.text)),
           actions: [
             TextButton(
               onPressed: () {
                 Navigator.of(context).pop();
               },
               child: Text(l10n.dialogOk,
-                  style: const TextStyle(color: Colors.black)),
+                  style: TextStyle(color: context.palette.text)),
             ),
           ],
         );
@@ -426,9 +427,9 @@ class _DisplaySettingsPageState extends State<DisplaySettingsPage> {
       builder: (BuildContext context) {
         final l10n = context.l10n;
         return AlertDialog(
-          backgroundColor: const Color(0xFFF9F9F9), // 弹窗背景颜色
+          backgroundColor: context.palette.surface, // 弹窗背景颜色
           title: Text(l10n.installNoDeviceTitle),
-          content: Text(message, style: const TextStyle(color: Colors.black)),
+          content: Text(message, style: TextStyle(color: context.palette.text)),
           actions: [
             TextButton(
               style: ButtonStyle(
@@ -436,21 +437,20 @@ class _DisplaySettingsPageState extends State<DisplaySettingsPage> {
                   (Set<MaterialState> states) {
                     if (states.contains(MaterialState.pressed) ||
                         states.contains(MaterialState.hovered)) {
-                      return const Color.fromARGB(
-                          255, 237, 237, 237); // 点击或悬浮时的背景颜色
+                      return context.palette.button; // 点击或悬浮时的背景颜色
                     }
                     return null; // 默认状态下不更改颜色
                   },
                 ),
                 foregroundColor:
-                    MaterialStateProperty.all<Color>(Colors.black), // 文本颜色
+                    MaterialStateProperty.all<Color>(context.palette.text), // 文本颜色
               ),
               onPressed: () {
                 Navigator.of(context).pop();
                 Navigator.pop(this.context); // 返回到上一个页面
               },
               child: Text(l10n.dialogOk,
-                  style: const TextStyle(color: Colors.black)),
+                  style: TextStyle(color: context.palette.text)),
             ),
           ],
         );
@@ -531,16 +531,16 @@ class _DisplaySettingsPageState extends State<DisplaySettingsPage> {
       builder: (BuildContext context) {
         final l10n = context.l10n;
         return AlertDialog(
-          backgroundColor: const Color(0xFFF9F9F9),
+          backgroundColor: context.palette.surface,
           title: Text(l10n.commonNoticeTitle),
-          content: Text(message, style: const TextStyle(color: Colors.black)),
+          content: Text(message, style: TextStyle(color: context.palette.text)),
           actions: [
             TextButton(
               onPressed: () {
                 Navigator.of(context).pop();
               },
               child: Text(l10n.dialogOk,
-                  style: const TextStyle(color: Colors.black)),
+                  style: TextStyle(color: context.palette.text)),
             ),
           ],
         );

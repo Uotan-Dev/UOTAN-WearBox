@@ -1,3 +1,4 @@
+import 'app_theme.dart';
 import 'dart:math' as math;
 
 import 'package:auto_size_text/auto_size_text.dart';
@@ -44,8 +45,8 @@ class Page2 extends StatelessWidget {
                     padding: const EdgeInsets.only(top: 20),
                     child: Text(
                       l10n.featuresTitle,
-                      style: const TextStyle(
-                        color: Colors.black,
+                      style: TextStyle(
+                        color: context.palette.text,
                         fontSize: 26,
                         fontFamily: 'MiSansLight',
                       ),
@@ -83,7 +84,7 @@ class Page2 extends StatelessWidget {
               itemBuilder: (context, index) {
                 final item = featureItems[index];
                 return Material(
-                  color: const Color(0xFFF9F9F9),
+                  color: context.palette.surface,
                   shape: RoundedRectangleBorder(
                     borderRadius: BorderRadius.circular(12.0),
                   ),
@@ -191,7 +192,7 @@ class Page2 extends StatelessWidget {
                             item.iconPath,
                             width: 20,
                             height: 20,
-                            color: const Color.fromARGB(255, 0, 0, 0),
+                            color: context.palette.text,
                           ),
                           const SizedBox(width: 8),
                           Expanded(

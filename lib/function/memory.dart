@@ -1,3 +1,4 @@
+import '../app_theme.dart';
 import 'dart:async';
 import '../platform_tools.dart';
 import 'dart:io';
@@ -60,15 +61,15 @@ class _MemoryCleanPageState extends State<MemoryCleanPage> {
                 child: Row(
                   children: <Widget>[
                     IconButton(
-                      icon: const Icon(Icons.arrow_back,
-                          color: Colors.black, size: 20),
+                      icon: Icon(Icons.arrow_back,
+                          color: context.palette.text, size: 20),
                       onPressed: _isBusy ? null : () => Navigator.pop(context),
                     ),
                     const SizedBox(width: 5),
                     Text(
                       l10n.featureMemoryClean,
-                      style: const TextStyle(
-                        color: Colors.black,
+                      style: TextStyle(
+                        color: context.palette.text,
                         fontSize: 26,
                         fontFamily: 'MiSansLight',
                       ),
@@ -118,7 +119,7 @@ class _MemoryCleanPageState extends State<MemoryCleanPage> {
         : 0.0;
 
     return Card(
-      color: const Color(0xFFF9F9F9),
+      color: context.palette.surface,
       elevation: 0,
       shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(20)),
       child: Padding(
@@ -167,7 +168,7 @@ class _MemoryCleanPageState extends State<MemoryCleanPage> {
         total > 0 ? (used / total).clamp(0.0, 1.0).toDouble() : 0.0;
 
     return Card(
-      color: const Color(0xFFF9F9F9),
+      color: context.palette.surface,
       elevation: 0,
       shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(20)),
       child: Padding(
@@ -182,8 +183,8 @@ class _MemoryCleanPageState extends State<MemoryCleanPage> {
             const SizedBox(height: 14),
             LinearProgressIndicator(
               value: memoryUsedPercent,
-              color: const Color.fromARGB(255, 80, 80, 80),
-              backgroundColor: const Color(0xFFE3E3E3),
+              color: context.palette.subtext,
+              backgroundColor: context.palette.border,
               minHeight: 10,
               borderRadius: BorderRadius.circular(999),
             ),
@@ -201,7 +202,7 @@ class _MemoryCleanPageState extends State<MemoryCleanPage> {
 
   Widget _buildActionCard() {
     return Card(
-      color: const Color(0xFFF9F9F9),
+      color: context.palette.surface,
       elevation: 0,
       shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(20)),
       child: Padding(
@@ -244,16 +245,16 @@ class _MemoryCleanPageState extends State<MemoryCleanPage> {
                   isDense: true,
                   hintText: context.l10n.memoryPackageHint,
                   filled: true,
-                  fillColor: Colors.white,
+                  fillColor: context.palette.field,
                   contentPadding:
                       const EdgeInsets.symmetric(horizontal: 12, vertical: 12),
                   border: OutlineInputBorder(
                     borderRadius: BorderRadius.circular(10),
-                    borderSide: const BorderSide(color: Color(0xFFDCDCDC)),
+                    borderSide: BorderSide(color: context.palette.border),
                   ),
                   enabledBorder: OutlineInputBorder(
                     borderRadius: BorderRadius.circular(10),
-                    borderSide: const BorderSide(color: Color(0xFFDCDCDC)),
+                    borderSide: BorderSide(color: context.palette.border),
                   ),
                 ),
               ),
@@ -287,7 +288,7 @@ class _MemoryCleanPageState extends State<MemoryCleanPage> {
     required VoidCallback onTap,
   }) {
     return Card(
-      color: const Color.fromARGB(255, 237, 237, 237),
+      color: context.palette.button,
       elevation: 0,
       shape: RoundedRectangleBorder(
         borderRadius: BorderRadius.circular(8.0),
@@ -299,7 +300,7 @@ class _MemoryCleanPageState extends State<MemoryCleanPage> {
           padding: const EdgeInsets.symmetric(horizontal: 20.0, vertical: 10.0),
           child: Text(
             text,
-            style: const TextStyle(color: Colors.black, fontSize: 15),
+            style: TextStyle(color: context.palette.text, fontSize: 15),
           ),
         ),
       ),
@@ -327,13 +328,13 @@ class _MemoryCleanPageState extends State<MemoryCleanPage> {
                   value: progress,
                   strokeWidth: 12,
                   strokeCap: StrokeCap.round,
-                  backgroundColor: const Color(0xFFE7E7E7),
+                  backgroundColor: context.palette.border,
                   valueColor: AlwaysStoppedAnimation<Color>(color),
                 ),
               ),
               Text(
                 percentText,
-                style: const TextStyle(fontSize: 42, color: Colors.black87),
+                style: TextStyle(fontSize: 42, color: context.palette.text),
               ),
             ],
           ),
@@ -341,7 +342,7 @@ class _MemoryCleanPageState extends State<MemoryCleanPage> {
         const SizedBox(height: 15),
         Text(
           usageText,
-          style: const TextStyle(fontSize: 16, color: Colors.black87),
+          style: TextStyle(fontSize: 16, color: context.palette.text),
         ),
       ],
     );
@@ -572,7 +573,7 @@ class _MemoryCleanPageState extends State<MemoryCleanPage> {
       builder: (BuildContext context) {
         final l10n = context.l10n;
         return AlertDialog(
-          backgroundColor: const Color(0xFFF9F9F9),
+          backgroundColor: context.palette.surface,
           title: Text(l10n.commonErrorTitle),
           content: Text(message),
           actions: <Widget>[
@@ -582,12 +583,12 @@ class _MemoryCleanPageState extends State<MemoryCleanPage> {
                   (Set<WidgetState> states) {
                     if (states.contains(WidgetState.pressed) ||
                         states.contains(WidgetState.hovered)) {
-                      return const Color.fromARGB(255, 237, 237, 237);
+                      return context.palette.button;
                     }
                     return null;
                   },
                 ),
-                foregroundColor: WidgetStateProperty.all<Color>(Colors.black),
+                foregroundColor: WidgetStateProperty.all<Color>(context.palette.text),
               ),
               onPressed: () => Navigator.of(context).pop(),
               child: Text(l10n.dialogOk),
@@ -604,7 +605,7 @@ class _MemoryCleanPageState extends State<MemoryCleanPage> {
       builder: (BuildContext context) {
         final l10n = context.l10n;
         return AlertDialog(
-          backgroundColor: const Color(0xFFF9F9F9),
+          backgroundColor: context.palette.surface,
           title: Text(l10n.commonNoticeTitle),
           content: Text(message),
           actions: <Widget>[
@@ -614,12 +615,12 @@ class _MemoryCleanPageState extends State<MemoryCleanPage> {
                   (Set<WidgetState> states) {
                     if (states.contains(WidgetState.pressed) ||
                         states.contains(WidgetState.hovered)) {
-                      return const Color.fromARGB(255, 237, 237, 237);
+                      return context.palette.button;
                     }
                     return null;
                   },
                 ),
-                foregroundColor: WidgetStateProperty.all<Color>(Colors.black),
+                foregroundColor: WidgetStateProperty.all<Color>(context.palette.text),
               ),
               onPressed: () => Navigator.of(context).pop(),
               child: Text(l10n.dialogOk),

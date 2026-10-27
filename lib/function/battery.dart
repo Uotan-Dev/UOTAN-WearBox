@@ -1,3 +1,4 @@
+import '../app_theme.dart';
 import 'dart:async';
 import '../platform_tools.dart';
 import 'dart:io';
@@ -74,15 +75,15 @@ class _BatteryManagerPageState extends State<BatteryManagerPage> {
                 child: Row(
                   children: <Widget>[
                     IconButton(
-                      icon: const Icon(Icons.arrow_back,
-                          color: Colors.black, size: 20),
+                      icon: Icon(Icons.arrow_back,
+                          color: context.palette.text, size: 20),
                       onPressed: _busy ? null : () => Navigator.pop(context),
                     ),
                     const SizedBox(width: 5),
                     Text(
                       l10n.featureBatteryManager,
-                      style: const TextStyle(
-                        color: Colors.black,
+                      style: TextStyle(
+                        color: context.palette.text,
                         fontSize: 26,
                         fontFamily: 'MiSansLight',
                       ),
@@ -94,8 +95,8 @@ class _BatteryManagerPageState extends State<BatteryManagerPage> {
           ),
         ),
         body: _loading
-            ? const Center(
-                child: CircularProgressIndicator(color: Colors.black))
+            ? Center(
+                child: CircularProgressIndicator(color: context.palette.text))
             : Padding(
                 padding: const EdgeInsets.fromLTRB(20, 10, 20, 20),
                 child: Row(
@@ -131,7 +132,7 @@ class _BatteryManagerPageState extends State<BatteryManagerPage> {
     final int safeLevel = level.clamp(0, 100);
 
     return Card(
-      color: const Color(0xFFF9F9F9),
+      color: context.palette.surface,
       elevation: 0,
       shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(20)),
       child: Padding(
@@ -160,7 +161,7 @@ class _BatteryManagerPageState extends State<BatteryManagerPage> {
     final int level = int.tryParse(_batteryLevel) ?? 0;
 
     return Card(
-      color: const Color(0xFFF9F9F9),
+      color: context.palette.surface,
       elevation: 0,
       shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(20)),
       child: Padding(
@@ -175,8 +176,8 @@ class _BatteryManagerPageState extends State<BatteryManagerPage> {
             const SizedBox(height: 12),
             LinearProgressIndicator(
               value: level.clamp(0, 100) / 100,
-              color: const Color.fromARGB(255, 80, 80, 80),
-              backgroundColor: const Color(0xFFE3E3E3),
+              color: context.palette.subtext,
+              backgroundColor: context.palette.border,
               minHeight: 8,
               borderRadius: BorderRadius.circular(999),
             ),
@@ -194,7 +195,7 @@ class _BatteryManagerPageState extends State<BatteryManagerPage> {
 
   Widget _buildBatteryActionCard() {
     return Card(
-      color: const Color(0xFFF9F9F9),
+      color: context.palette.surface,
       elevation: 0,
       shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(20)),
       child: Padding(
@@ -276,16 +277,16 @@ class _BatteryManagerPageState extends State<BatteryManagerPage> {
               textAlignVertical: TextAlignVertical.center,
               decoration: InputDecoration(
                 filled: true,
-                fillColor: Colors.white,
+                fillColor: context.palette.field,
                 contentPadding:
                     const EdgeInsets.symmetric(horizontal: 12, vertical: 12),
                 border: OutlineInputBorder(
                   borderRadius: BorderRadius.circular(12),
-                  borderSide: const BorderSide(color: Color(0xFFDCDCDC)),
+                  borderSide: BorderSide(color: context.palette.border),
                 ),
                 enabledBorder: OutlineInputBorder(
                   borderRadius: BorderRadius.circular(12),
-                  borderSide: const BorderSide(color: Color(0xFFDCDCDC)),
+                  borderSide: BorderSide(color: context.palette.border),
                 ),
               ),
             ),
@@ -309,8 +310,8 @@ class _BatteryManagerPageState extends State<BatteryManagerPage> {
   }) {
     final Color bgColor = isActive
         ? const Color.fromARGB(255, 30, 93, 229)
-        : const Color.fromARGB(255, 237, 237, 237);
-    final Color fgColor = isActive ? Colors.white : Colors.black;
+        : context.palette.button;
+    final Color fgColor = isActive ? Colors.white : context.palette.text;
 
     return Card(
       margin: EdgeInsets.zero,
@@ -335,7 +336,7 @@ class _BatteryManagerPageState extends State<BatteryManagerPage> {
       {required String text, required VoidCallback onTap}) {
     return Card(
       margin: EdgeInsets.zero,
-      color: const Color.fromARGB(255, 237, 237, 237),
+      color: context.palette.button,
       elevation: 0,
       shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(8.0)),
       child: InkWell(
@@ -343,7 +344,7 @@ class _BatteryManagerPageState extends State<BatteryManagerPage> {
         onTap: _busy ? null : onTap,
         child: Center(
           child: Text(text,
-              style: const TextStyle(color: Colors.black, fontSize: 15)),
+              style: TextStyle(color: context.palette.text, fontSize: 15)),
         ),
       ),
     );
@@ -378,18 +379,18 @@ class _BatteryManagerPageState extends State<BatteryManagerPage> {
                   value: progress,
                   strokeWidth: 12,
                   strokeCap: StrokeCap.round,
-                  backgroundColor: const Color(0xFFE7E7E7),
+                  backgroundColor: context.palette.border,
                   valueColor: AlwaysStoppedAnimation<Color>(color),
                 ),
               ),
               Text(percentText,
-                  style: const TextStyle(fontSize: 42, color: Colors.black87)),
+                  style: TextStyle(fontSize: 42, color: context.palette.text)),
             ],
           ),
         ),
         const SizedBox(height: 65),
         Text(usageText,
-            style: const TextStyle(fontSize: 16, color: Colors.black87)),
+            style: TextStyle(fontSize: 16, color: context.palette.text)),
       ],
     );
   }
@@ -723,7 +724,7 @@ class _BatteryManagerPageState extends State<BatteryManagerPage> {
       context: context,
       builder: (BuildContext context) {
         return AlertDialog(
-          backgroundColor: const Color(0xFFF9F9F9),
+          backgroundColor: context.palette.surface,
           title: Text(context.l10n.commonErrorTitle),
           content: Text(message),
           actions: <Widget>[
@@ -742,7 +743,7 @@ class _BatteryManagerPageState extends State<BatteryManagerPage> {
       context: context,
       builder: (BuildContext context) {
         return AlertDialog(
-          backgroundColor: const Color(0xFFF9F9F9),
+          backgroundColor: context.palette.surface,
           title: Text(context.l10n.commonNoticeTitle),
           content: Text(message),
           actions: <Widget>[

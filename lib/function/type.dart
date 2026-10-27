@@ -1,3 +1,4 @@
+import '../app_theme.dart';
 import 'dart:io'; // 导入用于运行进程的包
 import '../platform_tools.dart';
 import 'package:file_picker/file_picker.dart'; // 导入文件选择器包
@@ -35,7 +36,7 @@ class _TypeTextPageState extends State<TypeTextPage> {
                   Row(
                     children: [
                       IconButton(
-                        icon: const Icon(Icons.arrow_back, color: Colors.black, size: 20), // 返回图标
+                        icon: Icon(Icons.arrow_back, color: context.palette.text, size: 20), // 返回图标
                         onPressed: () {
                           Navigator.pop(context); // 返回到上一个页面
                         },
@@ -43,8 +44,8 @@ class _TypeTextPageState extends State<TypeTextPage> {
                       const SizedBox(width: 5),
                       Text(
                         l10n.typePageTitle, // 页面标题
-                        style: const TextStyle(
-                          color: Colors.black,
+                        style: TextStyle(
+                          color: context.palette.text,
                           fontSize: 26,
                           fontFamily: 'MiSansLight', // 使用自定义字体
                         ),
@@ -70,10 +71,10 @@ class _TypeTextPageState extends State<TypeTextPage> {
                   maxLines: null, // 设置为null以支持多行输入
                   expands: true, // 允许TextField填充剩余的可用空间
                   textAlignVertical: TextAlignVertical.top, // 文本居上对齐
-                  cursorColor: Colors.black, // 设置光标颜色为黑色
+                  cursorColor: context.palette.text, // 设置光标颜色为黑色
                   decoration: InputDecoration(
                     filled: true, // 启用填充背景颜色
-                    fillColor: const Color(0xFFF9F9F9), // 设置背景颜色
+                    fillColor: context.palette.surface, // 设置背景颜色
                     hintText: l10n.typeHint, // 提示文本
                     contentPadding: const EdgeInsets.all(20), // 设置文本框的内边距
                     border: OutlineInputBorder(
@@ -99,7 +100,7 @@ class _TypeTextPageState extends State<TypeTextPage> {
               children: [
                 const SizedBox(width: 5),
                 Card(
-                  color: const Color(0xFFF9F9F9), // Card背景颜色
+                  color: context.palette.surface, // Card背景颜色
                   elevation: 0, // 去掉阴影
                   shape: RoundedRectangleBorder(
                     borderRadius: BorderRadius.circular(8.0), // 设置圆角
@@ -113,14 +114,14 @@ class _TypeTextPageState extends State<TypeTextPage> {
                       padding: const EdgeInsets.symmetric(horizontal: 20.0, vertical: 10.0), // 设置内边距
                       child: Text(
                         l10n.typeImportButton,
-                        style: const TextStyle(color: Colors.black, fontSize: 15),
+                        style: TextStyle(color: context.palette.text, fontSize: 15),
                       ),
                     ),
                   ),
                 ),
                 const SizedBox(width: 5),
                 Card(
-                  color: const Color(0xFFF9F9F9), // Card背景颜色
+                  color: context.palette.surface, // Card背景颜色
                   elevation: 0, // 去掉阴影
                   shape: RoundedRectangleBorder(
                     borderRadius: BorderRadius.circular(8.0), // 设置圆角
@@ -134,14 +135,14 @@ class _TypeTextPageState extends State<TypeTextPage> {
                       padding: const EdgeInsets.symmetric(horizontal: 20.0, vertical: 10.0), // 设置内边距
                       child: Text(
                         l10n.typeClearButton,
-                        style: const TextStyle(color: Colors.black, fontSize: 15),
+                        style: TextStyle(color: context.palette.text, fontSize: 15),
                       ),
                     ),
                   ),
                 ),
                 const Spacer(), // 添加一个空白区域，将两个按钮分开到两端
                 Card(
-                  color: const Color(0xFFF9F9F9), // Card背景颜色
+                  color: context.palette.surface, // Card背景颜色
                   elevation: 0, // 去掉阴影
                   shape: RoundedRectangleBorder(
                     borderRadius: BorderRadius.circular(8.0), // 设置圆角
@@ -155,7 +156,7 @@ class _TypeTextPageState extends State<TypeTextPage> {
                       padding: const EdgeInsets.symmetric(horizontal: 20.0, vertical: 10.0), // 设置内边距
                       child: Text(
                         l10n.typeSendButton,
-                        style: const TextStyle(color: Colors.black, fontSize: 15),
+                        style: TextStyle(color: context.palette.text, fontSize: 15),
                       ),
                     ),
                   ),
@@ -241,16 +242,16 @@ class _TypeTextPageState extends State<TypeTextPage> {
       barrierDismissible: false, // 禁止点击外部关闭
       builder: (BuildContext context) {
         return AlertDialog(
-          backgroundColor: const Color(0xFFF9F9F9), // 弹窗背景颜色
+          backgroundColor: context.palette.surface, // 弹窗背景颜色
           content: Column(
             mainAxisSize: MainAxisSize.min,
             children: [
               const SizedBox(height: 10),
-              const CircularProgressIndicator(
-                color: Colors.black, // 进度条颜色设置为黑色
+              CircularProgressIndicator(
+                color: context.palette.text, // 进度条颜色设置为黑色
               ),
               const SizedBox(height: 20),
-              Text(message, style: const TextStyle(color: Colors.black)),
+              Text(message, style: TextStyle(color: context.palette.text)),
             ],
           ),
         );
@@ -278,26 +279,26 @@ class _TypeTextPageState extends State<TypeTextPage> {
       builder: (BuildContext context) {
         final l10n = context.l10n;
         return AlertDialog(
-          backgroundColor: const Color(0xFFF9F9F9), // 弹窗背景颜色
+          backgroundColor: context.palette.surface, // 弹窗背景颜色
           title: Text(l10n.commonNoticeTitle),
-          content: Text(message, style: const TextStyle(color: Colors.black)),
+          content: Text(message, style: TextStyle(color: context.palette.text)),
           actions: [
             TextButton(
               style: ButtonStyle(
                 overlayColor: MaterialStateProperty.resolveWith<Color?>(
                   (Set<MaterialState> states) {
                     if (states.contains(MaterialState.pressed) || states.contains(MaterialState.hovered)) {
-                      return const Color.fromARGB(255, 237, 237, 237); // 点击或悬浮时的背景颜色
+                      return context.palette.button; // 点击或悬浮时的背景颜色
                     }
                     return null; // 默认状态下不更改颜色
                   },
                 ),
-                foregroundColor: MaterialStateProperty.all<Color>(Colors.black), // 文本颜色
+                foregroundColor: MaterialStateProperty.all<Color>(context.palette.text), // 文本颜色
               ),
               onPressed: () {
                 Navigator.of(context).pop();
               },
-              child: Text(l10n.dialogOk, style: const TextStyle(color: Colors.black)),
+              child: Text(l10n.dialogOk, style: TextStyle(color: context.palette.text)),
             ),
           ],
         );

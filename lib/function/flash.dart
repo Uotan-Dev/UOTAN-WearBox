@@ -1,3 +1,4 @@
+import '../app_theme.dart';
 import 'package:watch_assistant/l10n/l10n.dart';
 import 'dart:convert';
 import '../platform_tools.dart';
@@ -87,15 +88,15 @@ class _FlashToolPageState extends State<FlashToolPage> {
                 child: Row(
                   children: <Widget>[
                     IconButton(
-                      icon: const Icon(Icons.arrow_back,
-                          color: Colors.black, size: 20),
+                      icon: Icon(Icons.arrow_back,
+                          color: context.palette.text, size: 20),
                       onPressed: _isBusy ? null : () => Navigator.pop(context),
                     ),
                     const SizedBox(width: 5),
                     Text(
                       context.l10n.flashPageTitle,
-                      style: const TextStyle(
-                        color: Colors.black,
+                      style: TextStyle(
+                        color: context.palette.text,
                         fontSize: 26,
                         fontFamily: 'MiSansLight',
                       ),
@@ -133,7 +134,7 @@ class _FlashToolPageState extends State<FlashToolPage> {
 
   Widget _buildPresetSection() {
     return Card(
-      color: const Color(0xFFF9F9F9),
+      color: context.palette.surface,
       elevation: 0,
       shape: RoundedRectangleBorder(
         borderRadius: BorderRadius.circular(20),
@@ -258,7 +259,7 @@ class _FlashToolPageState extends State<FlashToolPage> {
       children: <Widget>[
         Expanded(
             child: Card(
-          color: const Color(0xFFF9F9F9),
+          color: context.palette.surface,
           elevation: 0,
           shape: RoundedRectangleBorder(
             borderRadius: BorderRadius.circular(20),
@@ -280,7 +281,7 @@ class _FlashToolPageState extends State<FlashToolPage> {
                     padding: const EdgeInsets.all(12),
                     decoration: BoxDecoration(
                       borderRadius: BorderRadius.circular(14),
-                      border: Border.all(color: const Color(0xFFDCDCDC)),
+                      border: Border.all(color: context.palette.border),
                     ),
                     child: SingleChildScrollView(
                       controller: _logScrollController,
@@ -288,10 +289,10 @@ class _FlashToolPageState extends State<FlashToolPage> {
                         _logs.isEmpty
                             ? context.l10n.flashNoLogs
                             : _logs.join('\n'),
-                        style: const TextStyle(
+                        style: TextStyle(
                           fontFamily: 'Consolas',
                           fontSize: 12,
-                          color: Colors.black87,
+                          color: context.palette.text,
                         ),
                       ),
                     ),
@@ -305,7 +306,7 @@ class _FlashToolPageState extends State<FlashToolPage> {
         SizedBox(
           width: 220,
           child: Card(
-            color: const Color(0xFFF9F9F9),
+            color: context.palette.surface,
             elevation: 0,
             shape: RoundedRectangleBorder(
               borderRadius: BorderRadius.circular(20),
@@ -358,16 +359,16 @@ class _FlashToolPageState extends State<FlashToolPage> {
         isDense: true,
         hintText: hint,
         filled: true,
-        fillColor: Colors.white,
+        fillColor: context.palette.field,
         contentPadding:
             const EdgeInsets.symmetric(horizontal: 12, vertical: 12),
         border: OutlineInputBorder(
           borderRadius: BorderRadius.circular(10),
-          borderSide: const BorderSide(color: Color(0xFFDCDCDC)),
+          borderSide: BorderSide(color: context.palette.border),
         ),
         enabledBorder: OutlineInputBorder(
           borderRadius: BorderRadius.circular(10),
-          borderSide: const BorderSide(color: Color(0xFFDCDCDC)),
+          borderSide: BorderSide(color: context.palette.border),
         ),
       ),
     );
@@ -380,7 +381,7 @@ class _FlashToolPageState extends State<FlashToolPage> {
     return Opacity(
       opacity: _isBusy ? 0.6 : 1,
       child: Card(
-        color: const Color.fromARGB(255, 237, 237, 237),
+        color: context.palette.button,
         elevation: 0,
         shape: RoundedRectangleBorder(
           borderRadius: BorderRadius.circular(8.0),
@@ -393,7 +394,7 @@ class _FlashToolPageState extends State<FlashToolPage> {
                 const EdgeInsets.symmetric(horizontal: 20.0, vertical: 10.0),
             child: Text(
               text,
-              style: const TextStyle(color: Colors.black, fontSize: 13),
+              style: TextStyle(color: context.palette.text, fontSize: 13),
             ),
           ),
         ),
@@ -611,7 +612,7 @@ class _FlashToolPageState extends State<FlashToolPage> {
       context: context,
       builder: (BuildContext context) {
         return AlertDialog(
-          backgroundColor: const Color(0xFFF9F9F9),
+          backgroundColor: context.palette.surface,
           title: Text(context.l10n.commonErrorTitle),
           content: Text(message),
           actions: <Widget>[
@@ -621,12 +622,12 @@ class _FlashToolPageState extends State<FlashToolPage> {
                   (Set<MaterialState> states) {
                     if (states.contains(MaterialState.pressed) ||
                         states.contains(MaterialState.hovered)) {
-                      return const Color.fromARGB(255, 237, 237, 237);
+                      return context.palette.button;
                     }
                     return null;
                   },
                 ),
-                foregroundColor: MaterialStateProperty.all<Color>(Colors.black),
+                foregroundColor: MaterialStateProperty.all<Color>(context.palette.text),
               ),
               onPressed: () => Navigator.of(context).pop(),
               child: Text(context.l10n.dialogOk),

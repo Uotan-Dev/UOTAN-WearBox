@@ -1,3 +1,4 @@
+import 'app_theme.dart';
 import 'package:flutter/material.dart';
 import 'package:watch_assistant/utils.dart';
 import 'package:watch_assistant/l10n/l10n.dart';
@@ -15,10 +16,14 @@ class HomeScreen extends StatefulWidget {
     super.key,
     required this.onLocaleChanged,
     required this.locale,
+    required this.onThemeModeChanged,
+    required this.themeMode,
   });
 
   final ValueChanged<Locale?> onLocaleChanged;
   final Locale? locale;
+  final ValueChanged<ThemeMode> onThemeModeChanged;
+  final ThemeMode themeMode;
 
   @override
   _HomeScreenState createState() => _HomeScreenState();
@@ -140,7 +145,7 @@ class _HomeScreenState extends State<HomeScreen> with WindowListener {
       builder: (BuildContext context) {
         final l10n = context.l10n;
         return AlertDialog(
-          backgroundColor: const Color(0xFFF9F9F9), // 弹窗背景颜色
+          backgroundColor: context.palette.surface, // 弹窗背景颜色
           title: Text(l10n.updateDialogTitle),
           content: Text(l10n.updateDialogMessage(remoteVersion, releaseDate)),
           actions: [
@@ -150,14 +155,13 @@ class _HomeScreenState extends State<HomeScreen> with WindowListener {
                   (Set<MaterialState> states) {
                     if (states.contains(MaterialState.pressed) ||
                         states.contains(MaterialState.hovered)) {
-                      return const Color.fromARGB(
-                          255, 237, 237, 237); // 点击或悬浮时的背景颜色
+                      return context.palette.button; // 点击或悬浮时的背景颜色
                     }
                     return null; // 默认状态下不更改颜色
                   },
                 ),
                 foregroundColor:
-                    MaterialStateProperty.all<Color>(Colors.black), // 文本颜色
+                    MaterialStateProperty.all<Color>(context.palette.text), // 文本颜色
               ),
               child: Text(l10n.updateDialogLater),
               onPressed: () {
@@ -170,14 +174,13 @@ class _HomeScreenState extends State<HomeScreen> with WindowListener {
                   (Set<MaterialState> states) {
                     if (states.contains(MaterialState.pressed) ||
                         states.contains(MaterialState.hovered)) {
-                      return const Color.fromARGB(
-                          255, 237, 237, 237); // 点击或悬浮时的背景颜色
+                      return context.palette.button; // 点击或悬浮时的背景颜色
                     }
                     return null; // 默认状态下不更改颜色
                   },
                 ),
                 foregroundColor:
-                    MaterialStateProperty.all<Color>(Colors.black), // 文本颜色
+                    MaterialStateProperty.all<Color>(context.palette.text), // 文本颜色
               ),
               child: Text(l10n.updateDialogUpdate),
               onPressed: () {
@@ -198,7 +201,7 @@ class _HomeScreenState extends State<HomeScreen> with WindowListener {
       builder: (BuildContext context) {
         final l10n = context.l10n;
         return AlertDialog(
-          backgroundColor: const Color(0xFFF9F9F9), // 弹窗背景颜色
+          backgroundColor: context.palette.surface, // 弹窗背景颜色
           title: Text(l10n.networkErrorTitle),
           content: Text(message ?? l10n.networkErrorMessage),
           actions: [
@@ -208,14 +211,13 @@ class _HomeScreenState extends State<HomeScreen> with WindowListener {
                   (Set<MaterialState> states) {
                     if (states.contains(MaterialState.pressed) ||
                         states.contains(MaterialState.hovered)) {
-                      return const Color.fromARGB(
-                          255, 237, 237, 237); // 点击或悬浮时的背景颜色
+                      return context.palette.button; // 点击或悬浮时的背景颜色
                     }
                     return null; // 默认状态下不更改颜色
                   },
                 ),
                 foregroundColor:
-                    MaterialStateProperty.all<Color>(Colors.black), // 文本颜色
+                    MaterialStateProperty.all<Color>(context.palette.text), // 文本颜色
               ),
               child: Text(l10n.networkErrorExit),
               onPressed: () {
@@ -228,14 +230,13 @@ class _HomeScreenState extends State<HomeScreen> with WindowListener {
                   (Set<MaterialState> states) {
                     if (states.contains(MaterialState.pressed) ||
                         states.contains(MaterialState.hovered)) {
-                      return const Color.fromARGB(
-                          255, 237, 237, 237); // 点击或悬浮时的背景颜色
+                      return context.palette.button; // 点击或悬浮时的背景颜色
                     }
                     return null; // 默认状态下不更改颜色
                   },
                 ),
                 foregroundColor:
-                    MaterialStateProperty.all<Color>(Colors.black), // 文本颜色
+                    MaterialStateProperty.all<Color>(context.palette.text), // 文本颜色
               ),
               child: Text(l10n.networkErrorRetry),
               onPressed: () {
@@ -306,8 +307,7 @@ class _HomeScreenState extends State<HomeScreen> with WindowListener {
       return;
     }
     _pageController = null;
-    WidgetsBinding.instance
-        .addPostFrameCallback((_) => controller.dispose());
+    WidgetsBinding.instance.addPostFrameCallback((_) => controller.dispose());
   }
 
   // 窄屏页面容器：可左右滑动切换，与底部导航栏联动
@@ -366,9 +366,9 @@ class _HomeScreenState extends State<HomeScreen> with WindowListener {
           onDestinationSelected: _onDestinationSelected,
           labelType: NavigationRailLabelType.all, // 始终显示按钮文本
           groupAlignment: 0.0, // 按钮上下居中
-          backgroundColor: const Color(0xFFF9F9F9), // 设置背景颜色为 #F9F9F9
+          backgroundColor: context.palette.surface, // 设置背景颜色为 #F9F9F9
           useIndicator: true, // 启用指示器
-          indicatorColor: const Color.fromARGB(255, 237, 237, 237), // 选中项的背景颜色
+          indicatorColor: context.palette.button, // 选中项的背景颜色
           destinations: [
             NavigationRailDestination(
               icon: const Icon(Icons.home_filled),
@@ -423,10 +423,10 @@ class _HomeScreenState extends State<HomeScreen> with WindowListener {
             selectedIndex: _selectedIndex,
             onDestinationSelected: _onDestinationSelected,
             labelBehavior: NavigationDestinationLabelBehavior.alwaysShow,
-            backgroundColor: const Color(0xFFF9F9F9), // 与侧边栏背景颜色一致
+            backgroundColor: context.palette.surface, // 与侧边栏背景颜色一致
             surfaceTintColor: Colors.transparent,
             indicatorColor:
-                const Color.fromARGB(255, 237, 237, 237), // 选中项的背景颜色
+                context.palette.button, // 选中项的背景颜色
             height: 64,
             destinations: [
               NavigationDestination(
@@ -460,6 +460,8 @@ class _HomeScreenState extends State<HomeScreen> with WindowListener {
       ..add(Page3(
         onLocaleChanged: widget.onLocaleChanged,
         currentLocale: widget.locale,
+        onThemeModeChanged: widget.onThemeModeChanged,
+        themeMode: widget.themeMode,
         currentVersion: '$currentVersion',
       ));
 
@@ -497,7 +499,7 @@ class _HomeScreenState extends State<HomeScreen> with WindowListener {
                       height: 20, // 设置进度条的高度
                       child: CircularProgressIndicator(
                         strokeWidth: 2, // 设置进度条的粗细，默认是 4.0
-                        color: Colors.black,
+                        color: context.palette.text,
                       ),
                     ),
                   ],
