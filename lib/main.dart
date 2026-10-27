@@ -118,7 +118,7 @@ class _MyAppState extends State<MyApp> {
             child!,
             const Positioned(
               top: 0,
-              right: 18,
+              right: 0,
               child: WindowButtons(),
             ),
           ],
