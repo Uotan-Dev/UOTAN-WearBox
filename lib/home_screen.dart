@@ -261,10 +261,33 @@ class _HomeScreenState extends State<HomeScreen> with WindowListener {
   // 窗口宽度小于该值时切换为底部导航栏布局
   static const double _narrowLayoutBreakpoint = 600;
 
+  // 每个导航项拥有独立的嵌套 Navigator，二级页面在内容区域内打开，侧边栏保持显示
+  final List<GlobalKey<NavigatorState>> _navigatorKeys =
+      List.generate(3, (_) => GlobalKey<NavigatorState>());
+
   void _onDestinationSelected(int index) {
+    if (index == _selectedIndex) {
+      // 再次点击当前导航项时返回该栏目的首页
+      _navigatorKeys[index].currentState?.popUntil((route) => route.isFirst);
+      return;
+    }
     setState(() {
       _selectedIndex = index;
     });
+  }
+
+  // 宽屏内容区域：一级页面作为嵌套 Navigator 的根页面
+  Widget _buildContent() {
+    return Navigator(
+      key: _navigatorKeys[_selectedIndex],
+      pages: [
+        MaterialPage(
+          key: ValueKey('tab_$_selectedIndex'),
+          child: _pages[_selectedIndex],
+        ),
+      ],
+      onDidRemovePage: (_) {},
+    );
   }
 
   // 宽屏布局：左侧导航栏
@@ -309,7 +332,7 @@ class _HomeScreenState extends State<HomeScreen> with WindowListener {
         ),
         const VerticalDivider(thickness: 1, width: 1),
         Expanded(
-          child: _pages[_selectedIndex],
+          child: _buildContent(),
         ),
       ],
     );
@@ -317,6 +340,7 @@ class _HomeScreenState extends State<HomeScreen> with WindowListener {
 
   // 窄屏布局：底部导航栏
   Widget _buildNarrowLayout(BuildContext context) {
+    // 窄屏下二级页面仍全屏打开，不保留底部导航栏
     return Column(
       children: [
         Expanded(

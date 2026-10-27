@@ -179,7 +179,7 @@ class _AppManagementPageState extends State<AppManagementPage> {
               ),
               onPressed: () {
                 Navigator.of(context).pop();
-                Navigator.pop(context); // 返回到上一个页面
+                Navigator.pop(this.context); // 返回到上一个页面
               },
               child: Text(l10n.dialogOk, style: const TextStyle(color: Colors.black)),
             ),
@@ -434,10 +434,10 @@ class _AppManagementPageState extends State<AppManagementPage> {
 
         await Process.run(adbPath, ['pull', apkPath, savePath]);
 
-        Navigator.of(context).pop(); // 关闭进度弹窗
+        Navigator.of(context, rootNavigator: true).pop(); // 关闭进度弹窗
         _showInfoDialog(context.l10n.appManagePullSuccess(savePath));
       } catch (e) {
-        Navigator.of(context).pop(); // 关闭进度弹窗
+        Navigator.of(context, rootNavigator: true).pop(); // 关闭进度弹窗
         _showErrorDialog(context.l10n.appManagePullFailure(e.toString()));
       }
     }

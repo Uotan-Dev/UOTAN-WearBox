@@ -77,7 +77,7 @@ class _DonatePageState extends State<DonatePage>
               ),
               onPressed: () {
                 Navigator.of(context).pop();
-                Navigator.pop(context);
+                Navigator.pop(this.context);
               },
               child: Text(l10n.dialogConfirm,
                   style: const TextStyle(color: Colors.black)),

@@ -447,7 +447,7 @@ class _DisplaySettingsPageState extends State<DisplaySettingsPage> {
               ),
               onPressed: () {
                 Navigator.of(context).pop();
-                Navigator.pop(context); // 返回到上一个页面
+                Navigator.pop(this.context); // 返回到上一个页面
               },
               child: Text(l10n.dialogOk,
                   style: const TextStyle(color: Colors.black)),

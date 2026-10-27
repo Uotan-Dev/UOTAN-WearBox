@@ -217,7 +217,7 @@ class _TypeTextPageState extends State<TypeTextPage> {
         ProcessResult result = await Process.run(adbPath, ['shell', 'input', 'text', Uri.encodeComponent(line)]);
         // 检查是否返回了权限错误
         if (result.stderr.toString().contains('INJECT_EVENTS permission')) {
-          Navigator.of(context).pop(); // 关闭进度弹窗
+          Navigator.of(context, rootNavigator: true).pop(); // 关闭进度弹窗
           _showMessageDialog(context.l10n.typePermissionDenied);
           return;
         }
@@ -225,11 +225,11 @@ class _TypeTextPageState extends State<TypeTextPage> {
         await Process.run(adbPath, ['shell', 'input', 'keyevent', '66']); // KEYCODE_ENTER = 66
       }
 
-      Navigator.of(context).pop(); // 关闭进度弹窗
+      Navigator.of(context, rootNavigator: true).pop(); // 关闭进度弹窗
       _showMessageDialog(context.l10n.typeSendSuccess);
       _controller.clear(); // 清空编辑框内容
     } catch (e) {
-      Navigator.of(context).pop(); // 关闭进度弹窗
+      Navigator.of(context, rootNavigator: true).pop(); // 关闭进度弹窗
       _showMessageDialog(context.l10n.typeSendFailure(e.toString()));
     }
   }
