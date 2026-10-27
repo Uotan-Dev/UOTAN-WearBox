@@ -64,11 +64,13 @@ class Page2 extends StatelessWidget {
             const spacing = 8.0;
             // 保留原始默认窗口下的五列，为原生边框和缩放取整留出余量。
             const minItemWidth = 166.0;
-            final columnCount = math.max(
-              1,
-              ((constraints.maxWidth + spacing) / (minItemWidth + spacing))
-                  .floor(),
-            );
+            final columnCount = MediaQuery.sizeOf(context).width < 600
+                ? 2
+                : math.max(
+                    1,
+                    ((constraints.maxWidth + spacing) / (minItemWidth + spacing))
+                        .floor(),
+                  );
 
             return GridView.builder(
               gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
