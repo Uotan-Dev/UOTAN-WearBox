@@ -300,8 +300,7 @@ class _HomeScreenState extends State<HomeScreen> with WindowListener {
           groupAlignment: 0.0, // 按钮上下居中
           backgroundColor: const Color(0xFFF9F9F9), // 设置背景颜色为 #F9F9F9
           useIndicator: true, // 启用指示器
-          indicatorColor:
-              const Color.fromARGB(255, 237, 237, 237), // 选中项的背景颜色
+          indicatorColor: const Color.fromARGB(255, 237, 237, 237), // 选中项的背景颜色
           destinations: [
             NavigationRailDestination(
               icon: const Icon(Icons.home_filled),

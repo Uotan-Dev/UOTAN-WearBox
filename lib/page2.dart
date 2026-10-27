@@ -1,3 +1,5 @@
+import 'dart:math' as math;
+
 import 'package:auto_size_text/auto_size_text.dart';
 import 'package:flutter/material.dart';
 import 'package:window_manager/window_manager.dart';
@@ -57,137 +59,154 @@ class Page2 extends StatelessWidget {
       ),
       body: Padding(
         padding: const EdgeInsets.only(top: 25, left: 20, right: 20),
-        child: GridView.builder(
-          gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-            crossAxisCount: 5,
-            crossAxisSpacing: 8.0,
-            mainAxisSpacing: 8.0,
-            childAspectRatio: 3,
-          ),
-          itemCount: featureItems.length,
-          itemBuilder: (context, index) {
-            final item = featureItems[index];
-            return Material(
-              color: const Color(0xFFF9F9F9),
-              shape: RoundedRectangleBorder(
-                borderRadius: BorderRadius.circular(12.0),
+        child: LayoutBuilder(
+          builder: (context, constraints) {
+            const spacing = 8.0;
+            // 保留原始默认窗口下的五列，为原生边框和缩放取整留出余量。
+            const minItemWidth = 166.0;
+            final columnCount = math.max(
+              1,
+              ((constraints.maxWidth + spacing) / (minItemWidth + spacing))
+                  .floor(),
+            );
+
+            return GridView.builder(
+              gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+                crossAxisCount: columnCount,
+                crossAxisSpacing: 8.0,
+                mainAxisSpacing: 8.0,
+                mainAxisExtent: 56.0,
               ),
-              child: InkWell(
-                borderRadius: BorderRadius.circular(12.0),
-                onTap: () {
-                  switch (item.action) {
-                    case _FeatureAction.installApp:
-                      Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                            builder: (context) => const InstallAppPage()),
-                      );
-                      break;
-                    case _FeatureAction.appManagement:
-                      Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                            builder: (context) => const AppManagementPage()),
-                      );
-                      break;
-                    case _FeatureAction.fileManagement:
-                      Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                            builder: (context) => const AdbFileManagerPage()),
-                      );
-                      break;
-                    case _FeatureAction.sendText:
-                      Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                            builder: (context) => const TypeTextPage()),
-                      );
-                      break;
-                    case _FeatureAction.displaySettings:
-                      Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                            builder: (context) => const DisplaySettingsPage()),
-                      );
-                      break;
-                    case _FeatureAction.keySimulation:
-                      Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                            builder: (context) => const ButtonPage()),
-                      );
-                      break;
-                    case _FeatureAction.rotateScreen:
-                      Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                            builder: (context) => const RotatePage()),
-                      );
-                      break;
-                    case _FeatureAction.rePair:
-                      Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                            builder: (context) => const PairPage()),
-                      );
-                      break;
-                    case _FeatureAction.memoryClean:
-                      Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                            builder: (context) => const MemoryCleanPage()),
-                      );
-                      break;
-                    case _FeatureAction.batteryManager:
-                      Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                            builder: (context) => const BatteryManagerPage()),
-                      );
-                      break;
-                    case _FeatureAction.capture:
-                      Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                            builder: (context) => const CapturePage()),
-                      );
-                      break;
-                    case _FeatureAction.flashTool:
-                      Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                            builder: (context) => const FlashToolPage()),
-                      );
-                      break;
-                  }
-                },
-                child: Padding(
-                  padding: const EdgeInsets.all(8.0),
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.start,
-                    children: [
-                      const SizedBox(width: 5),
-                      Image.asset(
-                        item.iconPath,
-                        width: 20,
-                        height: 20,
-                        color: const Color.fromARGB(255, 0, 0, 0),
-                      ),
-                      const SizedBox(width: 8),
-                      Expanded(
-                        child: AutoSizeText(
-                          item.label,
-                          style: const TextStyle(fontSize: 16),
-                          maxLines: 2, // 最多两行
-                          minFontSize: 12, // 最小字号，可根据需要调
-                          overflow: TextOverflow.ellipsis,
-                        ),
-                      )
-                    ],
+              itemCount: featureItems.length,
+              itemBuilder: (context, index) {
+                final item = featureItems[index];
+                return Material(
+                  color: const Color(0xFFF9F9F9),
+                  shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(12.0),
                   ),
-                ),
-              ),
+                  child: InkWell(
+                    borderRadius: BorderRadius.circular(12.0),
+                    onTap: () {
+                      switch (item.action) {
+                        case _FeatureAction.installApp:
+                          Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                                builder: (context) => const InstallAppPage()),
+                          );
+                          break;
+                        case _FeatureAction.appManagement:
+                          Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                                builder: (context) =>
+                                    const AppManagementPage()),
+                          );
+                          break;
+                        case _FeatureAction.fileManagement:
+                          Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                                builder: (context) =>
+                                    const AdbFileManagerPage()),
+                          );
+                          break;
+                        case _FeatureAction.sendText:
+                          Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                                builder: (context) => const TypeTextPage()),
+                          );
+                          break;
+                        case _FeatureAction.displaySettings:
+                          Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                                builder: (context) =>
+                                    const DisplaySettingsPage()),
+                          );
+                          break;
+                        case _FeatureAction.keySimulation:
+                          Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                                builder: (context) => const ButtonPage()),
+                          );
+                          break;
+                        case _FeatureAction.rotateScreen:
+                          Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                                builder: (context) => const RotatePage()),
+                          );
+                          break;
+                        case _FeatureAction.rePair:
+                          Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                                builder: (context) => const PairPage()),
+                          );
+                          break;
+                        case _FeatureAction.memoryClean:
+                          Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                                builder: (context) => const MemoryCleanPage()),
+                          );
+                          break;
+                        case _FeatureAction.batteryManager:
+                          Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                                builder: (context) =>
+                                    const BatteryManagerPage()),
+                          );
+                          break;
+                        case _FeatureAction.capture:
+                          Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                                builder: (context) => const CapturePage()),
+                          );
+                          break;
+                        case _FeatureAction.flashTool:
+                          Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                                builder: (context) => const FlashToolPage()),
+                          );
+                          break;
+                      }
+                    },
+                    child: Padding(
+                      padding: const EdgeInsets.all(8.0),
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.start,
+                        children: [
+                          const SizedBox(width: 5),
+                          Image.asset(
+                            item.iconPath,
+                            width: 20,
+                            height: 20,
+                            color: const Color.fromARGB(255, 0, 0, 0),
+                          ),
+                          const SizedBox(width: 8),
+                          Expanded(
+                            child: AutoSizeText(
+                              item.label,
+                              style: const TextStyle(fontSize: 16),
+                              maxLines: 2, // 最多两行
+                              minFontSize: 12, // 最小字号，可根据需要调
+                              overflow: TextOverflow.ellipsis,
+                            ),
+                          )
+                        ],
+                      ),
+                    ),
+                  ),
+                );
+              },
             );
           },
         ),
