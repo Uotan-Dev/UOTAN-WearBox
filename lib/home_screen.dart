@@ -258,6 +258,106 @@ class _HomeScreenState extends State<HomeScreen> with WindowListener {
     }
   }
 
+  // 窗口宽度小于该值时切换为底部导航栏布局
+  static const double _narrowLayoutBreakpoint = 600;
+
+  void _onDestinationSelected(int index) {
+    setState(() {
+      _selectedIndex = index;
+    });
+  }
+
+  // 宽屏布局：左侧导航栏
+  Widget _buildWideLayout(BuildContext context) {
+    return Row(
+      children: [
+        NavigationRail(
+          selectedIndex: _selectedIndex,
+          onDestinationSelected: _onDestinationSelected,
+          labelType: NavigationRailLabelType.all, // 始终显示按钮文本
+          groupAlignment: 0.0, // 按钮上下居中
+          backgroundColor: const Color(0xFFF9F9F9), // 设置背景颜色为 #F9F9F9
+          useIndicator: true, // 启用指示器
+          indicatorColor:
+              const Color.fromARGB(255, 237, 237, 237), // 选中项的背景颜色
+          destinations: [
+            NavigationRailDestination(
+              icon: const Icon(Icons.home_filled),
+              selectedIcon: const Icon(Icons.home_filled),
+              label: Text(
+                context.l10n.navigationHome,
+                style: const TextStyle(fontSize: 13), // 调整文本大小为13
+              ),
+            ),
+            NavigationRailDestination(
+              icon: const Icon(Icons.view_cozy),
+              selectedIcon: const Icon(Icons.view_cozy),
+              label: Text(
+                context.l10n.navigationFeatures,
+                style: const TextStyle(fontSize: 13), // 调整文本大小为13
+              ),
+            ),
+            NavigationRailDestination(
+              icon: const Icon(Icons.settings),
+              selectedIcon: const Icon(Icons.settings),
+              label: Text(
+                context.l10n.navigationAbout,
+                style: const TextStyle(fontSize: 13), // 调整文本大小为13
+              ),
+            ),
+          ],
+        ),
+        const VerticalDivider(thickness: 1, width: 1),
+        Expanded(
+          child: _pages[_selectedIndex],
+        ),
+      ],
+    );
+  }
+
+  // 窄屏布局：底部导航栏
+  Widget _buildNarrowLayout(BuildContext context) {
+    return Column(
+      children: [
+        Expanded(
+          child: _pages[_selectedIndex],
+        ),
+        const Divider(thickness: 1, height: 1),
+        NavigationBarTheme(
+          data: const NavigationBarThemeData(
+            labelTextStyle: MaterialStatePropertyAll(
+              TextStyle(fontSize: 13), // 与侧边栏文本大小保持一致
+            ),
+          ),
+          child: NavigationBar(
+            selectedIndex: _selectedIndex,
+            onDestinationSelected: _onDestinationSelected,
+            labelBehavior: NavigationDestinationLabelBehavior.alwaysShow,
+            backgroundColor: const Color(0xFFF9F9F9), // 与侧边栏背景颜色一致
+            surfaceTintColor: Colors.transparent,
+            indicatorColor:
+                const Color.fromARGB(255, 237, 237, 237), // 选中项的背景颜色
+            height: 64,
+            destinations: [
+              NavigationDestination(
+                icon: const Icon(Icons.home_filled),
+                label: context.l10n.navigationHome,
+              ),
+              NavigationDestination(
+                icon: const Icon(Icons.view_cozy),
+                label: context.l10n.navigationFeatures,
+              ),
+              NavigationDestination(
+                icon: const Icon(Icons.settings),
+                label: context.l10n.navigationAbout,
+              ),
+            ],
+          ),
+        ),
+      ],
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
     _pages
@@ -313,54 +413,15 @@ class _HomeScreenState extends State<HomeScreen> with WindowListener {
                   ],
                 ),
               )
-            : Row(
+            : LayoutBuilder(
                 key: const ValueKey('content'), // 唯一键值
-                children: [
-                  NavigationRail(
-                    selectedIndex: _selectedIndex,
-                    onDestinationSelected: (int index) {
-                      setState(() {
-                        _selectedIndex = index;
-                      });
-                    },
-                    labelType: NavigationRailLabelType.all, // 始终显示按钮文本
-                    groupAlignment: 0.0, // 按钮上下居中
-                    backgroundColor: const Color(0xFFF9F9F9), // 设置背景颜色为 #F9F9F9
-                    useIndicator: true, // 启用指示器
-                    indicatorColor:
-                        const Color.fromARGB(255, 237, 237, 237), // 选中项的背景颜色
-                    destinations: [
-                      NavigationRailDestination(
-                        icon: const Icon(Icons.home_filled),
-                        selectedIcon: const Icon(Icons.home_filled),
-                        label: Text(
-                          context.l10n.navigationHome,
-                          style: const TextStyle(fontSize: 13), // 调整文本大小为13
-                        ),
-                      ),
-                      NavigationRailDestination(
-                        icon: const Icon(Icons.view_cozy),
-                        selectedIcon: const Icon(Icons.view_cozy),
-                        label: Text(
-                          context.l10n.navigationFeatures,
-                          style: const TextStyle(fontSize: 13), // 调整文本大小为13
-                        ),
-                      ),
-                      NavigationRailDestination(
-                        icon: const Icon(Icons.settings),
-                        selectedIcon: const Icon(Icons.settings),
-                        label: Text(
-                          context.l10n.navigationAbout,
-                          style: const TextStyle(fontSize: 13), // 调整文本大小为13
-                        ),
-                      ),
-                    ],
-                  ),
-                  const VerticalDivider(thickness: 1, width: 1),
-                  Expanded(
-                    child: _pages[_selectedIndex],
-                  ),
-                ],
+                builder: (context, constraints) {
+                  // 窄屏（窄窗口 / 移动端）时将侧边栏移动到页面底部
+                  if (constraints.maxWidth < _narrowLayoutBreakpoint) {
+                    return _buildNarrowLayout(context);
+                  }
+                  return _buildWideLayout(context);
+                },
               ),
       ),
     );

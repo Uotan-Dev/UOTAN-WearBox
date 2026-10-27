@@ -17,8 +17,8 @@ void main() async {
     center: true,
     backgroundColor: Colors.transparent,
     titleBarStyle: TitleBarStyle.hidden,
-    minimumSize: Size(1000, 680),
-    maximumSize: Size(1000, 680),
+    // 允许缩放为窄窗口，窄窗口下导航栏会移动到页面底部
+    minimumSize: Size(360, 600),
   );
 
   windowManager.waitUntilReadyToShow(windowOptions, () async {
