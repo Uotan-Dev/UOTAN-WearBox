@@ -87,15 +87,16 @@ class _CapturePageState extends State<CapturePage> {
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: <Widget>[
-                  const Text(
-                    '保存位置',
-                    style: TextStyle(fontSize: 20, fontFamily: 'MiSansLight'),
+                  Text(
+                    context.l10n.captureSaveLocation,
+                    style: const TextStyle(
+                        fontSize: 20, fontFamily: 'MiSansLight'),
                   ),
                   const SizedBox(height: 10),
                   Row(
                     children: <Widget>[
                       _buildModeButton(
-                        text: '电脑文件夹',
+                        text: context.l10n.captureComputerFolder,
                         isActive: _saveTarget == _SaveTarget.computer,
                         onTap: (_isBusy || _isRecording)
                             ? null
@@ -105,7 +106,7 @@ class _CapturePageState extends State<CapturePage> {
                       ),
                       const SizedBox(width: 8),
                       _buildModeButton(
-                        text: '设备文件夹',
+                        text: context.l10n.captureDeviceFolder,
                         isActive: _saveTarget == _SaveTarget.device,
                         onTap: (_isBusy || _isRecording)
                             ? null
@@ -136,22 +137,23 @@ class _CapturePageState extends State<CapturePage> {
                   const SizedBox(height: 8),
                   if (_saveTarget == _SaveTarget.computer)
                     _buildActionButton(
-                      text: '选择文件夹',
+                      text: context.l10n.captureChooseFolder,
                       onTap: (_isBusy || _isRecording)
                           ? null
                           : _selectLocalDirectory,
                     )
                   else
                     _buildActionButton(
-                      text: '设置设备路径',
+                      text: context.l10n.captureSetDevicePath,
                       onTap: (_isBusy || _isRecording)
                           ? null
                           : _editDeviceDirectory,
                     ),
                   const SizedBox(height: 16),
-                  const Text(
-                    '截屏与录屏',
-                    style: TextStyle(fontSize: 20, fontFamily: 'MiSansLight'),
+                  Text(
+                    context.l10n.captureSectionTitle,
+                    style: const TextStyle(
+                        fontSize: 20, fontFamily: 'MiSansLight'),
                   ),
                   const SizedBox(height: 12),
                   Wrap(
@@ -159,17 +161,17 @@ class _CapturePageState extends State<CapturePage> {
                     runSpacing: 8,
                     children: <Widget>[
                       _buildActionButton(
-                        text: '立即截屏',
+                        text: context.l10n.captureTakeScreenshot,
                         onTap: _isBusy ? null : _captureScreenshot,
                       ),
                       _buildActionButton(
-                        text: '开始录屏',
+                        text: context.l10n.captureStartRecording,
                         onTap: (_isBusy || _isRecording)
                             ? null
                             : _startScreenRecord,
                       ),
                       _buildActionButton(
-                        text: '停止录屏',
+                        text: context.l10n.captureStopRecording,
                         onTap: (_isBusy || !_isRecording)
                             ? null
                             : _stopScreenRecord,
@@ -177,9 +179,9 @@ class _CapturePageState extends State<CapturePage> {
                     ],
                   ),
                   const SizedBox(height: 12),
-                  const Text(
-                    '录屏开始后会锁定当前保存位置，防止中途切换导致导出异常。',
-                    style: TextStyle(fontSize: 14, color: Colors.black54),
+                  Text(
+                    context.l10n.captureLocationLockedHint,
+                    style: const TextStyle(fontSize: 14, color: Colors.black54),
                   ),
                   if (_isBusy) ...<Widget>[
                     const SizedBox(height: 16),
@@ -256,7 +258,7 @@ class _CapturePageState extends State<CapturePage> {
 
   Future<void> _selectLocalDirectory() async {
     final String? path = await FilePicker.platform.getDirectoryPath(
-      dialogTitle: '选择保存文件夹',
+      dialogTitle: context.l10n.captureChooseSaveFolder,
     );
     if (path == null || path.trim().isEmpty) {
       return;
@@ -272,7 +274,7 @@ class _CapturePageState extends State<CapturePage> {
       builder: (BuildContext context) {
         return AlertDialog(
           backgroundColor: const Color(0xFFF9F9F9),
-          title: const Text('设置设备保存路径'),
+          title: Text(context.l10n.captureDeviceSavePath),
           content: TextField(
             controller: controller,
             decoration: const InputDecoration(
@@ -317,10 +319,11 @@ class _CapturePageState extends State<CapturePage> {
           <String>['shell', 'screencap', '-p', remotePath],
         );
         if (result.exitCode != 0) {
-          _showErrorDialog(_stderrOrDefault(result, '设备截屏失败'));
+          _showErrorDialog(
+              _stderrOrDefault(result, context.l10n.captureScreenshotFailed));
           return;
         }
-        _showInfoDialog('截屏已保存到设备:\n$remotePath');
+        _showInfoDialog(context.l10n.captureScreenshotSavedDevice(remotePath));
         return;
       }
 
@@ -334,7 +337,8 @@ class _CapturePageState extends State<CapturePage> {
         <String>['shell', 'screencap', '-p', remotePath],
       );
       if (capResult.exitCode != 0) {
-        _showErrorDialog(_stderrOrDefault(capResult, '设备截屏失败'));
+        _showErrorDialog(
+            _stderrOrDefault(capResult, context.l10n.captureScreenshotFailed));
         return;
       }
 
@@ -343,14 +347,15 @@ class _CapturePageState extends State<CapturePage> {
         <String>['pull', remotePath, localPath],
       );
       if (pullResult.exitCode != 0) {
-        _showErrorDialog(_stderrOrDefault(pullResult, '导出截屏失败'));
+        _showErrorDialog(_stderrOrDefault(
+            pullResult, context.l10n.captureScreenshotExportFailed));
         return;
       }
 
       await Process.run(adbPath, <String>['shell', 'rm', '-f', remotePath]);
-      _showInfoDialog('截屏已保存到电脑:\n$localPath');
+      _showInfoDialog(context.l10n.captureScreenshotSavedComputer(localPath));
     } catch (e) {
-      _showErrorDialog('执行失败: $e');
+      _showErrorDialog(context.l10n.commandExecutionError(e.toString()));
     } finally {
       if (mounted) {
         setState(() => _isBusy = false);
@@ -384,13 +389,14 @@ class _CapturePageState extends State<CapturePage> {
       );
 
       if (result.exitCode != 0) {
-        _showErrorDialog(_stderrOrDefault(result, '开始录屏失败'));
+        _showErrorDialog(
+            _stderrOrDefault(result, context.l10n.captureRecordingStartFailed));
         return;
       }
 
       final String pid = _extractPid(result.stdout.toString());
       if (pid.isEmpty) {
-        _showErrorDialog('未能获取录屏进程，请确认设备支持 screenrecord。');
+        _showErrorDialog(context.l10n.captureRecordingProcessMissing);
         return;
       }
 
@@ -401,9 +407,9 @@ class _CapturePageState extends State<CapturePage> {
         _recordSaveTarget = target;
         _recordLocalDirectory = localDir;
       });
-      _showInfoDialog('已开始录屏。');
+      _showInfoDialog(context.l10n.captureRecordingStarted);
     } catch (e) {
-      _showErrorDialog('执行失败: $e');
+      _showErrorDialog(context.l10n.commandExecutionError(e.toString()));
     } finally {
       if (mounted) {
         setState(() => _isBusy = false);
@@ -416,7 +422,7 @@ class _CapturePageState extends State<CapturePage> {
     final String? remotePath = _recordRemotePath;
     final _SaveTarget? target = _recordSaveTarget;
     if (pid == null || remotePath == null || target == null) {
-      _showErrorDialog('录屏状态异常，请重新开始录屏。');
+      _showErrorDialog(context.l10n.captureRecordingInvalidState);
       return;
     }
 
@@ -427,7 +433,7 @@ class _CapturePageState extends State<CapturePage> {
 
       if (target == _SaveTarget.device) {
         _clearRecordState();
-        _showInfoDialog('录屏已保存到设备:\n$remotePath');
+        _showInfoDialog(context.l10n.captureRecordingSavedDevice(remotePath));
         return;
       }
 
@@ -442,15 +448,16 @@ class _CapturePageState extends State<CapturePage> {
         <String>['pull', remotePath, localPath],
       );
       if (pullResult.exitCode != 0) {
-        _showErrorDialog(_stderrOrDefault(pullResult, '导出录屏失败'));
+        _showErrorDialog(_stderrOrDefault(
+            pullResult, context.l10n.captureRecordingExportFailed));
         return;
       }
 
       await Process.run(adbPath, <String>['shell', 'rm', '-f', remotePath]);
       _clearRecordState();
-      _showInfoDialog('录屏已保存到电脑:\n$localPath');
+      _showInfoDialog(context.l10n.captureRecordingSavedComputer(localPath));
     } catch (e) {
-      _showErrorDialog('执行失败: $e');
+      _showErrorDialog(context.l10n.commandExecutionError(e.toString()));
     } finally {
       if (mounted) {
         setState(() => _isBusy = false);
@@ -493,7 +500,7 @@ class _CapturePageState extends State<CapturePage> {
         return false;
       }
       if (showDialog) {
-        _showErrorDialog('无法检查设备连接状态: $e');
+        _showErrorDialog(context.l10n.adbConnectionError(e.toString()));
       }
       return false;
     }
@@ -539,7 +546,7 @@ class _CapturePageState extends State<CapturePage> {
   }
 
   String _stderrOrDefault(ProcessResult result, String fallback) {
-    final String stderr = result.stderr.toString().trim();
+    final String stderr = result.stderr.trim();
     return stderr.isEmpty ? fallback : stderr;
   }
 

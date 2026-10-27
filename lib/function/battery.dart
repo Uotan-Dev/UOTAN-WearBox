@@ -5,6 +5,7 @@ import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:window_manager/window_manager.dart';
 import 'package:watch_assistant/l10n/l10n.dart';
+import 'package:watch_assistant/l10n/device_values.dart';
 
 class BatteryManagerPage extends StatefulWidget {
   const BatteryManagerPage({super.key});
@@ -144,7 +145,7 @@ class _BatteryManagerPageState extends State<BatteryManagerPage> {
                   progress: safeLevel / 100,
                   color: const Color.fromARGB(255, 30, 93, 229),
                   percentText: '$safeLevel%',
-                  usageText: '当前电量',
+                  usageText: context.l10n.batteryCurrentLevel,
                 ),
               ),
             ),
@@ -181,7 +182,8 @@ class _BatteryManagerPageState extends State<BatteryManagerPage> {
             ),
             const SizedBox(height: 12),
             _buildInfoRow(l10n.deviceBatteryLevel(_batteryLevel)),
-            _buildInfoRow(l10n.deviceBatteryHealth(_batteryHealth)),
+            _buildInfoRow(l10n.deviceBatteryHealth(
+                localizeBatteryHealth(l10n, _batteryHealth))),
             _buildInfoRow(l10n.deviceBatteryVoltage(_batteryVoltage)),
             _buildInfoRow(l10n.deviceBatteryTemperature(_batteryTemperature)),
           ],
@@ -206,13 +208,13 @@ class _BatteryManagerPageState extends State<BatteryManagerPage> {
             ),
             const SizedBox(height: 10),
             _buildInputRow(
-              labelText: '温度(°C)',
+              labelText: context.l10n.batteryTemperatureLabel,
               controller: _temperatureController,
               onTap: _setTemperature,
             ),
             const SizedBox(height: 10),
             _buildInputRow(
-              labelText: '电量(%)',
+              labelText: context.l10n.batteryLevelLabel,
               controller: _levelController,
               onTap: _setBatteryLevel,
             ),
@@ -221,37 +223,24 @@ class _BatteryManagerPageState extends State<BatteryManagerPage> {
               spacing: 8,
               runSpacing: 8,
               children: <Widget>[
-                Row(
-                  children: [
-                    _buildModeButton(
-                      text: '模拟非充电',
-                      onTap: _setNotCharging,
-                      isActive: _simulateNotCharging,
-                    ),
-                    SizedBox(
-                      width: 8,
-                    ),
-                    _buildModeButton(
-                      text: '模拟无线充电',
-                      onTap: _setWirelessCharging,
-                      isActive: _simulateWirelessCharging,
-                    ),
-                    SizedBox(
-                      width: 8,
-                    ),
-                    _buildModeButton(
-                      text: '模拟USB充电',
-                      onTap: _setUsbCharging,
-                      isActive: _simulateUsbCharging,
-                    ),
-                    SizedBox(
-                      width: 8,
-                    ),
-                    _buildModeButton(
-                      text: '恢复默认',
-                      onTap: () => _resetBattery(showMessage: true),
-                    ),
-                  ],
+                _buildModeButton(
+                  text: context.l10n.batterySimulateDischarging,
+                  onTap: _setNotCharging,
+                  isActive: _simulateNotCharging,
+                ),
+                _buildModeButton(
+                  text: context.l10n.batterySimulateWireless,
+                  onTap: _setWirelessCharging,
+                  isActive: _simulateWirelessCharging,
+                ),
+                _buildModeButton(
+                  text: context.l10n.batterySimulateUsb,
+                  onTap: _setUsbCharging,
+                  isActive: _simulateUsbCharging,
+                ),
+                _buildModeButton(
+                  text: context.l10n.batteryRestoreDefault,
+                  onTap: () => _resetBattery(showMessage: true),
                 ),
               ],
             ),
@@ -306,7 +295,8 @@ class _BatteryManagerPageState extends State<BatteryManagerPage> {
         SizedBox(
           width: 72,
           height: 46,
-          child: _buildActionButton(text: '修改', onTap: onTap),
+          child: _buildActionButton(
+              text: context.l10n.batteryModify, onTap: onTap),
         ),
       ],
     );
@@ -331,8 +321,9 @@ class _BatteryManagerPageState extends State<BatteryManagerPage> {
         borderRadius: BorderRadius.circular(6.0),
         onTap: _busy ? null : onTap,
         child: Center(
+          widthFactor: 1,
           child: Padding(
-            padding: EdgeInsets.symmetric(vertical: 10, horizontal: 20),
+            padding: const EdgeInsets.symmetric(vertical: 10, horizontal: 20),
             child: Text(text, style: TextStyle(color: fgColor, fontSize: 16)),
           ),
         ),
@@ -452,7 +443,7 @@ class _BatteryManagerPageState extends State<BatteryManagerPage> {
 
       setState(() {
         _batteryLevel = level;
-        _batteryHealth = _mapHealthCode(healthCode);
+        _batteryHealth = healthCode;
         _batteryVoltage = voltage;
         _batteryTemperature = temperature;
 
@@ -489,29 +480,10 @@ class _BatteryManagerPageState extends State<BatteryManagerPage> {
     return info;
   }
 
-  String _mapHealthCode(String code) {
-    switch (code.trim()) {
-      case '2':
-        return '良好 (2)';
-      case '3':
-        return '过热 (3)';
-      case '4':
-        return '损坏 (4)';
-      case '5':
-        return '过压 (5)';
-      case '6':
-        return '异常 (6)';
-      case '7':
-        return '过冷 (7)';
-      default:
-        return code.isEmpty ? '-' : code;
-    }
-  }
-
   Future<void> _resetBattery({bool showMessage = true}) async {
     final ProcessResult? result = await _runAdb(
       <String>['shell', 'dumpsys', 'battery', 'reset'],
-      successMessage: showMessage ? '电池模拟参数已恢复。' : null,
+      successMessage: showMessage ? context.l10n.batteryResetSuccess : null,
       showDialogOnSuccess: showMessage,
     );
     if (result != null && result.exitCode == 0) {
@@ -522,12 +494,12 @@ class _BatteryManagerPageState extends State<BatteryManagerPage> {
   Future<void> _setTemperature() async {
     final String raw = _temperatureController.text.trim();
     if (raw.isEmpty) {
-      _showErrorDialog('请输入温度值。');
+      _showErrorDialog(context.l10n.batteryEnterTemperature);
       return;
     }
     final double? value = double.tryParse(raw);
     if (value == null) {
-      _showErrorDialog('温度格式无效。');
+      _showErrorDialog(context.l10n.batteryInvalidTemperature);
       return;
     }
 
@@ -541,7 +513,8 @@ class _BatteryManagerPageState extends State<BatteryManagerPage> {
         'temperature',
         '$adbValue'
       ],
-      successMessage: '温度已修改为 ${value.toStringAsFixed(1)}°C',
+      successMessage:
+          context.l10n.batteryTemperatureChanged(value.toStringAsFixed(1)),
     );
     if (result != null && result.exitCode == 0) {
       await _refreshBatteryInfo(silent: true);
@@ -551,18 +524,18 @@ class _BatteryManagerPageState extends State<BatteryManagerPage> {
   Future<void> _setBatteryLevel() async {
     final String raw = _levelController.text.trim();
     if (raw.isEmpty) {
-      _showErrorDialog('请输入电量。');
+      _showErrorDialog(context.l10n.batteryEnterLevel);
       return;
     }
     final int? value = int.tryParse(raw);
     if (value == null || value < 0 || value > 100) {
-      _showErrorDialog('电量必须是 0-100 的整数。');
+      _showErrorDialog(context.l10n.batteryInvalidLevel);
       return;
     }
 
     final ProcessResult? result = await _runAdb(
       <String>['shell', 'dumpsys', 'battery', 'set', 'level', '$value'],
-      successMessage: '电量已修改为 $value%',
+      successMessage: context.l10n.batteryLevelChanged(value.toString()),
     );
     if (result != null && result.exitCode == 0) {
       await _refreshBatteryInfo(silent: true);
@@ -631,18 +604,19 @@ class _BatteryManagerPageState extends State<BatteryManagerPage> {
           ],
         ).timeout(_adbTimeout);
         if (result.exitCode != 0) {
-          final String stderr = result.stderr.toString().trim();
-          _showErrorDialog(
-              stderr.isEmpty ? 'ADB 命令执行失败。' : 'ADB 命令执行失败: $stderr');
+          final String stderr = result.stderr.trim();
+          _showErrorDialog(stderr.isEmpty
+              ? context.l10n.adbCommandFailed
+              : context.l10n.adbCommandError(stderr));
           return false;
         }
       }
       return true;
     } on TimeoutException {
-      _showErrorDialog('ADB 命令超时，请检查设备连接后重试。');
+      _showErrorDialog(context.l10n.adbCommandTimeout);
       return false;
     } catch (e) {
-      _showErrorDialog('无法执行 ADB 命令: $e');
+      _showErrorDialog(context.l10n.adbExecutionError(e.toString()));
       return false;
     } finally {
       if (mounted) {
@@ -676,11 +650,12 @@ class _BatteryManagerPageState extends State<BatteryManagerPage> {
     try {
       final ProcessResult result =
           await Process.run(adbPath, args).timeout(_adbTimeout);
-      final String stderr = result.stderr.toString().trim();
+      final String stderr = result.stderr.trim();
 
       if (result.exitCode != 0 && showDialogOnError) {
-        _showErrorDialog(
-            stderr.isEmpty ? 'ADB 命令执行失败。' : 'ADB 命令执行失败: $stderr');
+        _showErrorDialog(stderr.isEmpty
+            ? context.l10n.adbCommandFailed
+            : context.l10n.adbCommandError(stderr));
       } else if (result.exitCode == 0 &&
           successMessage != null &&
           showDialogOnSuccess) {
@@ -689,12 +664,12 @@ class _BatteryManagerPageState extends State<BatteryManagerPage> {
       return result;
     } on TimeoutException {
       if (showDialogOnError) {
-        _showErrorDialog('ADB 命令超时，请检查设备连接后重试。');
+        _showErrorDialog(context.l10n.adbCommandTimeout);
       }
       return null;
     } catch (e) {
       if (showDialogOnError) {
-        _showErrorDialog('无法执行 ADB 命令: $e');
+        _showErrorDialog(context.l10n.adbExecutionError(e.toString()));
       }
       return null;
     } finally {
@@ -729,7 +704,7 @@ class _BatteryManagerPageState extends State<BatteryManagerPage> {
         return false;
       }
       if (showDialog) {
-        _showErrorDialog('ADB 连接检查超时，请检查数据线或无线连接。');
+        _showErrorDialog(context.l10n.adbConnectionTimeout);
       }
       return false;
     } catch (e) {
@@ -737,7 +712,7 @@ class _BatteryManagerPageState extends State<BatteryManagerPage> {
         return false;
       }
       if (showDialog) {
-        _showErrorDialog('无法检查设备连接状态: $e');
+        _showErrorDialog(context.l10n.adbConnectionError(e.toString()));
       }
       return false;
     }

@@ -1,4 +1,4 @@
-﻿import 'dart:async';
+import 'dart:async';
 import '../platform_tools.dart';
 import 'dart:io';
 
@@ -175,9 +175,9 @@ class _MemoryCleanPageState extends State<MemoryCleanPage> {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: <Widget>[
-            const Text(
-              '内存状态',
-              style: TextStyle(fontSize: 20, fontFamily: 'MiSansLight'),
+            Text(
+              context.l10n.memoryStatusTitle,
+              style: const TextStyle(fontSize: 20, fontFamily: 'MiSansLight'),
             ),
             const SizedBox(height: 14),
             LinearProgressIndicator(
@@ -188,11 +188,11 @@ class _MemoryCleanPageState extends State<MemoryCleanPage> {
               borderRadius: BorderRadius.circular(999),
             ),
             const SizedBox(height: 12),
-            _buildInfoRow('总内存', _formatKb(total)),
-            _buildInfoRow('已使用', _formatKb(used)),
-            _buildInfoRow('可用内存', _formatKb(available)),
-            _buildInfoRow('空闲内存', _formatKb(free)),
-            _buildInfoRow('缓存', _formatKb(cached)),
+            _buildInfoRow(context.l10n.memoryTotal, _formatKb(total)),
+            _buildInfoRow(context.l10n.memoryUsed, _formatKb(used)),
+            _buildInfoRow(context.l10n.memoryAvailable, _formatKb(available)),
+            _buildInfoRow(context.l10n.memoryFree, _formatKb(free)),
+            _buildInfoRow(context.l10n.memoryCached, _formatKb(cached)),
           ],
         ),
       ),
@@ -209,9 +209,9 @@ class _MemoryCleanPageState extends State<MemoryCleanPage> {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: <Widget>[
-            const Text(
-              '清理操作',
-              style: TextStyle(fontSize: 20, fontFamily: 'MiSansLight'),
+            Text(
+              context.l10n.memoryCleanupTitle,
+              style: const TextStyle(fontSize: 20, fontFamily: 'MiSansLight'),
             ),
             const SizedBox(height: 10),
             Wrap(
@@ -219,19 +219,20 @@ class _MemoryCleanPageState extends State<MemoryCleanPage> {
               runSpacing: 4,
               children: <Widget>[
                 _buildActionButton(
-                  text: '一键清理后台',
+                  text: context.l10n.memoryClearBackground,
                   onTap: _killBackgroundProcesses,
                 ),
                 _buildActionButton(
-                  text: '清理应用缓存',
+                  text: context.l10n.memoryClearCache,
                   onTap: _trimCaches,
                 ),
               ],
             ),
             const SizedBox(height: 12),
-            const Padding(
-              padding: EdgeInsets.symmetric(horizontal: 4),
-              child: Text('自定义清理包名', style: TextStyle(fontSize: 14)),
+            Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 4),
+              child: Text(context.l10n.memoryCustomPackage,
+                  style: const TextStyle(fontSize: 14)),
             ),
             const SizedBox(height: 8),
             Padding(
@@ -241,7 +242,7 @@ class _MemoryCleanPageState extends State<MemoryCleanPage> {
                 enabled: !_isBusy,
                 decoration: InputDecoration(
                   isDense: true,
-                  hintText: '例如: com.google.android.gms',
+                  hintText: context.l10n.memoryPackageHint,
                   filled: true,
                   fillColor: Colors.white,
                   contentPadding:
@@ -259,7 +260,7 @@ class _MemoryCleanPageState extends State<MemoryCleanPage> {
             ),
             const SizedBox(height: 8),
             _buildActionButton(
-              text: '强制停止该应用',
+              text: context.l10n.memoryForceStop,
               onTap: _forceStopPackage,
             ),
           ],
@@ -443,7 +444,7 @@ class _MemoryCleanPageState extends State<MemoryCleanPage> {
   Future<void> _killBackgroundProcesses() async {
     await _runAdbCommand(
       <String>['shell', 'am', 'kill-all'],
-      successMessage: '后台进程清理完成。',
+      successMessage: context.l10n.memoryBackgroundCleared,
     );
     await _refreshMemoryInfo(silent: true);
   }
@@ -451,7 +452,7 @@ class _MemoryCleanPageState extends State<MemoryCleanPage> {
   Future<void> _trimCaches() async {
     await _runAdbCommand(
       <String>['shell', 'pm', 'trim-caches', '128G'],
-      successMessage: '缓存清理命令已执行。',
+      successMessage: context.l10n.memoryCacheCommandSent,
     );
     await _refreshMemoryInfo(silent: true);
   }
@@ -459,12 +460,12 @@ class _MemoryCleanPageState extends State<MemoryCleanPage> {
   Future<void> _forceStopPackage() async {
     final String packageName = _packageController.text.trim();
     if (packageName.isEmpty) {
-      _showErrorDialog('请输入包名。');
+      _showErrorDialog(context.l10n.memoryEnterPackage);
       return;
     }
     await _runAdbCommand(
       <String>['shell', 'am', 'force-stop', packageName],
-      successMessage: '已尝试停止: $packageName',
+      successMessage: context.l10n.memoryStopAttempted(packageName),
     );
     await _refreshMemoryInfo(silent: true);
   }
@@ -487,7 +488,7 @@ class _MemoryCleanPageState extends State<MemoryCleanPage> {
 
     try {
       final ProcessResult result = await Process.run(adbPath, args);
-      final String stderr = result.stderr.toString().trim();
+      final String stderr = result.stderr.trim();
 
       if (result.exitCode == 0) {
         if (successMessage != null) {
@@ -495,13 +496,15 @@ class _MemoryCleanPageState extends State<MemoryCleanPage> {
         }
       } else if (showErrorDialog) {
         _showErrorDialog(
-          stderr.isNotEmpty ? '执行失败: $stderr' : '执行失败，退出码: ${result.exitCode}',
+          stderr.isNotEmpty
+              ? context.l10n.commandStderrFailure(stderr)
+              : context.l10n.commandExitCodeFailure(result.exitCode.toString()),
         );
       }
       return result;
     } catch (e) {
       if (showErrorDialog) {
-        _showErrorDialog('无法执行 ADB 命令: $e');
+        _showErrorDialog(context.l10n.adbExecutionError(e.toString()));
       }
       return null;
     } finally {
@@ -535,7 +538,7 @@ class _MemoryCleanPageState extends State<MemoryCleanPage> {
       return connected;
     } catch (e) {
       if (showDialog) {
-        _showErrorDialog('无法检查设备连接状态: $e');
+        _showErrorDialog(context.l10n.adbConnectionError(e.toString()));
       }
       return false;
     }

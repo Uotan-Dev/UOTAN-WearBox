@@ -67,11 +67,11 @@ class _HomeScreenState extends State<HomeScreen> with WindowListener {
         await _checkForUpdates();
       } else {
         // 无法访问，显示错误提示
-        _showNoNetworkDialog('请检查网络或稍后再试。');
+        _showNoNetworkDialog();
       }
     } catch (e) {
       // 捕获异常，显示网络错误提示
-      _showNoNetworkDialog('请检查网络或稍后再试。');
+      _showNoNetworkDialog();
     } finally {
       setState(() {
         _isCheckingUpdate = false; // 检查完成后隐藏进度条

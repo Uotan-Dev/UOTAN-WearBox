@@ -1,4 +1,4 @@
-﻿import 'dart:io';
+import 'dart:io';
 import 'platform_tools.dart';
 
 import 'package:flutter/material.dart';
@@ -10,6 +10,7 @@ import 'blur_menu.dart';
 import 'driver.dart';
 import 'l10n/app_localizations.dart';
 import 'l10n/l10n.dart';
+import 'l10n/device_values.dart';
 import 'tutorial.dart';
 
 class Page1 extends StatefulWidget {
@@ -185,7 +186,7 @@ class _Page1State extends State<Page1> {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   Text(
-                    '连接帮助',
+                    context.l10n.homeConnectionHelp,
                     style: const TextStyle(
                       fontSize: 16,
                       fontWeight: FontWeight.bold,
@@ -200,9 +201,9 @@ class _Page1State extends State<Page1> {
                   _buildFlowRow(
                     context,
                     [
-                      const Text(
-                        '2. 使用',
-                        style: TextStyle(fontSize: 15),
+                      Text(
+                        context.l10n.homeWirelessUse,
+                        style: const TextStyle(fontSize: 15),
                       ),
                       const SizedBox(width: 4),
                       MouseRegion(
@@ -236,9 +237,9 @@ class _Page1State extends State<Page1> {
                   _buildFlowRow(
                     context,
                     [
-                      const Text(
-                        '3. 检查是否已开启',
-                        style: TextStyle(fontSize: 15),
+                      Text(
+                        context.l10n.homeCheckDebugPrefix,
+                        style: const TextStyle(fontSize: 15),
                       ),
                       const SizedBox(width: 4),
                       MouseRegion(
@@ -252,9 +253,9 @@ class _Page1State extends State<Page1> {
                               ),
                             );
                           },
-                          child: const Text(
-                            'USB 调试',
-                            style: TextStyle(
+                          child: Text(
+                            context.l10n.homeUsbDebugLink,
+                            style: const TextStyle(
                               fontSize: 15,
                               color: Colors.blue,
                             ),
@@ -262,9 +263,9 @@ class _Page1State extends State<Page1> {
                         ),
                       ),
                       const SizedBox(width: 4),
-                      const Text(
-                        '并安装了',
-                        style: TextStyle(fontSize: 15),
+                      Text(
+                        context.l10n.homeInstallDriverPrefix,
+                        style: const TextStyle(fontSize: 15),
                       ),
                       const SizedBox(width: 4),
                       MouseRegion(
@@ -278,9 +279,9 @@ class _Page1State extends State<Page1> {
                               ),
                             );
                           },
-                          child: const Text(
-                            'ADB 驱动',
-                            style: TextStyle(
+                          child: Text(
+                            context.l10n.homeAdbDriverLink,
+                            style: const TextStyle(
                               fontSize: 15,
                               color: Colors.blue,
                             ),
@@ -288,9 +289,9 @@ class _Page1State extends State<Page1> {
                         ),
                       ),
                       const SizedBox(width: 4),
-                      const Text(
-                        '程序',
-                        style: TextStyle(fontSize: 15),
+                      Text(
+                        context.l10n.homeDriverSuffix,
+                        style: const TextStyle(fontSize: 15),
                       ),
                     ],
                   ),
@@ -406,9 +407,9 @@ class _Page1State extends State<Page1> {
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    const Text(
-                      '重启至',
-                      style: TextStyle(
+                    Text(
+                      context.l10n.homeRebootTo,
+                      style: const TextStyle(
                         fontSize: 16,
                         fontWeight: FontWeight.bold,
                       ),
@@ -418,11 +419,14 @@ class _Page1State extends State<Page1> {
                       Wrap(
                         spacing: 4,
                         children: [
-                          for (final (String text, List<String> args) in const [
+                          for (final (String text, List<String> args) in [
                             ('Recovery', ['reboot', 'recovery']),
                             ('Bootloader', ['reboot', 'bootloader']),
                             ('Fastbootd', ['reboot', 'fastboot']),
-                            ('系统', ['shell', 'reboot', '-p']),
+                            (
+                              context.l10n.homeSystem,
+                              ['shell', 'reboot', '-p']
+                            ),
                             ('9008', ['reboot', 'edl']),
                           ])
                             _buildRebootButton(
@@ -470,7 +474,7 @@ class _Page1State extends State<Page1> {
                                 const SizedBox(height: 2),
                                 _buildRebootButton(
                                   context,
-                                  text: '系统',
+                                  text: context.l10n.homeSystem,
                                   selectedAdbId: selectedAdbId,
                                   adbArgs: const ['shell', 'reboot', '-p'],
                                 ),
@@ -552,15 +556,15 @@ class _Page1State extends State<Page1> {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            const Text(
-              '选择设备',
-              style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
+            Text(
+              context.l10n.homeSelectDevice,
+              style: const TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
             ),
             const SizedBox(height: 8),
             BlurDropdown<String>(
               bordered: true,
               value: dropdownValue,
-              hint: '无已连接设备',
+              hint: context.l10n.homeNoConnectedDevices,
               items: devices
                   .map(
                     (AdbDeviceInfo device) => BlurMenuItem<String>(
@@ -616,7 +620,9 @@ class _Page1State extends State<Page1> {
                               width: 4,
                             ),
                             Text(
-                              _isRefreshing ? '刷新中...' : '刷新设备',
+                              _isRefreshing
+                                  ? context.l10n.homeRefreshing
+                                  : context.l10n.homeRefreshDevices,
                               textAlign: TextAlign.center,
                               style: const TextStyle(
                                   color: Colors.black, fontSize: 14),
@@ -645,21 +651,21 @@ class _Page1State extends State<Page1> {
                           ),
                         );
                       },
-                      child: const Padding(
-                        padding: EdgeInsets.symmetric(
+                      child: Padding(
+                        padding: const EdgeInsets.symmetric(
                             horizontal: 16.0, vertical: 8.0),
                         child: Row(
                           mainAxisAlignment: MainAxisAlignment.center,
                           children: [
-                            Icon(Icons.wifi, size: 18),
-                            SizedBox(
+                            const Icon(Icons.wifi, size: 18),
+                            const SizedBox(
                               width: 4,
                             ),
                             Text(
-                              '无线连接',
+                              context.l10n.wirelessPageTitle,
                               textAlign: TextAlign.center,
-                              style:
-                                  TextStyle(color: Colors.black, fontSize: 14),
+                              style: const TextStyle(
+                                  color: Colors.black, fontSize: 14),
                             )
                           ],
                         ),
@@ -685,14 +691,14 @@ class _Page1State extends State<Page1> {
         return;
       }
       ScaffoldMessenger.of(context).showSnackBar(
-        const SnackBar(content: Text('设备列表已刷新')),
+        SnackBar(content: Text(context.l10n.homeDevicesRefreshed)),
       );
     } catch (e) {
       if (!mounted) {
         return;
       }
       ScaffoldMessenger.of(context).showSnackBar(
-        SnackBar(content: Text('刷新设备失败: $e')),
+        SnackBar(content: Text(context.l10n.homeRefreshFailed(e.toString()))),
       );
     } finally {
       if (mounted) {
@@ -721,25 +727,42 @@ class _Page1State extends State<Page1> {
 
     final allInfoRows = <List<String>>[
       [
-        l10n.deviceBrand(device.brand),
-        l10n.deviceResolution(device.resolution)
+        l10n.deviceBrand(localizeDeviceValue(l10n, device.brand)),
+        l10n.deviceResolution(localizeDeviceValue(l10n, device.resolution))
       ],
-      [l10n.deviceModel(device.model), l10n.deviceDpi(device.dpi)],
-      [l10n.deviceSerial(device.deviceId), l10n.deviceMemory(device.memory)],
-      [l10n.deviceUptime(device.uptime), l10n.deviceStorage(device.storage)],
       [
-        l10n.deviceBootloader(device.bootloaderStatus),
-        l10n.deviceArchitecture(device.cpuArch)
+        l10n.deviceModel(localizeDeviceValue(l10n, device.model)),
+        l10n.deviceDpi(localizeDeviceValue(l10n, device.dpi))
       ],
-      [batteryLevelText, l10n.deviceBatteryHealth(device.batteryHealth)],
+      [
+        l10n.deviceSerial(localizeDeviceValue(l10n, device.deviceId)),
+        l10n.deviceMemory(localizeMemoryUsage(l10n, device.memory))
+      ],
+      [
+        l10n.deviceUptime(localizeUptime(l10n, device.uptime)),
+        l10n.deviceStorage(localizeDeviceValue(l10n, device.storage))
+      ],
+      [
+        l10n.deviceBootloader(
+            localizeBootloaderStatus(l10n, device.bootloaderStatus)),
+        l10n.deviceArchitecture(localizeDeviceValue(l10n, device.cpuArch))
+      ],
+      [
+        batteryLevelText,
+        l10n.deviceBatteryHealth(
+            localizeBatteryHealth(l10n, device.batteryHealth))
+      ],
       [batteryVoltageText, batteryTemperatureText],
       [
-        l10n.deviceAndroidVersion(device.androidVersion),
-        l10n.devicePatchDate(device.patchDate)
+        l10n.deviceAndroidVersion(
+            localizeDeviceValue(l10n, device.androidVersion)),
+        l10n.devicePatchDate(localizeDeviceValue(l10n, device.patchDate))
       ],
       [
-        l10n.deviceSoftwareVersion(device.softwareVersion),
-        l10n.deviceKernelVersion(device.kernelVersion)
+        l10n.deviceSoftwareVersion(
+            localizeDeviceValue(l10n, device.softwareVersion)),
+        l10n.deviceKernelVersion(
+            localizeDeviceValue(l10n, device.kernelVersion))
       ],
     ];
 
@@ -757,9 +780,10 @@ class _Page1State extends State<Page1> {
                 allInfoRows.expand((pair) => pair).toList(),
               )
             else ...[
-              const Text(
-                '设备信息',
-                style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
+              Text(
+                context.l10n.homeDeviceInfo,
+                style:
+                    const TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
               ),
               const SizedBox(height: 6),
             ],
@@ -821,9 +845,9 @@ class _Page1State extends State<Page1> {
     return [
       Row(
         children: [
-          const Text(
-            '设备信息',
-            style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
+          Text(
+            context.l10n.homeDeviceInfo,
+            style: const TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
           ),
           const Spacer(),
           // 右移翻页控件，使右箭头笔画的右端与下方数据右对齐：
@@ -927,7 +951,7 @@ class _Page1State extends State<Page1> {
   Future<void> _runAdbCommand(String? selectedAdbId, List<String> args) async {
     if (selectedAdbId == null || selectedAdbId.isEmpty) {
       ScaffoldMessenger.of(context).showSnackBar(
-        const SnackBar(content: Text('请先选择设备')),
+        SnackBar(content: Text(context.l10n.homeSelectDeviceFirst)),
       );
       return;
     }
@@ -938,16 +962,18 @@ class _Page1State extends State<Page1> {
         return;
       }
       final messenger = ScaffoldMessenger.of(context);
-      final String stderr = result.stderr.toString().trim();
+      final String stderr = result.stderr.trim();
       if (result.exitCode == 0) {
         messenger.showSnackBar(
-          const SnackBar(content: Text('命令已发送')),
+          SnackBar(content: Text(context.l10n.homeCommandSent)),
         );
       } else {
         messenger.showSnackBar(
           SnackBar(
             content: Text(
-              stderr.isNotEmpty ? stderr : '执行失败: ${result.exitCode}',
+              stderr.isNotEmpty
+                  ? stderr
+                  : context.l10n.commandExitFailure(result.exitCode.toString()),
             ),
           ),
         );
@@ -957,7 +983,7 @@ class _Page1State extends State<Page1> {
         return;
       }
       ScaffoldMessenger.of(context).showSnackBar(
-        SnackBar(content: Text('ADB 执行异常: $e')),
+        SnackBar(content: Text(context.l10n.homeAdbError(e.toString()))),
       );
     }
   }

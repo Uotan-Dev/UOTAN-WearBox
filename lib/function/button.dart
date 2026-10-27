@@ -201,7 +201,7 @@ class _ButtonPageState extends State<ButtonPage> {
                 ),
                 foregroundColor: WidgetStateProperty.all<Color>(Colors.black),
               ),
-              child: const Text('确定'),
+              child: Text(context.l10n.dialogOk),
               onPressed: () {
                 Navigator.of(context).pop();
               },

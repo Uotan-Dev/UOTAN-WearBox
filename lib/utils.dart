@@ -1,4 +1,4 @@
-﻿import 'dart:async';
+import 'dart:async';
 import 'platform_tools.dart';
 import 'dart:io';
 
@@ -48,8 +48,7 @@ Future<List<AdbDeviceInfo>> fetchAdbDevices() async {
         await getAdbShellOutput(adbId, 'dumpsys battery | grep level');
     final String batteryHealthRaw =
         await getAdbShellOutput(adbId, 'dumpsys battery | grep health');
-    final String batteryHealth =
-        mapBatteryHealth(batteryHealthRaw.split(':').last.trim());
+    final String batteryHealth = batteryHealthRaw.split(':').last.trim();
     final String batteryVoltage =
         await getAdbShellOutput(adbId, 'dumpsys battery | grep voltage');
     final String batteryTemperatureRaw =
@@ -81,7 +80,7 @@ Future<List<AdbDeviceInfo>> fetchAdbDevices() async {
         resolution: resolution.split(':').last.trim(),
         dpi: dpi.split(':').last.trim(),
         bootloaderStatus: bootloaderStatus,
-        uptime: uptime.split('up ').last.split(',')[0].trim(),
+        uptime: uptime.split('up ').last.trim(),
         cpuArch: cpuArch,
       ),
     );
@@ -143,7 +142,7 @@ Future<String> getMemoryInfo(String deviceId) async {
     totalMem = totalMem ~/ 1024 ~/ 1024;
     final int percent = usedMem * 100 ~/ totalMem;
 
-    return '${usedMem}G/${totalMem}G ($percent% used)';
+    return '${usedMem}G/${totalMem}G ($percent%)';
   } catch (e) {
     print('Failed to get memory info: $e');
     return 'Unknown';
@@ -232,23 +231,6 @@ Future<String> getAdbShellOutput(String deviceId, String command) async {
   } catch (e) {
     print('Failed to get shell output: $e');
     return 'Unknown';
-  }
-}
-
-String mapBatteryHealth(String healthCode) {
-  switch (healthCode.trim()) {
-    case '2':
-      return '良好 (2)';
-    case '3':
-      return '过热 (3)';
-    case '4':
-      return '无用 (4)';
-    case '5':
-      return '超压 (5)';
-    case '7':
-      return '温度过低 (7)';
-    default:
-      return '未知 ($healthCode)';
   }
 }
 

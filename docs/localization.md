@@ -54,6 +54,8 @@ Text(context.l10n.pairingClearFailure(stderr)); // 带参数的文案
   - 值：`zh` / `en` / `ja`，或 `system`（跟随系统）
 - 启动时读取该值；为空或 `system` 时 `locale` 为 `null`，由 Flutter 按系统语言匹配
 
-## 已知待迁移
+## 动态设备信息
 
-部分功能页（如 `battery.dart`、`capture.dart`、`flash.dart`、`page1.dart` 中的 SnackBar）以及 `utils.dart` 中的电池健康映射仍硬编码中文，后续修改相关代码时建议一并迁移到 ARB。
+`utils.dart` 保留与语言无关的设备数据；电池健康代码、Bootloader 状态、内存使用率和开机时间通过 `lib/l10n/device_values.dart` 在显示时翻译，切换语言无需等待设备重新读取。
+
+功能页、首页提示、刷机工具自身的日志，以及隐私政策和用户协议全文均使用 ARB。设备返回的原始命令输出、分区名和文件路径保持原样；语言菜单使用各语言的本地名称。

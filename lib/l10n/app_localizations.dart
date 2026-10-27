@@ -1810,7 +1810,7 @@ abstract class AppLocalizations {
   /// No description provided for @githubDescription.
   ///
   /// In en, this message translates to:
-  /// **'Open-sourced under the APGL-3.0 License'**
+  /// **'Open-sourced under the AGPL-3.0 License'**
   String get githubDescription;
 
   /// No description provided for @driverTitle.
@@ -1932,6 +1932,1440 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'USB debugging setup guide (applicable to most devices)'**
   String get tutorialTitle;
+
+  /// No description provided for @homeConnectionHelp.
+  ///
+  /// In en, this message translates to:
+  /// **'Connection help'**
+  String get homeConnectionHelp;
+
+  /// No description provided for @homeWirelessUse.
+  ///
+  /// In en, this message translates to:
+  /// **'2. Use'**
+  String get homeWirelessUse;
+
+  /// No description provided for @homeCheckDebugPrefix.
+  ///
+  /// In en, this message translates to:
+  /// **'3. Make sure you have enabled'**
+  String get homeCheckDebugPrefix;
+
+  /// No description provided for @homeUsbDebugLink.
+  ///
+  /// In en, this message translates to:
+  /// **'USB debugging'**
+  String get homeUsbDebugLink;
+
+  /// No description provided for @homeInstallDriverPrefix.
+  ///
+  /// In en, this message translates to:
+  /// **'and installed the'**
+  String get homeInstallDriverPrefix;
+
+  /// No description provided for @homeAdbDriverLink.
+  ///
+  /// In en, this message translates to:
+  /// **'ADB driver'**
+  String get homeAdbDriverLink;
+
+  /// No description provided for @homeDriverSuffix.
+  ///
+  /// In en, this message translates to:
+  /// **''**
+  String get homeDriverSuffix;
+
+  /// No description provided for @homeRebootTo.
+  ///
+  /// In en, this message translates to:
+  /// **'Reboot to'**
+  String get homeRebootTo;
+
+  /// No description provided for @homeSystem.
+  ///
+  /// In en, this message translates to:
+  /// **'System'**
+  String get homeSystem;
+
+  /// No description provided for @homeSelectDevice.
+  ///
+  /// In en, this message translates to:
+  /// **'Select device'**
+  String get homeSelectDevice;
+
+  /// No description provided for @homeNoConnectedDevices.
+  ///
+  /// In en, this message translates to:
+  /// **'No connected devices'**
+  String get homeNoConnectedDevices;
+
+  /// No description provided for @homeRefreshing.
+  ///
+  /// In en, this message translates to:
+  /// **'Refreshing...'**
+  String get homeRefreshing;
+
+  /// No description provided for @homeRefreshDevices.
+  ///
+  /// In en, this message translates to:
+  /// **'Refresh devices'**
+  String get homeRefreshDevices;
+
+  /// No description provided for @homeDevicesRefreshed.
+  ///
+  /// In en, this message translates to:
+  /// **'Device list refreshed'**
+  String get homeDevicesRefreshed;
+
+  /// No description provided for @homeRefreshFailed.
+  ///
+  /// In en, this message translates to:
+  /// **'Failed to refresh devices: {error}'**
+  String homeRefreshFailed(String error);
+
+  /// No description provided for @homeDeviceInfo.
+  ///
+  /// In en, this message translates to:
+  /// **'Device information'**
+  String get homeDeviceInfo;
+
+  /// No description provided for @homeSelectDeviceFirst.
+  ///
+  /// In en, this message translates to:
+  /// **'Please select a device first'**
+  String get homeSelectDeviceFirst;
+
+  /// No description provided for @homeCommandSent.
+  ///
+  /// In en, this message translates to:
+  /// **'Command sent'**
+  String get homeCommandSent;
+
+  /// No description provided for @commandExitFailure.
+  ///
+  /// In en, this message translates to:
+  /// **'Command failed with exit code: {code}'**
+  String commandExitFailure(String code);
+
+  /// No description provided for @homeAdbError.
+  ///
+  /// In en, this message translates to:
+  /// **'ADB error: {error}'**
+  String homeAdbError(String error);
+
+  /// No description provided for @batteryCurrentLevel.
+  ///
+  /// In en, this message translates to:
+  /// **'Current charge'**
+  String get batteryCurrentLevel;
+
+  /// No description provided for @batteryTemperatureLabel.
+  ///
+  /// In en, this message translates to:
+  /// **'Temperature (°C)'**
+  String get batteryTemperatureLabel;
+
+  /// No description provided for @batteryLevelLabel.
+  ///
+  /// In en, this message translates to:
+  /// **'Charge (%)'**
+  String get batteryLevelLabel;
+
+  /// No description provided for @batterySimulateDischarging.
+  ///
+  /// In en, this message translates to:
+  /// **'Simulate discharging'**
+  String get batterySimulateDischarging;
+
+  /// No description provided for @batterySimulateWireless.
+  ///
+  /// In en, this message translates to:
+  /// **'Simulate wireless charging'**
+  String get batterySimulateWireless;
+
+  /// No description provided for @batterySimulateUsb.
+  ///
+  /// In en, this message translates to:
+  /// **'Simulate USB charging'**
+  String get batterySimulateUsb;
+
+  /// No description provided for @batteryRestoreDefault.
+  ///
+  /// In en, this message translates to:
+  /// **'Restore defaults'**
+  String get batteryRestoreDefault;
+
+  /// No description provided for @batteryModify.
+  ///
+  /// In en, this message translates to:
+  /// **'Apply'**
+  String get batteryModify;
+
+  /// No description provided for @batteryHealthGood.
+  ///
+  /// In en, this message translates to:
+  /// **'Good (2)'**
+  String get batteryHealthGood;
+
+  /// No description provided for @batteryHealthOverheat.
+  ///
+  /// In en, this message translates to:
+  /// **'Overheating (3)'**
+  String get batteryHealthOverheat;
+
+  /// No description provided for @batteryHealthDead.
+  ///
+  /// In en, this message translates to:
+  /// **'Dead (4)'**
+  String get batteryHealthDead;
+
+  /// No description provided for @batteryHealthOverVoltage.
+  ///
+  /// In en, this message translates to:
+  /// **'Overvoltage (5)'**
+  String get batteryHealthOverVoltage;
+
+  /// No description provided for @batteryHealthFailure.
+  ///
+  /// In en, this message translates to:
+  /// **'Failure (6)'**
+  String get batteryHealthFailure;
+
+  /// No description provided for @batteryHealthCold.
+  ///
+  /// In en, this message translates to:
+  /// **'Too cold (7)'**
+  String get batteryHealthCold;
+
+  /// No description provided for @batteryHealthUnknown.
+  ///
+  /// In en, this message translates to:
+  /// **'Unknown ({code})'**
+  String batteryHealthUnknown(String code);
+
+  /// No description provided for @batteryResetSuccess.
+  ///
+  /// In en, this message translates to:
+  /// **'Battery simulation settings restored.'**
+  String get batteryResetSuccess;
+
+  /// No description provided for @batteryEnterTemperature.
+  ///
+  /// In en, this message translates to:
+  /// **'Please enter a temperature.'**
+  String get batteryEnterTemperature;
+
+  /// No description provided for @batteryInvalidTemperature.
+  ///
+  /// In en, this message translates to:
+  /// **'Invalid temperature format.'**
+  String get batteryInvalidTemperature;
+
+  /// No description provided for @batteryTemperatureChanged.
+  ///
+  /// In en, this message translates to:
+  /// **'Temperature changed to {temperature}°C'**
+  String batteryTemperatureChanged(String temperature);
+
+  /// No description provided for @batteryEnterLevel.
+  ///
+  /// In en, this message translates to:
+  /// **'Please enter a charge level.'**
+  String get batteryEnterLevel;
+
+  /// No description provided for @batteryInvalidLevel.
+  ///
+  /// In en, this message translates to:
+  /// **'Charge must be an integer from 0 to 100.'**
+  String get batteryInvalidLevel;
+
+  /// No description provided for @batteryLevelChanged.
+  ///
+  /// In en, this message translates to:
+  /// **'Charge changed to {level}%'**
+  String batteryLevelChanged(String level);
+
+  /// No description provided for @adbCommandFailed.
+  ///
+  /// In en, this message translates to:
+  /// **'ADB command failed.'**
+  String get adbCommandFailed;
+
+  /// No description provided for @adbCommandError.
+  ///
+  /// In en, this message translates to:
+  /// **'ADB command failed: {details}'**
+  String adbCommandError(String details);
+
+  /// No description provided for @adbCommandTimeout.
+  ///
+  /// In en, this message translates to:
+  /// **'ADB command timed out. Check the device connection and try again.'**
+  String get adbCommandTimeout;
+
+  /// No description provided for @adbExecutionError.
+  ///
+  /// In en, this message translates to:
+  /// **'Unable to run ADB command: {error}'**
+  String adbExecutionError(String error);
+
+  /// No description provided for @adbConnectionTimeout.
+  ///
+  /// In en, this message translates to:
+  /// **'ADB connection check timed out. Check the cable or wireless connection.'**
+  String get adbConnectionTimeout;
+
+  /// No description provided for @adbConnectionError.
+  ///
+  /// In en, this message translates to:
+  /// **'Unable to check device connection: {error}'**
+  String adbConnectionError(String error);
+
+  /// No description provided for @captureSaveLocation.
+  ///
+  /// In en, this message translates to:
+  /// **'Save location'**
+  String get captureSaveLocation;
+
+  /// No description provided for @captureComputerFolder.
+  ///
+  /// In en, this message translates to:
+  /// **'Computer folder'**
+  String get captureComputerFolder;
+
+  /// No description provided for @captureDeviceFolder.
+  ///
+  /// In en, this message translates to:
+  /// **'Device folder'**
+  String get captureDeviceFolder;
+
+  /// No description provided for @captureChooseFolder.
+  ///
+  /// In en, this message translates to:
+  /// **'Choose folder'**
+  String get captureChooseFolder;
+
+  /// No description provided for @captureSetDevicePath.
+  ///
+  /// In en, this message translates to:
+  /// **'Set device path'**
+  String get captureSetDevicePath;
+
+  /// No description provided for @captureSectionTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Screenshot and recording'**
+  String get captureSectionTitle;
+
+  /// No description provided for @captureTakeScreenshot.
+  ///
+  /// In en, this message translates to:
+  /// **'Take screenshot'**
+  String get captureTakeScreenshot;
+
+  /// No description provided for @captureStartRecording.
+  ///
+  /// In en, this message translates to:
+  /// **'Start recording'**
+  String get captureStartRecording;
+
+  /// No description provided for @captureStopRecording.
+  ///
+  /// In en, this message translates to:
+  /// **'Stop recording'**
+  String get captureStopRecording;
+
+  /// No description provided for @captureLocationLockedHint.
+  ///
+  /// In en, this message translates to:
+  /// **'The save location is locked during recording to prevent export errors.'**
+  String get captureLocationLockedHint;
+
+  /// No description provided for @captureChooseSaveFolder.
+  ///
+  /// In en, this message translates to:
+  /// **'Choose save folder'**
+  String get captureChooseSaveFolder;
+
+  /// No description provided for @captureDeviceSavePath.
+  ///
+  /// In en, this message translates to:
+  /// **'Set device save path'**
+  String get captureDeviceSavePath;
+
+  /// No description provided for @captureScreenshotFailed.
+  ///
+  /// In en, this message translates to:
+  /// **'Failed to capture screenshot on device'**
+  String get captureScreenshotFailed;
+
+  /// No description provided for @captureScreenshotSavedDevice.
+  ///
+  /// In en, this message translates to:
+  /// **'Screenshot saved on device:\n{path}'**
+  String captureScreenshotSavedDevice(String path);
+
+  /// No description provided for @captureScreenshotExportFailed.
+  ///
+  /// In en, this message translates to:
+  /// **'Failed to export screenshot'**
+  String get captureScreenshotExportFailed;
+
+  /// No description provided for @captureScreenshotSavedComputer.
+  ///
+  /// In en, this message translates to:
+  /// **'Screenshot saved on computer:\n{path}'**
+  String captureScreenshotSavedComputer(String path);
+
+  /// No description provided for @commandExecutionError.
+  ///
+  /// In en, this message translates to:
+  /// **'Execution failed: {error}'**
+  String commandExecutionError(String error);
+
+  /// No description provided for @captureRecordingStartFailed.
+  ///
+  /// In en, this message translates to:
+  /// **'Failed to start recording'**
+  String get captureRecordingStartFailed;
+
+  /// No description provided for @captureRecordingProcessMissing.
+  ///
+  /// In en, this message translates to:
+  /// **'Unable to find the recording process. Check that the device supports screenrecord.'**
+  String get captureRecordingProcessMissing;
+
+  /// No description provided for @captureRecordingStarted.
+  ///
+  /// In en, this message translates to:
+  /// **'Recording started.'**
+  String get captureRecordingStarted;
+
+  /// No description provided for @captureRecordingInvalidState.
+  ///
+  /// In en, this message translates to:
+  /// **'Invalid recording state. Please restart recording.'**
+  String get captureRecordingInvalidState;
+
+  /// No description provided for @captureRecordingSavedDevice.
+  ///
+  /// In en, this message translates to:
+  /// **'Recording saved on device:\n{path}'**
+  String captureRecordingSavedDevice(String path);
+
+  /// No description provided for @captureRecordingExportFailed.
+  ///
+  /// In en, this message translates to:
+  /// **'Failed to export recording'**
+  String get captureRecordingExportFailed;
+
+  /// No description provided for @captureRecordingSavedComputer.
+  ///
+  /// In en, this message translates to:
+  /// **'Recording saved on computer:\n{path}'**
+  String captureRecordingSavedComputer(String path);
+
+  /// No description provided for @flashPageTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Custom flash'**
+  String get flashPageTitle;
+
+  /// No description provided for @flashCustomPartition.
+  ///
+  /// In en, this message translates to:
+  /// **'Custom partition'**
+  String get flashCustomPartition;
+
+  /// No description provided for @flashChooseFile.
+  ///
+  /// In en, this message translates to:
+  /// **'File'**
+  String get flashChooseFile;
+
+  /// No description provided for @flashTargetPartition.
+  ///
+  /// In en, this message translates to:
+  /// **'Flash to'**
+  String get flashTargetPartition;
+
+  /// No description provided for @flashAction.
+  ///
+  /// In en, this message translates to:
+  /// **'Flash'**
+  String get flashAction;
+
+  /// No description provided for @flashLogTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Log output'**
+  String get flashLogTitle;
+
+  /// No description provided for @flashNoLogs.
+  ///
+  /// In en, this message translates to:
+  /// **'No logs yet'**
+  String get flashNoLogs;
+
+  /// No description provided for @flashQuickActions.
+  ///
+  /// In en, this message translates to:
+  /// **'Quick actions'**
+  String get flashQuickActions;
+
+  /// No description provided for @flashDisableVbmeta.
+  ///
+  /// In en, this message translates to:
+  /// **'Disable vbmeta verification'**
+  String get flashDisableVbmeta;
+
+  /// No description provided for @flashSwitchSlot.
+  ///
+  /// In en, this message translates to:
+  /// **'Switch slot'**
+  String get flashSwitchSlot;
+
+  /// No description provided for @flashSelectImageFirst.
+  ///
+  /// In en, this message translates to:
+  /// **'Please select an image file first.'**
+  String get flashSelectImageFirst;
+
+  /// No description provided for @flashEnterPartition.
+  ///
+  /// In en, this message translates to:
+  /// **'Please enter a partition name.'**
+  String get flashEnterPartition;
+
+  /// No description provided for @flashSelectVbmetaImage.
+  ///
+  /// In en, this message translates to:
+  /// **'Select vbmeta image'**
+  String get flashSelectVbmetaImage;
+
+  /// No description provided for @flashUnknownSlot.
+  ///
+  /// In en, this message translates to:
+  /// **'Unable to identify the current slot. Check the fastboot log.'**
+  String get flashUnknownSlot;
+
+  /// No description provided for @flashSwitchSlotFailed.
+  ///
+  /// In en, this message translates to:
+  /// **'Failed to switch slot: {error}'**
+  String flashSwitchSlotFailed(String error);
+
+  /// No description provided for @flashOperationFailed.
+  ///
+  /// In en, this message translates to:
+  /// **'Operation failed with exit code: {code}'**
+  String flashOperationFailed(String code);
+
+  /// No description provided for @flashExecutionError.
+  ///
+  /// In en, this message translates to:
+  /// **'Unable to run fastboot command: {error}'**
+  String flashExecutionError(String error);
+
+  /// No description provided for @flashNoDevice.
+  ///
+  /// In en, this message translates to:
+  /// **'No fastboot device detected. Make sure the device is in fastboot mode.'**
+  String get flashNoDevice;
+
+  /// No description provided for @flashDetectionError.
+  ///
+  /// In en, this message translates to:
+  /// **'Unable to detect fastboot devices. Make sure fastboot is installed and available.\n{error}'**
+  String flashDetectionError(String error);
+
+  /// No description provided for @memoryStatusTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Memory status'**
+  String get memoryStatusTitle;
+
+  /// No description provided for @memoryTotal.
+  ///
+  /// In en, this message translates to:
+  /// **'Total memory'**
+  String get memoryTotal;
+
+  /// No description provided for @memoryUsed.
+  ///
+  /// In en, this message translates to:
+  /// **'Used'**
+  String get memoryUsed;
+
+  /// No description provided for @memoryAvailable.
+  ///
+  /// In en, this message translates to:
+  /// **'Available memory'**
+  String get memoryAvailable;
+
+  /// No description provided for @memoryFree.
+  ///
+  /// In en, this message translates to:
+  /// **'Free memory'**
+  String get memoryFree;
+
+  /// No description provided for @memoryCached.
+  ///
+  /// In en, this message translates to:
+  /// **'Cached'**
+  String get memoryCached;
+
+  /// No description provided for @memoryCleanupTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Cleanup actions'**
+  String get memoryCleanupTitle;
+
+  /// No description provided for @memoryClearBackground.
+  ///
+  /// In en, this message translates to:
+  /// **'Clear background processes'**
+  String get memoryClearBackground;
+
+  /// No description provided for @memoryClearCache.
+  ///
+  /// In en, this message translates to:
+  /// **'Clear app cache'**
+  String get memoryClearCache;
+
+  /// No description provided for @memoryCustomPackage.
+  ///
+  /// In en, this message translates to:
+  /// **'Custom package to stop'**
+  String get memoryCustomPackage;
+
+  /// No description provided for @memoryPackageHint.
+  ///
+  /// In en, this message translates to:
+  /// **'Example: com.google.android.gms'**
+  String get memoryPackageHint;
+
+  /// No description provided for @memoryForceStop.
+  ///
+  /// In en, this message translates to:
+  /// **'Force stop app'**
+  String get memoryForceStop;
+
+  /// No description provided for @memoryBackgroundCleared.
+  ///
+  /// In en, this message translates to:
+  /// **'Background processes cleared.'**
+  String get memoryBackgroundCleared;
+
+  /// No description provided for @memoryCacheCommandSent.
+  ///
+  /// In en, this message translates to:
+  /// **'Cache cleanup command executed.'**
+  String get memoryCacheCommandSent;
+
+  /// No description provided for @memoryEnterPackage.
+  ///
+  /// In en, this message translates to:
+  /// **'Please enter a package name.'**
+  String get memoryEnterPackage;
+
+  /// No description provided for @memoryStopAttempted.
+  ///
+  /// In en, this message translates to:
+  /// **'Attempted to stop: {packageName}'**
+  String memoryStopAttempted(String packageName);
+
+  /// No description provided for @commandStderrFailure.
+  ///
+  /// In en, this message translates to:
+  /// **'Execution failed: {details}'**
+  String commandStderrFailure(String details);
+
+  /// No description provided for @commandExitCodeFailure.
+  ///
+  /// In en, this message translates to:
+  /// **'Command failed with exit code: {code}'**
+  String commandExitCodeFailure(String code);
+
+  /// No description provided for @privacyParagraph1.
+  ///
+  /// In en, this message translates to:
+  /// **'Privacy Policy'**
+  String get privacyParagraph1;
+
+  /// No description provided for @privacyParagraph2.
+  ///
+  /// In en, this message translates to:
+  /// **'Uotan WearBox Privacy Policy'**
+  String get privacyParagraph2;
+
+  /// No description provided for @privacyParagraph3.
+  ///
+  /// In en, this message translates to:
+  /// **'Last updated: September 19, 2024'**
+  String get privacyParagraph3;
+
+  /// No description provided for @privacyParagraph4.
+  ///
+  /// In en, this message translates to:
+  /// **'Welcome to Uotan WearBox (the “App”). We understand the importance of personal information and undertake to comply strictly with applicable laws and regulations and adopt appropriate security measures to protect it. Before using the App, please read and fully understand this Privacy Policy.'**
+  String get privacyParagraph4;
+
+  /// No description provided for @privacyParagraph5.
+  ///
+  /// In en, this message translates to:
+  /// **'1. Information we collect'**
+  String get privacyParagraph5;
+
+  /// No description provided for @privacyParagraph6.
+  ///
+  /// In en, this message translates to:
+  /// **'1. Internet Protocol address: We collect your IP address only when necessary to ensure the proper operation and security of the App. Apart from your IP address, we do not collect other information that identifies you personally.'**
+  String get privacyParagraph6;
+
+  /// No description provided for @privacyParagraph7.
+  ///
+  /// In en, this message translates to:
+  /// **'2. Required permissions:'**
+  String get privacyParagraph7;
+
+  /// No description provided for @privacyParagraph8.
+  ///
+  /// In en, this message translates to:
+  /// **'     - Network access: The App requires network access for data transfers, server communication, and feature updates.\n     - Device information: To improve performance and compatibility, we may read device information such as the model and operating system version.\n     - Storage access: The App may read and write device storage to cache data, save user settings, and provide offline features.'**
+  String get privacyParagraph8;
+
+  /// No description provided for @privacyParagraph9.
+  ///
+  /// In en, this message translates to:
+  /// **'2. How we use information'**
+  String get privacyParagraph9;
+
+  /// No description provided for @privacyParagraph10.
+  ///
+  /// In en, this message translates to:
+  /// **'1. Providing and maintaining services: We use the IP address and device information collected to ensure the App operates properly, improve its features, and continually enhance the user experience.'**
+  String get privacyParagraph10;
+
+  /// No description provided for @privacyParagraph11.
+  ///
+  /// In en, this message translates to:
+  /// **'2. Security: We use IP addresses and device information for security monitoring and risk prevention, including preventing fraud, network attacks, and other activities that may compromise system security.'**
+  String get privacyParagraph11;
+
+  /// No description provided for @privacyParagraph12.
+  ///
+  /// In en, this message translates to:
+  /// **'3. Legal basis for processing personal information'**
+  String get privacyParagraph12;
+
+  /// No description provided for @privacyParagraph13.
+  ///
+  /// In en, this message translates to:
+  /// **'For users in mainland China, we collect and use personal information to provide products and/or services in accordance with the Cybersecurity Law of the People’s Republic of China, Information Security Technology — Personal Information Security Specification (GB/T 35273-2017), and other applicable laws and regulations. We generally collect personal information only with your consent. In some cases, collection may be necessary to meet legal obligations, perform a contract, or protect your vital interests or those of others.'**
+  String get privacyParagraph13;
+
+  /// No description provided for @privacyParagraph14.
+  ///
+  /// In en, this message translates to:
+  /// **'4. Sharing, transferring, and publicly disclosing information'**
+  String get privacyParagraph14;
+
+  /// No description provided for @privacyParagraph15.
+  ///
+  /// In en, this message translates to:
+  /// **'1. Legal requirements: We may disclose personal information when lawfully required by judicial or governmental authorities, subject to applicable laws and regulations.'**
+  String get privacyParagraph15;
+
+  /// No description provided for @privacyParagraph16.
+  ///
+  /// In en, this message translates to:
+  /// **'2. Business transfers: In a merger, acquisition, asset transfer, or similar transaction, your personal information may be transferred as an asset. We will require the new holder to remain bound by this Policy or obtain your consent again.'**
+  String get privacyParagraph16;
+
+  /// No description provided for @privacyParagraph17.
+  ///
+  /// In en, this message translates to:
+  /// **'3. Unauthorized disclosure: We will not publicly disclose your personal information without your explicit consent.'**
+  String get privacyParagraph17;
+
+  /// No description provided for @privacyParagraph18.
+  ///
+  /// In en, this message translates to:
+  /// **'4. Exceptions to consent for sharing, transferring, or publicly disclosing personal information'**
+  String get privacyParagraph18;
+
+  /// No description provided for @privacyParagraph19.
+  ///
+  /// In en, this message translates to:
+  /// **'Under applicable laws and regulations, we may share, transfer, or publicly disclose personal information without your consent in the following circumstances:'**
+  String get privacyParagraph19;
+
+  /// No description provided for @privacyParagraph20.
+  ///
+  /// In en, this message translates to:
+  /// **'    - Matters concerning national security or national defense;\n    - Matters concerning public security, public health, or major public interests;\n    - Criminal investigations, prosecutions, trials, or enforcement of judgments;\n    - Protecting major lawful rights and interests, such as life or property, when obtaining consent is difficult;\n    - Personal information you have made public yourself;\n    - Information collected from lawful public disclosures, such as legitimate news reports or government disclosures;\n    - Other circumstances prescribed by law.'**
+  String get privacyParagraph20;
+
+  /// No description provided for @privacyParagraph21.
+  ///
+  /// In en, this message translates to:
+  /// **'5. Storage and protection of information'**
+  String get privacyParagraph21;
+
+  /// No description provided for @privacyParagraph22.
+  ///
+  /// In en, this message translates to:
+  /// **'1. Storage: We store information collected from you in the People’s Republic of China or the Hong Kong Special Administrative Region. For cross-border transfers, we will separately notify you by a pop-up or email of the purpose, recipient, and other details, and obtain your consent. We will ensure the recipient has adequate data protection capabilities.'**
+  String get privacyParagraph22;
+
+  /// No description provided for @privacyParagraph23.
+  ///
+  /// In en, this message translates to:
+  /// **'2. Security measures: We strive to protect your personal information through physical, electronic, and administrative safeguards that meet industry standards. We establish data classification systems and standards for data security management and secure development to govern storage and use, and ensure we do not collect personal information unrelated to our services.'**
+  String get privacyParagraph23;
+
+  /// No description provided for @privacyParagraph24.
+  ///
+  /// In en, this message translates to:
+  /// **'3. Security incidents: Although we make every effort to secure the information you send us, technical limitations and malicious activity on the Internet mean that absolute security cannot be guaranteed. Systems and communication networks used to access our services may experience problems beyond our control.'**
+  String get privacyParagraph24;
+
+  /// No description provided for @privacyParagraph25.
+  ///
+  /// In en, this message translates to:
+  /// **'We maintain warning mechanisms and emergency plans to prevent security incidents. If a personal information security incident occurs, we will promptly inform you, as required by law, of its nature and potential impact, measures taken or planned, advice on reducing risks, and remedies available to you. We will immediately activate our emergency plan to minimize losses. We will notify you by telephone, push notification, or other means, or issue a reasonable and effective public announcement if individual notification is difficult. We will also report our response to regulators as required and cooperate closely with government authorities.'**
+  String get privacyParagraph25;
+
+  /// No description provided for @privacyParagraph26.
+  ///
+  /// In en, this message translates to:
+  /// **'6. Your rights'**
+  String get privacyParagraph26;
+
+  /// No description provided for @privacyParagraph27.
+  ///
+  /// In en, this message translates to:
+  /// **'1. Access and correction: You have the right to access and update your personal information. To exercise these rights, contact us using the details in this Policy.'**
+  String get privacyParagraph27;
+
+  /// No description provided for @privacyParagraph28.
+  ///
+  /// In en, this message translates to:
+  /// **'2. Deletion and withdrawal of consent: Subject to applicable laws, you may request deletion of your personal information or withdraw consent. Deletion or withdrawal may prevent us from continuing to provide some or all services.'**
+  String get privacyParagraph28;
+
+  /// No description provided for @privacyParagraph29.
+  ///
+  /// In en, this message translates to:
+  /// **'7. Protection of minors'**
+  String get privacyParagraph29;
+
+  /// No description provided for @privacyParagraph30.
+  ///
+  /// In en, this message translates to:
+  /// **'We take the protection of minors’ personal information seriously. If you are under 18, use the App with the consent and guidance of a parent or legal guardian, and provide personal information only with their consent.'**
+  String get privacyParagraph30;
+
+  /// No description provided for @privacyParagraph31.
+  ///
+  /// In en, this message translates to:
+  /// **'8. Updates to this Privacy Policy'**
+  String get privacyParagraph31;
+
+  /// No description provided for @privacyParagraph32.
+  ///
+  /// In en, this message translates to:
+  /// **'We may revise this Policy as our business develops or laws and regulations change. Revisions will be published on this page and take effect upon publication. Please review this Policy regularly to learn about the latest privacy protections.'**
+  String get privacyParagraph32;
+
+  /// No description provided for @privacyParagraph33.
+  ///
+  /// In en, this message translates to:
+  /// **'9. Governing law and dispute resolution'**
+  String get privacyParagraph33;
+
+  /// No description provided for @privacyParagraph34.
+  ///
+  /// In en, this message translates to:
+  /// **'The formation, effectiveness, performance, interpretation, and dispute resolution of this Policy are governed by the laws of the People’s Republic of China. Disputes shall be resolved through amicable consultation; if consultation fails, either party may bring proceedings in the people’s court with jurisdiction where the App is based.'**
+  String get privacyParagraph34;
+
+  /// No description provided for @privacyParagraph35.
+  ///
+  /// In en, this message translates to:
+  /// **'10. Contact us'**
+  String get privacyParagraph35;
+
+  /// No description provided for @privacyParagraph36.
+  ///
+  /// In en, this message translates to:
+  /// **'If you have questions, comments, or suggestions about this Policy, or wish to exercise your rights, contact us at:\nEmail: support@Gnayoah.com'**
+  String get privacyParagraph36;
+
+  /// No description provided for @privacyParagraph37.
+  ///
+  /// In en, this message translates to:
+  /// **'We will review the matter as soon as possible and respond promptly after receiving your request.'**
+  String get privacyParagraph37;
+
+  /// No description provided for @privacyParagraph38.
+  ///
+  /// In en, this message translates to:
+  /// **'Thank you for your trust in and support of Uotan WearBox.'**
+  String get privacyParagraph38;
+
+  /// No description provided for @agreementParagraph1.
+  ///
+  /// In en, this message translates to:
+  /// **'User Agreement'**
+  String get agreementParagraph1;
+
+  /// No description provided for @agreementParagraph2.
+  ///
+  /// In en, this message translates to:
+  /// **'Uotan WearBox User Agreement'**
+  String get agreementParagraph2;
+
+  /// No description provided for @agreementParagraph3.
+  ///
+  /// In en, this message translates to:
+  /// **'Last updated: September 18, 2024'**
+  String get agreementParagraph3;
+
+  /// No description provided for @agreementParagraph4.
+  ///
+  /// In en, this message translates to:
+  /// **'Before using Uotan WearBox (the “App” or “we”), please read and fully understand this User Agreement (the “Agreement”). This is a legally binding agreement between you (the “User” or “you”) and Uotan WearBox concerning use of the App. Downloading, installing, or otherwise using the App means that you have read, understood, and agreed to all its terms and conditions.'**
+  String get agreementParagraph4;
+
+  /// No description provided for @agreementParagraph5.
+  ///
+  /// In en, this message translates to:
+  /// **'1. Independence of the Privacy Policy'**
+  String get agreementParagraph5;
+
+  /// No description provided for @agreementParagraph6.
+  ///
+  /// In en, this message translates to:
+  /// **'The privacy policies of Uotan Community and Uotan WearBox are entirely separate and unrelated. To review the Uotan Community privacy policy, visit its official website. The App’s Privacy Policy applies only to Uotan WearBox.'**
+  String get agreementParagraph6;
+
+  /// No description provided for @agreementParagraph7.
+  ///
+  /// In en, this message translates to:
+  /// **'2. Acceptance and amendment'**
+  String get agreementParagraph7;
+
+  /// No description provided for @agreementParagraph8.
+  ///
+  /// In en, this message translates to:
+  /// **'1. Acceptance'**
+  String get agreementParagraph8;
+
+  /// No description provided for @agreementParagraph9.
+  ///
+  /// In en, this message translates to:
+  /// **'Read this Agreement in full before using the App. If you disagree with any term, stop using the App immediately. Downloading, installing, or using the App constitutes acceptance of this Agreement.'**
+  String get agreementParagraph9;
+
+  /// No description provided for @agreementParagraph10.
+  ///
+  /// In en, this message translates to:
+  /// **'2. Amendments'**
+  String get agreementParagraph10;
+
+  /// No description provided for @agreementParagraph11.
+  ///
+  /// In en, this message translates to:
+  /// **'We reserve the right to revise this Agreement at any time as our business develops or laws and regulations change, without separate individual notice. Revisions take effect upon publication. You are responsible for reviewing the latest version; continued use after changes constitutes acceptance of the revised Agreement.'**
+  String get agreementParagraph11;
+
+  /// No description provided for @agreementParagraph12.
+  ///
+  /// In en, this message translates to:
+  /// **'3. Services and usage rules'**
+  String get agreementParagraph12;
+
+  /// No description provided for @agreementParagraph13.
+  ///
+  /// In en, this message translates to:
+  /// **'1. Services'**
+  String get agreementParagraph13;
+
+  /// No description provided for @agreementParagraph14.
+  ///
+  /// In en, this message translates to:
+  /// **'The App provides watch-related assistance and services, including time display, alarm settings, and health monitoring. The services available are determined by the actual features provided in the App.'**
+  String get agreementParagraph14;
+
+  /// No description provided for @agreementParagraph15.
+  ///
+  /// In en, this message translates to:
+  /// **'2. Changes, suspension, or termination of services'**
+  String get agreementParagraph15;
+
+  /// No description provided for @agreementParagraph16.
+  ///
+  /// In en, this message translates to:
+  /// **'We may adjust, suspend, or terminate some or all services at any time as circumstances require, without prior notice. We accept no liability for losses resulting from such adjustments, suspension, or termination.'**
+  String get agreementParagraph16;
+
+  /// No description provided for @agreementParagraph17.
+  ///
+  /// In en, this message translates to:
+  /// **'4. User conduct'**
+  String get agreementParagraph17;
+
+  /// No description provided for @agreementParagraph18.
+  ///
+  /// In en, this message translates to:
+  /// **'1. Lawful use'**
+  String get agreementParagraph18;
+
+  /// No description provided for @agreementParagraph19.
+  ///
+  /// In en, this message translates to:
+  /// **'You undertake to use the App lawfully and not to engage in conduct that violates laws, public morality, or the lawful rights of others, including the following:'**
+  String get agreementParagraph19;
+
+  /// No description provided for @agreementParagraph20.
+  ///
+  /// In en, this message translates to:
+  /// **'• Intellectual property infringement: Do not copy, distribute, modify, or otherwise use content protected by copyright, trademark, patent, or other laws without authorization.'**
+  String get agreementParagraph20;
+
+  /// No description provided for @agreementParagraph21.
+  ///
+  /// In en, this message translates to:
+  /// **'• Inappropriate content: Do not publish or distribute content prohibited by law, including obscenity, pornography, gambling, violence, terrorism, superstition, defamation, insults, incitement, or encouragement of crime.'**
+  String get agreementParagraph21;
+
+  /// No description provided for @agreementParagraph22.
+  ///
+  /// In en, this message translates to:
+  /// **'• Security threats: Do not compromise or attempt to compromise network security, including spreading malware, viruses, trojans, or worms, or attacking the App’s servers, networks, or other users’ devices.'**
+  String get agreementParagraph22;
+
+  /// No description provided for @agreementParagraph23.
+  ///
+  /// In en, this message translates to:
+  /// **'2. Compliance with laws'**
+  String get agreementParagraph23;
+
+  /// No description provided for @agreementParagraph24.
+  ///
+  /// In en, this message translates to:
+  /// **'When using the App, comply strictly with applicable laws, including the Cybersecurity Law and Civil Code of the People’s Republic of China. Do not use the App for illegal or criminal activities.'**
+  String get agreementParagraph24;
+
+  /// No description provided for @agreementParagraph25.
+  ///
+  /// In en, this message translates to:
+  /// **'5. Intellectual property'**
+  String get agreementParagraph25;
+
+  /// No description provided for @agreementParagraph26.
+  ///
+  /// In en, this message translates to:
+  /// **'1. Ownership'**
+  String get agreementParagraph26;
+
+  /// No description provided for @agreementParagraph27.
+  ///
+  /// In en, this message translates to:
+  /// **'The App and all its content, including text, graphics, interface designs, visual effects, logos, trademarks, code, programs, software, services, and documentation, are protected by applicable laws, including the Copyright Law, Trademark Law, and Patent Law of the People’s Republic of China. The relevant rights belong to Gnayoah or its licensors.'**
+  String get agreementParagraph27;
+
+  /// No description provided for @agreementParagraph28.
+  ///
+  /// In en, this message translates to:
+  /// **'2. License'**
+  String get agreementParagraph28;
+
+  /// No description provided for @agreementParagraph29.
+  ///
+  /// In en, this message translates to:
+  /// **'We grant you a personal, non-transferable, non-exclusive, revocable, limited license to download, install, and use the App under this Agreement. Without our prior written consent, you may not copy, modify, distribute, sell, transfer, or otherwise exploit any part of the App.'**
+  String get agreementParagraph29;
+
+  /// No description provided for @agreementParagraph30.
+  ///
+  /// In en, this message translates to:
+  /// **'3. Prohibited acts'**
+  String get agreementParagraph30;
+
+  /// No description provided for @agreementParagraph31.
+  ///
+  /// In en, this message translates to:
+  /// **'Without written authorization from us or the relevant rights holders, you may not exercise, exploit, transfer, or license third parties to exercise, exploit, or transfer the above intellectual property in any form, including reverse engineering, decompiling, disassembling, or cracking the App.'**
+  String get agreementParagraph31;
+
+  /// No description provided for @agreementParagraph32.
+  ///
+  /// In en, this message translates to:
+  /// **'6. Privacy and data protection'**
+  String get agreementParagraph32;
+
+  /// No description provided for @agreementParagraph33.
+  ///
+  /// In en, this message translates to:
+  /// **'1. Personal information protection'**
+  String get agreementParagraph33;
+
+  /// No description provided for @agreementParagraph34.
+  ///
+  /// In en, this message translates to:
+  /// **'We take personal information protection seriously and collect, use, store, and share your information strictly in accordance with the App’s Privacy Policy and applicable laws.'**
+  String get agreementParagraph34;
+
+  /// No description provided for @agreementParagraph35.
+  ///
+  /// In en, this message translates to:
+  /// **'2. Acceptance of the Policy'**
+  String get agreementParagraph35;
+
+  /// No description provided for @agreementParagraph36.
+  ///
+  /// In en, this message translates to:
+  /// **'Using the App means that you have read and agreed to our Privacy Policy in full. If you disagree with any part of it, stop using the App immediately.'**
+  String get agreementParagraph36;
+
+  /// No description provided for @agreementParagraph37.
+  ///
+  /// In en, this message translates to:
+  /// **'7. Disclaimers and limitation of liability'**
+  String get agreementParagraph37;
+
+  /// No description provided for @agreementParagraph38.
+  ///
+  /// In en, this message translates to:
+  /// **'1. Services provided as is'**
+  String get agreementParagraph38;
+
+  /// No description provided for @agreementParagraph39.
+  ///
+  /// In en, this message translates to:
+  /// **'The App is provided “as is” and “as available.” We make no express or implied warranties regarding its continuity, timeliness, security, accuracy, completeness, or reliability.'**
+  String get agreementParagraph39;
+
+  /// No description provided for @agreementParagraph40.
+  ///
+  /// In en, this message translates to:
+  /// **'2. Limitation of liability'**
+  String get agreementParagraph40;
+
+  /// No description provided for @agreementParagraph41.
+  ///
+  /// In en, this message translates to:
+  /// **'To the maximum extent permitted by applicable law, we are not liable for any direct, indirect, incidental, special, consequential, or punitive damages resulting from using or being unable to use the App, including lost profits, lost data, or business interruption.'**
+  String get agreementParagraph41;
+
+  /// No description provided for @agreementParagraph42.
+  ///
+  /// In en, this message translates to:
+  /// **'3. Third parties'**
+  String get agreementParagraph42;
+
+  /// No description provided for @agreementParagraph43.
+  ///
+  /// In en, this message translates to:
+  /// **'We are not responsible for the content, accuracy, legality, or reliability of third-party websites, services, or resources accessed through the App. You assume the risks of using third-party services.'**
+  String get agreementParagraph43;
+
+  /// No description provided for @agreementParagraph44.
+  ///
+  /// In en, this message translates to:
+  /// **'8. Breach and remedies'**
+  String get agreementParagraph44;
+
+  /// No description provided for @agreementParagraph45.
+  ///
+  /// In en, this message translates to:
+  /// **'1. Handling breaches'**
+  String get agreementParagraph45;
+
+  /// No description provided for @agreementParagraph46.
+  ///
+  /// In en, this message translates to:
+  /// **'If you breach this Agreement or applicable laws, we may, without prior notice, issue warnings, restrict, suspend, or terminate access to and use of the App, preserve relevant records, and pursue legal remedies.'**
+  String get agreementParagraph46;
+
+  /// No description provided for @agreementParagraph47.
+  ///
+  /// In en, this message translates to:
+  /// **'2. Compensation'**
+  String get agreementParagraph47;
+
+  /// No description provided for @agreementParagraph48.
+  ///
+  /// In en, this message translates to:
+  /// **'If your breach of this Agreement or applicable laws causes losses to us or a third party, you shall bear full compensation liability under the law, including direct and indirect losses, lost expected benefits, court costs, and legal fees.'**
+  String get agreementParagraph48;
+
+  /// No description provided for @agreementParagraph49.
+  ///
+  /// In en, this message translates to:
+  /// **'9. Termination and consequences'**
+  String get agreementParagraph49;
+
+  /// No description provided for @agreementParagraph50.
+  ///
+  /// In en, this message translates to:
+  /// **'1. Our right to terminate'**
+  String get agreementParagraph50;
+
+  /// No description provided for @agreementParagraph51.
+  ///
+  /// In en, this message translates to:
+  /// **'For business reasons, we may terminate this Agreement or restrict, suspend, or terminate your access to and use of the App at any time, for any reason, without prior notice.'**
+  String get agreementParagraph51;
+
+  /// No description provided for @agreementParagraph52.
+  ///
+  /// In en, this message translates to:
+  /// **'2. Your right to stop using the App'**
+  String get agreementParagraph52;
+
+  /// No description provided for @agreementParagraph53.
+  ///
+  /// In en, this message translates to:
+  /// **'You may stop using the App at any time. Stopping use does not terminate this Agreement; provisions on intellectual property, limitation of liability, governing law, and similar matters remain legally effective after you stop using the App.'**
+  String get agreementParagraph53;
+
+  /// No description provided for @agreementParagraph54.
+  ///
+  /// In en, this message translates to:
+  /// **'10. Force majeure'**
+  String get agreementParagraph54;
+
+  /// No description provided for @agreementParagraph55.
+  ///
+  /// In en, this message translates to:
+  /// **'We are not liable for service interruptions or other defects caused by events beyond our reasonable control, including natural disasters, war, terrorism, government acts, changes in laws or policies, network failures, or hacking.'**
+  String get agreementParagraph55;
+
+  /// No description provided for @agreementParagraph56.
+  ///
+  /// In en, this message translates to:
+  /// **'11. Governing law and dispute resolution'**
+  String get agreementParagraph56;
+
+  /// No description provided for @agreementParagraph57.
+  ///
+  /// In en, this message translates to:
+  /// **'1. Governing law'**
+  String get agreementParagraph57;
+
+  /// No description provided for @agreementParagraph58.
+  ///
+  /// In en, this message translates to:
+  /// **'The formation, effectiveness, performance, interpretation, and dispute resolution of this Agreement are governed by the laws of the People’s Republic of China, excluding, for this Agreement, the laws of Hong Kong, Macao, and Taiwan.'**
+  String get agreementParagraph58;
+
+  /// No description provided for @agreementParagraph59.
+  ///
+  /// In en, this message translates to:
+  /// **'2. Dispute resolution'**
+  String get agreementParagraph59;
+
+  /// No description provided for @agreementParagraph60.
+  ///
+  /// In en, this message translates to:
+  /// **'Disputes arising from or relating to this Agreement shall first be resolved through amicable consultation. If consultation fails, either party may bring proceedings in the people’s court with jurisdiction where we are based.'**
+  String get agreementParagraph60;
+
+  /// No description provided for @agreementParagraph61.
+  ///
+  /// In en, this message translates to:
+  /// **'12. Interpretation'**
+  String get agreementParagraph61;
+
+  /// No description provided for @agreementParagraph62.
+  ///
+  /// In en, this message translates to:
+  /// **'Uotan WearBox holds the right of final interpretation of this Agreement. We reserve all rights to interpret, amend, and update it.'**
+  String get agreementParagraph62;
+
+  /// No description provided for @agreementParagraph63.
+  ///
+  /// In en, this message translates to:
+  /// **'13. Other provisions'**
+  String get agreementParagraph63;
+
+  /// No description provided for @agreementParagraph64.
+  ///
+  /// In en, this message translates to:
+  /// **'1. Entire agreement'**
+  String get agreementParagraph64;
+
+  /// No description provided for @agreementParagraph65.
+  ///
+  /// In en, this message translates to:
+  /// **'This Agreement, including the Privacy Policy, constitutes the entire agreement between the parties on its subject matter and supersedes all prior written or oral agreements, commitments, or representations.'**
+  String get agreementParagraph65;
+
+  /// No description provided for @agreementParagraph66.
+  ///
+  /// In en, this message translates to:
+  /// **'2. Severability'**
+  String get agreementParagraph66;
+
+  /// No description provided for @agreementParagraph67.
+  ///
+  /// In en, this message translates to:
+  /// **'If a court with jurisdiction finds a provision invalid or unenforceable, it shall be limited or removed only to the minimum extent necessary. The validity and enforceability of the remaining provisions are unaffected.'**
+  String get agreementParagraph67;
+
+  /// No description provided for @agreementParagraph68.
+  ///
+  /// In en, this message translates to:
+  /// **'3. Waiver'**
+  String get agreementParagraph68;
+
+  /// No description provided for @agreementParagraph69.
+  ///
+  /// In en, this message translates to:
+  /// **'Failure or delay by us to exercise a right or remedy under this Agreement does not waive it or affect our ability to exercise it in the future.'**
+  String get agreementParagraph69;
+
+  /// No description provided for @agreementParagraph70.
+  ///
+  /// In en, this message translates to:
+  /// **'4. Notices and delivery'**
+  String get agreementParagraph70;
+
+  /// No description provided for @agreementParagraph71.
+  ///
+  /// In en, this message translates to:
+  /// **'You agree that we may send notices concerning this Agreement or the App by email, text message, in-app notification, or announcement. Such notices are deemed delivered when sent.'**
+  String get agreementParagraph71;
+
+  /// No description provided for @agreementParagraph72.
+  ///
+  /// In en, this message translates to:
+  /// **'14. Contact us'**
+  String get agreementParagraph72;
+
+  /// No description provided for @agreementParagraph73.
+  ///
+  /// In en, this message translates to:
+  /// **'If you have questions, comments, or suggestions about this Agreement, contact us at:'**
+  String get agreementParagraph73;
+
+  /// No description provided for @agreementParagraph74.
+  ///
+  /// In en, this message translates to:
+  /// **'Email: support@Gnayoah.com'**
+  String get agreementParagraph74;
+
+  /// No description provided for @agreementParagraph75.
+  ///
+  /// In en, this message translates to:
+  /// **'We will respond to your request within a reasonable time.'**
+  String get agreementParagraph75;
+
+  /// No description provided for @agreementParagraph76.
+  ///
+  /// In en, this message translates to:
+  /// **'Thank you for choosing Uotan WearBox!'**
+  String get agreementParagraph76;
+
+  /// No description provided for @deviceValueUnknown.
+  ///
+  /// In en, this message translates to:
+  /// **'Unknown'**
+  String get deviceValueUnknown;
+
+  /// No description provided for @deviceBootloaderLocked.
+  ///
+  /// In en, this message translates to:
+  /// **'Locked'**
+  String get deviceBootloaderLocked;
+
+  /// No description provided for @deviceBootloaderUnlocked.
+  ///
+  /// In en, this message translates to:
+  /// **'Unlocked'**
+  String get deviceBootloaderUnlocked;
+
+  /// No description provided for @deviceMemoryUsage.
+  ///
+  /// In en, this message translates to:
+  /// **'{used}G/{total}G ({percent}% used)'**
+  String deviceMemoryUsage(String used, String total, String percent);
+
+  /// No description provided for @deviceUptimeDays.
+  ///
+  /// In en, this message translates to:
+  /// **'{days} d {hours} h {minutes} min'**
+  String deviceUptimeDays(String days, String hours, String minutes);
+
+  /// No description provided for @deviceUptimeHours.
+  ///
+  /// In en, this message translates to:
+  /// **'{hours} h {minutes} min'**
+  String deviceUptimeHours(String hours, String minutes);
+
+  /// No description provided for @deviceUptimeMinutes.
+  ///
+  /// In en, this message translates to:
+  /// **'{minutes} min'**
+  String deviceUptimeMinutes(String minutes);
+
+  /// No description provided for @flashReady.
+  ///
+  /// In en, this message translates to:
+  /// **'Flash tool ready.'**
+  String get flashReady;
+
+  /// No description provided for @flashSelectedFile.
+  ///
+  /// In en, this message translates to:
+  /// **'Selected file: {path}'**
+  String flashSelectedFile(String path);
+
+  /// No description provided for @flashSelectedVbmeta.
+  ///
+  /// In en, this message translates to:
+  /// **'Selected vbmeta image: {path}'**
+  String flashSelectedVbmeta(String path);
+
+  /// No description provided for @flashSlotParseLog.
+  ///
+  /// In en, this message translates to:
+  /// **'Could not parse current slot from output: {output}'**
+  String flashSlotParseLog(String output);
+
+  /// No description provided for @flashActionPartition.
+  ///
+  /// In en, this message translates to:
+  /// **'Flash {partition}'**
+  String flashActionPartition(String partition);
+
+  /// No description provided for @flashActionSlot.
+  ///
+  /// In en, this message translates to:
+  /// **'Switch slot {current} → {target}'**
+  String flashActionSlot(String current, String target);
+
+  /// No description provided for @flashLogStart.
+  ///
+  /// In en, this message translates to:
+  /// **'Start: {action}'**
+  String flashLogStart(String action);
+
+  /// No description provided for @flashLogDone.
+  ///
+  /// In en, this message translates to:
+  /// **'Done: {action}'**
+  String flashLogDone(String action);
+
+  /// No description provided for @flashLogFailed.
+  ///
+  /// In en, this message translates to:
+  /// **'Failed: {action} (exit code {code})'**
+  String flashLogFailed(String action, String code);
 }
 
 class _AppLocalizationsDelegate extends LocalizationsDelegate<AppLocalizations> {

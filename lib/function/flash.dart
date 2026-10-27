@@ -1,3 +1,4 @@
+import 'package:watch_assistant/l10n/l10n.dart';
 import 'dart:convert';
 import '../platform_tools.dart';
 import 'dart:io';
@@ -47,7 +48,14 @@ class _FlashToolPageState extends State<FlashToolPage> {
     ]) {
       _presetPathControllers[partition] = TextEditingController();
     }
-    _addLog('Uotan Wearbox Flash Tool ready.');
+  }
+
+  @override
+  void didChangeDependencies() {
+    super.didChangeDependencies();
+    if (_logs.isEmpty) {
+      _addLog(context.l10n.flashReady);
+    }
   }
 
   @override
@@ -84,9 +92,9 @@ class _FlashToolPageState extends State<FlashToolPage> {
                       onPressed: _isBusy ? null : () => Navigator.pop(context),
                     ),
                     const SizedBox(width: 5),
-                    const Text(
-                      '自定义刷入',
-                      style: TextStyle(
+                    Text(
+                      context.l10n.flashPageTitle,
+                      style: const TextStyle(
                         color: Colors.black,
                         fontSize: 26,
                         fontFamily: 'MiSansLight',
@@ -174,7 +182,7 @@ class _FlashToolPageState extends State<FlashToolPage> {
                 SizedBox(
                   width: 94,
                   child: Text(
-                    '自定义分区',
+                    context.l10n.flashCustomPartition,
                     style: const TextStyle(fontSize: 14),
                   ),
                 ),
@@ -186,11 +194,12 @@ class _FlashToolPageState extends State<FlashToolPage> {
                 ),
                 const SizedBox(width: 8),
                 _buildActionButton(
-                  text: '文件',
+                  text: context.l10n.flashChooseFile,
                   onTap: () => _pickImageForController(_customPathController),
                 ),
                 const SizedBox(width: 10),
-                const Text('刷入至', style: TextStyle(fontSize: 16)),
+                Text(context.l10n.flashTargetPartition,
+                    style: const TextStyle(fontSize: 16)),
                 const SizedBox(width: 10),
                 SizedBox(
                   width: 180,
@@ -201,7 +210,7 @@ class _FlashToolPageState extends State<FlashToolPage> {
                 ),
                 const SizedBox(width: 4),
                 _buildActionButton(
-                  text: '刷入',
+                  text: context.l10n.flashAction,
                   onTap: _flashCustomPartition,
                 ),
               ],
@@ -230,12 +239,12 @@ class _FlashToolPageState extends State<FlashToolPage> {
           ),
           const SizedBox(width: 8),
           _buildActionButton(
-            text: '文件',
+            text: context.l10n.flashChooseFile,
             onTap: () => _pickImageForController(controller),
           ),
           const SizedBox(width: 4),
           _buildActionButton(
-            text: '刷入',
+            text: context.l10n.flashAction,
             onTap: () => _flashPartition(partition, controller.text),
           ),
         ],
@@ -259,9 +268,10 @@ class _FlashToolPageState extends State<FlashToolPage> {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: <Widget>[
-                const Text(
-                  '日志输出',
-                  style: TextStyle(fontSize: 20, fontFamily: 'MiSansLight'),
+                Text(
+                  context.l10n.flashLogTitle,
+                  style:
+                      const TextStyle(fontSize: 20, fontFamily: 'MiSansLight'),
                 ),
                 const SizedBox(height: 10),
                 Expanded(
@@ -275,7 +285,9 @@ class _FlashToolPageState extends State<FlashToolPage> {
                     child: SingleChildScrollView(
                       controller: _logScrollController,
                       child: SelectableText(
-                        _logs.isEmpty ? '暂无日志' : _logs.join('\n'),
+                        _logs.isEmpty
+                            ? context.l10n.flashNoLogs
+                            : _logs.join('\n'),
                         style: const TextStyle(
                           fontFamily: 'Consolas',
                           fontSize: 12,
@@ -300,30 +312,33 @@ class _FlashToolPageState extends State<FlashToolPage> {
             ),
             child: Padding(
               padding: const EdgeInsets.all(18),
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: <Widget>[
-                  const Text(
-                    '快捷操作',
-                    style: TextStyle(fontSize: 20, fontFamily: 'MiSansLight'),
-                  ),
-                  const SizedBox(height: 10),
-                  SizedBox(
-                    width: double.infinity,
-                    child: _buildActionButton(
-                      text: '禁用vbmeta',
-                      onTap: _disableVbmeta,
+              child: SingleChildScrollView(
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: <Widget>[
+                    Text(
+                      context.l10n.flashQuickActions,
+                      style: const TextStyle(
+                          fontSize: 20, fontFamily: 'MiSansLight'),
                     ),
-                  ),
-                  const SizedBox(height: 2),
-                  SizedBox(
-                    width: double.infinity,
-                    child: _buildActionButton(
-                      text: '切换槽位',
-                      onTap: _switchActiveSlot,
+                    const SizedBox(height: 10),
+                    SizedBox(
+                      width: double.infinity,
+                      child: _buildActionButton(
+                        text: context.l10n.flashDisableVbmeta,
+                        onTap: _disableVbmeta,
+                      ),
                     ),
-                  ),
-                ],
+                    const SizedBox(height: 2),
+                    SizedBox(
+                      width: double.infinity,
+                      child: _buildActionButton(
+                        text: context.l10n.flashSwitchSlot,
+                        onTap: _switchActiveSlot,
+                      ),
+                    ),
+                  ],
+                ),
               ),
             ),
           ),
@@ -398,18 +413,18 @@ class _FlashToolPageState extends State<FlashToolPage> {
     setState(() {
       controller.text = path;
     });
-    _addLog('Selected file: $path');
+    _addLog(context.l10n.flashSelectedFile(path));
   }
 
   Future<void> _flashPartition(String partition, String imagePath) async {
     final String trimmedPath = imagePath.trim();
     if (trimmedPath.isEmpty) {
-      _showErrorDialog('请先选择镜像文件。');
+      _showErrorDialog(context.l10n.flashSelectImageFirst);
       return;
     }
     await _runFastbootCommand(
       <String>['flash', partition, trimmedPath],
-      actionLabel: 'flash $partition',
+      actionLabel: context.l10n.flashActionPartition(partition),
     );
   }
 
@@ -417,11 +432,11 @@ class _FlashToolPageState extends State<FlashToolPage> {
     final String path = _customPathController.text.trim();
     final String partition = _customPartitionController.text.trim();
     if (path.isEmpty) {
-      _showErrorDialog('请先选择镜像文件。');
+      _showErrorDialog(context.l10n.flashSelectImageFirst);
       return;
     }
     if (partition.isEmpty) {
-      _showErrorDialog('请输入分区名。');
+      _showErrorDialog(context.l10n.flashEnterPartition);
       return;
     }
     await _flashPartition(partition, path);
@@ -431,13 +446,13 @@ class _FlashToolPageState extends State<FlashToolPage> {
     final FilePickerResult? result = await FilePicker.platform.pickFiles(
       type: FileType.custom,
       allowedExtensions: <String>['img', 'bin'],
-      dialogTitle: '选择 vbmeta 镜像文件',
+      dialogTitle: context.l10n.flashSelectVbmetaImage,
     );
     final String? path = result?.files.single.path;
     if (path == null || path.isEmpty) {
       return;
     }
-    _addLog('Selected vbmeta image: $path');
+    _addLog(context.l10n.flashSelectedVbmeta(path));
     await _runFastbootCommand(
       <String>[
         '--disable-verity',
@@ -446,7 +461,7 @@ class _FlashToolPageState extends State<FlashToolPage> {
         'vbmeta',
         path,
       ],
-      actionLabel: 'disable vbmeta',
+      actionLabel: context.l10n.flashDisableVbmeta,
     );
   }
 
@@ -464,8 +479,8 @@ class _FlashToolPageState extends State<FlashToolPage> {
           RegExp(r'current-slot:\s*([ab])').firstMatch(mergedOutput);
 
       if (match == null) {
-        _addLog('Could not parse current slot from output: $mergedOutput');
-        _showErrorDialog('无法识别当前槽位。请检查 fastboot 输出日志。');
+        _addLog(context.l10n.flashSlotParseLog(mergedOutput));
+        _showErrorDialog(context.l10n.flashUnknownSlot);
         return;
       }
 
@@ -473,11 +488,11 @@ class _FlashToolPageState extends State<FlashToolPage> {
       final String targetSlot = currentSlot == 'a' ? 'b' : 'a';
       await _runFastbootCommand(
         <String>['--set-active=$targetSlot'],
-        actionLabel: 'switch slot $currentSlot -> $targetSlot',
+        actionLabel: context.l10n.flashActionSlot(currentSlot, targetSlot),
       );
     } catch (e) {
-      _addLog('Switch slot failed: $e');
-      _showErrorDialog('切换槽位失败: $e');
+      _addLog(context.l10n.flashSwitchSlotFailed(e.toString()));
+      _showErrorDialog(context.l10n.flashSwitchSlotFailed((e).toString()));
     }
   }
 
@@ -497,7 +512,7 @@ class _FlashToolPageState extends State<FlashToolPage> {
     });
 
     _addLog('----------------------------------------');
-    _addLog('Start: $actionLabel');
+    _addLog(context.l10n.flashLogStart(actionLabel));
     _addLog('> fastboot ${args.join(' ')}');
 
     try {
@@ -507,14 +522,14 @@ class _FlashToolPageState extends State<FlashToolPage> {
 
       final int code = await process.exitCode;
       if (code == 0) {
-        _addLog('Done: $actionLabel');
+        _addLog(context.l10n.flashLogDone(actionLabel));
       } else {
-        _addLog('Failed: $actionLabel (exit code $code)');
-        _showErrorDialog('操作失败，退出码: $code');
+        _addLog(context.l10n.flashLogFailed(actionLabel, code.toString()));
+        _showErrorDialog(context.l10n.flashOperationFailed((code).toString()));
       }
     } catch (e) {
-      _addLog('Failed to run fastboot: $e');
-      _showErrorDialog('无法执行 fastboot 命令: $e');
+      _addLog(context.l10n.flashExecutionError(e.toString()));
+      _showErrorDialog(context.l10n.flashExecutionError((e).toString()));
     } finally {
       if (mounted) {
         setState(() {
@@ -538,11 +553,11 @@ class _FlashToolPageState extends State<FlashToolPage> {
         (String line) => line.contains(RegExp(r'\sfastboot$')),
       );
       if (!hasFastbootDevice) {
-        _showErrorDialog('未检测到 fastboot 设备，请确认设备已进入 fastboot 模式。');
+        _showErrorDialog(context.l10n.flashNoDevice);
       }
       return hasFastbootDevice;
     } catch (e) {
-      _showErrorDialog('无法检测 fastboot 设备，请确认 fastboot 已安装并可用。\n$e');
+      _showErrorDialog(context.l10n.flashDetectionError((e).toString()));
       return false;
     }
   }
@@ -597,7 +612,7 @@ class _FlashToolPageState extends State<FlashToolPage> {
       builder: (BuildContext context) {
         return AlertDialog(
           backgroundColor: const Color(0xFFF9F9F9),
-          title: const Text('错误'),
+          title: Text(context.l10n.commonErrorTitle),
           content: Text(message),
           actions: <Widget>[
             TextButton(
@@ -614,7 +629,7 @@ class _FlashToolPageState extends State<FlashToolPage> {
                 foregroundColor: MaterialStateProperty.all<Color>(Colors.black),
               ),
               onPressed: () => Navigator.of(context).pop(),
-              child: const Text('确定'),
+              child: Text(context.l10n.dialogOk),
             ),
           ],
         );

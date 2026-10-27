@@ -1004,7 +1004,7 @@ class AppLocalizationsEn extends AppLocalizations {
   String get viewOnGithub => 'Github';
 
   @override
-  String get githubDescription => 'Open-sourced under the APGL-3.0 License';
+  String get githubDescription => 'Open-sourced under the AGPL-3.0 License';
 
   @override
   String get driverTitle => 'USB Driver Installation Guide';
@@ -1067,4 +1067,787 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get tutorialTitle => 'USB debugging setup guide (applicable to most devices)';
+
+  @override
+  String get homeConnectionHelp => 'Connection help';
+
+  @override
+  String get homeWirelessUse => '2. Use';
+
+  @override
+  String get homeCheckDebugPrefix => '3. Make sure you have enabled';
+
+  @override
+  String get homeUsbDebugLink => 'USB debugging';
+
+  @override
+  String get homeInstallDriverPrefix => 'and installed the';
+
+  @override
+  String get homeAdbDriverLink => 'ADB driver';
+
+  @override
+  String get homeDriverSuffix => '';
+
+  @override
+  String get homeRebootTo => 'Reboot to';
+
+  @override
+  String get homeSystem => 'System';
+
+  @override
+  String get homeSelectDevice => 'Select device';
+
+  @override
+  String get homeNoConnectedDevices => 'No connected devices';
+
+  @override
+  String get homeRefreshing => 'Refreshing...';
+
+  @override
+  String get homeRefreshDevices => 'Refresh devices';
+
+  @override
+  String get homeDevicesRefreshed => 'Device list refreshed';
+
+  @override
+  String homeRefreshFailed(String error) {
+    return 'Failed to refresh devices: $error';
+  }
+
+  @override
+  String get homeDeviceInfo => 'Device information';
+
+  @override
+  String get homeSelectDeviceFirst => 'Please select a device first';
+
+  @override
+  String get homeCommandSent => 'Command sent';
+
+  @override
+  String commandExitFailure(String code) {
+    return 'Command failed with exit code: $code';
+  }
+
+  @override
+  String homeAdbError(String error) {
+    return 'ADB error: $error';
+  }
+
+  @override
+  String get batteryCurrentLevel => 'Current charge';
+
+  @override
+  String get batteryTemperatureLabel => 'Temperature (°C)';
+
+  @override
+  String get batteryLevelLabel => 'Charge (%)';
+
+  @override
+  String get batterySimulateDischarging => 'Simulate discharging';
+
+  @override
+  String get batterySimulateWireless => 'Simulate wireless charging';
+
+  @override
+  String get batterySimulateUsb => 'Simulate USB charging';
+
+  @override
+  String get batteryRestoreDefault => 'Restore defaults';
+
+  @override
+  String get batteryModify => 'Apply';
+
+  @override
+  String get batteryHealthGood => 'Good (2)';
+
+  @override
+  String get batteryHealthOverheat => 'Overheating (3)';
+
+  @override
+  String get batteryHealthDead => 'Dead (4)';
+
+  @override
+  String get batteryHealthOverVoltage => 'Overvoltage (5)';
+
+  @override
+  String get batteryHealthFailure => 'Failure (6)';
+
+  @override
+  String get batteryHealthCold => 'Too cold (7)';
+
+  @override
+  String batteryHealthUnknown(String code) {
+    return 'Unknown ($code)';
+  }
+
+  @override
+  String get batteryResetSuccess => 'Battery simulation settings restored.';
+
+  @override
+  String get batteryEnterTemperature => 'Please enter a temperature.';
+
+  @override
+  String get batteryInvalidTemperature => 'Invalid temperature format.';
+
+  @override
+  String batteryTemperatureChanged(String temperature) {
+    return 'Temperature changed to $temperature°C';
+  }
+
+  @override
+  String get batteryEnterLevel => 'Please enter a charge level.';
+
+  @override
+  String get batteryInvalidLevel => 'Charge must be an integer from 0 to 100.';
+
+  @override
+  String batteryLevelChanged(String level) {
+    return 'Charge changed to $level%';
+  }
+
+  @override
+  String get adbCommandFailed => 'ADB command failed.';
+
+  @override
+  String adbCommandError(String details) {
+    return 'ADB command failed: $details';
+  }
+
+  @override
+  String get adbCommandTimeout => 'ADB command timed out. Check the device connection and try again.';
+
+  @override
+  String adbExecutionError(String error) {
+    return 'Unable to run ADB command: $error';
+  }
+
+  @override
+  String get adbConnectionTimeout => 'ADB connection check timed out. Check the cable or wireless connection.';
+
+  @override
+  String adbConnectionError(String error) {
+    return 'Unable to check device connection: $error';
+  }
+
+  @override
+  String get captureSaveLocation => 'Save location';
+
+  @override
+  String get captureComputerFolder => 'Computer folder';
+
+  @override
+  String get captureDeviceFolder => 'Device folder';
+
+  @override
+  String get captureChooseFolder => 'Choose folder';
+
+  @override
+  String get captureSetDevicePath => 'Set device path';
+
+  @override
+  String get captureSectionTitle => 'Screenshot and recording';
+
+  @override
+  String get captureTakeScreenshot => 'Take screenshot';
+
+  @override
+  String get captureStartRecording => 'Start recording';
+
+  @override
+  String get captureStopRecording => 'Stop recording';
+
+  @override
+  String get captureLocationLockedHint => 'The save location is locked during recording to prevent export errors.';
+
+  @override
+  String get captureChooseSaveFolder => 'Choose save folder';
+
+  @override
+  String get captureDeviceSavePath => 'Set device save path';
+
+  @override
+  String get captureScreenshotFailed => 'Failed to capture screenshot on device';
+
+  @override
+  String captureScreenshotSavedDevice(String path) {
+    return 'Screenshot saved on device:\n$path';
+  }
+
+  @override
+  String get captureScreenshotExportFailed => 'Failed to export screenshot';
+
+  @override
+  String captureScreenshotSavedComputer(String path) {
+    return 'Screenshot saved on computer:\n$path';
+  }
+
+  @override
+  String commandExecutionError(String error) {
+    return 'Execution failed: $error';
+  }
+
+  @override
+  String get captureRecordingStartFailed => 'Failed to start recording';
+
+  @override
+  String get captureRecordingProcessMissing => 'Unable to find the recording process. Check that the device supports screenrecord.';
+
+  @override
+  String get captureRecordingStarted => 'Recording started.';
+
+  @override
+  String get captureRecordingInvalidState => 'Invalid recording state. Please restart recording.';
+
+  @override
+  String captureRecordingSavedDevice(String path) {
+    return 'Recording saved on device:\n$path';
+  }
+
+  @override
+  String get captureRecordingExportFailed => 'Failed to export recording';
+
+  @override
+  String captureRecordingSavedComputer(String path) {
+    return 'Recording saved on computer:\n$path';
+  }
+
+  @override
+  String get flashPageTitle => 'Custom flash';
+
+  @override
+  String get flashCustomPartition => 'Custom partition';
+
+  @override
+  String get flashChooseFile => 'File';
+
+  @override
+  String get flashTargetPartition => 'Flash to';
+
+  @override
+  String get flashAction => 'Flash';
+
+  @override
+  String get flashLogTitle => 'Log output';
+
+  @override
+  String get flashNoLogs => 'No logs yet';
+
+  @override
+  String get flashQuickActions => 'Quick actions';
+
+  @override
+  String get flashDisableVbmeta => 'Disable vbmeta verification';
+
+  @override
+  String get flashSwitchSlot => 'Switch slot';
+
+  @override
+  String get flashSelectImageFirst => 'Please select an image file first.';
+
+  @override
+  String get flashEnterPartition => 'Please enter a partition name.';
+
+  @override
+  String get flashSelectVbmetaImage => 'Select vbmeta image';
+
+  @override
+  String get flashUnknownSlot => 'Unable to identify the current slot. Check the fastboot log.';
+
+  @override
+  String flashSwitchSlotFailed(String error) {
+    return 'Failed to switch slot: $error';
+  }
+
+  @override
+  String flashOperationFailed(String code) {
+    return 'Operation failed with exit code: $code';
+  }
+
+  @override
+  String flashExecutionError(String error) {
+    return 'Unable to run fastboot command: $error';
+  }
+
+  @override
+  String get flashNoDevice => 'No fastboot device detected. Make sure the device is in fastboot mode.';
+
+  @override
+  String flashDetectionError(String error) {
+    return 'Unable to detect fastboot devices. Make sure fastboot is installed and available.\n$error';
+  }
+
+  @override
+  String get memoryStatusTitle => 'Memory status';
+
+  @override
+  String get memoryTotal => 'Total memory';
+
+  @override
+  String get memoryUsed => 'Used';
+
+  @override
+  String get memoryAvailable => 'Available memory';
+
+  @override
+  String get memoryFree => 'Free memory';
+
+  @override
+  String get memoryCached => 'Cached';
+
+  @override
+  String get memoryCleanupTitle => 'Cleanup actions';
+
+  @override
+  String get memoryClearBackground => 'Clear background processes';
+
+  @override
+  String get memoryClearCache => 'Clear app cache';
+
+  @override
+  String get memoryCustomPackage => 'Custom package to stop';
+
+  @override
+  String get memoryPackageHint => 'Example: com.google.android.gms';
+
+  @override
+  String get memoryForceStop => 'Force stop app';
+
+  @override
+  String get memoryBackgroundCleared => 'Background processes cleared.';
+
+  @override
+  String get memoryCacheCommandSent => 'Cache cleanup command executed.';
+
+  @override
+  String get memoryEnterPackage => 'Please enter a package name.';
+
+  @override
+  String memoryStopAttempted(String packageName) {
+    return 'Attempted to stop: $packageName';
+  }
+
+  @override
+  String commandStderrFailure(String details) {
+    return 'Execution failed: $details';
+  }
+
+  @override
+  String commandExitCodeFailure(String code) {
+    return 'Command failed with exit code: $code';
+  }
+
+  @override
+  String get privacyParagraph1 => 'Privacy Policy';
+
+  @override
+  String get privacyParagraph2 => 'Uotan WearBox Privacy Policy';
+
+  @override
+  String get privacyParagraph3 => 'Last updated: September 19, 2024';
+
+  @override
+  String get privacyParagraph4 => 'Welcome to Uotan WearBox (the “App”). We understand the importance of personal information and undertake to comply strictly with applicable laws and regulations and adopt appropriate security measures to protect it. Before using the App, please read and fully understand this Privacy Policy.';
+
+  @override
+  String get privacyParagraph5 => '1. Information we collect';
+
+  @override
+  String get privacyParagraph6 => '1. Internet Protocol address: We collect your IP address only when necessary to ensure the proper operation and security of the App. Apart from your IP address, we do not collect other information that identifies you personally.';
+
+  @override
+  String get privacyParagraph7 => '2. Required permissions:';
+
+  @override
+  String get privacyParagraph8 => '     - Network access: The App requires network access for data transfers, server communication, and feature updates.\n     - Device information: To improve performance and compatibility, we may read device information such as the model and operating system version.\n     - Storage access: The App may read and write device storage to cache data, save user settings, and provide offline features.';
+
+  @override
+  String get privacyParagraph9 => '2. How we use information';
+
+  @override
+  String get privacyParagraph10 => '1. Providing and maintaining services: We use the IP address and device information collected to ensure the App operates properly, improve its features, and continually enhance the user experience.';
+
+  @override
+  String get privacyParagraph11 => '2. Security: We use IP addresses and device information for security monitoring and risk prevention, including preventing fraud, network attacks, and other activities that may compromise system security.';
+
+  @override
+  String get privacyParagraph12 => '3. Legal basis for processing personal information';
+
+  @override
+  String get privacyParagraph13 => 'For users in mainland China, we collect and use personal information to provide products and/or services in accordance with the Cybersecurity Law of the People’s Republic of China, Information Security Technology — Personal Information Security Specification (GB/T 35273-2017), and other applicable laws and regulations. We generally collect personal information only with your consent. In some cases, collection may be necessary to meet legal obligations, perform a contract, or protect your vital interests or those of others.';
+
+  @override
+  String get privacyParagraph14 => '4. Sharing, transferring, and publicly disclosing information';
+
+  @override
+  String get privacyParagraph15 => '1. Legal requirements: We may disclose personal information when lawfully required by judicial or governmental authorities, subject to applicable laws and regulations.';
+
+  @override
+  String get privacyParagraph16 => '2. Business transfers: In a merger, acquisition, asset transfer, or similar transaction, your personal information may be transferred as an asset. We will require the new holder to remain bound by this Policy or obtain your consent again.';
+
+  @override
+  String get privacyParagraph17 => '3. Unauthorized disclosure: We will not publicly disclose your personal information without your explicit consent.';
+
+  @override
+  String get privacyParagraph18 => '4. Exceptions to consent for sharing, transferring, or publicly disclosing personal information';
+
+  @override
+  String get privacyParagraph19 => 'Under applicable laws and regulations, we may share, transfer, or publicly disclose personal information without your consent in the following circumstances:';
+
+  @override
+  String get privacyParagraph20 => '    - Matters concerning national security or national defense;\n    - Matters concerning public security, public health, or major public interests;\n    - Criminal investigations, prosecutions, trials, or enforcement of judgments;\n    - Protecting major lawful rights and interests, such as life or property, when obtaining consent is difficult;\n    - Personal information you have made public yourself;\n    - Information collected from lawful public disclosures, such as legitimate news reports or government disclosures;\n    - Other circumstances prescribed by law.';
+
+  @override
+  String get privacyParagraph21 => '5. Storage and protection of information';
+
+  @override
+  String get privacyParagraph22 => '1. Storage: We store information collected from you in the People’s Republic of China or the Hong Kong Special Administrative Region. For cross-border transfers, we will separately notify you by a pop-up or email of the purpose, recipient, and other details, and obtain your consent. We will ensure the recipient has adequate data protection capabilities.';
+
+  @override
+  String get privacyParagraph23 => '2. Security measures: We strive to protect your personal information through physical, electronic, and administrative safeguards that meet industry standards. We establish data classification systems and standards for data security management and secure development to govern storage and use, and ensure we do not collect personal information unrelated to our services.';
+
+  @override
+  String get privacyParagraph24 => '3. Security incidents: Although we make every effort to secure the information you send us, technical limitations and malicious activity on the Internet mean that absolute security cannot be guaranteed. Systems and communication networks used to access our services may experience problems beyond our control.';
+
+  @override
+  String get privacyParagraph25 => 'We maintain warning mechanisms and emergency plans to prevent security incidents. If a personal information security incident occurs, we will promptly inform you, as required by law, of its nature and potential impact, measures taken or planned, advice on reducing risks, and remedies available to you. We will immediately activate our emergency plan to minimize losses. We will notify you by telephone, push notification, or other means, or issue a reasonable and effective public announcement if individual notification is difficult. We will also report our response to regulators as required and cooperate closely with government authorities.';
+
+  @override
+  String get privacyParagraph26 => '6. Your rights';
+
+  @override
+  String get privacyParagraph27 => '1. Access and correction: You have the right to access and update your personal information. To exercise these rights, contact us using the details in this Policy.';
+
+  @override
+  String get privacyParagraph28 => '2. Deletion and withdrawal of consent: Subject to applicable laws, you may request deletion of your personal information or withdraw consent. Deletion or withdrawal may prevent us from continuing to provide some or all services.';
+
+  @override
+  String get privacyParagraph29 => '7. Protection of minors';
+
+  @override
+  String get privacyParagraph30 => 'We take the protection of minors’ personal information seriously. If you are under 18, use the App with the consent and guidance of a parent or legal guardian, and provide personal information only with their consent.';
+
+  @override
+  String get privacyParagraph31 => '8. Updates to this Privacy Policy';
+
+  @override
+  String get privacyParagraph32 => 'We may revise this Policy as our business develops or laws and regulations change. Revisions will be published on this page and take effect upon publication. Please review this Policy regularly to learn about the latest privacy protections.';
+
+  @override
+  String get privacyParagraph33 => '9. Governing law and dispute resolution';
+
+  @override
+  String get privacyParagraph34 => 'The formation, effectiveness, performance, interpretation, and dispute resolution of this Policy are governed by the laws of the People’s Republic of China. Disputes shall be resolved through amicable consultation; if consultation fails, either party may bring proceedings in the people’s court with jurisdiction where the App is based.';
+
+  @override
+  String get privacyParagraph35 => '10. Contact us';
+
+  @override
+  String get privacyParagraph36 => 'If you have questions, comments, or suggestions about this Policy, or wish to exercise your rights, contact us at:\nEmail: support@Gnayoah.com';
+
+  @override
+  String get privacyParagraph37 => 'We will review the matter as soon as possible and respond promptly after receiving your request.';
+
+  @override
+  String get privacyParagraph38 => 'Thank you for your trust in and support of Uotan WearBox.';
+
+  @override
+  String get agreementParagraph1 => 'User Agreement';
+
+  @override
+  String get agreementParagraph2 => 'Uotan WearBox User Agreement';
+
+  @override
+  String get agreementParagraph3 => 'Last updated: September 18, 2024';
+
+  @override
+  String get agreementParagraph4 => 'Before using Uotan WearBox (the “App” or “we”), please read and fully understand this User Agreement (the “Agreement”). This is a legally binding agreement between you (the “User” or “you”) and Uotan WearBox concerning use of the App. Downloading, installing, or otherwise using the App means that you have read, understood, and agreed to all its terms and conditions.';
+
+  @override
+  String get agreementParagraph5 => '1. Independence of the Privacy Policy';
+
+  @override
+  String get agreementParagraph6 => 'The privacy policies of Uotan Community and Uotan WearBox are entirely separate and unrelated. To review the Uotan Community privacy policy, visit its official website. The App’s Privacy Policy applies only to Uotan WearBox.';
+
+  @override
+  String get agreementParagraph7 => '2. Acceptance and amendment';
+
+  @override
+  String get agreementParagraph8 => '1. Acceptance';
+
+  @override
+  String get agreementParagraph9 => 'Read this Agreement in full before using the App. If you disagree with any term, stop using the App immediately. Downloading, installing, or using the App constitutes acceptance of this Agreement.';
+
+  @override
+  String get agreementParagraph10 => '2. Amendments';
+
+  @override
+  String get agreementParagraph11 => 'We reserve the right to revise this Agreement at any time as our business develops or laws and regulations change, without separate individual notice. Revisions take effect upon publication. You are responsible for reviewing the latest version; continued use after changes constitutes acceptance of the revised Agreement.';
+
+  @override
+  String get agreementParagraph12 => '3. Services and usage rules';
+
+  @override
+  String get agreementParagraph13 => '1. Services';
+
+  @override
+  String get agreementParagraph14 => 'The App provides watch-related assistance and services, including time display, alarm settings, and health monitoring. The services available are determined by the actual features provided in the App.';
+
+  @override
+  String get agreementParagraph15 => '2. Changes, suspension, or termination of services';
+
+  @override
+  String get agreementParagraph16 => 'We may adjust, suspend, or terminate some or all services at any time as circumstances require, without prior notice. We accept no liability for losses resulting from such adjustments, suspension, or termination.';
+
+  @override
+  String get agreementParagraph17 => '4. User conduct';
+
+  @override
+  String get agreementParagraph18 => '1. Lawful use';
+
+  @override
+  String get agreementParagraph19 => 'You undertake to use the App lawfully and not to engage in conduct that violates laws, public morality, or the lawful rights of others, including the following:';
+
+  @override
+  String get agreementParagraph20 => '• Intellectual property infringement: Do not copy, distribute, modify, or otherwise use content protected by copyright, trademark, patent, or other laws without authorization.';
+
+  @override
+  String get agreementParagraph21 => '• Inappropriate content: Do not publish or distribute content prohibited by law, including obscenity, pornography, gambling, violence, terrorism, superstition, defamation, insults, incitement, or encouragement of crime.';
+
+  @override
+  String get agreementParagraph22 => '• Security threats: Do not compromise or attempt to compromise network security, including spreading malware, viruses, trojans, or worms, or attacking the App’s servers, networks, or other users’ devices.';
+
+  @override
+  String get agreementParagraph23 => '2. Compliance with laws';
+
+  @override
+  String get agreementParagraph24 => 'When using the App, comply strictly with applicable laws, including the Cybersecurity Law and Civil Code of the People’s Republic of China. Do not use the App for illegal or criminal activities.';
+
+  @override
+  String get agreementParagraph25 => '5. Intellectual property';
+
+  @override
+  String get agreementParagraph26 => '1. Ownership';
+
+  @override
+  String get agreementParagraph27 => 'The App and all its content, including text, graphics, interface designs, visual effects, logos, trademarks, code, programs, software, services, and documentation, are protected by applicable laws, including the Copyright Law, Trademark Law, and Patent Law of the People’s Republic of China. The relevant rights belong to Gnayoah or its licensors.';
+
+  @override
+  String get agreementParagraph28 => '2. License';
+
+  @override
+  String get agreementParagraph29 => 'We grant you a personal, non-transferable, non-exclusive, revocable, limited license to download, install, and use the App under this Agreement. Without our prior written consent, you may not copy, modify, distribute, sell, transfer, or otherwise exploit any part of the App.';
+
+  @override
+  String get agreementParagraph30 => '3. Prohibited acts';
+
+  @override
+  String get agreementParagraph31 => 'Without written authorization from us or the relevant rights holders, you may not exercise, exploit, transfer, or license third parties to exercise, exploit, or transfer the above intellectual property in any form, including reverse engineering, decompiling, disassembling, or cracking the App.';
+
+  @override
+  String get agreementParagraph32 => '6. Privacy and data protection';
+
+  @override
+  String get agreementParagraph33 => '1. Personal information protection';
+
+  @override
+  String get agreementParagraph34 => 'We take personal information protection seriously and collect, use, store, and share your information strictly in accordance with the App’s Privacy Policy and applicable laws.';
+
+  @override
+  String get agreementParagraph35 => '2. Acceptance of the Policy';
+
+  @override
+  String get agreementParagraph36 => 'Using the App means that you have read and agreed to our Privacy Policy in full. If you disagree with any part of it, stop using the App immediately.';
+
+  @override
+  String get agreementParagraph37 => '7. Disclaimers and limitation of liability';
+
+  @override
+  String get agreementParagraph38 => '1. Services provided as is';
+
+  @override
+  String get agreementParagraph39 => 'The App is provided “as is” and “as available.” We make no express or implied warranties regarding its continuity, timeliness, security, accuracy, completeness, or reliability.';
+
+  @override
+  String get agreementParagraph40 => '2. Limitation of liability';
+
+  @override
+  String get agreementParagraph41 => 'To the maximum extent permitted by applicable law, we are not liable for any direct, indirect, incidental, special, consequential, or punitive damages resulting from using or being unable to use the App, including lost profits, lost data, or business interruption.';
+
+  @override
+  String get agreementParagraph42 => '3. Third parties';
+
+  @override
+  String get agreementParagraph43 => 'We are not responsible for the content, accuracy, legality, or reliability of third-party websites, services, or resources accessed through the App. You assume the risks of using third-party services.';
+
+  @override
+  String get agreementParagraph44 => '8. Breach and remedies';
+
+  @override
+  String get agreementParagraph45 => '1. Handling breaches';
+
+  @override
+  String get agreementParagraph46 => 'If you breach this Agreement or applicable laws, we may, without prior notice, issue warnings, restrict, suspend, or terminate access to and use of the App, preserve relevant records, and pursue legal remedies.';
+
+  @override
+  String get agreementParagraph47 => '2. Compensation';
+
+  @override
+  String get agreementParagraph48 => 'If your breach of this Agreement or applicable laws causes losses to us or a third party, you shall bear full compensation liability under the law, including direct and indirect losses, lost expected benefits, court costs, and legal fees.';
+
+  @override
+  String get agreementParagraph49 => '9. Termination and consequences';
+
+  @override
+  String get agreementParagraph50 => '1. Our right to terminate';
+
+  @override
+  String get agreementParagraph51 => 'For business reasons, we may terminate this Agreement or restrict, suspend, or terminate your access to and use of the App at any time, for any reason, without prior notice.';
+
+  @override
+  String get agreementParagraph52 => '2. Your right to stop using the App';
+
+  @override
+  String get agreementParagraph53 => 'You may stop using the App at any time. Stopping use does not terminate this Agreement; provisions on intellectual property, limitation of liability, governing law, and similar matters remain legally effective after you stop using the App.';
+
+  @override
+  String get agreementParagraph54 => '10. Force majeure';
+
+  @override
+  String get agreementParagraph55 => 'We are not liable for service interruptions or other defects caused by events beyond our reasonable control, including natural disasters, war, terrorism, government acts, changes in laws or policies, network failures, or hacking.';
+
+  @override
+  String get agreementParagraph56 => '11. Governing law and dispute resolution';
+
+  @override
+  String get agreementParagraph57 => '1. Governing law';
+
+  @override
+  String get agreementParagraph58 => 'The formation, effectiveness, performance, interpretation, and dispute resolution of this Agreement are governed by the laws of the People’s Republic of China, excluding, for this Agreement, the laws of Hong Kong, Macao, and Taiwan.';
+
+  @override
+  String get agreementParagraph59 => '2. Dispute resolution';
+
+  @override
+  String get agreementParagraph60 => 'Disputes arising from or relating to this Agreement shall first be resolved through amicable consultation. If consultation fails, either party may bring proceedings in the people’s court with jurisdiction where we are based.';
+
+  @override
+  String get agreementParagraph61 => '12. Interpretation';
+
+  @override
+  String get agreementParagraph62 => 'Uotan WearBox holds the right of final interpretation of this Agreement. We reserve all rights to interpret, amend, and update it.';
+
+  @override
+  String get agreementParagraph63 => '13. Other provisions';
+
+  @override
+  String get agreementParagraph64 => '1. Entire agreement';
+
+  @override
+  String get agreementParagraph65 => 'This Agreement, including the Privacy Policy, constitutes the entire agreement between the parties on its subject matter and supersedes all prior written or oral agreements, commitments, or representations.';
+
+  @override
+  String get agreementParagraph66 => '2. Severability';
+
+  @override
+  String get agreementParagraph67 => 'If a court with jurisdiction finds a provision invalid or unenforceable, it shall be limited or removed only to the minimum extent necessary. The validity and enforceability of the remaining provisions are unaffected.';
+
+  @override
+  String get agreementParagraph68 => '3. Waiver';
+
+  @override
+  String get agreementParagraph69 => 'Failure or delay by us to exercise a right or remedy under this Agreement does not waive it or affect our ability to exercise it in the future.';
+
+  @override
+  String get agreementParagraph70 => '4. Notices and delivery';
+
+  @override
+  String get agreementParagraph71 => 'You agree that we may send notices concerning this Agreement or the App by email, text message, in-app notification, or announcement. Such notices are deemed delivered when sent.';
+
+  @override
+  String get agreementParagraph72 => '14. Contact us';
+
+  @override
+  String get agreementParagraph73 => 'If you have questions, comments, or suggestions about this Agreement, contact us at:';
+
+  @override
+  String get agreementParagraph74 => 'Email: support@Gnayoah.com';
+
+  @override
+  String get agreementParagraph75 => 'We will respond to your request within a reasonable time.';
+
+  @override
+  String get agreementParagraph76 => 'Thank you for choosing Uotan WearBox!';
+
+  @override
+  String get deviceValueUnknown => 'Unknown';
+
+  @override
+  String get deviceBootloaderLocked => 'Locked';
+
+  @override
+  String get deviceBootloaderUnlocked => 'Unlocked';
+
+  @override
+  String deviceMemoryUsage(String used, String total, String percent) {
+    return '${used}G/${total}G ($percent% used)';
+  }
+
+  @override
+  String deviceUptimeDays(String days, String hours, String minutes) {
+    return '$days d $hours h $minutes min';
+  }
+
+  @override
+  String deviceUptimeHours(String hours, String minutes) {
+    return '$hours h $minutes min';
+  }
+
+  @override
+  String deviceUptimeMinutes(String minutes) {
+    return '$minutes min';
+  }
+
+  @override
+  String get flashReady => 'Flash tool ready.';
+
+  @override
+  String flashSelectedFile(String path) {
+    return 'Selected file: $path';
+  }
+
+  @override
+  String flashSelectedVbmeta(String path) {
+    return 'Selected vbmeta image: $path';
+  }
+
+  @override
+  String flashSlotParseLog(String output) {
+    return 'Could not parse current slot from output: $output';
+  }
+
+  @override
+  String flashActionPartition(String partition) {
+    return 'Flash $partition';
+  }
+
+  @override
+  String flashActionSlot(String current, String target) {
+    return 'Switch slot $current → $target';
+  }
+
+  @override
+  String flashLogStart(String action) {
+    return 'Start: $action';
+  }
+
+  @override
+  String flashLogDone(String action) {
+    return 'Done: $action';
+  }
+
+  @override
+  String flashLogFailed(String action, String code) {
+    return 'Failed: $action (exit code $code)';
+  }
 }

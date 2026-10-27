@@ -55,7 +55,7 @@
   "languageSystem": "Follow system",
   "languageChinese": "Simplified Chinese",
   "languageEnglish": "English",
-  "wirelessPageTitle": "Wireless connection",
+  "wirelessPageTitle": "Wireless",
   "wirelessHeaderIntro": "Enter the device IP address and port",
   "wirelessIpLabel": "Device IP address",
   "wirelessPortLabel": "Port",
@@ -636,7 +636,7 @@
     }
   },
   "viewOnGithub": "Github",
-  "githubDescription": "Open-sourced under the APGL-3.0 License",
+  "githubDescription": "Open-sourced under the AGPL-3.0 License",
   "driverTitle": "USB Driver Installation Guide",
   "driverIntro": "This tutorial applies only to Windows. Users on macOS or Linux do not need to install the USB driver.",
   "driverStep1Title": "1. Download the USB driver",
@@ -661,5 +661,496 @@
       "url": {}
     }
   },
-  "tutorialTitle": "USB debugging setup guide (applicable to most devices)"
+  "tutorialTitle": "USB debugging setup guide (applicable to most devices)",
+  "homeConnectionHelp": "Connection help",
+  "homeWirelessUse": "2. Use",
+  "homeCheckDebugPrefix": "3. Make sure you have enabled",
+  "homeUsbDebugLink": "USB debugging",
+  "homeInstallDriverPrefix": "and installed the",
+  "homeAdbDriverLink": "ADB driver",
+  "homeDriverSuffix": "",
+  "homeRebootTo": "Reboot to",
+  "homeSystem": "System",
+  "homeSelectDevice": "Select device",
+  "homeNoConnectedDevices": "No connected devices",
+  "homeRefreshing": "Refreshing...",
+  "homeRefreshDevices": "Refresh devices",
+  "homeDevicesRefreshed": "Device list refreshed",
+  "homeRefreshFailed": "Failed to refresh devices: {error}",
+  "@homeRefreshFailed": {
+    "placeholders": {
+      "error": {
+        "type": "String"
+      }
+    }
+  },
+  "homeDeviceInfo": "Device information",
+  "homeSelectDeviceFirst": "Please select a device first",
+  "homeCommandSent": "Command sent",
+  "commandExitFailure": "Command failed with exit code: {code}",
+  "@commandExitFailure": {
+    "placeholders": {
+      "code": {
+        "type": "String"
+      }
+    }
+  },
+  "homeAdbError": "ADB error: {error}",
+  "@homeAdbError": {
+    "placeholders": {
+      "error": {
+        "type": "String"
+      }
+    }
+  },
+  "batteryCurrentLevel": "Current charge",
+  "batteryTemperatureLabel": "Temperature (°C)",
+  "batteryLevelLabel": "Charge (%)",
+  "batterySimulateDischarging": "Simulate discharging",
+  "batterySimulateWireless": "Simulate wireless charging",
+  "batterySimulateUsb": "Simulate USB charging",
+  "batteryRestoreDefault": "Restore defaults",
+  "batteryModify": "Apply",
+  "batteryHealthGood": "Good (2)",
+  "batteryHealthOverheat": "Overheating (3)",
+  "batteryHealthDead": "Dead (4)",
+  "batteryHealthOverVoltage": "Overvoltage (5)",
+  "batteryHealthFailure": "Failure (6)",
+  "batteryHealthCold": "Too cold (7)",
+  "batteryHealthUnknown": "Unknown ({code})",
+  "@batteryHealthUnknown": {
+    "placeholders": {
+      "code": {
+        "type": "String"
+      }
+    }
+  },
+  "batteryResetSuccess": "Battery simulation settings restored.",
+  "batteryEnterTemperature": "Please enter a temperature.",
+  "batteryInvalidTemperature": "Invalid temperature format.",
+  "batteryTemperatureChanged": "Temperature changed to {temperature}°C",
+  "@batteryTemperatureChanged": {
+    "placeholders": {
+      "temperature": {
+        "type": "String"
+      }
+    }
+  },
+  "batteryEnterLevel": "Please enter a charge level.",
+  "batteryInvalidLevel": "Charge must be an integer from 0 to 100.",
+  "batteryLevelChanged": "Charge changed to {level}%",
+  "@batteryLevelChanged": {
+    "placeholders": {
+      "level": {
+        "type": "String"
+      }
+    }
+  },
+  "adbCommandFailed": "ADB command failed.",
+  "adbCommandError": "ADB command failed: {details}",
+  "@adbCommandError": {
+    "placeholders": {
+      "details": {
+        "type": "String"
+      }
+    }
+  },
+  "adbCommandTimeout": "ADB command timed out. Check the device connection and try again.",
+  "adbExecutionError": "Unable to run ADB command: {error}",
+  "@adbExecutionError": {
+    "placeholders": {
+      "error": {
+        "type": "String"
+      }
+    }
+  },
+  "adbConnectionTimeout": "ADB connection check timed out. Check the cable or wireless connection.",
+  "adbConnectionError": "Unable to check device connection: {error}",
+  "@adbConnectionError": {
+    "placeholders": {
+      "error": {
+        "type": "String"
+      }
+    }
+  },
+  "captureSaveLocation": "Save location",
+  "captureComputerFolder": "Computer folder",
+  "captureDeviceFolder": "Device folder",
+  "captureChooseFolder": "Choose folder",
+  "captureSetDevicePath": "Set device path",
+  "captureSectionTitle": "Screenshot and recording",
+  "captureTakeScreenshot": "Take screenshot",
+  "captureStartRecording": "Start recording",
+  "captureStopRecording": "Stop recording",
+  "captureLocationLockedHint": "The save location is locked during recording to prevent export errors.",
+  "captureChooseSaveFolder": "Choose save folder",
+  "captureDeviceSavePath": "Set device save path",
+  "captureScreenshotFailed": "Failed to capture screenshot on device",
+  "captureScreenshotSavedDevice": "Screenshot saved on device:\n{path}",
+  "@captureScreenshotSavedDevice": {
+    "placeholders": {
+      "path": {
+        "type": "String"
+      }
+    }
+  },
+  "captureScreenshotExportFailed": "Failed to export screenshot",
+  "captureScreenshotSavedComputer": "Screenshot saved on computer:\n{path}",
+  "@captureScreenshotSavedComputer": {
+    "placeholders": {
+      "path": {
+        "type": "String"
+      }
+    }
+  },
+  "commandExecutionError": "Execution failed: {error}",
+  "@commandExecutionError": {
+    "placeholders": {
+      "error": {
+        "type": "String"
+      }
+    }
+  },
+  "captureRecordingStartFailed": "Failed to start recording",
+  "captureRecordingProcessMissing": "Unable to find the recording process. Check that the device supports screenrecord.",
+  "captureRecordingStarted": "Recording started.",
+  "captureRecordingInvalidState": "Invalid recording state. Please restart recording.",
+  "captureRecordingSavedDevice": "Recording saved on device:\n{path}",
+  "@captureRecordingSavedDevice": {
+    "placeholders": {
+      "path": {
+        "type": "String"
+      }
+    }
+  },
+  "captureRecordingExportFailed": "Failed to export recording",
+  "captureRecordingSavedComputer": "Recording saved on computer:\n{path}",
+  "@captureRecordingSavedComputer": {
+    "placeholders": {
+      "path": {
+        "type": "String"
+      }
+    }
+  },
+  "flashPageTitle": "Custom flash",
+  "flashCustomPartition": "Custom partition",
+  "flashChooseFile": "File",
+  "flashTargetPartition": "Flash to",
+  "flashAction": "Flash",
+  "flashLogTitle": "Log output",
+  "flashNoLogs": "No logs yet",
+  "flashQuickActions": "Quick actions",
+  "flashDisableVbmeta": "Disable vbmeta verification",
+  "flashSwitchSlot": "Switch slot",
+  "flashSelectImageFirst": "Please select an image file first.",
+  "flashEnterPartition": "Please enter a partition name.",
+  "flashSelectVbmetaImage": "Select vbmeta image",
+  "flashUnknownSlot": "Unable to identify the current slot. Check the fastboot log.",
+  "flashSwitchSlotFailed": "Failed to switch slot: {error}",
+  "@flashSwitchSlotFailed": {
+    "placeholders": {
+      "error": {
+        "type": "String"
+      }
+    }
+  },
+  "flashOperationFailed": "Operation failed with exit code: {code}",
+  "@flashOperationFailed": {
+    "placeholders": {
+      "code": {
+        "type": "String"
+      }
+    }
+  },
+  "flashExecutionError": "Unable to run fastboot command: {error}",
+  "@flashExecutionError": {
+    "placeholders": {
+      "error": {
+        "type": "String"
+      }
+    }
+  },
+  "flashNoDevice": "No fastboot device detected. Make sure the device is in fastboot mode.",
+  "flashDetectionError": "Unable to detect fastboot devices. Make sure fastboot is installed and available.\n{error}",
+  "@flashDetectionError": {
+    "placeholders": {
+      "error": {
+        "type": "String"
+      }
+    }
+  },
+  "memoryStatusTitle": "Memory status",
+  "memoryTotal": "Total memory",
+  "memoryUsed": "Used",
+  "memoryAvailable": "Available memory",
+  "memoryFree": "Free memory",
+  "memoryCached": "Cached",
+  "memoryCleanupTitle": "Cleanup actions",
+  "memoryClearBackground": "Clear background processes",
+  "memoryClearCache": "Clear app cache",
+  "memoryCustomPackage": "Custom package to stop",
+  "memoryPackageHint": "Example: com.google.android.gms",
+  "memoryForceStop": "Force stop app",
+  "memoryBackgroundCleared": "Background processes cleared.",
+  "memoryCacheCommandSent": "Cache cleanup command executed.",
+  "memoryEnterPackage": "Please enter a package name.",
+  "memoryStopAttempted": "Attempted to stop: {packageName}",
+  "@memoryStopAttempted": {
+    "placeholders": {
+      "packageName": {
+        "type": "String"
+      }
+    }
+  },
+  "commandStderrFailure": "Execution failed: {details}",
+  "@commandStderrFailure": {
+    "placeholders": {
+      "details": {
+        "type": "String"
+      }
+    }
+  },
+  "commandExitCodeFailure": "Command failed with exit code: {code}",
+  "@commandExitCodeFailure": {
+    "placeholders": {
+      "code": {
+        "type": "String"
+      }
+    }
+  },
+  "privacyParagraph1": "Privacy Policy",
+  "privacyParagraph2": "Uotan WearBox Privacy Policy",
+  "privacyParagraph3": "Last updated: September 19, 2024",
+  "privacyParagraph4": "Welcome to Uotan WearBox (the “App”). We understand the importance of personal information and undertake to comply strictly with applicable laws and regulations and adopt appropriate security measures to protect it. Before using the App, please read and fully understand this Privacy Policy.",
+  "privacyParagraph5": "1. Information we collect",
+  "privacyParagraph6": "1. Internet Protocol address: We collect your IP address only when necessary to ensure the proper operation and security of the App. Apart from your IP address, we do not collect other information that identifies you personally.",
+  "privacyParagraph7": "2. Required permissions:",
+  "privacyParagraph8": "     - Network access: The App requires network access for data transfers, server communication, and feature updates.\n     - Device information: To improve performance and compatibility, we may read device information such as the model and operating system version.\n     - Storage access: The App may read and write device storage to cache data, save user settings, and provide offline features.",
+  "privacyParagraph9": "2. How we use information",
+  "privacyParagraph10": "1. Providing and maintaining services: We use the IP address and device information collected to ensure the App operates properly, improve its features, and continually enhance the user experience.",
+  "privacyParagraph11": "2. Security: We use IP addresses and device information for security monitoring and risk prevention, including preventing fraud, network attacks, and other activities that may compromise system security.",
+  "privacyParagraph12": "3. Legal basis for processing personal information",
+  "privacyParagraph13": "For users in mainland China, we collect and use personal information to provide products and/or services in accordance with the Cybersecurity Law of the People’s Republic of China, Information Security Technology — Personal Information Security Specification (GB/T 35273-2017), and other applicable laws and regulations. We generally collect personal information only with your consent. In some cases, collection may be necessary to meet legal obligations, perform a contract, or protect your vital interests or those of others.",
+  "privacyParagraph14": "4. Sharing, transferring, and publicly disclosing information",
+  "privacyParagraph15": "1. Legal requirements: We may disclose personal information when lawfully required by judicial or governmental authorities, subject to applicable laws and regulations.",
+  "privacyParagraph16": "2. Business transfers: In a merger, acquisition, asset transfer, or similar transaction, your personal information may be transferred as an asset. We will require the new holder to remain bound by this Policy or obtain your consent again.",
+  "privacyParagraph17": "3. Unauthorized disclosure: We will not publicly disclose your personal information without your explicit consent.",
+  "privacyParagraph18": "4. Exceptions to consent for sharing, transferring, or publicly disclosing personal information",
+  "privacyParagraph19": "Under applicable laws and regulations, we may share, transfer, or publicly disclose personal information without your consent in the following circumstances:",
+  "privacyParagraph20": "    - Matters concerning national security or national defense;\n    - Matters concerning public security, public health, or major public interests;\n    - Criminal investigations, prosecutions, trials, or enforcement of judgments;\n    - Protecting major lawful rights and interests, such as life or property, when obtaining consent is difficult;\n    - Personal information you have made public yourself;\n    - Information collected from lawful public disclosures, such as legitimate news reports or government disclosures;\n    - Other circumstances prescribed by law.",
+  "privacyParagraph21": "5. Storage and protection of information",
+  "privacyParagraph22": "1. Storage: We store information collected from you in the People’s Republic of China or the Hong Kong Special Administrative Region. For cross-border transfers, we will separately notify you by a pop-up or email of the purpose, recipient, and other details, and obtain your consent. We will ensure the recipient has adequate data protection capabilities.",
+  "privacyParagraph23": "2. Security measures: We strive to protect your personal information through physical, electronic, and administrative safeguards that meet industry standards. We establish data classification systems and standards for data security management and secure development to govern storage and use, and ensure we do not collect personal information unrelated to our services.",
+  "privacyParagraph24": "3. Security incidents: Although we make every effort to secure the information you send us, technical limitations and malicious activity on the Internet mean that absolute security cannot be guaranteed. Systems and communication networks used to access our services may experience problems beyond our control.",
+  "privacyParagraph25": "We maintain warning mechanisms and emergency plans to prevent security incidents. If a personal information security incident occurs, we will promptly inform you, as required by law, of its nature and potential impact, measures taken or planned, advice on reducing risks, and remedies available to you. We will immediately activate our emergency plan to minimize losses. We will notify you by telephone, push notification, or other means, or issue a reasonable and effective public announcement if individual notification is difficult. We will also report our response to regulators as required and cooperate closely with government authorities.",
+  "privacyParagraph26": "6. Your rights",
+  "privacyParagraph27": "1. Access and correction: You have the right to access and update your personal information. To exercise these rights, contact us using the details in this Policy.",
+  "privacyParagraph28": "2. Deletion and withdrawal of consent: Subject to applicable laws, you may request deletion of your personal information or withdraw consent. Deletion or withdrawal may prevent us from continuing to provide some or all services.",
+  "privacyParagraph29": "7. Protection of minors",
+  "privacyParagraph30": "We take the protection of minors’ personal information seriously. If you are under 18, use the App with the consent and guidance of a parent or legal guardian, and provide personal information only with their consent.",
+  "privacyParagraph31": "8. Updates to this Privacy Policy",
+  "privacyParagraph32": "We may revise this Policy as our business develops or laws and regulations change. Revisions will be published on this page and take effect upon publication. Please review this Policy regularly to learn about the latest privacy protections.",
+  "privacyParagraph33": "9. Governing law and dispute resolution",
+  "privacyParagraph34": "The formation, effectiveness, performance, interpretation, and dispute resolution of this Policy are governed by the laws of the People’s Republic of China. Disputes shall be resolved through amicable consultation; if consultation fails, either party may bring proceedings in the people’s court with jurisdiction where the App is based.",
+  "privacyParagraph35": "10. Contact us",
+  "privacyParagraph36": "If you have questions, comments, or suggestions about this Policy, or wish to exercise your rights, contact us at:\nEmail: support@Gnayoah.com",
+  "privacyParagraph37": "We will review the matter as soon as possible and respond promptly after receiving your request.",
+  "privacyParagraph38": "Thank you for your trust in and support of Uotan WearBox.",
+  "agreementParagraph1": "User Agreement",
+  "agreementParagraph2": "Uotan WearBox User Agreement",
+  "agreementParagraph3": "Last updated: September 18, 2024",
+  "agreementParagraph4": "Before using Uotan WearBox (the “App” or “we”), please read and fully understand this User Agreement (the “Agreement”). This is a legally binding agreement between you (the “User” or “you”) and Uotan WearBox concerning use of the App. Downloading, installing, or otherwise using the App means that you have read, understood, and agreed to all its terms and conditions.",
+  "agreementParagraph5": "1. Independence of the Privacy Policy",
+  "agreementParagraph6": "The privacy policies of Uotan Community and Uotan WearBox are entirely separate and unrelated. To review the Uotan Community privacy policy, visit its official website. The App’s Privacy Policy applies only to Uotan WearBox.",
+  "agreementParagraph7": "2. Acceptance and amendment",
+  "agreementParagraph8": "1. Acceptance",
+  "agreementParagraph9": "Read this Agreement in full before using the App. If you disagree with any term, stop using the App immediately. Downloading, installing, or using the App constitutes acceptance of this Agreement.",
+  "agreementParagraph10": "2. Amendments",
+  "agreementParagraph11": "We reserve the right to revise this Agreement at any time as our business develops or laws and regulations change, without separate individual notice. Revisions take effect upon publication. You are responsible for reviewing the latest version; continued use after changes constitutes acceptance of the revised Agreement.",
+  "agreementParagraph12": "3. Services and usage rules",
+  "agreementParagraph13": "1. Services",
+  "agreementParagraph14": "The App provides watch-related assistance and services, including time display, alarm settings, and health monitoring. The services available are determined by the actual features provided in the App.",
+  "agreementParagraph15": "2. Changes, suspension, or termination of services",
+  "agreementParagraph16": "We may adjust, suspend, or terminate some or all services at any time as circumstances require, without prior notice. We accept no liability for losses resulting from such adjustments, suspension, or termination.",
+  "agreementParagraph17": "4. User conduct",
+  "agreementParagraph18": "1. Lawful use",
+  "agreementParagraph19": "You undertake to use the App lawfully and not to engage in conduct that violates laws, public morality, or the lawful rights of others, including the following:",
+  "agreementParagraph20": "• Intellectual property infringement: Do not copy, distribute, modify, or otherwise use content protected by copyright, trademark, patent, or other laws without authorization.",
+  "agreementParagraph21": "• Inappropriate content: Do not publish or distribute content prohibited by law, including obscenity, pornography, gambling, violence, terrorism, superstition, defamation, insults, incitement, or encouragement of crime.",
+  "agreementParagraph22": "• Security threats: Do not compromise or attempt to compromise network security, including spreading malware, viruses, trojans, or worms, or attacking the App’s servers, networks, or other users’ devices.",
+  "agreementParagraph23": "2. Compliance with laws",
+  "agreementParagraph24": "When using the App, comply strictly with applicable laws, including the Cybersecurity Law and Civil Code of the People’s Republic of China. Do not use the App for illegal or criminal activities.",
+  "agreementParagraph25": "5. Intellectual property",
+  "agreementParagraph26": "1. Ownership",
+  "agreementParagraph27": "The App and all its content, including text, graphics, interface designs, visual effects, logos, trademarks, code, programs, software, services, and documentation, are protected by applicable laws, including the Copyright Law, Trademark Law, and Patent Law of the People’s Republic of China. The relevant rights belong to Gnayoah or its licensors.",
+  "agreementParagraph28": "2. License",
+  "agreementParagraph29": "We grant you a personal, non-transferable, non-exclusive, revocable, limited license to download, install, and use the App under this Agreement. Without our prior written consent, you may not copy, modify, distribute, sell, transfer, or otherwise exploit any part of the App.",
+  "agreementParagraph30": "3. Prohibited acts",
+  "agreementParagraph31": "Without written authorization from us or the relevant rights holders, you may not exercise, exploit, transfer, or license third parties to exercise, exploit, or transfer the above intellectual property in any form, including reverse engineering, decompiling, disassembling, or cracking the App.",
+  "agreementParagraph32": "6. Privacy and data protection",
+  "agreementParagraph33": "1. Personal information protection",
+  "agreementParagraph34": "We take personal information protection seriously and collect, use, store, and share your information strictly in accordance with the App’s Privacy Policy and applicable laws.",
+  "agreementParagraph35": "2. Acceptance of the Policy",
+  "agreementParagraph36": "Using the App means that you have read and agreed to our Privacy Policy in full. If you disagree with any part of it, stop using the App immediately.",
+  "agreementParagraph37": "7. Disclaimers and limitation of liability",
+  "agreementParagraph38": "1. Services provided as is",
+  "agreementParagraph39": "The App is provided “as is” and “as available.” We make no express or implied warranties regarding its continuity, timeliness, security, accuracy, completeness, or reliability.",
+  "agreementParagraph40": "2. Limitation of liability",
+  "agreementParagraph41": "To the maximum extent permitted by applicable law, we are not liable for any direct, indirect, incidental, special, consequential, or punitive damages resulting from using or being unable to use the App, including lost profits, lost data, or business interruption.",
+  "agreementParagraph42": "3. Third parties",
+  "agreementParagraph43": "We are not responsible for the content, accuracy, legality, or reliability of third-party websites, services, or resources accessed through the App. You assume the risks of using third-party services.",
+  "agreementParagraph44": "8. Breach and remedies",
+  "agreementParagraph45": "1. Handling breaches",
+  "agreementParagraph46": "If you breach this Agreement or applicable laws, we may, without prior notice, issue warnings, restrict, suspend, or terminate access to and use of the App, preserve relevant records, and pursue legal remedies.",
+  "agreementParagraph47": "2. Compensation",
+  "agreementParagraph48": "If your breach of this Agreement or applicable laws causes losses to us or a third party, you shall bear full compensation liability under the law, including direct and indirect losses, lost expected benefits, court costs, and legal fees.",
+  "agreementParagraph49": "9. Termination and consequences",
+  "agreementParagraph50": "1. Our right to terminate",
+  "agreementParagraph51": "For business reasons, we may terminate this Agreement or restrict, suspend, or terminate your access to and use of the App at any time, for any reason, without prior notice.",
+  "agreementParagraph52": "2. Your right to stop using the App",
+  "agreementParagraph53": "You may stop using the App at any time. Stopping use does not terminate this Agreement; provisions on intellectual property, limitation of liability, governing law, and similar matters remain legally effective after you stop using the App.",
+  "agreementParagraph54": "10. Force majeure",
+  "agreementParagraph55": "We are not liable for service interruptions or other defects caused by events beyond our reasonable control, including natural disasters, war, terrorism, government acts, changes in laws or policies, network failures, or hacking.",
+  "agreementParagraph56": "11. Governing law and dispute resolution",
+  "agreementParagraph57": "1. Governing law",
+  "agreementParagraph58": "The formation, effectiveness, performance, interpretation, and dispute resolution of this Agreement are governed by the laws of the People’s Republic of China, excluding, for this Agreement, the laws of Hong Kong, Macao, and Taiwan.",
+  "agreementParagraph59": "2. Dispute resolution",
+  "agreementParagraph60": "Disputes arising from or relating to this Agreement shall first be resolved through amicable consultation. If consultation fails, either party may bring proceedings in the people’s court with jurisdiction where we are based.",
+  "agreementParagraph61": "12. Interpretation",
+  "agreementParagraph62": "Uotan WearBox holds the right of final interpretation of this Agreement. We reserve all rights to interpret, amend, and update it.",
+  "agreementParagraph63": "13. Other provisions",
+  "agreementParagraph64": "1. Entire agreement",
+  "agreementParagraph65": "This Agreement, including the Privacy Policy, constitutes the entire agreement between the parties on its subject matter and supersedes all prior written or oral agreements, commitments, or representations.",
+  "agreementParagraph66": "2. Severability",
+  "agreementParagraph67": "If a court with jurisdiction finds a provision invalid or unenforceable, it shall be limited or removed only to the minimum extent necessary. The validity and enforceability of the remaining provisions are unaffected.",
+  "agreementParagraph68": "3. Waiver",
+  "agreementParagraph69": "Failure or delay by us to exercise a right or remedy under this Agreement does not waive it or affect our ability to exercise it in the future.",
+  "agreementParagraph70": "4. Notices and delivery",
+  "agreementParagraph71": "You agree that we may send notices concerning this Agreement or the App by email, text message, in-app notification, or announcement. Such notices are deemed delivered when sent.",
+  "agreementParagraph72": "14. Contact us",
+  "agreementParagraph73": "If you have questions, comments, or suggestions about this Agreement, contact us at:",
+  "agreementParagraph74": "Email: support@Gnayoah.com",
+  "agreementParagraph75": "We will respond to your request within a reasonable time.",
+  "agreementParagraph76": "Thank you for choosing Uotan WearBox!",
+  "deviceValueUnknown": "Unknown",
+  "deviceBootloaderLocked": "Locked",
+  "deviceBootloaderUnlocked": "Unlocked",
+  "deviceMemoryUsage": "{used}G/{total}G ({percent}% used)",
+  "@deviceMemoryUsage": {
+    "placeholders": {
+      "used": {
+        "type": "String"
+      },
+      "total": {
+        "type": "String"
+      },
+      "percent": {
+        "type": "String"
+      }
+    }
+  },
+  "deviceUptimeDays": "{days} d {hours} h {minutes} min",
+  "@deviceUptimeDays": {
+    "placeholders": {
+      "days": {
+        "type": "String"
+      },
+      "hours": {
+        "type": "String"
+      },
+      "minutes": {
+        "type": "String"
+      }
+    }
+  },
+  "deviceUptimeHours": "{hours} h {minutes} min",
+  "@deviceUptimeHours": {
+    "placeholders": {
+      "hours": {
+        "type": "String"
+      },
+      "minutes": {
+        "type": "String"
+      }
+    }
+  },
+  "deviceUptimeMinutes": "{minutes} min",
+  "@deviceUptimeMinutes": {
+    "placeholders": {
+      "minutes": {
+        "type": "String"
+      }
+    }
+  },
+  "flashReady": "Flash tool ready.",
+  "flashSelectedFile": "Selected file: {path}",
+  "@flashSelectedFile": {
+    "placeholders": {
+      "path": {
+        "type": "String"
+      }
+    }
+  },
+  "flashSelectedVbmeta": "Selected vbmeta image: {path}",
+  "@flashSelectedVbmeta": {
+    "placeholders": {
+      "path": {
+        "type": "String"
+      }
+    }
+  },
+  "flashSlotParseLog": "Could not parse current slot from output: {output}",
+  "@flashSlotParseLog": {
+    "placeholders": {
+      "output": {
+        "type": "String"
+      }
+    }
+  },
+  "flashActionPartition": "Flash {partition}",
+  "@flashActionPartition": {
+    "placeholders": {
+      "partition": {
+        "type": "String"
+      }
+    }
+  },
+  "flashActionSlot": "Switch slot {current} → {target}",
+  "@flashActionSlot": {
+    "placeholders": {
+      "current": {
+        "type": "String"
+      },
+      "target": {
+        "type": "String"
+      }
+    }
+  },
+  "flashLogStart": "Start: {action}",
+  "@flashLogStart": {
+    "placeholders": {
+      "action": {
+        "type": "String"
+      }
+    }
+  },
+  "flashLogDone": "Done: {action}",
+  "@flashLogDone": {
+    "placeholders": {
+      "action": {
+        "type": "String"
+      }
+    }
+  },
+  "flashLogFailed": "Failed: {action} (exit code {code})",
+  "@flashLogFailed": {
+    "placeholders": {
+      "action": {
+        "type": "String"
+      },
+      "code": {
+        "type": "String"
+      }
+    }
+  }
 }
