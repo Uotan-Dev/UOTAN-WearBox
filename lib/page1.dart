@@ -29,6 +29,7 @@ class _Page1State extends State<Page1> {
   String? _selectedAdbId;
   bool _isRefreshing = false;
   int _infoPage = 0; // 窄屏下设备信息的当前页
+  bool _infoPageForward = true; // 最近一次翻页方向，决定滑动动画方向
 
   // 窄屏下设备信息每页显示的条目数
   static const int _infoItemsPerPage = 6;
@@ -836,8 +837,12 @@ class _Page1State extends State<Page1> {
           style: const ButtonStyle(
             tapTargetSize: MaterialTapTargetSize.shrinkWrap,
           ),
-          onPressed:
-              target == null ? null : () => setState(() => _infoPage = target),
+          onPressed: target == null
+              ? null
+              : () => setState(() {
+                    _infoPageForward = target > page;
+                    _infoPage = target;
+                  }),
         );
 
     return [
@@ -873,11 +878,45 @@ class _Page1State extends State<Page1> {
         ],
       ),
       const SizedBox(height: 6),
-      for (final String text in items.sublist(start, end))
-        Padding(
-          padding: const EdgeInsets.only(bottom: 6.0),
-          child: _buildTitleValueCell(text),
+      // 翻页动画：新页从翻页方向滑入并淡入，旧页反向滑出并淡出
+      ClipRect(
+        child: AnimatedSwitcher(
+          duration: const Duration(milliseconds: 250),
+          switchInCurve: Curves.easeOutCubic,
+          switchOutCurve: Curves.easeInCubic,
+          layoutBuilder: (currentChild, previousChildren) => Stack(
+            alignment: Alignment.topLeft,
+            children: [
+              ...previousChildren,
+              if (currentChild != null) currentChild
+            ],
+          ),
+          transitionBuilder: (child, animation) {
+            final bool incoming = child.key == ValueKey<int>(page);
+            final double direction = _infoPageForward ? 1 : -1;
+            return FadeTransition(
+              opacity: animation,
+              child: SlideTransition(
+                position: Tween<Offset>(
+                  begin: Offset((incoming ? 0.3 : -0.3) * direction, 0),
+                  end: Offset.zero,
+                ).animate(animation),
+                child: child,
+              ),
+            );
+          },
+          child: Column(
+            key: ValueKey<int>(page),
+            children: [
+              for (final String text in items.sublist(start, end))
+                Padding(
+                  padding: const EdgeInsets.only(bottom: 6.0),
+                  child: _buildTitleValueCell(text),
+                ),
+            ],
+          ),
         ),
+      ),
     ];
   }
 
