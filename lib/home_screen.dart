@@ -8,6 +8,7 @@ import 'adb_device_info.dart';
 import 'page1.dart';
 import 'page2.dart';
 import 'page3.dart';
+import 'page_transition.dart';
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({
@@ -47,6 +48,7 @@ class _HomeScreenState extends State<HomeScreen> with WindowListener {
   @override
   void dispose() {
     windowManager.removeListener(this);
+    _pageController?.dispose();
     super.dispose();
   }
 
@@ -273,6 +275,57 @@ class _HomeScreenState extends State<HomeScreen> with WindowListener {
     setState(() {
       _selectedIndex = index;
     });
+    // 窄屏：像原生分页一样连续滚动到目标页，跨页时会经过中间的页面
+    final PageController? controller = _pageController;
+    if (controller != null && controller.hasClients) {
+      final int token = ++_pageAnimationToken;
+      controller
+          .animateToPage(
+        index,
+        duration: const Duration(milliseconds: 350),
+        curve: Curves.easeOutCubic,
+      )
+          .whenComplete(() {
+        // 只有最后一次点击触发的动画结束时才恢复跟随滑动
+        if (token == _pageAnimationToken) {
+          _pageAnimationToken = 0;
+        }
+      });
+    }
+  }
+
+  // 窄屏分页控制器：进入窄屏布局时按当前页创建，切换到宽屏时释放
+  PageController? _pageController;
+
+  // 非 0 表示正在执行点击导航触发的翻页动画，此时忽略经过中间页时的 onPageChanged
+  int _pageAnimationToken = 0;
+
+  void _releasePageController() {
+    final PageController? controller = _pageController;
+    if (controller == null) {
+      return;
+    }
+    _pageController = null;
+    WidgetsBinding.instance
+        .addPostFrameCallback((_) => controller.dispose());
+  }
+
+  // 窄屏页面容器：可左右滑动切换，与底部导航栏联动
+  Widget _buildNarrowPager() {
+    final PageController controller =
+        _pageController ??= PageController(initialPage: _selectedIndex);
+    return PageView(
+      controller: controller,
+      onPageChanged: (index) {
+        if (_pageAnimationToken != 0 || index == _selectedIndex) {
+          return;
+        }
+        setState(() {
+          _selectedIndex = index;
+        });
+      },
+      children: _pages,
+    );
   }
 
   // 宽屏内容区域：一级页面作为嵌套 Navigator 的根页面
@@ -289,8 +342,23 @@ class _HomeScreenState extends State<HomeScreen> with WindowListener {
     );
   }
 
+  // 切换导航项时新页面淡入并轻微上移。
+  // 只做入场动画、不与旧页面交叉淡化：旧页面的嵌套 Navigator 使用 GlobalKey，
+  // 快速来回切换时两份同 key 的页面同时存在会报错
+  Widget _buildTabTransition(Widget child) {
+    return TweenAnimationBuilder<double>(
+      key: ValueKey<int>(_selectedIndex),
+      tween: Tween<double>(begin: 0, end: 1),
+      duration: kPageEnterDuration,
+      curve: kPageEnterCurve,
+      builder: (context, t, child) => fadeRise(t, child!),
+      child: child,
+    );
+  }
+
   // 宽屏布局：左侧导航栏
   Widget _buildWideLayout(BuildContext context) {
+    _releasePageController();
     return Row(
       children: [
         NavigationRail(
@@ -330,7 +398,7 @@ class _HomeScreenState extends State<HomeScreen> with WindowListener {
         ),
         const VerticalDivider(thickness: 1, width: 1),
         Expanded(
-          child: _buildContent(),
+          child: _buildTabTransition(_buildContent()),
         ),
       ],
     );
@@ -342,7 +410,7 @@ class _HomeScreenState extends State<HomeScreen> with WindowListener {
     return Column(
       children: [
         Expanded(
-          child: _pages[_selectedIndex],
+          child: _buildNarrowPager(),
         ),
         const Divider(thickness: 1, height: 1),
         NavigationBarTheme(

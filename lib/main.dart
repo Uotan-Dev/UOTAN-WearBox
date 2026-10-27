@@ -5,6 +5,7 @@ import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:window_manager/window_manager.dart';
 import 'home_screen.dart';
+import 'page_transition.dart';
 import 'l10n/app_localizations.dart';
 import 'l10n/l10n.dart';
 import 'window_buttons.dart';
@@ -128,6 +129,13 @@ class _MyAppState extends State<MyApp> {
         primarySwatch: Colors.blue,
         fontFamily: 'MiSans',
         scaffoldBackgroundColor: Colors.white,
+        // 进入二级页面使用与导航栏切换相同的淡入上移动画
+        pageTransitionsTheme: PageTransitionsTheme(
+          builders: {
+            for (final TargetPlatform platform in TargetPlatform.values)
+              platform: const FadeRisePageTransitionsBuilder(),
+          },
+        ),
       ),
       home: HomeScreen(
         onLocaleChanged: _handleLocaleChanged,
