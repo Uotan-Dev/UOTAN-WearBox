@@ -1,4 +1,5 @@
 import 'app_theme.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:watch_assistant/utils.dart';
 import 'package:watch_assistant/l10n/l10n.dart';
@@ -6,6 +7,7 @@ import 'package:window_manager/window_manager.dart';
 import 'package:http/http.dart' as http;
 import 'package:url_launcher/url_launcher.dart';
 import 'adb_device_info.dart';
+import 'app_sidebar.dart';
 import 'page1.dart';
 import 'page2.dart';
 import 'page3.dart';
@@ -263,6 +265,11 @@ class _HomeScreenState extends State<HomeScreen> with WindowListener {
   // 窗口宽度小于该值时切换为底部导航栏布局
   static const double _narrowLayoutBreakpoint = 600;
 
+  static final bool _isDesktop = !kIsWeb &&
+      (defaultTargetPlatform == TargetPlatform.windows ||
+          defaultTargetPlatform == TargetPlatform.macOS ||
+          defaultTargetPlatform == TargetPlatform.linux);
+
   // 每个导航项拥有独立的嵌套 Navigator，二级页面在内容区域内打开，侧边栏保持显示
   final List<GlobalKey<NavigatorState>> _navigatorKeys =
       List.generate(3, (_) => GlobalKey<NavigatorState>());
@@ -361,38 +368,24 @@ class _HomeScreenState extends State<HomeScreen> with WindowListener {
     _releasePageController();
     return Row(
       children: [
-        NavigationRail(
+        AppSidebar(
           selectedIndex: _selectedIndex,
-          onDestinationSelected: _onDestinationSelected,
-          labelType: NavigationRailLabelType.all, // 始终显示按钮文本
-          groupAlignment: 0.0, // 按钮上下居中
-          backgroundColor: context.palette.surface, // 设置背景颜色为 #F9F9F9
-          useIndicator: true, // 启用指示器
-          indicatorColor: context.palette.button, // 选中项的背景颜色
-          destinations: [
-            NavigationRailDestination(
-              icon: const Icon(Icons.home_filled),
-              selectedIcon: const Icon(Icons.home_filled),
-              label: Text(
-                context.l10n.navigationHome,
-                style: const TextStyle(fontSize: 13), // 调整文本大小为13
-              ),
+          onSelected: _onDestinationSelected,
+          items: [
+            AppSidebarItem(
+              icon: 'home',
+              selectedIcon: 'home_filled',
+              label: context.l10n.navigationHome,
             ),
-            NavigationRailDestination(
-              icon: const Icon(Icons.view_cozy),
-              selectedIcon: const Icon(Icons.view_cozy),
-              label: Text(
-                context.l10n.navigationFeatures,
-                style: const TextStyle(fontSize: 13), // 调整文本大小为13
-              ),
+            AppSidebarItem(
+              icon: 'features',
+              selectedIcon: 'features_filled',
+              label: context.l10n.navigationFeatures,
             ),
-            NavigationRailDestination(
-              icon: const Icon(Icons.settings),
-              selectedIcon: const Icon(Icons.settings),
-              label: Text(
-                context.l10n.navigationAbout,
-                style: const TextStyle(fontSize: 13), // 调整文本大小为13
-              ),
+            AppSidebarItem(
+              icon: 'settings',
+              selectedIcon: 'settings_filled',
+              label: context.l10n.navigationAbout,
             ),
           ],
         ),
@@ -508,8 +501,10 @@ class _HomeScreenState extends State<HomeScreen> with WindowListener {
             : LayoutBuilder(
                 key: const ValueKey('content'), // 唯一键值
                 builder: (context, constraints) {
-                  // 窄屏（窄窗口 / 移动端）时将侧边栏移动到页面底部
-                  if (constraints.maxWidth < _narrowLayoutBreakpoint) {
+                  // 桌面端（Windows / macOS / Linux）始终使用侧边栏；
+                  // 其他平台窄屏时将侧边栏移动到页面底部
+                  if (!_isDesktop &&
+                      constraints.maxWidth < _narrowLayoutBreakpoint) {
                     return _buildNarrowLayout(context);
                   }
                   return _buildWideLayout(context);
