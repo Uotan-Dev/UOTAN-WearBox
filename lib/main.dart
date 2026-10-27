@@ -129,11 +129,11 @@ class _MyAppState extends State<MyApp> {
         primarySwatch: Colors.blue,
         fontFamily: 'MiSans',
         scaffoldBackgroundColor: Colors.white,
-        // 进入二级页面使用与导航栏切换相同的淡入上移动画
+        // 二级页面转场：宽屏为 Windows 11 设置风格左右钻入，窄屏为 iOS 风格
         pageTransitionsTheme: PageTransitionsTheme(
           builders: {
             for (final TargetPlatform platform in TargetPlatform.values)
-              platform: const FadeRisePageTransitionsBuilder(),
+              platform: const AppPageTransitionsBuilder(),
           },
         ),
       ),
