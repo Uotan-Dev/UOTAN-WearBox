@@ -613,6 +613,12 @@ abstract class AppLocalizations {
   /// **'Update now'**
   String get updateDialogUpdate;
 
+  /// No description provided for @updateDialogLater.
+  ///
+  /// In en, this message translates to:
+  /// **'Later'**
+  String get updateDialogLater;
+
   /// No description provided for @networkErrorTitle.
   ///
   /// In en, this message translates to:
@@ -820,7 +826,7 @@ abstract class AppLocalizations {
   /// No description provided for @deviceArchitecture.
   ///
   /// In en, this message translates to:
-  /// **'Architecture: {architecture}'**
+  /// **'CPU Architecture: {architecture}'**
   String deviceArchitecture(Object architecture);
 
   /// No description provided for @deviceBatteryLevel.

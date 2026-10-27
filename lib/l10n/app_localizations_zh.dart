@@ -281,6 +281,9 @@ class AppLocalizationsZh extends AppLocalizations {
   String get updateDialogUpdate => '立即更新';
 
   @override
+  String get updateDialogLater => '稍后再说';
+
+  @override
   String get networkErrorTitle => '无法连接服务器';
 
   @override

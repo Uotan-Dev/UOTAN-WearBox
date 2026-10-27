@@ -281,6 +281,9 @@ class AppLocalizationsJa extends AppLocalizations {
   String get updateDialogUpdate => '今すぐ更新';
 
   @override
+  String get updateDialogLater => '後で';
+
+  @override
   String get networkErrorTitle => 'サーバーに接続できません';
 
   @override

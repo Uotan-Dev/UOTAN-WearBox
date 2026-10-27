@@ -122,6 +122,7 @@
     }
   },
   "updateDialogUpdate": "今すぐ更新",
+  "updateDialogLater": "後で",
   "networkErrorTitle": "サーバーに接続できません",
   "networkErrorMessage": "ネットワークをご確認の上、再度お試しください。",
   "networkErrorExit": "終了",

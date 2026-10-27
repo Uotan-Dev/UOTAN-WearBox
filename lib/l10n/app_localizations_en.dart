@@ -281,6 +281,9 @@ class AppLocalizationsEn extends AppLocalizations {
   String get updateDialogUpdate => 'Update now';
 
   @override
+  String get updateDialogLater => 'Later';
+
+  @override
   String get networkErrorTitle => 'Unable to reach the server';
 
   @override
@@ -402,7 +405,7 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String deviceArchitecture(Object architecture) {
-    return 'Architecture: $architecture';
+    return 'CPU Architecture: $architecture';
   }
 
   @override

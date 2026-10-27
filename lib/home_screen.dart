@@ -134,7 +134,7 @@ class _HomeScreenState extends State<HomeScreen> with WindowListener {
   void _showUpdateDialog(double remoteVersion, String releaseDate) {
     showDialog(
       context: context,
-      barrierDismissible: false, // 设置为false，禁止点击对话框外部区域取消
+      barrierDismissible: true, // 非强制更新，允许点击对话框外部区域关闭
       builder: (BuildContext context) {
         final l10n = context.l10n;
         return AlertDialog(
@@ -157,10 +157,9 @@ class _HomeScreenState extends State<HomeScreen> with WindowListener {
                 foregroundColor:
                     MaterialStateProperty.all<Color>(Colors.black), // 文本颜色
               ),
-              // child: const Text('下次一定'),
-              child: const Text(''),
+              child: Text(l10n.updateDialogLater),
               onPressed: () {
-                //  Navigator.of(context).pop(); // 关闭对话框
+                Navigator.of(context).pop(); // 关闭对话框
               },
             ),
             TextButton(

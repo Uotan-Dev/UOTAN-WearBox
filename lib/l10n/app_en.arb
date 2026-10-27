@@ -122,6 +122,7 @@
     }
   },
   "updateDialogUpdate": "Update now",
+  "updateDialogLater": "Later",
   "networkErrorTitle": "Unable to reach the server",
   "networkErrorMessage": "Please check your network connection or try again later.",
   "networkErrorExit": "Exit",

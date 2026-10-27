@@ -122,6 +122,7 @@
     }
   },
   "updateDialogUpdate": "立即更新",
+  "updateDialogLater": "稍后再说",
   "networkErrorTitle": "无法连接服务器",
   "networkErrorMessage": "请检查网络或稍后再试。",
   "networkErrorExit": "退出",
