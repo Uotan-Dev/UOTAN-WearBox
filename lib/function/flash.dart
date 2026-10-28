@@ -1,3 +1,4 @@
+import '../platform_support.dart';
 import '../app_theme.dart';
 import 'package:watch_assistant/l10n/l10n.dart';
 import 'dart:convert';
@@ -6,7 +7,6 @@ import 'dart:io';
 
 import 'package:file_picker/file_picker.dart';
 import 'package:flutter/material.dart';
-import 'package:window_manager/window_manager.dart';
 
 class FlashToolPage extends StatefulWidget {
   const FlashToolPage({super.key});
@@ -81,7 +81,7 @@ class _FlashToolPageState extends State<FlashToolPage> {
           child: Padding(
             padding: const EdgeInsets.only(top: 40),
             child: GestureDetector(
-              onPanStart: (_) => windowManager.startDragging(),
+              onPanStart: (_) => startWindowDrag(),
               child: Container(
                 color: Colors.transparent,
                 padding: const EdgeInsets.symmetric(horizontal: 18),
@@ -473,7 +473,7 @@ class _FlashToolPageState extends State<FlashToolPage> {
 
     try {
       final ProcessResult result =
-          await Process.run(fastbootPath, <String>['getvar', 'current-slot']);
+          await Process.run(fastbootPath, <String>['getvar', 'current-slot'], environment: toolEnvironment);
       final String mergedOutput =
           '${result.stdout}\n${result.stderr}'.toLowerCase();
       final RegExpMatch? match =
@@ -517,7 +517,7 @@ class _FlashToolPageState extends State<FlashToolPage> {
     _addLog('> fastboot ${args.join(' ')}');
 
     try {
-      final Process process = await Process.start(fastbootPath, args);
+      final Process process = await Process.start(fastbootPath, args, environment: toolEnvironment);
       process.stdout.transform(utf8.decoder).listen(_appendProcessLog);
       process.stderr.transform(utf8.decoder).listen(_appendProcessLog);
 
@@ -543,7 +543,7 @@ class _FlashToolPageState extends State<FlashToolPage> {
   Future<bool> _ensureFastbootDeviceReady() async {
     try {
       final ProcessResult result =
-          await Process.run(fastbootPath, <String>['devices']);
+          await Process.run(fastbootPath, <String>['devices'], environment: toolEnvironment);
       final String output = result.stdout.toString();
       final List<String> lines = output
           .split('\n')

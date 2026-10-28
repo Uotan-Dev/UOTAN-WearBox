@@ -1,7 +1,7 @@
+import 'platform_support.dart';
 import 'app_theme.dart';
 import 'package:flutter/material.dart';
 import 'package:url_launcher/url_launcher.dart';
-import 'package:window_manager/window_manager.dart';
 
 import 'l10n/app_localizations.dart';
 import 'l10n/l10n.dart';
@@ -19,7 +19,7 @@ class DriverPage extends StatelessWidget {
         child: Padding(
           padding: const EdgeInsets.only(top: 40), // 设置顶部边距
           child: GestureDetector(
-            onPanStart: (details) => windowManager.startDragging(), // 允许拖动窗口
+            onPanStart: (details) => startWindowDrag(), // 允许拖动窗口
             child: Container(
               color: Colors.transparent, // 设置为透明背景
               padding: const EdgeInsets.symmetric(horizontal: 18),

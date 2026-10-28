@@ -1,7 +1,7 @@
+import 'platform_support.dart';
 import 'app_theme.dart';
 import 'package:flutter/material.dart';
 import 'package:url_launcher/url_launcher.dart';
-import 'package:window_manager/window_manager.dart';
 
 import 'about/privacy.dart';
 import 'blur_menu.dart';
@@ -19,6 +19,7 @@ class Page3 extends StatelessWidget {
     required this.currentVersion,
     required this.onThemeModeChanged,
     required this.themeMode,
+    required this.onCheckUpdate,
   });
 
   final ValueChanged<Locale?> onLocaleChanged;
@@ -26,6 +27,9 @@ class Page3 extends StatelessWidget {
   final String currentVersion;
   final ValueChanged<ThemeMode> onThemeModeChanged;
   final ThemeMode themeMode;
+
+  /// 手动检查更新；有新版本时由调用方弹出更新提示
+  final Future<UpdateCheckResult> Function() onCheckUpdate;
 
   @override
   Widget build(BuildContext context) {
@@ -128,7 +132,7 @@ class Page3 extends StatelessWidget {
         child: Padding(
           padding: const EdgeInsets.only(top: 20), // 设置顶部边距
           child: GestureDetector(
-            onPanStart: (details) => windowManager.startDragging(), // 允许拖动窗口
+            onPanStart: (details) => startWindowDrag(), // 允许拖动窗口
             child: Container(
               color: Colors.transparent, // 设置为透明背景
               padding: const EdgeInsets.symmetric(horizontal: 18),
@@ -168,13 +172,20 @@ class Page3 extends StatelessWidget {
           const SizedBox(height: 15),
           Expanded(
             child: ListView(
-              padding: const EdgeInsets.only(left: 20.0, right: 20, bottom: 20),
+              // 底部额外留出悬浮导航栏的高度（窄屏）
+              padding: EdgeInsets.only(
+                left: 20.0,
+                right: 20,
+                bottom: 20 + MediaQuery.paddingOf(context).bottom,
+              ),
               children: [
                 _buildSectionTitle(context, l10n.setting_config),
                 const SizedBox(height: 2),
                 _buildLanguageCard(context, l10n),
                 const SizedBox(height: 10),
                 _buildThemeModeCard(context, l10n),
+                const SizedBox(height: 10),
+                _CheckUpdateCard(onCheckUpdate: onCheckUpdate),
                 const SizedBox(height: 10),
                 _buildSectionTitle(context, l10n.settingsSectionFaq),
                 const SizedBox(height: 2),
@@ -271,9 +282,12 @@ class Page3 extends StatelessWidget {
             value: themeMode,
             onChanged: onThemeModeChanged,
             items: [
-              BlurMenuItem(value: ThemeMode.system, label: l10n.themeModeSystem),
-              BlurMenuItem(value: ThemeMode.dark, label: l10n.themeModeAlwaysOn),
-              BlurMenuItem(value: ThemeMode.light, label: l10n.themeModeAlwaysOff),
+              BlurMenuItem(
+                  value: ThemeMode.system, label: l10n.themeModeSystem),
+              BlurMenuItem(
+                  value: ThemeMode.dark, label: l10n.themeModeAlwaysOn),
+              BlurMenuItem(
+                  value: ThemeMode.light, label: l10n.themeModeAlwaysOff),
             ],
           ),
         ),
@@ -365,6 +379,75 @@ class Page3 extends StatelessWidget {
     } else {
       debugPrint('无法发送邮件至: ${emailUri.toString()}');
     }
+  }
+}
+
+/// 检查更新的结果
+enum UpdateCheckResult { available, upToDate, failed }
+
+class _CheckUpdateCard extends StatefulWidget {
+  const _CheckUpdateCard({required this.onCheckUpdate});
+
+  final Future<UpdateCheckResult> Function() onCheckUpdate;
+
+  @override
+  State<_CheckUpdateCard> createState() => _CheckUpdateCardState();
+}
+
+class _CheckUpdateCardState extends State<_CheckUpdateCard> {
+  bool _checking = false;
+
+  Future<void> _check() async {
+    setState(() => _checking = true);
+    final UpdateCheckResult result = await widget.onCheckUpdate();
+    if (!mounted) {
+      return;
+    }
+    setState(() => _checking = false);
+    // 有新版本时已弹出更新提示，这里只提示无更新或失败
+    final String? message = switch (result) {
+      UpdateCheckResult.available => null,
+      UpdateCheckResult.upToDate => context.l10n.updateUpToDate,
+      UpdateCheckResult.failed => context.l10n.updateCheckFailed,
+    };
+    if (message != null) {
+      ScaffoldMessenger.of(context)
+        ..hideCurrentSnackBar()
+        ..showSnackBar(SnackBar(content: Text(message)));
+    }
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    final l10n = context.l10n;
+    return Material(
+      color: context.palette.surface,
+      shape: RoundedRectangleBorder(
+        borderRadius: BorderRadius.circular(8.0),
+      ),
+      child: InkWell(
+        borderRadius: BorderRadius.circular(8.0),
+        onTap: _checking ? null : _check,
+        child: Padding(
+          padding: const EdgeInsets.all(5.0),
+          child: ListTile(
+            leading: const Icon(Icons.update, size: 20),
+            title: Text(l10n.settingsCheckUpdateTitle),
+            subtitle: Text(l10n.settingsCheckUpdateSubtitle),
+            trailing: _checking
+                ? SizedBox(
+                    width: 14,
+                    height: 14,
+                    child: CircularProgressIndicator(
+                      strokeWidth: 1.5,
+                      color: context.palette.text,
+                    ),
+                  )
+                : const Icon(Icons.arrow_forward_ios, size: 14),
+          ),
+        ),
+      ),
+    );
   }
 }
 

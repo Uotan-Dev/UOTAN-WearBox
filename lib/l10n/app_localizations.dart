@@ -349,6 +349,30 @@ abstract class AppLocalizations {
   /// **'Switch between light and dark appearance'**
   String get settingsDarkModeSubtitle;
 
+  /// No description provided for @settingsCheckUpdateTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Check for updates'**
+  String get settingsCheckUpdateTitle;
+
+  /// No description provided for @settingsCheckUpdateSubtitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Get the latest version'**
+  String get settingsCheckUpdateSubtitle;
+
+  /// No description provided for @updateUpToDate.
+  ///
+  /// In en, this message translates to:
+  /// **'You're on the latest version'**
+  String get updateUpToDate;
+
+  /// No description provided for @updateCheckFailed.
+  ///
+  /// In en, this message translates to:
+  /// **'Couldn't check for updates. Please check your connection.'**
+  String get updateCheckFailed;
+
   /// No description provided for @themeModeSystem.
   ///
   /// In en, this message translates to:

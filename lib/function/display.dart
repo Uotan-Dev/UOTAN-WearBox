@@ -1,10 +1,10 @@
+import '../platform_support.dart';
 import '../app_theme.dart';
 import 'dart:io';
 import '../platform_tools.dart';
 
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
-import 'package:window_manager/window_manager.dart';
 import 'package:watch_assistant/l10n/l10n.dart';
 
 class DisplaySettingsPage extends StatefulWidget {
@@ -59,7 +59,7 @@ class _DisplaySettingsPageState extends State<DisplaySettingsPage> {
   // 检测设备是否连接
   Future<bool> _isDeviceConnected() async {
     try {
-      ProcessResult result = await Process.run(adbPath, ['devices']);
+      ProcessResult result = await Process.run(adbPath, ['devices'], environment: toolEnvironment);
       String output = result.stdout as String;
       return output.split('\n').any((line) => line.contains('\tdevice'));
     } catch (e) {
@@ -73,7 +73,7 @@ class _DisplaySettingsPageState extends State<DisplaySettingsPage> {
   Future<void> _fetchCurrentDPI() async {
     try {
       ProcessResult result =
-          await Process.run(adbPath, ['shell', 'wm', 'density']);
+          await Process.run(adbPath, ['shell', 'wm', 'density'], environment: toolEnvironment);
       String output = result.stdout as String;
       if (!mounted) return;
       setState(() {
@@ -94,7 +94,7 @@ class _DisplaySettingsPageState extends State<DisplaySettingsPage> {
   // 获取当前分辨率
   Future<void> _fetchCurrentResolution() async {
     try {
-      ProcessResult result = await Process.run(adbPath, ['shell', 'wm', 'size']);
+      ProcessResult result = await Process.run(adbPath, ['shell', 'wm', 'size'], environment: toolEnvironment);
       String output = result.stdout as String;
       if (!mounted) return;
       setState(() {
@@ -127,7 +127,7 @@ class _DisplaySettingsPageState extends State<DisplaySettingsPage> {
           child: Padding(
             padding: const EdgeInsets.only(top: 40), // 设置顶部边距
             child: GestureDetector(
-              onPanStart: (details) => windowManager.startDragging(), // 允许拖动窗口
+              onPanStart: (details) => startWindowDrag(), // 允许拖动窗口
               child: Container(
                 color: Colors.transparent, // 设置为透明背景
                 padding: const EdgeInsets.symmetric(horizontal: 18),
@@ -463,7 +463,7 @@ class _DisplaySettingsPageState extends State<DisplaySettingsPage> {
     if (dpi.isNotEmpty && await _isDeviceConnected()) {
       // 检测设备是否连接
       try {
-        await Process.run(adbPath, ['shell', 'wm', 'density', dpi]);
+        await Process.run(adbPath, ['shell', 'wm', 'density', dpi], environment: toolEnvironment);
         _showInfoDialog(context.l10n.displayDpiSetSuccess(dpi));
         _fetchCurrentDPI(); // 更新当前DPI
       } catch (e) {
@@ -479,7 +479,7 @@ class _DisplaySettingsPageState extends State<DisplaySettingsPage> {
     if (resolution.isNotEmpty && await _isDeviceConnected()) {
       // 检测设备是否连接
       try {
-        await Process.run(adbPath, ['shell', 'wm', 'size', resolution]);
+        await Process.run(adbPath, ['shell', 'wm', 'size', resolution], environment: toolEnvironment);
         _showInfoDialog(context.l10n.displayResolutionSetSuccess(resolution));
         _fetchCurrentResolution(); // 更新当前分辨率
       } catch (e) {
@@ -496,7 +496,7 @@ class _DisplaySettingsPageState extends State<DisplaySettingsPage> {
     if (await _isDeviceConnected()) {
       // 检测设备是否连接
       try {
-        await Process.run(adbPath, ['shell', 'wm', 'density', 'reset']);
+        await Process.run(adbPath, ['shell', 'wm', 'density', 'reset'], environment: toolEnvironment);
         _showInfoDialog(context.l10n.displayDpiResetSuccess);
         _fetchCurrentDPI(); // 更新当前DPI
       } catch (e) {
@@ -512,7 +512,7 @@ class _DisplaySettingsPageState extends State<DisplaySettingsPage> {
     if (await _isDeviceConnected()) {
       // 检测设备是否连接
       try {
-        await Process.run(adbPath, ['shell', 'wm', 'size', 'reset']);
+        await Process.run(adbPath, ['shell', 'wm', 'size', 'reset'], environment: toolEnvironment);
         _showInfoDialog(context.l10n.displayResolutionResetSuccess);
         _fetchCurrentResolution(); // 更新当前分辨率
       } catch (e) {

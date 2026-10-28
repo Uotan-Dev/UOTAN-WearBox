@@ -1,10 +1,10 @@
+import '../platform_support.dart';
 import '../app_theme.dart';
 import 'dart:io'; // 导入用于运行进程的包
 import '../platform_tools.dart';
 import 'package:file_picker/file_picker.dart'; // 导入文件选择器包
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
-import 'package:window_manager/window_manager.dart';
 import 'package:watch_assistant/l10n/l10n.dart';
 
 class TypeTextPage extends StatefulWidget {
@@ -26,7 +26,7 @@ class _TypeTextPageState extends State<TypeTextPage> {
         child: Padding(
           padding: const EdgeInsets.only(top: 40), // 设置顶部边距
           child: GestureDetector(
-            onPanStart: (details) => windowManager.startDragging(), // 允许拖动窗口
+            onPanStart: (details) => startWindowDrag(), // 允许拖动窗口
             child: Container(
               color: Colors.transparent, // 设置为透明背景
               padding: const EdgeInsets.symmetric(horizontal: 18),
@@ -215,7 +215,7 @@ class _TypeTextPageState extends State<TypeTextPage> {
 
       for (String line in lines) {
         // 使用 adb shell input text 命令发送每一行文本
-        ProcessResult result = await Process.run(adbPath, ['shell', 'input', 'text', Uri.encodeComponent(line)]);
+        ProcessResult result = await Process.run(adbPath, ['shell', 'input', 'text', Uri.encodeComponent(line)], environment: toolEnvironment);
         // 检查是否返回了权限错误
         if (result.stderr.toString().contains('INJECT_EVENTS permission')) {
           Navigator.of(context, rootNavigator: true).pop(); // 关闭进度弹窗
@@ -223,7 +223,7 @@ class _TypeTextPageState extends State<TypeTextPage> {
           return;
         }
         // 模拟回车键以实现换行
-        await Process.run(adbPath, ['shell', 'input', 'keyevent', '66']); // KEYCODE_ENTER = 66
+        await Process.run(adbPath, ['shell', 'input', 'keyevent', '66'], environment: toolEnvironment); // KEYCODE_ENTER = 66
       }
 
       Navigator.of(context, rootNavigator: true).pop(); // 关闭进度弹窗
@@ -262,7 +262,7 @@ class _TypeTextPageState extends State<TypeTextPage> {
   // 检测设备是否连接
   Future<bool> _isDeviceConnected() async {
     try {
-      ProcessResult result = await Process.run(adbPath, ['devices']);
+      ProcessResult result = await Process.run(adbPath, ['devices'], environment: toolEnvironment);
       String output = result.stdout as String;
       // 检查输出中是否有 "device" 状态，排除 "List of devices" 和空行
       return output.split('\n').any((line) => line.contains('\tdevice'));

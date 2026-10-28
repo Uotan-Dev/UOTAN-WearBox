@@ -1,10 +1,10 @@
+import 'platform_support.dart';
 import 'app_theme.dart';
 import 'dart:io';
 import 'platform_tools.dart';
 
 import 'package:flutter/material.dart';
 import 'package:watch_assistant/wireless.dart';
-import 'package:window_manager/window_manager.dart';
 
 import 'adb_device_info.dart';
 import 'blur_menu.dart';
@@ -75,7 +75,7 @@ class _Page1State extends State<Page1> {
         child: Padding(
           padding: const EdgeInsets.only(top: 00),
           child: GestureDetector(
-            onPanStart: (details) => windowManager.startDragging(),
+            onPanStart: (details) => startWindowDrag(),
             child: Container(
               // 固定高度：macOS 隐藏窗口按钮后标题栏不能因此塌缩，否则首页整体上移
               height: 48,
@@ -102,7 +102,13 @@ class _Page1State extends State<Page1> {
       body: Builder(builder: (context) {
         final Widget content = Padding(
           padding: narrow
-              ? const EdgeInsets.only(right: 16, left: 16, top: 10, bottom: 16)
+              // 底部额外留出悬浮导航栏的高度
+              ? EdgeInsets.only(
+                  right: 16,
+                  left: 16,
+                  top: 10,
+                  bottom: 16 + MediaQuery.paddingOf(context).bottom,
+                )
               : const EdgeInsets.only(right: 25, left: 25, top: 10),
           child: selectedDevice == null
               ? _buildNoDeviceConnected(context)
@@ -194,52 +200,58 @@ class _Page1State extends State<Page1> {
                     ),
                   ),
                   const SizedBox(height: 8),
-                  Text(
-                    l10n.homeConnectionWired,
-                    style: const TextStyle(fontSize: 15),
-                  ),
-                  const SizedBox(height: 8),
-                  _buildFlowRow(
-                    context,
-                    [
-                      Text(
-                        context.l10n.homeWirelessUse,
-                        style: const TextStyle(fontSize: 15),
-                      ),
-                      const SizedBox(width: 4),
-                      MouseRegion(
-                        cursor: SystemMouseCursors.click,
-                        child: GestureDetector(
-                          onTap: () {
-                            Navigator.push(
-                              context,
-                              MaterialPageRoute(
-                                builder: (context) => const WirelessPage(),
+                  // 移动端只能通过无线调试连接，不显示数据线和无线连接说明
+                  if (isDesktop) ...[
+                    Text(
+                      l10n.homeConnectionWired,
+                      style: const TextStyle(fontSize: 15),
+                    ),
+                    const SizedBox(height: 8),
+                    _buildFlowRow(
+                      context,
+                      [
+                        Text(
+                          context.l10n.homeWirelessUse,
+                          style: const TextStyle(fontSize: 15),
+                        ),
+                        const SizedBox(width: 4),
+                        MouseRegion(
+                          cursor: SystemMouseCursors.click,
+                          child: GestureDetector(
+                            onTap: () {
+                              Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                  builder: (context) => const WirelessPage(),
+                                ),
+                              );
+                            },
+                            child: Text(
+                              l10n.homeConnectionWirelessLink,
+                              style: const TextStyle(
+                                fontSize: 15,
+                                color: Colors.blue,
                               ),
-                            );
-                          },
-                          child: Text(
-                            l10n.homeConnectionWirelessLink,
-                            style: const TextStyle(
-                              fontSize: 15,
-                              color: Colors.blue,
                             ),
                           ),
                         ),
-                      ),
-                      const SizedBox(width: 4),
-                      Text(
-                        l10n.homeConnectionWirelessSuffix,
-                        style: const TextStyle(fontSize: 15),
-                      ),
-                    ],
-                  ),
-                  const SizedBox(height: 8),
+                        const SizedBox(width: 4),
+                        Text(
+                          l10n.homeConnectionWirelessSuffix,
+                          style: const TextStyle(fontSize: 15),
+                        ),
+                      ],
+                    ),
+                    const SizedBox(height: 8),
+                  ],
                   _buildFlowRow(
                     context,
                     [
                       Text(
-                        context.l10n.homeCheckDebugPrefix,
+                        isDesktop
+                            ? context.l10n.homeCheckDebugPrefix
+                            : context.l10n.homeCheckDebugPrefix
+                                .replaceFirst(RegExp(r'^\d+\.\s*'), ''),
                         style: const TextStyle(fontSize: 15),
                       ),
                       const SizedBox(width: 4),
@@ -263,37 +275,40 @@ class _Page1State extends State<Page1> {
                           ),
                         ),
                       ),
-                      const SizedBox(width: 4),
-                      Text(
-                        context.l10n.homeInstallDriverPrefix,
-                        style: const TextStyle(fontSize: 15),
-                      ),
-                      const SizedBox(width: 4),
-                      MouseRegion(
-                        cursor: SystemMouseCursors.click,
-                        child: GestureDetector(
-                          onTap: () {
-                            Navigator.push(
-                              context,
-                              MaterialPageRoute(
-                                builder: (context) => const DriverPage(),
+                      // 移动端无需安装电脑端 ADB 驱动
+                      if (isDesktop) ...[
+                        const SizedBox(width: 4),
+                        Text(
+                          context.l10n.homeInstallDriverPrefix,
+                          style: const TextStyle(fontSize: 15),
+                        ),
+                        const SizedBox(width: 4),
+                        MouseRegion(
+                          cursor: SystemMouseCursors.click,
+                          child: GestureDetector(
+                            onTap: () {
+                              Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                  builder: (context) => const DriverPage(),
+                                ),
+                              );
+                            },
+                            child: Text(
+                              context.l10n.homeAdbDriverLink,
+                              style: const TextStyle(
+                                fontSize: 15,
+                                color: Colors.blue,
                               ),
-                            );
-                          },
-                          child: Text(
-                            context.l10n.homeAdbDriverLink,
-                            style: const TextStyle(
-                              fontSize: 15,
-                              color: Colors.blue,
                             ),
                           ),
                         ),
-                      ),
-                      const SizedBox(width: 4),
-                      Text(
-                        context.l10n.homeDriverSuffix,
-                        style: const TextStyle(fontSize: 15),
-                      ),
+                        const SizedBox(width: 4),
+                        Text(
+                          context.l10n.homeDriverSuffix,
+                          style: const TextStyle(fontSize: 15),
+                        ),
+                      ],
                     ],
                   ),
                 ],
@@ -957,8 +972,9 @@ class _Page1State extends State<Page1> {
       return;
     }
     try {
-      final ProcessResult result =
-          await Process.run(adbPath, <String>['-s', selectedAdbId, ...args]);
+      final ProcessResult result = await Process.run(
+          adbPath, <String>['-s', selectedAdbId, ...args],
+          environment: toolEnvironment);
       if (!mounted) {
         return;
       }

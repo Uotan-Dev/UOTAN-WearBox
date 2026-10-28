@@ -1,3 +1,4 @@
+import '../platform_support.dart';
 import '../app_theme.dart';
 import 'dart:io';
 import '../platform_tools.dart';
@@ -5,7 +6,6 @@ import '../platform_tools.dart';
 import 'package:file_picker/file_picker.dart';
 import 'package:flutter/material.dart';
 import 'package:watch_assistant/l10n/l10n.dart';
-import 'package:window_manager/window_manager.dart';
 
 enum _SaveTarget { computer, device }
 
@@ -47,7 +47,7 @@ class _CapturePageState extends State<CapturePage> {
           child: Padding(
             padding: const EdgeInsets.only(top: 40),
             child: GestureDetector(
-              onPanStart: (_) => windowManager.startDragging(),
+              onPanStart: (_) => startWindowDrag(),
               child: Container(
                 color: Colors.transparent,
                 padding: const EdgeInsets.symmetric(horizontal: 18),
@@ -318,6 +318,7 @@ class _CapturePageState extends State<CapturePage> {
         final ProcessResult result = await Process.run(
           adbPath,
           <String>['shell', 'screencap', '-p', remotePath],
+          environment: toolEnvironment,
         );
         if (result.exitCode != 0) {
           _showErrorDialog(
@@ -336,6 +337,7 @@ class _CapturePageState extends State<CapturePage> {
       final ProcessResult capResult = await Process.run(
         adbPath,
         <String>['shell', 'screencap', '-p', remotePath],
+        environment: toolEnvironment,
       );
       if (capResult.exitCode != 0) {
         _showErrorDialog(
@@ -346,6 +348,7 @@ class _CapturePageState extends State<CapturePage> {
       final ProcessResult pullResult = await Process.run(
         adbPath,
         <String>['pull', remotePath, localPath],
+        environment: toolEnvironment,
       );
       if (pullResult.exitCode != 0) {
         _showErrorDialog(_stderrOrDefault(
@@ -353,7 +356,7 @@ class _CapturePageState extends State<CapturePage> {
         return;
       }
 
-      await Process.run(adbPath, <String>['shell', 'rm', '-f', remotePath]);
+      await Process.run(adbPath, <String>['shell', 'rm', '-f', remotePath], environment: toolEnvironment);
       _showInfoDialog(context.l10n.captureScreenshotSavedComputer(localPath));
     } catch (e) {
       _showErrorDialog(context.l10n.commandExecutionError(e.toString()));
@@ -387,6 +390,7 @@ class _CapturePageState extends State<CapturePage> {
           '-c',
           'screenrecord --bit-rate 8000000 "$remotePath" >/dev/null 2>&1 & echo \$!'
         ],
+        environment: toolEnvironment,
       );
 
       if (result.exitCode != 0) {
@@ -429,7 +433,7 @@ class _CapturePageState extends State<CapturePage> {
 
     setState(() => _isBusy = true);
     try {
-      await Process.run(adbPath, <String>['shell', 'kill', '-2', pid]);
+      await Process.run(adbPath, <String>['shell', 'kill', '-2', pid], environment: toolEnvironment);
       await Future<void>.delayed(const Duration(seconds: 1));
 
       if (target == _SaveTarget.device) {
@@ -447,6 +451,7 @@ class _CapturePageState extends State<CapturePage> {
       final ProcessResult pullResult = await Process.run(
         adbPath,
         <String>['pull', remotePath, localPath],
+        environment: toolEnvironment,
       );
       if (pullResult.exitCode != 0) {
         _showErrorDialog(_stderrOrDefault(
@@ -454,7 +459,7 @@ class _CapturePageState extends State<CapturePage> {
         return;
       }
 
-      await Process.run(adbPath, <String>['shell', 'rm', '-f', remotePath]);
+      await Process.run(adbPath, <String>['shell', 'rm', '-f', remotePath], environment: toolEnvironment);
       _clearRecordState();
       _showInfoDialog(context.l10n.captureRecordingSavedComputer(localPath));
     } catch (e) {
@@ -479,7 +484,7 @@ class _CapturePageState extends State<CapturePage> {
   Future<bool> _ensureDeviceConnected({bool showDialog = true}) async {
     try {
       final ProcessResult result =
-          await Process.run(adbPath, <String>['devices']);
+          await Process.run(adbPath, <String>['devices'], environment: toolEnvironment);
       final List<String> lines = result.stdout
           .toString()
           .split('\n')

@@ -1,10 +1,10 @@
+import '../platform_support.dart';
 import '../app_theme.dart';
 import 'dart:async';
 import '../platform_tools.dart';
 import 'dart:io';
 
 import 'package:flutter/material.dart';
-import 'package:window_manager/window_manager.dart';
 import 'package:watch_assistant/l10n/l10n.dart';
 
 class MemoryCleanPage extends StatefulWidget {
@@ -54,7 +54,7 @@ class _MemoryCleanPageState extends State<MemoryCleanPage> {
           child: Padding(
             padding: const EdgeInsets.only(top: 40),
             child: GestureDetector(
-              onPanStart: (_) => windowManager.startDragging(),
+              onPanStart: (_) => startWindowDrag(),
               child: Container(
                 color: Colors.transparent,
                 padding: const EdgeInsets.symmetric(horizontal: 18),
@@ -488,7 +488,7 @@ class _MemoryCleanPageState extends State<MemoryCleanPage> {
     });
 
     try {
-      final ProcessResult result = await Process.run(adbPath, args);
+      final ProcessResult result = await Process.run(adbPath, args, environment: toolEnvironment);
       final String stderr = result.stderr.trim();
 
       if (result.exitCode == 0) {
@@ -520,7 +520,7 @@ class _MemoryCleanPageState extends State<MemoryCleanPage> {
   Future<bool> _ensureDeviceConnected({bool showDialog = true}) async {
     try {
       final ProcessResult result =
-          await Process.run(adbPath, <String>['devices']);
+          await Process.run(adbPath, <String>['devices'], environment: toolEnvironment);
       final List<String> lines = result.stdout
           .toString()
           .split('\n')

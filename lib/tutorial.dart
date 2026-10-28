@@ -1,6 +1,6 @@
+import 'platform_support.dart';
 import 'app_theme.dart';
 import 'package:flutter/material.dart';
-import 'package:window_manager/window_manager.dart';
 import 'l10n/l10n.dart';
 
 class TutorialPage extends StatelessWidget {
@@ -14,7 +14,7 @@ class TutorialPage extends StatelessWidget {
         child: Padding(
           padding: const EdgeInsets.only(top: 40),
           child: GestureDetector(
-            onPanStart: (details) => windowManager.startDragging(),
+            onPanStart: (details) => startWindowDrag(),
             child: Container(
               color: Colors.transparent,
               padding: const EdgeInsets.symmetric(horizontal: 18),

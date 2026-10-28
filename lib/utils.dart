@@ -5,7 +5,7 @@ import 'dart:io';
 import 'adb_device_info.dart';
 
 Future<List<AdbDeviceInfo>> fetchAdbDevices() async {
-  final ProcessResult result = await Process.run(adbPath, <String>['devices']);
+  final ProcessResult result = await Process.run(adbPath, <String>['devices'], environment: toolEnvironment);
   final String output = result.stdout.toString();
   if (!output.contains('device')) {
     return <AdbDeviceInfo>[];
@@ -111,6 +111,7 @@ Future<String> getAdbDeviceProperty(String deviceId, String property) async {
     final ProcessResult result = await Process.run(
       adbPath,
       <String>['-s', deviceId, 'shell', 'getprop', property],
+      environment: toolEnvironment,
     );
     return result.stdout.toString().trim();
   } catch (e) {
@@ -124,6 +125,7 @@ Future<String> getMemoryInfo(String deviceId) async {
     final ProcessResult result = await Process.run(
       adbPath,
       <String>['-s', deviceId, 'shell', 'cat', '/proc/meminfo'],
+      environment: toolEnvironment,
     );
     final String output = result.stdout.toString();
 
@@ -158,7 +160,7 @@ Future<String> getStorageInfo(String deviceId) async {
     ];
 
     for (final List<String> command in commands) {
-      final ProcessResult result = await Process.run(adbPath, command);
+      final ProcessResult result = await Process.run(adbPath, command, environment: toolEnvironment);
       final String parsed = _parseStorageFromDfOutput(result.stdout.toString());
       if (parsed != 'Unknown') {
         return parsed;
@@ -226,6 +228,7 @@ Future<String> getAdbShellOutput(String deviceId, String command) async {
     final ProcessResult result = await Process.run(
       adbPath,
       <String>['-s', deviceId, 'shell', command],
+      environment: toolEnvironment,
     );
     return result.stdout.toString().trim();
   } catch (e) {

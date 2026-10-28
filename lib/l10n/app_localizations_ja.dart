@@ -141,6 +141,18 @@ class AppLocalizationsJa extends AppLocalizations {
   String get settingsDarkModeSubtitle => 'ライトとダークの外観を切り替えます';
 
   @override
+  String get settingsCheckUpdateTitle => 'アップデートを確認';
+
+  @override
+  String get settingsCheckUpdateSubtitle => '最新バージョンを取得';
+
+  @override
+  String get updateUpToDate => '最新バージョンです';
+
+  @override
+  String get updateCheckFailed => 'アップデートを確認できませんでした。ネットワークを確認してください。';
+
+  @override
   String get themeModeSystem => 'システムに従う';
 
   @override

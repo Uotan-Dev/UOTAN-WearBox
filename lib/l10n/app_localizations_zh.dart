@@ -142,6 +142,18 @@ class AppLocalizationsZh extends AppLocalizations {
   String get settingsDarkModeSubtitle => '切换应用的浅色或深色外观';
 
   @override
+  String get settingsCheckUpdateTitle => '检查更新';
+
+  @override
+  String get settingsCheckUpdateSubtitle => '获取最新版本';
+
+  @override
+  String get updateUpToDate => '当前已是最新版本';
+
+  @override
+  String get updateCheckFailed => '检查更新失败，请检查网络后重试';
+
+  @override
   String get themeModeSystem => '跟随系统';
 
   @override

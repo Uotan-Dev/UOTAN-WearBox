@@ -1,7 +1,7 @@
+import 'platform_support.dart';
 import 'app_theme.dart';
 import 'package:flutter/material.dart';
 import 'platform_tools.dart';
-import 'package:window_manager/window_manager.dart';
 import 'package:watch_assistant/l10n/l10n.dart';
 import 'dart:io';
 
@@ -24,7 +24,7 @@ class _WirelessPageState extends State<WirelessPage> {
         child: Padding(
           padding: const EdgeInsets.only(top: 40),
           child: GestureDetector(
-            onPanStart: (details) => windowManager.startDragging(),
+            onPanStart: (details) => startWindowDrag(),
             child: Container(
               color: Colors.transparent,
               padding: const EdgeInsets.symmetric(horizontal: 18),
@@ -135,7 +135,7 @@ class _WirelessPageState extends State<WirelessPage> {
 
     String target = "$ip:$port";
     try {
-      ProcessResult result = await Process.run(adbPath, ['connect', target]);
+      ProcessResult result = await Process.run(adbPath, ['connect', target], environment: toolEnvironment);
       if (result.stdout.contains("connected to")) {
         _showMessage(context, context.l10n.wirelessSuccessTitle, context.l10n.wirelessConnectSuccess(target));
       } else {

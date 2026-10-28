@@ -1,3 +1,4 @@
+import '../platform_support.dart';
 import '../app_theme.dart';
 import 'dart:io';
 import '../platform_tools.dart';
@@ -5,7 +6,6 @@ import '../platform_tools.dart';
 import 'package:file_picker/file_picker.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
-import 'package:window_manager/window_manager.dart';
 import 'package:watch_assistant/l10n/l10n.dart';
 
 class InstallAppPage extends StatefulWidget {
@@ -28,7 +28,7 @@ class _InstallAppPageState extends State<InstallAppPage> {
         child: Padding(
           padding: const EdgeInsets.only(top: 40), // 设置顶部边距
           child: GestureDetector(
-            onPanStart: (details) => windowManager.startDragging(), // 允许拖动窗口
+            onPanStart: (details) => startWindowDrag(), // 允许拖动窗口
             child: Container(
               color: Colors.transparent,
               padding: const EdgeInsets.symmetric(horizontal: 18),
@@ -143,7 +143,7 @@ class _InstallAppPageState extends State<InstallAppPage> {
       // 运行ADB命令进行安装
       try {
         // 使用 Process.start 来启动异步进程
-        Process process = await Process.start(adbPath, ['install', '-r', filePath]);
+        Process process = await Process.start(adbPath, ['install', '-r', filePath], environment: toolEnvironment);
 
         process.stdout.transform(const SystemEncoding().decoder).listen((data) {
           setState(() {
@@ -186,7 +186,7 @@ class _InstallAppPageState extends State<InstallAppPage> {
   // 检查是否有设备连接
   Future<bool> _checkDeviceConnection() async {
     try {
-      ProcessResult result = await Process.run(adbPath, ['devices']);
+      ProcessResult result = await Process.run(adbPath, ['devices'], environment: toolEnvironment);
       String output = result.stdout.toString();
 
       // 过滤掉第一行标题，并检查是否有任何设备行存在

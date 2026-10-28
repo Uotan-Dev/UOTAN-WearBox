@@ -1,7 +1,7 @@
+import 'platform_support.dart';
 import 'app_theme.dart';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
-import 'package:window_manager/window_manager.dart';
 
 import 'l10n/app_localizations.dart';
 import 'l10n/l10n.dart';
@@ -149,7 +149,7 @@ class _DonatePageState extends State<DonatePage>
         child: Padding(
           padding: const EdgeInsets.only(top: 40),
           child: GestureDetector(
-            onPanStart: (details) => windowManager.startDragging(),
+            onPanStart: (details) => startWindowDrag(),
             child: Container(
               color: Colors.transparent,
               padding: const EdgeInsets.symmetric(horizontal: 18),

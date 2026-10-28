@@ -1,6 +1,6 @@
+import 'platform_support.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
-import 'package:window_manager/window_manager.dart';
 
 import 'app_theme.dart';
 import 'l10n/l10n.dart';
@@ -19,7 +19,7 @@ class StorePage extends StatelessWidget {
         child: Padding(
           padding: const EdgeInsets.only(top: 20),
           child: GestureDetector(
-            onPanStart: (details) => windowManager.startDragging(),
+            onPanStart: (details) => startWindowDrag(),
             child: Container(
               color: Colors.transparent,
               padding: const EdgeInsets.symmetric(horizontal: 18),

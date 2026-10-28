@@ -1,3 +1,4 @@
+import '../platform_support.dart';
 import '../app_theme.dart';
 import 'dart:io';
 import '../platform_tools.dart';
@@ -5,7 +6,6 @@ import '../platform_tools.dart';
 import 'package:file_picker/file_picker.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
-import 'package:window_manager/window_manager.dart';
 import 'package:watch_assistant/l10n/l10n.dart';
 
 class AppManagementPage extends StatefulWidget {
@@ -38,7 +38,7 @@ class _AppManagementPageState extends State<AppManagementPage> {
 
   // 检查设备是否连接
   Future<bool> _isDeviceConnected() async {
-    ProcessResult result = await Process.run(adbPath, ['devices']);
+    ProcessResult result = await Process.run(adbPath, ['devices'], environment: toolEnvironment);
     String output = result.stdout as String;
     // 过滤出在线的设备
     List<String> devices = output.split('\n').where((line) => line.contains('\tdevice')).toList();
@@ -65,16 +65,16 @@ class _AppManagementPageState extends State<AppManagementPage> {
 
     try {
       // 获取所有已安装的应用包名
-      ProcessResult result = await Process.run(adbPath, ['shell', 'pm', 'list', 'packages']);
+      ProcessResult result = await Process.run(adbPath, ['shell', 'pm', 'list', 'packages'], environment: toolEnvironment);
       String output = result.stdout.toString();
 
       // 获取所有已冻结的应用包名
-      ProcessResult disabledResult = await Process.run(adbPath, ['shell', 'pm', 'list', 'packages', '-d']);
+      ProcessResult disabledResult = await Process.run(adbPath, ['shell', 'pm', 'list', 'packages', '-d'], environment: toolEnvironment);
       String disabledOutput = disabledResult.stdout.toString();
       List<String> disabledPackages = disabledOutput.split('\n').map((line) => line.replaceFirst('package:', '').trim()).toList();
 
       // 获取所有系统应用包名
-      ProcessResult systemResult = await Process.run(adbPath, ['shell', 'pm', 'list', 'packages', '-s']);
+      ProcessResult systemResult = await Process.run(adbPath, ['shell', 'pm', 'list', 'packages', '-s'], environment: toolEnvironment);
       String systemOutput = systemResult.stdout.toString();
       List<String> systemPackages = systemOutput.split('\n').map((line) => line.replaceFirst('package:', '').trim()).toList();
 
@@ -203,7 +203,7 @@ class _AppManagementPageState extends State<AppManagementPage> {
           child: Padding(
             padding: const EdgeInsets.only(top: 40), // 设置顶部边距
             child: GestureDetector(
-              onPanStart: (details) => windowManager.startDragging(), // 允许拖动窗口
+              onPanStart: (details) => startWindowDrag(), // 允许拖动窗口
               child: Container(
                 color: Colors.transparent, // 设置为透明背景
                 padding: const EdgeInsets.symmetric(horizontal: 18),
@@ -429,11 +429,11 @@ class _AppManagementPageState extends State<AppManagementPage> {
       _showProgressDialog(context.l10n.appManagePullProgress); // 显示进度弹窗
 
       try {
-        ProcessResult result = await Process.run(adbPath, ['shell', 'pm', 'path', packageName]);
+        ProcessResult result = await Process.run(adbPath, ['shell', 'pm', 'path', packageName], environment: toolEnvironment);
         String apkPath = result.stdout.toString().split(':').last.trim();
         String savePath = '$outputPath${Platform.pathSeparator}$packageName.apk'; // 将文件名设置为包名.apk
 
-        await Process.run(adbPath, ['pull', apkPath, savePath]);
+        await Process.run(adbPath, ['pull', apkPath, savePath], environment: toolEnvironment);
 
         Navigator.of(context, rootNavigator: true).pop(); // 关闭进度弹窗
         _showInfoDialog(context.l10n.appManagePullSuccess(savePath));
@@ -471,7 +471,7 @@ class _AppManagementPageState extends State<AppManagementPage> {
   // 卸载应用
   void _uninstallApp(String packageName) async {
     try {
-      await Process.run(adbPath, ['shell', 'pm', 'uninstall', packageName]);
+      await Process.run(adbPath, ['shell', 'pm', 'uninstall', packageName], environment: toolEnvironment);
       if (!mounted) return;
       setState(() {
         installedApps.removeWhere((app) => app['name'] == packageName); // 从列表中移除已卸载的应用
@@ -486,7 +486,7 @@ class _AppManagementPageState extends State<AppManagementPage> {
   // 冻结应用
   void _freezeApp(String packageName) async {
     try {
-      await Process.run(adbPath, ['shell', 'pm', 'disable-user', packageName]);
+      await Process.run(adbPath, ['shell', 'pm', 'disable-user', packageName], environment: toolEnvironment);
 
       if (!mounted) return;
       setState(() {
@@ -502,7 +502,7 @@ class _AppManagementPageState extends State<AppManagementPage> {
   // 解冻应用
   void _unfreezeApp(String packageName) async {
     try {
-      await Process.run(adbPath, ['shell', 'pm', 'enable', packageName]);
+      await Process.run(adbPath, ['shell', 'pm', 'enable', packageName], environment: toolEnvironment);
 
       if (!mounted) return;
       setState(() {

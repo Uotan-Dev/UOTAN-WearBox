@@ -1,10 +1,10 @@
+import '../platform_support.dart';
 import '../app_theme.dart';
 import 'dart:io';
 import '../platform_tools.dart';
 
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
-import 'package:window_manager/window_manager.dart';
 import 'package:watch_assistant/l10n/l10n.dart';
 
 class PairPage extends StatefulWidget {
@@ -52,7 +52,7 @@ class _PairPageState extends State<PairPage> {
         child: Padding(
           padding: const EdgeInsets.only(top: 40),
           child: GestureDetector(
-            onPanStart: (details) => windowManager.startDragging(),
+            onPanStart: (details) => startWindowDrag(),
             child: Container(
               color: Colors.transparent,
               padding: const EdgeInsets.symmetric(horizontal: 18),
@@ -163,14 +163,14 @@ class _PairPageState extends State<PairPage> {
 
     try {
       // 清除 Google Play 服务
-      ProcessResult clearResult = await Process.run(adbPath, ['shell', 'pm', 'clear', 'com.google.android.gms']);
+      ProcessResult clearResult = await Process.run(adbPath, ['shell', 'pm', 'clear', 'com.google.android.gms'], environment: toolEnvironment);
       if (clearResult.exitCode != 0) {
         _showMessage(context, context.l10n.commonErrorTitle, context.l10n.pairingClearFailure(clearResult.stderr.toString()));
         return;
       }
 
       // 重启设备
-      ProcessResult rebootResult = await Process.run(adbPath, ['shell', 'reboot']);
+      ProcessResult rebootResult = await Process.run(adbPath, ['shell', 'reboot'], environment: toolEnvironment);
       if (rebootResult.exitCode == 0) {
         _showMessage(context, context.l10n.fileManagerSuccessTitle, context.l10n.pairingRebooting);
       } else {
@@ -196,7 +196,7 @@ class _PairPageState extends State<PairPage> {
         'start',
         '-a',
         'android.bluetooth.adapter.action.REQUEST_DISCOVERABLE'
-      ]);
+      ], environment: toolEnvironment);
       if (result.exitCode == 0) {
         _showMessage(context, context.l10n.fileManagerSuccessTitle, context.l10n.pairingBluetoothEnabled);
       } else {
@@ -210,7 +210,7 @@ class _PairPageState extends State<PairPage> {
   /// **检查 ADB 设备连接**
   Future<bool> _checkDeviceConnection() async {
     try {
-      ProcessResult result = await Process.run(adbPath, ['devices']);
+      ProcessResult result = await Process.run(adbPath, ['devices'], environment: toolEnvironment);
       String output = result.stdout.toString();
       List<String> lines = output.split('\n');
       for (var line in lines.skip(1)) {

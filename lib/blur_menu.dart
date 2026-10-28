@@ -180,7 +180,7 @@ class _BlurMenuPanel<T> extends StatelessWidget {
     return Material(
       type: MaterialType.transparency,
       child: CustomPaint(
-        painter: _OuterShadowPainter(radius: 14, dark: context.palette.isDark),
+        painter: OuterShadowPainter(radius: 14, dark: context.palette.isDark),
         child: ClipRRect(
           borderRadius: _radius,
           child: BackdropFilter(
@@ -220,9 +220,9 @@ class _BlurMenuPanel<T> extends StatelessWidget {
   }
 }
 
-/// 只在面板外侧绘制投影：BoxShadow 会画在半透明面板下面把毛玻璃弄脏，这里先挖掉面板区域
-class _OuterShadowPainter extends CustomPainter {
-  const _OuterShadowPainter({required this.radius, required this.dark});
+/// 只在圆角面板外侧绘制投影（菜单、底部导航栏共用）：BoxShadow 会画在半透明面板下面把毛玻璃弄脏，这里先挖掉面板区域
+class OuterShadowPainter extends CustomPainter {
+  const OuterShadowPainter({required this.radius, required this.dark});
 
   final double radius;
 
@@ -259,7 +259,7 @@ class _OuterShadowPainter extends CustomPainter {
   }
 
   @override
-  bool shouldRepaint(_OuterShadowPainter oldDelegate) =>
+  bool shouldRepaint(OuterShadowPainter oldDelegate) =>
       oldDelegate.radius != radius || oldDelegate.dark != dark;
 }
 

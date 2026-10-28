@@ -7,6 +7,7 @@ import 'package:window_manager/window_manager.dart';
 import 'package:http/http.dart' as http;
 import 'package:url_launcher/url_launcher.dart';
 import 'adb_device_info.dart';
+import 'platform_support.dart';
 import 'app_sidebar.dart';
 import 'page1.dart';
 import 'page2.dart';
@@ -103,8 +104,8 @@ class _HomeScreenState extends State<HomeScreen> with WindowListener {
     }
   }
 
-  // 检查远程版本号是否最新
-  Future<void> _checkForUpdates() async {
+  // 检查远程版本号是否最新，有新版本时弹出更新提示
+  Future<UpdateCheckResult> _checkForUpdates() async {
     try {
       final response = await http.get(
         Uri.parse('https://wear.gnayoah.com/version/windows.txt'),
@@ -131,13 +132,16 @@ class _HomeScreenState extends State<HomeScreen> with WindowListener {
 
         if (remoteVersion > currentVersion) {
           _showUpdateDialog(remoteVersion, releaseDate);
+          return UpdateCheckResult.available;
         }
+        return UpdateCheckResult.upToDate;
       } else {
         print('Failed to load version info');
       }
     } catch (e) {
       print('Error checking version: $e');
     }
+    return UpdateCheckResult.failed;
   }
 
   // 显示更新提示框，带有发布日期和去更新按钮
@@ -163,8 +167,8 @@ class _HomeScreenState extends State<HomeScreen> with WindowListener {
                     return null; // 默认状态下不更改颜色
                   },
                 ),
-                foregroundColor:
-                    MaterialStateProperty.all<Color>(context.palette.text), // 文本颜色
+                foregroundColor: MaterialStateProperty.all<Color>(
+                    context.palette.text), // 文本颜色
               ),
               child: Text(l10n.updateDialogLater),
               onPressed: () {
@@ -182,8 +186,8 @@ class _HomeScreenState extends State<HomeScreen> with WindowListener {
                     return null; // 默认状态下不更改颜色
                   },
                 ),
-                foregroundColor:
-                    MaterialStateProperty.all<Color>(context.palette.text), // 文本颜色
+                foregroundColor: MaterialStateProperty.all<Color>(
+                    context.palette.text), // 文本颜色
               ),
               child: Text(l10n.updateDialogUpdate),
               onPressed: () {
@@ -219,12 +223,12 @@ class _HomeScreenState extends State<HomeScreen> with WindowListener {
                     return null; // 默认状态下不更改颜色
                   },
                 ),
-                foregroundColor:
-                    MaterialStateProperty.all<Color>(context.palette.text), // 文本颜色
+                foregroundColor: MaterialStateProperty.all<Color>(
+                    context.palette.text), // 文本颜色
               ),
               child: Text(l10n.networkErrorExit),
               onPressed: () {
-                windowManager.close();
+                closeApp();
               },
             ),
             TextButton(
@@ -238,8 +242,8 @@ class _HomeScreenState extends State<HomeScreen> with WindowListener {
                     return null; // 默认状态下不更改颜色
                   },
                 ),
-                foregroundColor:
-                    MaterialStateProperty.all<Color>(context.palette.text), // 文本颜色
+                foregroundColor: MaterialStateProperty.all<Color>(
+                    context.palette.text), // 文本颜色
               ),
               child: Text(l10n.networkErrorRetry),
               onPressed: () {
@@ -359,6 +363,30 @@ class _HomeScreenState extends State<HomeScreen> with WindowListener {
     );
   }
 
+  // 侧边栏与底部导航栏共用的导航项
+  List<AppSidebarItem> _navItems(BuildContext context) => [
+        AppSidebarItem(
+          icon: 'home',
+          selectedIcon: 'home_filled',
+          label: context.l10n.navigationHome,
+        ),
+        AppSidebarItem(
+          icon: 'features',
+          selectedIcon: 'features_filled',
+          label: context.l10n.navigationFeatures,
+        ),
+        AppSidebarItem(
+          icon: 'store',
+          selectedIcon: 'store_filled',
+          label: context.l10n.navigationStore,
+        ),
+        AppSidebarItem(
+          icon: 'settings',
+          selectedIcon: 'settings_filled',
+          label: context.l10n.navigationAbout,
+        ),
+      ];
+
   // 宽屏布局：左侧导航栏
   Widget _buildWideLayout(BuildContext context) {
     _releasePageController();
@@ -367,28 +395,7 @@ class _HomeScreenState extends State<HomeScreen> with WindowListener {
         AppSidebar(
           selectedIndex: _selectedIndex,
           onSelected: _onDestinationSelected,
-          items: [
-            AppSidebarItem(
-              icon: 'home',
-              selectedIcon: 'home_filled',
-              label: context.l10n.navigationHome,
-            ),
-            AppSidebarItem(
-              icon: 'features',
-              selectedIcon: 'features_filled',
-              label: context.l10n.navigationFeatures,
-            ),
-            AppSidebarItem(
-              icon: 'store',
-              selectedIcon: 'store_filled',
-              label: context.l10n.navigationStore,
-            ),
-            AppSidebarItem(
-              icon: 'settings',
-              selectedIcon: 'settings_filled',
-              label: context.l10n.navigationAbout,
-            ),
-          ],
+          items: _navItems(context),
         ),
         const VerticalDivider(thickness: 1, width: 1),
         Expanded(
@@ -400,46 +407,27 @@ class _HomeScreenState extends State<HomeScreen> with WindowListener {
 
   // 窄屏布局：底部导航栏
   Widget _buildNarrowLayout(BuildContext context) {
-    // 窄屏下二级页面仍全屏打开，不保留底部导航栏
-    return Column(
+    // 窄屏下二级页面仍全屏打开，不保留底部导航栏。
+    // 导航栏悬浮在页面之上（毛玻璃透出下方内容），页面通过 MediaQuery 底部内边距留出空间
+    final MediaQueryData media = MediaQuery.of(context);
+    return Stack(
       children: [
-        Expanded(
-          child: _buildNarrowPager(),
-        ),
-        const Divider(thickness: 1, height: 1),
-        NavigationBarTheme(
-          data: const NavigationBarThemeData(
-            labelTextStyle: MaterialStatePropertyAll(
-              TextStyle(fontSize: 13), // 与侧边栏文本大小保持一致
+        MediaQuery(
+          data: media.copyWith(
+            padding: media.padding.copyWith(
+              bottom: media.padding.bottom + AppBottomBar.totalHeight,
             ),
           ),
-          child: NavigationBar(
+          child: _buildNarrowPager(),
+        ),
+        Positioned(
+          left: 0,
+          right: 0,
+          bottom: 0,
+          child: AppBottomBar(
+            items: _navItems(context),
             selectedIndex: _selectedIndex,
-            onDestinationSelected: _onDestinationSelected,
-            labelBehavior: NavigationDestinationLabelBehavior.alwaysShow,
-            backgroundColor: context.palette.surface, // 与侧边栏背景颜色一致
-            surfaceTintColor: Colors.transparent,
-            indicatorColor:
-                context.palette.button, // 选中项的背景颜色
-            height: 64,
-            destinations: [
-              NavigationDestination(
-                icon: const Icon(Icons.home_filled),
-                label: context.l10n.navigationHome,
-              ),
-              NavigationDestination(
-                icon: const Icon(Icons.view_cozy),
-                label: context.l10n.navigationFeatures,
-              ),
-              NavigationDestination(
-                icon: const Icon(Icons.storefront),
-                label: context.l10n.navigationStore,
-              ),
-              NavigationDestination(
-                icon: const Icon(Icons.settings),
-                label: context.l10n.navigationAbout,
-              ),
-            ],
+            onSelected: _onDestinationSelected,
           ),
         ),
       ],
@@ -462,6 +450,7 @@ class _HomeScreenState extends State<HomeScreen> with WindowListener {
         onThemeModeChanged: widget.onThemeModeChanged,
         themeMode: widget.themeMode,
         currentVersion: '$currentVersion',
+        onCheckUpdate: _checkForUpdates,
       ));
 
     return Scaffold(

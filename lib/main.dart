@@ -1,6 +1,7 @@
 import 'dart:io';
 
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:window_manager/window_manager.dart';
@@ -8,10 +9,21 @@ import 'home_screen.dart';
 import 'app_theme.dart';
 import 'l10n/app_localizations.dart';
 import 'l10n/l10n.dart';
+import 'platform_support.dart';
+import 'platform_tools.dart';
 import 'window_buttons.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
+  await initPlatformTools();
+  if (isDesktop) {
+    await _initDesktopWindow();
+  }
+
+  runApp(const MyApp());
+}
+
+Future<void> _initDesktopWindow() async {
   await windowManager.ensureInitialized();
 
   WindowOptions windowOptions = const WindowOptions(
@@ -31,8 +43,6 @@ void main() async {
     await windowManager.show();
     await windowManager.focus();
   });
-
-  runApp(const MyApp());
 }
 
 class MyApp extends StatefulWidget {
@@ -140,6 +150,9 @@ class _MyAppState extends State<MyApp> {
       onGenerateTitle: (context) => context.l10n.appTitle,
       // 最小化 / 关闭按钮统一叠加在所有页面右上角（macOS 使用原生红绿灯）
       builder: (context, child) {
+        if (!isDesktop) {
+          return _MobileFrame(child: child!);
+        }
         if (Platform.isMacOS) {
           return child!;
         }
@@ -162,6 +175,32 @@ class _MyAppState extends State<MyApp> {
         locale: _overrideLocale,
         onThemeModeChanged: _handleThemeModeChanged,
         themeMode: _themeMode,
+      ),
+    );
+  }
+}
+
+/// 移动端外框：避开状态栏和系统导航栏，并让状态栏图标颜色跟随深浅色主题
+class _MobileFrame extends StatelessWidget {
+  const _MobileFrame({required this.child});
+
+  final Widget child;
+
+  @override
+  Widget build(BuildContext context) {
+    final AppPalette palette = context.palette;
+    return AnnotatedRegion<SystemUiOverlayStyle>(
+      value: (palette.isDark
+              ? SystemUiOverlayStyle.light
+              : SystemUiOverlayStyle.dark)
+          .copyWith(
+        statusBarColor: Colors.transparent,
+        systemNavigationBarColor: Colors.transparent,
+        systemNavigationBarContrastEnforced: false,
+      ),
+      child: ColoredBox(
+        color: palette.background,
+        child: SafeArea(child: child),
       ),
     );
   }

@@ -1,3 +1,4 @@
+import '../platform_support.dart';
 import '../app_theme.dart';
 import 'dart:io';
 import '../platform_tools.dart';
@@ -6,7 +7,6 @@ import '../blur_menu.dart';
 import 'package:file_picker/file_picker.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
-import 'package:window_manager/window_manager.dart';
 import 'package:watch_assistant/l10n/l10n.dart';
 
 class AdbFileManagerPage extends StatefulWidget {
@@ -45,7 +45,7 @@ class _AdbFileManagerPageState extends State<AdbFileManagerPage> {
     });
 
     try {
-      final result = await Process.run(adbPath, ['shell', 'ls', '-p', currentPath]);
+      final result = await Process.run(adbPath, ['shell', 'ls', '-p', currentPath], environment: toolEnvironment);
       if (result.exitCode == 0) {
         await Future.delayed(const Duration(milliseconds: 500)); // 延迟显示加载
         if (!mounted) return;
@@ -171,7 +171,7 @@ class _AdbFileManagerPageState extends State<AdbFileManagerPage> {
     final l10n = context.l10n;
     await _showProgressDialog(l10n.fileManagerDeleteProgress(entry));
     try {
-      final result = await Process.run(adbPath, ['shell', 'rm', '-rf', '$currentPath$entry']);
+      final result = await Process.run(adbPath, ['shell', 'rm', '-rf', '$currentPath$entry'], environment: toolEnvironment);
       _closeProgressDialog();
       if (result.exitCode == 0) {
         _listFiles(); // 重新列出文件和文件夹
@@ -215,7 +215,7 @@ class _AdbFileManagerPageState extends State<AdbFileManagerPage> {
                     'mv',
                     '$currentPath$oldName',
                     '$currentPath$newName'
-                  ]);
+                  ], environment: toolEnvironment);
                   _closeProgressDialog();
                   _listFiles(); // 更新列表
                 }
@@ -241,7 +241,7 @@ class _AdbFileManagerPageState extends State<AdbFileManagerPage> {
 
     await _showProgressDialog(l10n.fileManagerSaveProgress(fileName));
     try {
-      final result = await Process.run(adbPath, ['pull', '$currentPath$fileName', savePath]);
+      final result = await Process.run(adbPath, ['pull', '$currentPath$fileName', savePath], environment: toolEnvironment);
       _closeProgressDialog();
       if (result.exitCode == 0) {
         _showSuccess(l10n.fileManagerSaveSuccess(savePath));
@@ -262,7 +262,7 @@ class _AdbFileManagerPageState extends State<AdbFileManagerPage> {
       String filePath = result.files.single.path!;
       await _showProgressDialog(context.l10n.fileManagerUploadProgress);
       try {
-        final uploadResult = await Process.run(adbPath, ['push', filePath, currentPath]);
+        final uploadResult = await Process.run(adbPath, ['push', filePath, currentPath], environment: toolEnvironment);
         _closeProgressDialog();
         if (uploadResult.exitCode == 0) {
           _showSuccess(context.l10n.fileManagerUploadSuccess(currentPath));
@@ -369,7 +369,7 @@ class _AdbFileManagerPageState extends State<AdbFileManagerPage> {
         child: Padding(
           padding: const EdgeInsets.only(top: 40), // 设置顶部边距
           child: GestureDetector(
-            onPanStart: (details) => windowManager.startDragging(), // 允许拖动窗口
+            onPanStart: (details) => startWindowDrag(), // 允许拖动窗口
             child: Container(
               color: Colors.transparent, // 设置为透明背景
               padding: const EdgeInsets.symmetric(horizontal: 18),

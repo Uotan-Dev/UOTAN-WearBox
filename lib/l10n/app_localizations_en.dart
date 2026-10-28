@@ -141,6 +141,18 @@ class AppLocalizationsEn extends AppLocalizations {
   String get settingsDarkModeSubtitle => 'Switch between light and dark appearance';
 
   @override
+  String get settingsCheckUpdateTitle => 'Check for updates';
+
+  @override
+  String get settingsCheckUpdateSubtitle => 'Get the latest version';
+
+  @override
+  String get updateUpToDate => 'You\'re on the latest version';
+
+  @override
+  String get updateCheckFailed => 'Couldn\'t check for updates. Please check your connection.';
+
+  @override
   String get themeModeSystem => 'Follow system';
 
   @override
