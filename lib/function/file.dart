@@ -1,3 +1,4 @@
+import '../miuix_dialog.dart';
 import '../platform_support.dart';
 import '../app_theme.dart';
 import 'dart:io';
@@ -83,16 +84,16 @@ class _AdbFileManagerPageState extends State<AdbFileManagerPage> {
 
   // 显示错误消息
    void _showError(String message) {
-    showDialog(
+    showMiuixDialog(
       context: context,
       builder: (BuildContext context) {
         final l10n = context.l10n;
-        return AlertDialog(
+        return MiuixAlertDialog(
           backgroundColor: context.palette.surface, // 弹窗背景颜色
           title: Text(l10n.commonErrorTitle),
           content: Text(message, style: TextStyle(color: context.palette.text)),
           actions: <Widget>[
-            TextButton(
+            MiuixDialogButton(
               style: ButtonStyle(
                 overlayColor: MaterialStateProperty.resolveWith<Color?>(
                   (Set<MaterialState> states) {
@@ -117,15 +118,15 @@ class _AdbFileManagerPageState extends State<AdbFileManagerPage> {
 
   // 显示成功消息
   void _showSuccess(String message) {
-    showDialog(
+    showMiuixDialog(
       context: context,
       builder: (BuildContext context) {
         final l10n = context.l10n;
-        return AlertDialog(
+        return MiuixAlertDialog(
           title: Text(l10n.fileManagerSuccessTitle),
           content: Text(message),
           actions: <Widget>[
-            TextButton(
+            MiuixDialogButton(
               onPressed: () {
                 Navigator.of(context).pop();
               },
@@ -139,21 +140,21 @@ class _AdbFileManagerPageState extends State<AdbFileManagerPage> {
 
   // 确认删除弹窗
   void _confirmDelete(String entry, bool isDirectory) {
-    showDialog(
+    showMiuixDialog(
       context: context,
       builder: (BuildContext context) {
         final l10n = context.l10n;
-        return AlertDialog(
+        return MiuixAlertDialog(
           title: Text(l10n.fileManagerConfirmDeleteTitle),
           content: Text(l10n.fileManagerConfirmDeleteMessage(entry)),
           actions: [
-            TextButton(
+            MiuixDialogButton(
               onPressed: () {
                 Navigator.of(context).pop();
               },
               child: Text(l10n.dialogCancel),
             ),
-            TextButton(
+            MiuixDialogButton(
               onPressed: () {
                 Navigator.of(context).pop();
                 _deleteFileOrDirectory(entry, isDirectory);
@@ -188,24 +189,24 @@ class _AdbFileManagerPageState extends State<AdbFileManagerPage> {
   // 重命名文件或文件夹
   void _renameFileOrDirectory(String oldName, bool isDirectory) {
     TextEditingController controller = TextEditingController(text: oldName);
-    showDialog(
+    showMiuixDialog(
       context: context,
       builder: (BuildContext context) {
         final l10n = context.l10n;
-        return AlertDialog(
+        return MiuixAlertDialog(
           title: Text(l10n.fileManagerRenameTitle),
           content: TextField(
             controller: controller,
             decoration: InputDecoration(labelText: l10n.fileManagerRenameLabel),
           ),
           actions: [
-            TextButton(
+            MiuixDialogButton(
               onPressed: () {
                 Navigator.of(context).pop();
               },
               child: Text(l10n.dialogCancel),
             ),
-            TextButton(
+            MiuixDialogButton(
               onPressed: () async {
                 String newName = controller.text.trim();
                 if (newName.isNotEmpty && newName != oldName) {
@@ -279,11 +280,11 @@ class _AdbFileManagerPageState extends State<AdbFileManagerPage> {
 
   // 显示进度条弹窗
   Future<void> _showProgressDialog(String message) async {
-    showDialog(
+    showMiuixDialog(
       context: context,
       barrierDismissible: false, // 禁止点击外部关闭弹窗
       builder: (BuildContext context) {
-        return AlertDialog(
+        return MiuixAlertDialog(
           content: Row(
             children: [
               CircularProgressIndicator(

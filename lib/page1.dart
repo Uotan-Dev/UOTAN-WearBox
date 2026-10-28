@@ -1,12 +1,19 @@
 import 'platform_support.dart';
 import 'app_theme.dart';
+
 import 'dart:io';
+
 import 'platform_tools.dart';
 
 import 'package:flutter/material.dart';
 import 'package:watch_assistant/wireless.dart';
 
+import 'package:flutter_miuix/miuix.dart';
+import 'package:flutter_svg/flutter_svg.dart';
+
 import 'adb_device_info.dart';
+import 'app_snackbar.dart';
+import 'miuix_titled_page.dart';
 import 'blur_menu.dart';
 import 'driver.dart';
 import 'l10n/app_localizations.dart';
@@ -31,17 +38,13 @@ class Page1 extends StatefulWidget {
 class _Page1State extends State<Page1> {
   String? _selectedAdbId;
   bool _isRefreshing = false;
-  int _infoPage = 0; // 窄屏下设备信息的当前页
-  bool _infoPageForward = true; // 最近一次翻页方向，决定滑动动画方向
-
-  // 窄屏下设备信息每页显示的条目数
-  static const int _infoItemsPerPage = 6;
 
   @override
   void initState() {
     super.initState();
-    _selectedAdbId =
-        widget.devices.isNotEmpty ? widget.devices.first.adbId : null;
+    _selectedAdbId = widget.devices.isNotEmpty
+        ? widget.devices.first.adbId
+        : null;
   }
 
   @override
@@ -68,7 +71,34 @@ class _Page1State extends State<Page1> {
   @override
   Widget build(BuildContext context) {
     final AdbDeviceInfo? selectedDevice = _getSelectedDeviceOrNull();
-    final bool narrow = _isNarrow(context);
+    if (_isNarrow(context)) {
+      // 窄屏：问候语 / 设备型号作为 miuix 可折叠大标题，状态文字作为副标题
+      final l10n = context.l10n;
+      return MiuixTitledPage(
+        title: selectedDevice?.model ?? _getGreetingBasedOnTime(l10n),
+        subtitle: selectedDevice == null
+            ? l10n.homeNoDeviceDetected
+            : l10n.connect_successfully,
+        actions: [
+          _buildRebootMenu(context, selectedDevice?.adbId),
+          _buildRefreshAction(context),
+        ],
+        body: SingleChildScrollView(
+          child: Padding(
+            padding: const EdgeInsets.fromLTRB(16, 4, 16, 16),
+            child: selectedDevice == null
+                ? _buildNoDeviceConnected(context)
+                : _buildDeviceInfo(
+                    context,
+                    selectedDevice,
+                    availableDevices: widget.devices,
+                    selectedAdbId: _selectedAdbId,
+                    showDeviceName: false,
+                  ),
+          ),
+        ),
+      );
+    }
     return Scaffold(
       appBar: PreferredSize(
         preferredSize: const Size.fromHeight(50.0),
@@ -87,10 +117,7 @@ class _Page1State extends State<Page1> {
                   Row(
                     children: [
                       const SizedBox(width: 00),
-                      Image.asset(
-                        'assets/new_logo.png',
-                        height: 0,
-                      ),
+                      Image.asset('assets/new_logo.png', height: 0),
                     ],
                   ),
                 ],
@@ -99,23 +126,17 @@ class _Page1State extends State<Page1> {
           ),
         ),
       ),
-      body: Builder(builder: (context) {
-        final Widget content = Padding(
-          padding: narrow
-              ? const EdgeInsets.only(right: 16, left: 16, top: 10, bottom: 16)
-              : const EdgeInsets.only(right: 25, left: 25, top: 10),
-          child: selectedDevice == null
-              ? _buildNoDeviceConnected(context)
-              : _buildDeviceInfo(
-                  context,
-                  selectedDevice,
-                  availableDevices: widget.devices,
-                  selectedAdbId: _selectedAdbId,
-                ),
-        );
-        // 窄屏下内容高度超出窗口，改为可滚动
-        return narrow ? SingleChildScrollView(child: content) : content;
-      }),
+      body: Padding(
+        padding: const EdgeInsets.only(right: 25, left: 25, top: 10),
+        child: selectedDevice == null
+            ? _buildNoDeviceConnected(context)
+            : _buildDeviceInfo(
+                context,
+                selectedDevice,
+                availableDevices: widget.devices,
+                selectedAdbId: _selectedAdbId,
+              ),
+      ),
     );
   }
 
@@ -138,29 +159,31 @@ class _Page1State extends State<Page1> {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        const SizedBox(height: 0),
-        Padding(
-          padding: const EdgeInsets.only(left: 5.0),
-          child: Text(
-            greeting,
-            // '$greeting, ${l10n.homeWelcomeMessage}',
-            style: const TextStyle(
-              fontSize: 24,
-              fontFamily: 'MiSansMed',
-              height: 1.25,
+        // 窄屏时问候语和状态由 miuix 标题栏显示
+        if (!_isNarrow(context)) ...[
+          Padding(
+            padding: const EdgeInsets.only(left: 5.0),
+            child: Text(
+              greeting,
+              // '$greeting, ${l10n.homeWelcomeMessage}',
+              style: const TextStyle(
+                fontSize: 24,
+                fontFamily: 'MiSansMed',
+                height: 1.25,
+              ),
             ),
           ),
-        ),
-        const SizedBox(height: 4),
-        Padding(
-          padding: const EdgeInsets.only(left: 5.0),
-          child: Text(
-            l10n.homeNoDeviceDetected,
-            style: const TextStyle(fontSize: 16),
+          const SizedBox(height: 4),
+          Padding(
+            padding: const EdgeInsets.only(left: 5.0),
+            child: Text(
+              l10n.homeNoDeviceDetected,
+              style: const TextStyle(fontSize: 16),
+            ),
           ),
-        ),
-        const SizedBox(height: 5),
-        // 窄屏下未连接设备时隐藏占位的设备信息卡片
+          const SizedBox(height: 5),
+        ],
+        // 窄屏下占位的设备信息卡片放在选择设备下方
         if (_isNarrow(context))
           const SizedBox(height: 8)
         else ...[
@@ -201,51 +224,9 @@ class _Page1State extends State<Page1> {
                       style: const TextStyle(fontSize: 15),
                     ),
                     const SizedBox(height: 8),
-                    _buildFlowRow(
-                      context,
-                      [
-                        Text(
-                          context.l10n.homeWirelessUse,
-                          style: const TextStyle(fontSize: 15),
-                        ),
-                        const SizedBox(width: 4),
-                        MouseRegion(
-                          cursor: SystemMouseCursors.click,
-                          child: GestureDetector(
-                            onTap: () {
-                              Navigator.push(
-                                context,
-                                MaterialPageRoute(
-                                  builder: (context) => const WirelessPage(),
-                                ),
-                              );
-                            },
-                            child: Text(
-                              l10n.homeConnectionWirelessLink,
-                              style: const TextStyle(
-                                fontSize: 15,
-                                color: Colors.blue,
-                              ),
-                            ),
-                          ),
-                        ),
-                        const SizedBox(width: 4),
-                        Text(
-                          l10n.homeConnectionWirelessSuffix,
-                          style: const TextStyle(fontSize: 15),
-                        ),
-                      ],
-                    ),
-                    const SizedBox(height: 8),
-                  ],
-                  _buildFlowRow(
-                    context,
-                    [
+                    _buildFlowRow(context, [
                       Text(
-                        isDesktop
-                            ? context.l10n.homeCheckDebugPrefix
-                            : context.l10n.homeCheckDebugPrefix
-                                .replaceFirst(RegExp(r'^\d+\.\s*'), ''),
+                        context.l10n.homeWirelessUse,
                         style: const TextStyle(fontSize: 15),
                       ),
                       const SizedBox(width: 4),
@@ -256,12 +237,12 @@ class _Page1State extends State<Page1> {
                             Navigator.push(
                               context,
                               MaterialPageRoute(
-                                builder: (context) => const TutorialPage(),
+                                builder: (context) => const WirelessPage(),
                               ),
                             );
                           },
                           child: Text(
-                            context.l10n.homeUsbDebugLink,
+                            l10n.homeConnectionWirelessLink,
                             style: const TextStyle(
                               fontSize: 15,
                               color: Colors.blue,
@@ -269,47 +250,91 @@ class _Page1State extends State<Page1> {
                           ),
                         ),
                       ),
-                      // 移动端无需安装电脑端 ADB 驱动
-                      if (isDesktop) ...[
-                        const SizedBox(width: 4),
-                        Text(
-                          context.l10n.homeInstallDriverPrefix,
-                          style: const TextStyle(fontSize: 15),
+                      const SizedBox(width: 4),
+                      Text(
+                        l10n.homeConnectionWirelessSuffix,
+                        style: const TextStyle(fontSize: 15),
+                      ),
+                    ]),
+                    const SizedBox(height: 8),
+                  ],
+                  _buildFlowRow(context, [
+                    Text(
+                      isDesktop
+                          ? context.l10n.homeCheckDebugPrefix
+                          : context.l10n.homeCheckDebugPrefix.replaceFirst(
+                              RegExp(r'^\d+\.\s*'),
+                              '',
+                            ),
+                      style: const TextStyle(fontSize: 15),
+                    ),
+                    const SizedBox(width: 4),
+                    MouseRegion(
+                      cursor: SystemMouseCursors.click,
+                      child: GestureDetector(
+                        onTap: () {
+                          Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                              builder: (context) => const TutorialPage(),
+                            ),
+                          );
+                        },
+                        child: Text(
+                          context.l10n.homeUsbDebugLink,
+                          style: const TextStyle(
+                            fontSize: 15,
+                            color: Colors.blue,
+                          ),
                         ),
-                        const SizedBox(width: 4),
-                        MouseRegion(
-                          cursor: SystemMouseCursors.click,
-                          child: GestureDetector(
-                            onTap: () {
-                              Navigator.push(
-                                context,
-                                MaterialPageRoute(
-                                  builder: (context) => const DriverPage(),
-                                ),
-                              );
-                            },
-                            child: Text(
-                              context.l10n.homeAdbDriverLink,
-                              style: const TextStyle(
-                                fontSize: 15,
-                                color: Colors.blue,
+                      ),
+                    ),
+                    // 移动端无需安装电脑端 ADB 驱动
+                    if (isDesktop) ...[
+                      const SizedBox(width: 4),
+                      Text(
+                        context.l10n.homeInstallDriverPrefix,
+                        style: const TextStyle(fontSize: 15),
+                      ),
+                      const SizedBox(width: 4),
+                      MouseRegion(
+                        cursor: SystemMouseCursors.click,
+                        child: GestureDetector(
+                          onTap: () {
+                            Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                builder: (context) => const DriverPage(),
                               ),
+                            );
+                          },
+                          child: Text(
+                            context.l10n.homeAdbDriverLink,
+                            style: const TextStyle(
+                              fontSize: 15,
+                              color: Colors.blue,
                             ),
                           ),
                         ),
-                        const SizedBox(width: 4),
-                        Text(
-                          context.l10n.homeDriverSuffix,
-                          style: const TextStyle(fontSize: 15),
-                        ),
-                      ],
+                      ),
+                      const SizedBox(width: 4),
+                      Text(
+                        context.l10n.homeDriverSuffix,
+                        style: const TextStyle(fontSize: 15),
+                      ),
                     ],
-                  ),
+                  ]),
                 ],
               ),
             ),
           ),
           _buildSelectDeviceCard(context, const <AdbDeviceInfo>[]),
+          narrowBelowRight: buildMergedInfoCard(
+            context,
+            l10n,
+            _buildPlaceholderDeviceInfo(),
+            hideBatteryUnits: true,
+          ),
         ),
       ],
     );
@@ -383,10 +408,7 @@ class _Page1State extends State<Page1> {
               ),
             ),
           ),
-        if (showDeviceName)
-          const SizedBox(
-            height: 4,
-          ),
+        if (showDeviceName) const SizedBox(height: 4),
         if (showDeviceName && showConnectionStatus)
           Padding(
             padding: const EdgeInsets.only(left: 5.0, bottom: 5),
@@ -396,13 +418,24 @@ class _Page1State extends State<Page1> {
             ),
           ),
         const SizedBox(height: 8),
-        buildMergedInfoCard(
-          context,
-          l10n,
-          device,
-          hideBatteryUnits: hideBatteryUnits,
-        ),
-        if (showRebootActions) ...[
+        // 窄屏：重启操作在标题栏菜单中，设备信息放在选择设备下方
+        if (_isNarrow(context) && showRebootActions) ...[
+          _buildSelectDeviceCard(context, availableDevices),
+          const SizedBox(height: 5),
+          buildMergedInfoCard(
+            context,
+            l10n,
+            device,
+            hideBatteryUnits: hideBatteryUnits,
+          ),
+        ] else
+          buildMergedInfoCard(
+            context,
+            l10n,
+            device,
+            hideBatteryUnits: hideBatteryUnits,
+          ),
+        if (showRebootActions && !_isNarrow(context)) ...[
           const SizedBox(height: 5),
           _buildCardPair(
             context,
@@ -410,10 +443,7 @@ class _Page1State extends State<Page1> {
               color: context.palette.surface,
               elevation: 0,
               child: Padding(
-                padding: _isNarrow(context)
-                    ? const EdgeInsets.only(
-                        left: 18.0, right: 18, top: 18, bottom: 14)
-                    : const EdgeInsets.only(left: 18.0, right: 18, top: 18),
+                padding: const EdgeInsets.only(left: 18.0, right: 18, top: 18),
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
@@ -425,86 +455,63 @@ class _Page1State extends State<Page1> {
                       ),
                     ),
                     const SizedBox(height: 6),
-                    if (_isNarrow(context))
-                      Wrap(
-                        spacing: 4,
+                    SingleChildScrollView(
+                      scrollDirection: Axis.horizontal,
+                      child: Row(
+                        crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
-                          for (final (String text, List<String> args) in [
-                            ('Recovery', ['reboot', 'recovery']),
-                            ('Bootloader', ['reboot', 'bootloader']),
-                            ('Fastbootd', ['reboot', 'fastboot']),
-                            (
-                              context.l10n.homeSystem,
-                              ['shell', 'reboot', '-p']
-                            ),
-                            ('9008', ['reboot', 'edl']),
-                          ])
-                            _buildRebootButton(
-                              context,
-                              text: text,
-                              selectedAdbId: selectedAdbId,
-                              adbArgs: args,
-                            ),
+                          Column(
+                            mainAxisSize: MainAxisSize.min,
+                            children: [
+                              _buildRebootButton(
+                                context,
+                                text: 'Recovery',
+                                selectedAdbId: selectedAdbId,
+                                adbArgs: const ['reboot', 'recovery'],
+                              ),
+                              const SizedBox(height: 2),
+                              _buildRebootButton(
+                                context,
+                                text: 'Bootloader',
+                                selectedAdbId: selectedAdbId,
+                                adbArgs: const ['reboot', 'bootloader'],
+                              ),
+                            ],
+                          ),
+                          const SizedBox(width: 4),
+                          Column(
+                            mainAxisSize: MainAxisSize.min,
+                            children: [
+                              _buildRebootButton(
+                                context,
+                                text: 'Fastbootd',
+                                selectedAdbId: selectedAdbId,
+                                adbArgs: const ['reboot', 'fastboot'],
+                              ),
+                              const SizedBox(height: 2),
+                              _buildRebootButton(
+                                context,
+                                text: context.l10n.homeSystem,
+                                selectedAdbId: selectedAdbId,
+                                adbArgs: const ['shell', 'reboot', '-p'],
+                              ),
+                            ],
+                          ),
+                          const SizedBox(width: 4),
+                          Column(
+                            mainAxisSize: MainAxisSize.min,
+                            children: [
+                              _buildRebootButton(
+                                context,
+                                text: '9008',
+                                selectedAdbId: selectedAdbId,
+                                adbArgs: const ['reboot', 'edl'],
+                              ),
+                            ],
+                          ),
                         ],
-                      )
-                    else
-                      SingleChildScrollView(
-                        scrollDirection: Axis.horizontal,
-                        child: Row(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            Column(
-                              mainAxisSize: MainAxisSize.min,
-                              children: [
-                                _buildRebootButton(
-                                  context,
-                                  text: 'Recovery',
-                                  selectedAdbId: selectedAdbId,
-                                  adbArgs: const ['reboot', 'recovery'],
-                                ),
-                                const SizedBox(height: 2),
-                                _buildRebootButton(
-                                  context,
-                                  text: 'Bootloader',
-                                  selectedAdbId: selectedAdbId,
-                                  adbArgs: const ['reboot', 'bootloader'],
-                                ),
-                              ],
-                            ),
-                            const SizedBox(width: 4),
-                            Column(
-                              mainAxisSize: MainAxisSize.min,
-                              children: [
-                                _buildRebootButton(
-                                  context,
-                                  text: 'Fastbootd',
-                                  selectedAdbId: selectedAdbId,
-                                  adbArgs: const ['reboot', 'fastboot'],
-                                ),
-                                const SizedBox(height: 2),
-                                _buildRebootButton(
-                                  context,
-                                  text: context.l10n.homeSystem,
-                                  selectedAdbId: selectedAdbId,
-                                  adbArgs: const ['shell', 'reboot', '-p'],
-                                ),
-                              ],
-                            ),
-                            const SizedBox(width: 4),
-                            Column(
-                              mainAxisSize: MainAxisSize.min,
-                              children: [
-                                _buildRebootButton(
-                                  context,
-                                  text: '9008',
-                                  selectedAdbId: selectedAdbId,
-                                  adbArgs: const ['reboot', 'edl'],
-                                ),
-                              ],
-                            ),
-                          ],
-                        ),
                       ),
+                    ),
                   ],
                 ),
               ),
@@ -517,11 +524,25 @@ class _Page1State extends State<Page1> {
   }
 
   // 两张并排卡片：宽屏固定高度左右排列，窄屏上下堆叠
-  Widget _buildCardPair(BuildContext context, Widget left, Widget right) {
+  // [narrowBelowRight] 仅窄屏使用，紧跟在右侧卡片（选择设备）下方
+  Widget _buildCardPair(
+    BuildContext context,
+    Widget left,
+    Widget right, {
+    Widget? narrowBelowRight,
+  }) {
     if (_isNarrow(context)) {
       return Column(
         crossAxisAlignment: CrossAxisAlignment.stretch,
-        children: [left, const SizedBox(height: 5), right],
+        children: [
+          left,
+          const SizedBox(height: 5),
+          right,
+          if (narrowBelowRight != null) ...[
+            const SizedBox(height: 5),
+            narrowBelowRight,
+          ],
+        ],
       );
     }
     return SizedBox(
@@ -549,10 +570,14 @@ class _Page1State extends State<Page1> {
   }
 
   Widget _buildSelectDeviceCard(
-      BuildContext context, List<AdbDeviceInfo> devices) {
-    final String? dropdownValue = devices.any(
-      (AdbDeviceInfo device) => device.adbId == _selectedAdbId,
-    )
+    BuildContext context,
+    List<AdbDeviceInfo> devices,
+  ) {
+    if (_isNarrow(context)) {
+      return _buildNarrowSelectDeviceCard(context, devices);
+    }
+    final String? dropdownValue =
+        devices.any((AdbDeviceInfo device) => device.adbId == _selectedAdbId)
         ? _selectedAdbId
         : null;
 
@@ -604,7 +629,9 @@ class _Page1State extends State<Page1> {
                       onTap: _isRefreshing ? null : _refreshDevices,
                       child: Padding(
                         padding: const EdgeInsets.symmetric(
-                            horizontal: 16.0, vertical: 8.0),
+                          horizontal: 16.0,
+                          vertical: 8.0,
+                        ),
                         child: Row(
                           mainAxisAlignment: MainAxisAlignment.center,
                           children: [
@@ -626,17 +653,17 @@ class _Page1State extends State<Page1> {
                                 size: 18,
                                 color: context.palette.text,
                               ),
-                            const SizedBox(
-                              width: 4,
-                            ),
+                            const SizedBox(width: 4),
                             Text(
                               _isRefreshing
                                   ? context.l10n.homeRefreshing
                                   : context.l10n.homeRefreshDevices,
                               textAlign: TextAlign.center,
                               style: TextStyle(
-                                  color: context.palette.text, fontSize: 14),
-                            )
+                                color: context.palette.text,
+                                fontSize: 14,
+                              ),
+                            ),
                           ],
                         ),
                       ),
@@ -663,20 +690,22 @@ class _Page1State extends State<Page1> {
                       },
                       child: Padding(
                         padding: const EdgeInsets.symmetric(
-                            horizontal: 16.0, vertical: 8.0),
+                          horizontal: 16.0,
+                          vertical: 8.0,
+                        ),
                         child: Row(
                           mainAxisAlignment: MainAxisAlignment.center,
                           children: [
                             const Icon(Icons.wifi, size: 18),
-                            const SizedBox(
-                              width: 4,
-                            ),
+                            const SizedBox(width: 4),
                             Text(
                               context.l10n.wirelessPageTitle,
                               textAlign: TextAlign.center,
                               style: TextStyle(
-                                  color: context.palette.text, fontSize: 14),
-                            )
+                                color: context.palette.text,
+                                fontSize: 14,
+                              ),
+                            ),
                           ],
                         ),
                       ),
@@ -700,16 +729,12 @@ class _Page1State extends State<Page1> {
       if (!mounted) {
         return;
       }
-      ScaffoldMessenger.of(context).showSnackBar(
-        SnackBar(content: Text(context.l10n.homeDevicesRefreshed)),
-      );
+      showAppSnackbar(context.l10n.homeDevicesRefreshed);
     } catch (e) {
       if (!mounted) {
         return;
       }
-      ScaffoldMessenger.of(context).showSnackBar(
-        SnackBar(content: Text(context.l10n.homeRefreshFailed(e.toString()))),
-      );
+      showAppSnackbar(context.l10n.homeRefreshFailed(e.toString()));
     } finally {
       if (mounted) {
         setState(() {
@@ -738,193 +763,240 @@ class _Page1State extends State<Page1> {
     final allInfoRows = <List<String>>[
       [
         l10n.deviceBrand(localizeDeviceValue(l10n, device.brand)),
-        l10n.deviceResolution(localizeDeviceValue(l10n, device.resolution))
+        l10n.deviceResolution(localizeDeviceValue(l10n, device.resolution)),
       ],
       [
         l10n.deviceModel(localizeDeviceValue(l10n, device.model)),
-        l10n.deviceDpi(localizeDeviceValue(l10n, device.dpi))
+        l10n.deviceDpi(localizeDeviceValue(l10n, device.dpi)),
       ],
       [
         l10n.deviceSerial(localizeDeviceValue(l10n, device.deviceId)),
-        l10n.deviceMemory(localizeMemoryUsage(l10n, device.memory))
+        l10n.deviceMemory(localizeMemoryUsage(l10n, device.memory)),
       ],
       [
         l10n.deviceUptime(localizeUptime(l10n, device.uptime)),
-        l10n.deviceStorage(localizeDeviceValue(l10n, device.storage))
+        l10n.deviceStorage(localizeDeviceValue(l10n, device.storage)),
       ],
       [
         l10n.deviceBootloader(
-            localizeBootloaderStatus(l10n, device.bootloaderStatus)),
-        l10n.deviceArchitecture(localizeDeviceValue(l10n, device.cpuArch))
+          localizeBootloaderStatus(l10n, device.bootloaderStatus),
+        ),
+        l10n.deviceArchitecture(localizeDeviceValue(l10n, device.cpuArch)),
       ],
       [
         batteryLevelText,
         l10n.deviceBatteryHealth(
-            localizeBatteryHealth(l10n, device.batteryHealth))
+          localizeBatteryHealth(l10n, device.batteryHealth),
+        ),
       ],
       [batteryVoltageText, batteryTemperatureText],
       [
         l10n.deviceAndroidVersion(
-            localizeDeviceValue(l10n, device.androidVersion)),
-        l10n.devicePatchDate(localizeDeviceValue(l10n, device.patchDate))
+          localizeDeviceValue(l10n, device.androidVersion),
+        ),
+        l10n.devicePatchDate(localizeDeviceValue(l10n, device.patchDate)),
       ],
       [
         l10n.deviceSoftwareVersion(
-            localizeDeviceValue(l10n, device.softwareVersion)),
+          localizeDeviceValue(l10n, device.softwareVersion),
+        ),
         l10n.deviceKernelVersion(
-            localizeDeviceValue(l10n, device.kernelVersion))
+          localizeDeviceValue(l10n, device.kernelVersion),
+        ),
       ],
     ];
+
+    // 窄屏：miuix 卡片，每项为 miuix 基础行（左侧名称，右侧数值），不显示标题
+    if (_isNarrow(context)) {
+      final MiuixThemeData theme = MiuixTheme.of(context);
+      final double maxValueWidth = MediaQuery.sizeOf(context).width * 0.5;
+      return _buildMiuixCard(
+        Column(
+          mainAxisSize: MainAxisSize.min,
+          children: [
+            for (final String text in allInfoRows.expand((pair) => pair))
+              Builder(
+                builder: (context) {
+                  final (String title, String value) = _splitTitleValue(text);
+                  return MiuixBasicComponent(
+                    title: title,
+                    endActions: [
+                      ConstrainedBox(
+                        constraints: BoxConstraints(maxWidth: maxValueWidth),
+                        child: Text(
+                          value,
+                          maxLines: 1,
+                          overflow: TextOverflow.ellipsis,
+                          style: theme.textStyles.body2.copyWith(
+                            color: theme.colors.onSurfaceVariantActions,
+                          ),
+                        ),
+                      ),
+                    ],
+                  );
+                },
+              ),
+          ],
+        ),
+      );
+    }
 
     return Card(
       color: context.palette.surface,
       elevation: 0,
       child: Padding(
-        padding:
-            const EdgeInsets.only(top: 18, right: 18, left: 18, bottom: 12),
+        padding: const EdgeInsets.only(
+          top: 18,
+          right: 18,
+          left: 18,
+          bottom: 12,
+        ),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            if (_isNarrow(context))
-              ..._buildPagedInfoItems(
-                allInfoRows.expand((pair) => pair).toList(),
-              )
-            else ...[
-              Text(
-                context.l10n.homeDeviceInfo,
-                style:
-                    const TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
-              ),
-              const SizedBox(height: 6),
-            ],
-            if (!_isNarrow(context))
-              ...allInfoRows.map(
-                (pair) => Padding(
-                  padding: const EdgeInsets.only(bottom: 6.0),
-                  child: Row(
-                    children: [
-                      Expanded(
-                        child: _buildTitleValueCell(pair[0]),
-                      ),
-                      const SizedBox(width: 18),
-                      Expanded(
-                        child: _buildTitleValueCell(pair[1]),
-                      ),
-                    ],
-                  ),
+            Text(
+              context.l10n.homeDeviceInfo,
+              style: const TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
+            ),
+            const SizedBox(height: 6),
+            ...allInfoRows.map(
+              (pair) => Padding(
+                padding: const EdgeInsets.only(bottom: 6.0),
+                child: Row(
+                  children: [
+                    Expanded(child: _buildTitleValueCell(pair[0])),
+                    const SizedBox(width: 18),
+                    Expanded(child: _buildTitleValueCell(pair[1])),
+                  ],
                 ),
               ),
+            ),
           ],
         ),
       ),
     );
   }
 
-  // 窄屏设备信息：标题栏带左右箭头分页，避免单列条目过长
-  List<Widget> _buildPagedInfoItems(List<String> items) {
-    final int pageCount = (items.length / _infoItemsPerPage).ceil();
-    final int page = _infoPage.clamp(0, pageCount - 1);
-    final int start = page * _infoItemsPerPage;
-    final int end = (start + _infoItemsPerPage).clamp(0, items.length);
-
-    Widget arrow({required bool left, required int? target}) => IconButton(
-          icon: CustomPaint(
-            size: const Size(16, 16),
-            painter: ChevronPainter(
-              direction: left ? AxisDirection.left : AxisDirection.right,
-              color: target == null
-                  ? context.palette.disabled
-                  : context.palette.text,
+  // 窄屏 miuix 卡片：与其它卡片对齐外边距，并按超椭圆圆角裁剪内容，
+  // 避免行的按压 / 悬停底色露出直角
+  Widget _buildMiuixCard(Widget child) {
+    return Padding(
+      padding: const EdgeInsets.all(4),
+      child: MiuixCard(
+        insideMargin: EdgeInsets.zero,
+        child: ClipPath(
+          clipper: const ShapeBorderClipper(
+            shape: MiuixSquircleBorder(
+              cornerRadius: MiuixCardDefaults.cornerRadius,
             ),
           ),
-          padding: EdgeInsets.zero,
-          constraints: const BoxConstraints.tightFor(width: 28, height: 24),
-          splashRadius: 16,
-          // 不额外扩展到 48px 点击区域，避免撑高标题行
-          style: const ButtonStyle(
-            tapTargetSize: MaterialTapTargetSize.shrinkWrap,
-          ),
-          onPressed: target == null
-              ? null
-              : () => setState(() {
-                    _infoPageForward = target > page;
-                    _infoPage = target;
-                  }),
+          child: child,
+        ),
+      ),
+    );
+  }
+
+  // 窄屏标题栏右上角：刷新设备（刷新中显示进度）
+  Widget _buildRefreshAction(BuildContext context) {
+    return Builder(
+      builder: (context) {
+        final Color tint = MiuixTheme.of(context).colors.onBackground;
+        return MiuixIconButton(
+          enabled: !_isRefreshing,
+          onPressed: _refreshDevices,
+          child: _isRefreshing
+              ? SizedBox(
+                  width: 18,
+                  height: 18,
+                  child: CircularProgressIndicator(strokeWidth: 2, color: tint),
+                )
+              // 与电源图标同一套线条风格（24×24，线宽 1.8）
+              : SvgPicture.asset(
+                  'assets/sidebar/refresh.svg',
+                  width: 24,
+                  height: 24,
+                  colorFilter: ColorFilter.mode(tint, BlendMode.srcIn),
+                ),
         );
+      },
+    );
+  }
 
-    return [
-      Row(
+  // 窄屏选择设备卡片：miuix 下拉偏好行（选择设备）+ 箭头偏好行（无线连接）
+  Widget _buildNarrowSelectDeviceCard(
+    BuildContext context,
+    List<AdbDeviceInfo> devices,
+  ) {
+    final l10n = context.l10n;
+    final int selected = devices.indexWhere(
+      (AdbDeviceInfo device) => device.adbId == _selectedAdbId,
+    );
+    return _buildMiuixCard(
+      Column(
+        mainAxisSize: MainAxisSize.min,
         children: [
-          Text(
-            context.l10n.homeDeviceInfo,
-            style: const TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
+          MiuixOverlayDropdownPreference(
+            title: l10n.homeSelectDevice,
+            items: devices.isEmpty
+                ? [l10n.homeNoConnectedDevices]
+                : [
+                    for (final AdbDeviceInfo device in devices)
+                      '${device.model} (${device.deviceId})',
+                  ],
+            selectedIndex: selected < 0 ? 0 : selected,
+            enabled: devices.isNotEmpty,
+            onSelectedIndexChange: (int index) {
+              setState(() {
+                _selectedAdbId = devices[index].adbId;
+              });
+            },
           ),
-          const Spacer(),
-          // 右移翻页控件，使右箭头笔画的右端与下方数据右对齐：
-          // 按钮内边距 (28 - 16) / 2 + 箭头图形右侧留白 16 * 8 / 24
-          Transform.translate(
-            offset: const Offset(6 + 16 * 8 / 24, 0),
-            child: Row(
-              mainAxisSize: MainAxisSize.min,
-              children: [
-                arrow(left: true, target: page > 0 ? page - 1 : null),
-                Text(
-                  '${page + 1}/$pageCount',
-                  style: TextStyle(
-                    fontSize: 14,
-                    color: context.palette.textSecondary,
-                  ),
-                ),
-                arrow(
-                  left: false,
-                  target: page < pageCount - 1 ? page + 1 : null,
-                ),
-              ],
-            ),
+          MiuixArrowPreference(
+            title: l10n.homeConnectionWirelessLink,
+            onClick: () {
+              Navigator.push(
+                context,
+                MaterialPageRoute(builder: (context) => const WirelessPage()),
+              );
+            },
           ),
         ],
       ),
-      const SizedBox(height: 6),
-      // 翻页动画：新页从翻页方向滑入并淡入，旧页反向滑出并淡出
-      ClipRect(
-        child: AnimatedSwitcher(
-          duration: const Duration(milliseconds: 250),
-          switchInCurve: Curves.easeOutCubic,
-          switchOutCurve: Curves.easeInCubic,
-          layoutBuilder: (currentChild, previousChildren) => Stack(
-            alignment: Alignment.topLeft,
-            children: [
-              ...previousChildren,
-              if (currentChild != null) currentChild
-            ],
-          ),
-          transitionBuilder: (child, animation) {
-            final bool incoming = child.key == ValueKey<int>(page);
-            final double direction = _infoPageForward ? 1 : -1;
-            return FadeTransition(
-              opacity: animation,
-              child: SlideTransition(
-                position: Tween<Offset>(
-                  begin: Offset((incoming ? 0.3 : -0.3) * direction, 0),
-                  end: Offset.zero,
-                ).animate(animation),
-                child: child,
-              ),
-            );
-          },
-          child: Column(
-            key: ValueKey<int>(page),
-            children: [
-              for (final String text in items.sublist(start, end))
-                Padding(
-                  padding: const EdgeInsets.only(bottom: 6.0),
-                  child: _buildTitleValueCell(text),
-                ),
-            ],
+    );
+  }
+
+  // 窄屏标题栏右上角的 miuix 菜单：重启到各模式
+  Widget _buildRebootMenu(BuildContext context, String? selectedAdbId) {
+    final l10n = context.l10n;
+    final List<(String, List<String>)> targets = [
+      ('Recovery', ['reboot', 'recovery']),
+      ('Bootloader', ['reboot', 'bootloader']),
+      ('Fastbootd', ['reboot', 'fastboot']),
+      (l10n.homeSystem, ['shell', 'reboot', '-p']),
+      ('9008', ['reboot', 'edl']),
+    ];
+    return MiuixOverlayIconDropdownMenu(
+      entry: MiuixDropdownEntry(
+        items: [
+          for (final (String text, List<String> args) in targets)
+            MiuixDropdownItem(
+              text: '${l10n.homeRebootTo} $text',
+              onClick: () => _runAdbCommand(selectedAdbId, args),
+            ),
+        ],
+      ),
+      child: Builder(
+        builder: (context) => SvgPicture.asset(
+          'assets/sidebar/power.svg',
+          width: 24,
+          height: 24,
+          colorFilter: ColorFilter.mode(
+            MiuixTheme.of(context).colors.onBackground,
+            BlendMode.srcIn,
           ),
         ),
       ),
-    ];
+    );
   }
 
   Widget _buildRebootButton(
@@ -938,15 +1010,15 @@ class _Page1State extends State<Page1> {
       child: Card(
         color: context.palette.button,
         elevation: 0,
-        shape: RoundedRectangleBorder(
-          borderRadius: BorderRadius.circular(8.0),
-        ),
+        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(8.0)),
         child: InkWell(
           borderRadius: BorderRadius.circular(6.0),
           onTap: () => _runAdbCommand(selectedAdbId, adbArgs),
           child: Padding(
-            padding:
-                const EdgeInsets.symmetric(horizontal: 16.0, vertical: 8.0),
+            padding: const EdgeInsets.symmetric(
+              horizontal: 16.0,
+              vertical: 8.0,
+            ),
             child: Text(
               text,
               textAlign: TextAlign.center,
@@ -960,42 +1032,33 @@ class _Page1State extends State<Page1> {
 
   Future<void> _runAdbCommand(String? selectedAdbId, List<String> args) async {
     if (selectedAdbId == null || selectedAdbId.isEmpty) {
-      ScaffoldMessenger.of(context).showSnackBar(
-        SnackBar(content: Text(context.l10n.homeSelectDeviceFirst)),
-      );
+      showAppSnackbar(context.l10n.homeSelectDeviceFirst);
       return;
     }
     try {
-      final ProcessResult result = await Process.run(
-          adbPath, <String>['-s', selectedAdbId, ...args],
-          environment: toolEnvironment);
+      final ProcessResult result = await Process.run(adbPath, <String>[
+        '-s',
+        selectedAdbId,
+        ...args,
+      ], environment: toolEnvironment);
       if (!mounted) {
         return;
       }
-      final messenger = ScaffoldMessenger.of(context);
       final String stderr = result.stderr.trim();
       if (result.exitCode == 0) {
-        messenger.showSnackBar(
-          SnackBar(content: Text(context.l10n.homeCommandSent)),
-        );
+        showAppSnackbar(context.l10n.homeCommandSent);
       } else {
-        messenger.showSnackBar(
-          SnackBar(
-            content: Text(
-              stderr.isNotEmpty
-                  ? stderr
-                  : context.l10n.commandExitFailure(result.exitCode.toString()),
-            ),
-          ),
+        showAppSnackbar(
+          stderr.isNotEmpty
+              ? stderr
+              : context.l10n.commandExitFailure(result.exitCode.toString()),
         );
       }
     } catch (e) {
       if (!mounted) {
         return;
       }
-      ScaffoldMessenger.of(context).showSnackBar(
-        SnackBar(content: Text(context.l10n.homeAdbError(e.toString()))),
-      );
+      showAppSnackbar(context.l10n.homeAdbError(e.toString()));
     }
   }
 

@@ -1,3 +1,4 @@
+import '../miuix_dialog.dart';
 import '../platform_support.dart';
 import '../app_theme.dart';
 import 'dart:io';
@@ -123,16 +124,16 @@ class _AppManagementPageState extends State<AppManagementPage> {
 
   // 显示错误弹窗
   void _showErrorDialog(String message) {
-    showDialog(
+    showMiuixDialog(
       context: context,
       builder: (BuildContext context) {
         final l10n = context.l10n;
-        return AlertDialog(
+        return MiuixAlertDialog(
           backgroundColor: context.palette.surface, // 弹窗背景颜色
           title: Text(l10n.commonErrorTitle),
           content: Text(message, style: TextStyle(color: context.palette.text)),
           actions: [
-            TextButton(
+            MiuixDialogButton(
               style: ButtonStyle(
                 overlayColor: MaterialStateProperty.resolveWith<Color?>(
                   (Set<MaterialState> states) {
@@ -157,16 +158,16 @@ class _AppManagementPageState extends State<AppManagementPage> {
 
   // 显示未连接弹窗
   void _shownoconnectDialog(String message) {
-    showDialog(
+    showMiuixDialog(
       context: context,
       builder: (BuildContext context) {
         final l10n = context.l10n;
-        return AlertDialog(
+        return MiuixAlertDialog(
           backgroundColor: context.palette.surface, // 弹窗背景颜色
           title: Text(l10n.installNoDeviceTitle),
           content: Text(message, style: TextStyle(color: context.palette.text)),
           actions: [
-            TextButton(
+            MiuixDialogButton(
               style: ButtonStyle(
                 overlayColor: MaterialStateProperty.resolveWith<Color?>(
                   (Set<MaterialState> states) {
@@ -367,16 +368,16 @@ class _AppManagementPageState extends State<AppManagementPage> {
 
   // 确认卸载弹窗
   void _showConfirmUninstallDialog(String packageName) {
-    showDialog(
+    showMiuixDialog(
       context: context,
       builder: (BuildContext context) {
         final l10n = context.l10n;
-        return AlertDialog(
+        return MiuixAlertDialog(
           backgroundColor: context.palette.surface,
           title: Text(l10n.appManageConfirmUninstallTitle),
           content: Text(l10n.appManageConfirmUninstallMessage(packageName), style: TextStyle(color: context.palette.text)),
           actions: [
-            TextButton(
+            MiuixDialogButton(
               style: ButtonStyle(
                 overlayColor: MaterialStateProperty.resolveWith<Color?>(
                   (Set<MaterialState> states) {
@@ -393,7 +394,7 @@ class _AppManagementPageState extends State<AppManagementPage> {
               },
               child: Text(l10n.dialogCancel),
             ),
-            TextButton(
+            MiuixDialogButton(
               style: ButtonStyle(
                 overlayColor: MaterialStateProperty.resolveWith<Color?>(
                   (Set<MaterialState> states) {
@@ -446,11 +447,11 @@ class _AppManagementPageState extends State<AppManagementPage> {
 
   // 显示提取 APK 的进度弹窗
   void _showProgressDialog(String message) {
-    showDialog(
+    showMiuixDialog(
       context: context,
       barrierDismissible: false, // 禁止点击外部关闭
       builder: (BuildContext context) {
-        return AlertDialog(
+        return MiuixAlertDialog(
           backgroundColor: context.palette.surface, // 弹窗背景颜色
           content: Column(
             mainAxisSize: MainAxisSize.min,
@@ -517,16 +518,16 @@ class _AppManagementPageState extends State<AppManagementPage> {
 
   // 显示信息弹窗
   void _showInfoDialog(String message) {
-    showDialog(
+    showMiuixDialog(
       context: context,
       builder: (BuildContext context) {
         final l10n = context.l10n;
-        return AlertDialog(
+        return MiuixAlertDialog(
           backgroundColor: context.palette.surface, // 弹窗背景颜色
           title: Text(l10n.commonNoticeTitle),
           content: Text(message, style: TextStyle(color: context.palette.text)),
           actions: [
-            TextButton(
+            MiuixDialogButton(
               style: ButtonStyle(
                 overlayColor: MaterialStateProperty.resolveWith<Color?>(
                   (Set<MaterialState> states) {

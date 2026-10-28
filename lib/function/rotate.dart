@@ -1,3 +1,4 @@
+import '../miuix_dialog.dart';
 import '../platform_support.dart';
 import '../app_theme.dart';
 import 'dart:io';
@@ -175,16 +176,16 @@ class _RotatePageState extends State<RotatePage> {
   }
 
   void _showMessage(BuildContext context, String title, String message) {
-    showDialog(
+    showMiuixDialog(
       context: context,
       builder: (BuildContext context) {
         final l10n = context.l10n;
-        return AlertDialog(
+        return MiuixAlertDialog(
           backgroundColor: context.palette.surface,
           title: Text(title),
           content: Text(message),
           actions: <Widget>[
-            TextButton(
+            MiuixDialogButton(
               style: ButtonStyle(
                 overlayColor: WidgetStateProperty.resolveWith<Color?>(
                   (Set<WidgetState> states) {

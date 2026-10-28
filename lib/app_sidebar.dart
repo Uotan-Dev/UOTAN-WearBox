@@ -193,6 +193,8 @@ class AppBottomBar extends StatelessWidget {
       child: MiuixNavigationBar(
         // 底色与页面背景一致，顶部保留 miuix 分隔线
         color: palette.background,
+        // 手势导航条区域已由 SafeArea 留出，并由外框铺同色背景，避免重复留白
+        defaultWindowInsetsPadding: false,
         children: [
           for (int i = 0; i < items.length; i++)
             MiuixNavigationBarItem(

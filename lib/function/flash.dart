@@ -1,3 +1,4 @@
+import '../miuix_dialog.dart';
 import '../platform_support.dart';
 import '../app_theme.dart';
 import 'package:watch_assistant/l10n/l10n.dart';
@@ -272,7 +273,7 @@ class _FlashToolPageState extends State<FlashToolPage> {
                 Text(
                   context.l10n.flashLogTitle,
                   style:
-                      const TextStyle(fontSize: 20, fontFamily: 'MiSansLight'),
+                      TextStyle(fontSize: 20, fontFamily: 'MiSansLight'),
                 ),
                 const SizedBox(height: 10),
                 Expanded(
@@ -319,7 +320,7 @@ class _FlashToolPageState extends State<FlashToolPage> {
                   children: <Widget>[
                     Text(
                       context.l10n.flashQuickActions,
-                      style: const TextStyle(
+                      style: TextStyle(
                           fontSize: 20, fontFamily: 'MiSansLight'),
                     ),
                     const SizedBox(height: 10),
@@ -608,15 +609,15 @@ class _FlashToolPageState extends State<FlashToolPage> {
   }
 
   void _showErrorDialog(String message) {
-    showDialog<void>(
+    showMiuixDialog<void>(
       context: context,
       builder: (BuildContext context) {
-        return AlertDialog(
+        return MiuixAlertDialog(
           backgroundColor: context.palette.surface,
           title: Text(context.l10n.commonErrorTitle),
           content: Text(message),
           actions: <Widget>[
-            TextButton(
+            MiuixDialogButton(
               style: ButtonStyle(
                 overlayColor: MaterialStateProperty.resolveWith<Color?>(
                   (Set<MaterialState> states) {

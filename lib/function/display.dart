@@ -1,3 +1,4 @@
+import '../miuix_dialog.dart';
 import '../platform_support.dart';
 import '../app_theme.dart';
 import 'dart:io';
@@ -398,16 +399,16 @@ class _DisplaySettingsPageState extends State<DisplaySettingsPage> {
 
   // 显示错误弹窗
   void _showErrorDialog(String message) {
-    showDialog(
+    showMiuixDialog(
       context: context,
       builder: (BuildContext context) {
         final l10n = context.l10n;
-        return AlertDialog(
+        return MiuixAlertDialog(
           backgroundColor: context.palette.surface,
           title: Text(l10n.commonErrorTitle),
           content: Text(message, style: TextStyle(color: context.palette.text)),
           actions: [
-            TextButton(
+            MiuixDialogButton(
               onPressed: () {
                 Navigator.of(context).pop();
               },
@@ -422,16 +423,16 @@ class _DisplaySettingsPageState extends State<DisplaySettingsPage> {
 
   // 显示未连接弹窗
   void _shownoconnectDialog(String message) {
-    showDialog(
+    showMiuixDialog(
       context: context,
       builder: (BuildContext context) {
         final l10n = context.l10n;
-        return AlertDialog(
+        return MiuixAlertDialog(
           backgroundColor: context.palette.surface, // 弹窗背景颜色
           title: Text(l10n.installNoDeviceTitle),
           content: Text(message, style: TextStyle(color: context.palette.text)),
           actions: [
-            TextButton(
+            MiuixDialogButton(
               style: ButtonStyle(
                 overlayColor: MaterialStateProperty.resolveWith<Color?>(
                   (Set<MaterialState> states) {
@@ -526,16 +527,16 @@ class _DisplaySettingsPageState extends State<DisplaySettingsPage> {
 
   // 显示信息弹窗
   void _showInfoDialog(String message) {
-    showDialog(
+    showMiuixDialog(
       context: context,
       builder: (BuildContext context) {
         final l10n = context.l10n;
-        return AlertDialog(
+        return MiuixAlertDialog(
           backgroundColor: context.palette.surface,
           title: Text(l10n.commonNoticeTitle),
           content: Text(message, style: TextStyle(color: context.palette.text)),
           actions: [
-            TextButton(
+            MiuixDialogButton(
               onPressed: () {
                 Navigator.of(context).pop();
               },

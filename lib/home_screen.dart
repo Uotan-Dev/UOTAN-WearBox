@@ -1,3 +1,4 @@
+import 'miuix_dialog.dart';
 import 'app_theme.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
@@ -146,17 +147,17 @@ class _HomeScreenState extends State<HomeScreen> with WindowListener {
 
   // 显示更新提示框，带有发布日期和去更新按钮
   void _showUpdateDialog(double remoteVersion, String releaseDate) {
-    showDialog(
+    showMiuixDialog(
       context: context,
       barrierDismissible: true, // 非强制更新，允许点击对话框外部区域关闭
       builder: (BuildContext context) {
         final l10n = context.l10n;
-        return AlertDialog(
+        return MiuixAlertDialog(
           backgroundColor: context.palette.surface, // 弹窗背景颜色
           title: Text(l10n.updateDialogTitle),
           content: Text(l10n.updateDialogMessage(remoteVersion, releaseDate)),
           actions: [
-            TextButton(
+            MiuixDialogButton(
               style: ButtonStyle(
                 overlayColor: MaterialStateProperty.resolveWith<Color?>(
                   (Set<MaterialState> states) {
@@ -175,7 +176,7 @@ class _HomeScreenState extends State<HomeScreen> with WindowListener {
                 Navigator.of(context).pop(); // 关闭对话框
               },
             ),
-            TextButton(
+            MiuixDialogButton(
               style: ButtonStyle(
                 overlayColor: MaterialStateProperty.resolveWith<Color?>(
                   (Set<MaterialState> states) {
@@ -202,17 +203,17 @@ class _HomeScreenState extends State<HomeScreen> with WindowListener {
 
   // 显示无网络连接或无法访问的提示框
   void _showNoNetworkDialog([String? message]) {
-    showDialog(
+    showMiuixDialog(
       context: context,
       barrierDismissible: false, // 设置为false，禁止点击对话框外部区域取消
       builder: (BuildContext context) {
         final l10n = context.l10n;
-        return AlertDialog(
+        return MiuixAlertDialog(
           backgroundColor: context.palette.surface, // 弹窗背景颜色
           title: Text(l10n.networkErrorTitle),
           content: Text(message ?? l10n.networkErrorMessage),
           actions: [
-            TextButton(
+            MiuixDialogButton(
               style: ButtonStyle(
                 overlayColor: MaterialStateProperty.resolveWith<Color?>(
                   (Set<MaterialState> states) {
@@ -231,7 +232,7 @@ class _HomeScreenState extends State<HomeScreen> with WindowListener {
                 closeApp();
               },
             ),
-            TextButton(
+            MiuixDialogButton(
               style: ButtonStyle(
                 overlayColor: MaterialStateProperty.resolveWith<Color?>(
                   (Set<MaterialState> states) {

@@ -1,3 +1,5 @@
+import 'app_snackbar.dart';
+import 'miuix_titled_page.dart';
 import 'platform_support.dart';
 import 'app_theme.dart';
 import 'package:flutter/material.dart';
@@ -126,6 +128,59 @@ class Page3 extends StatelessWidget {
       ),
     ];
 
+    final Widget list = ListView(
+      padding: const EdgeInsets.only(left: 20.0, right: 20, bottom: 20),
+      children: [
+        _buildSectionTitle(context, l10n.setting_config),
+        const SizedBox(height: 2),
+        _buildLanguageCard(context, l10n),
+        const SizedBox(height: 10),
+        _buildThemeModeCard(context, l10n),
+        const SizedBox(height: 10),
+        _CheckUpdateCard(onCheckUpdate: onCheckUpdate),
+        const SizedBox(height: 10),
+        _buildSectionTitle(context, l10n.settingsSectionFaq),
+        const SizedBox(height: 2),
+
+        // 问题反馈
+        ..._buildOptions(context, faqOptions),
+        // 问题反馈
+
+        const SizedBox(height: 10),
+        _buildSectionTitle(context, l10n.settingsSectionAgreements),
+        const SizedBox(height: 2),
+        ..._buildOptions(context, agreementOptions),
+        const SizedBox(height: 10),
+        _buildSectionTitle(context, l10n.settingsSectionVisit),
+        const SizedBox(height: 2),
+        ..._buildOptions(context, visitOptions),
+        const SizedBox(height: 10),
+        Padding(
+          padding: const EdgeInsets.symmetric(vertical: 10, horizontal: 5),
+          child: Align(
+            alignment: Alignment.centerLeft,
+            child: Text(
+              l10n.settingsFooter,
+              style: TextStyle(
+                fontSize: 15,
+                color: context.palette.textSecondary,
+                fontFamily: 'MiSansLight',
+              ),
+            ),
+          ),
+        ),
+        const SizedBox(height: 5),
+      ],
+    );
+    // 窄屏：应用名作为 miuix 可折叠大标题，版本信息作为副标题
+    if (isNarrowLayout(context)) {
+      return MiuixTitledPage(
+        title: l10n.settingsPageTitle,
+        subtitle: l10n.settingsVersionLabel(currentVersion),
+        body: list,
+      );
+    }
+
     return Scaffold(
       appBar: PreferredSize(
         preferredSize: const Size.fromHeight(70.0), // 设置AppBar的高度
@@ -165,57 +220,13 @@ class Page3 extends StatelessWidget {
               alignment: Alignment.centerLeft,
               child: Text(
                 l10n.settingsVersionLabel(currentVersion),
-                style: const TextStyle(fontSize: 16, fontFamily: 'MiSansLight'),
+                style: TextStyle(fontSize: 16, fontFamily: 'MiSansLight'),
               ),
             ),
           ),
           const SizedBox(height: 15),
           Expanded(
-            child: ListView(
-              padding: const EdgeInsets.only(left: 20.0, right: 20, bottom: 20),
-              children: [
-                _buildSectionTitle(context, l10n.setting_config),
-                const SizedBox(height: 2),
-                _buildLanguageCard(context, l10n),
-                const SizedBox(height: 10),
-                _buildThemeModeCard(context, l10n),
-                const SizedBox(height: 10),
-                _CheckUpdateCard(onCheckUpdate: onCheckUpdate),
-                const SizedBox(height: 10),
-                _buildSectionTitle(context, l10n.settingsSectionFaq),
-                const SizedBox(height: 2),
-
-                // 问题反馈
-                ..._buildOptions(context, faqOptions),
-                // 问题反馈
-
-                const SizedBox(height: 10),
-                _buildSectionTitle(context, l10n.settingsSectionAgreements),
-                const SizedBox(height: 2),
-                ..._buildOptions(context, agreementOptions),
-                const SizedBox(height: 10),
-                _buildSectionTitle(context, l10n.settingsSectionVisit),
-                const SizedBox(height: 2),
-                ..._buildOptions(context, visitOptions),
-                const SizedBox(height: 10),
-                Padding(
-                  padding:
-                      const EdgeInsets.symmetric(vertical: 10, horizontal: 5),
-                  child: Align(
-                    alignment: Alignment.centerLeft,
-                    child: Text(
-                      l10n.settingsFooter,
-                      style: TextStyle(
-                        fontSize: 15,
-                        color: context.palette.textSecondary,
-                        fontFamily: 'MiSansLight',
-                      ),
-                    ),
-                  ),
-                ),
-                const SizedBox(height: 5),
-              ],
-            ),
+            child: list,
           ),
         ],
       ),
@@ -406,9 +417,7 @@ class _CheckUpdateCardState extends State<_CheckUpdateCard> {
       UpdateCheckResult.failed => context.l10n.updateCheckFailed,
     };
     if (message != null) {
-      ScaffoldMessenger.of(context)
-        ..hideCurrentSnackBar()
-        ..showSnackBar(SnackBar(content: Text(message)));
+      showAppSnackbar(message, replace: true);
     }
   }
 

@@ -1,3 +1,4 @@
+import 'miuix_dialog.dart';
 import 'platform_support.dart';
 import 'app_theme.dart';
 import 'package:flutter/material.dart';
@@ -148,15 +149,15 @@ class _WirelessPageState extends State<WirelessPage> {
 
   /// **弹窗显示执行结果**
   void _showMessage(BuildContext context, String title, String message) {
-    showDialog(
+    showMiuixDialog(
       context: context,
       builder: (BuildContext context) {
-        return AlertDialog(
+        return MiuixAlertDialog(
           backgroundColor: context.palette.surface,
           title: Text(title),
           content: Text(message),
           actions: <Widget>[
-            TextButton(
+            MiuixDialogButton(
               style: ButtonStyle(
                 overlayColor: WidgetStateProperty.resolveWith<Color?>(
                   (Set<WidgetState> states) {

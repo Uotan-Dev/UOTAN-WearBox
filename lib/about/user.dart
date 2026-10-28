@@ -55,7 +55,7 @@ class UserPage extends StatelessWidget {
           children: [
             Text(
               context.l10n.agreementParagraph2,
-              style: const TextStyle(
+              style: TextStyle(
                 fontSize: 24,
                 fontFamily: 'MiSansMed',
               ),
@@ -73,7 +73,7 @@ class UserPage extends StatelessWidget {
             const SizedBox(height: 16),
             Text(
               context.l10n.agreementParagraph5,
-              style: const TextStyle(
+              style: TextStyle(
                 fontSize: 20,
                 fontFamily: 'MiSansMed',
               ),
@@ -86,7 +86,7 @@ class UserPage extends StatelessWidget {
             const SizedBox(height: 16),
             Text(
               context.l10n.agreementParagraph7,
-              style: const TextStyle(
+              style: TextStyle(
                 fontSize: 20,
                 fontFamily: 'MiSansMed',
               ),
@@ -120,7 +120,7 @@ class UserPage extends StatelessWidget {
             const SizedBox(height: 16),
             Text(
               context.l10n.agreementParagraph12,
-              style: const TextStyle(
+              style: TextStyle(
                 fontSize: 20,
                 fontFamily: 'MiSansMed',
               ),
@@ -154,7 +154,7 @@ class UserPage extends StatelessWidget {
             const SizedBox(height: 16),
             Text(
               context.l10n.agreementParagraph17,
-              style: const TextStyle(
+              style: TextStyle(
                 fontSize: 20,
                 fontFamily: 'MiSansMed',
               ),
@@ -201,7 +201,7 @@ class UserPage extends StatelessWidget {
             const SizedBox(height: 16),
             Text(
               context.l10n.agreementParagraph25,
-              style: const TextStyle(
+              style: TextStyle(
                 fontSize: 20,
                 fontFamily: 'MiSansMed',
               ),
@@ -248,7 +248,7 @@ class UserPage extends StatelessWidget {
             const SizedBox(height: 16),
             Text(
               context.l10n.agreementParagraph32,
-              style: const TextStyle(
+              style: TextStyle(
                 fontSize: 20,
                 fontFamily: 'MiSansMed',
               ),
@@ -282,7 +282,7 @@ class UserPage extends StatelessWidget {
             const SizedBox(height: 16),
             Text(
               context.l10n.agreementParagraph37,
-              style: const TextStyle(
+              style: TextStyle(
                 fontSize: 20,
                 fontFamily: 'MiSansMed',
               ),
@@ -329,7 +329,7 @@ class UserPage extends StatelessWidget {
             const SizedBox(height: 16),
             Text(
               context.l10n.agreementParagraph44,
-              style: const TextStyle(
+              style: TextStyle(
                 fontSize: 20,
                 fontFamily: 'MiSansMed',
               ),
@@ -363,7 +363,7 @@ class UserPage extends StatelessWidget {
             const SizedBox(height: 16),
             Text(
               context.l10n.agreementParagraph49,
-              style: const TextStyle(
+              style: TextStyle(
                 fontSize: 20,
                 fontFamily: 'MiSansMed',
               ),
@@ -397,7 +397,7 @@ class UserPage extends StatelessWidget {
             const SizedBox(height: 16),
             Text(
               context.l10n.agreementParagraph54,
-              style: const TextStyle(
+              style: TextStyle(
                 fontSize: 20,
                 fontFamily: 'MiSansMed',
               ),
@@ -410,7 +410,7 @@ class UserPage extends StatelessWidget {
             const SizedBox(height: 16),
             Text(
               context.l10n.agreementParagraph56,
-              style: const TextStyle(
+              style: TextStyle(
                 fontSize: 20,
                 fontFamily: 'MiSansMed',
               ),
@@ -444,7 +444,7 @@ class UserPage extends StatelessWidget {
             const SizedBox(height: 16),
             Text(
               context.l10n.agreementParagraph61,
-              style: const TextStyle(
+              style: TextStyle(
                 fontSize: 20,
                 fontFamily: 'MiSansMed',
               ),
@@ -457,7 +457,7 @@ class UserPage extends StatelessWidget {
             const SizedBox(height: 16),
             Text(
               context.l10n.agreementParagraph63,
-              style: const TextStyle(
+              style: TextStyle(
                 fontSize: 20,
                 fontFamily: 'MiSansMed',
               ),
@@ -517,7 +517,7 @@ class UserPage extends StatelessWidget {
             const SizedBox(height: 16),
             Text(
               context.l10n.agreementParagraph72,
-              style: const TextStyle(
+              style: TextStyle(
                 fontSize: 20,
                 fontFamily: 'MiSansMed',
               ),

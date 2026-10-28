@@ -1,3 +1,4 @@
+import 'miuix_dialog.dart';
 import 'platform_support.dart';
 import 'app_theme.dart';
 import 'package:flutter/material.dart';
@@ -55,15 +56,15 @@ class _DonatePageState extends State<DonatePage>
 
   void _showNoNetworkDialog() {
     final l10n = context.l10n;
-    showDialog(
+    showMiuixDialog(
       context: context,
       builder: (BuildContext context) {
-        return AlertDialog(
+        return MiuixAlertDialog(
           backgroundColor: context.palette.surface,
           title: Text(l10n.donationNetworkErrorTitle),
           content: Text(l10n.donationNetworkErrorBody),
           actions: [
-            TextButton(
+            MiuixDialogButton(
               style: ButtonStyle(
                 overlayColor: MaterialStateProperty.resolveWith<Color?>(
                   (Set<MaterialState> states) {

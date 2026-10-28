@@ -1,3 +1,4 @@
+import '../miuix_dialog.dart';
 import '../platform_support.dart';
 import '../app_theme.dart';
 import 'dart:io'; // 导入用于运行进程的包
@@ -237,11 +238,11 @@ class _TypeTextPageState extends State<TypeTextPage> {
 
   // 显示发送进度弹窗
   void _showProgressDialog(String message) {
-    showDialog(
+    showMiuixDialog(
       context: context,
       barrierDismissible: false, // 禁止点击外部关闭
       builder: (BuildContext context) {
-        return AlertDialog(
+        return MiuixAlertDialog(
           backgroundColor: context.palette.surface, // 弹窗背景颜色
           content: Column(
             mainAxisSize: MainAxisSize.min,
@@ -274,16 +275,16 @@ class _TypeTextPageState extends State<TypeTextPage> {
 
   // 显示消息弹窗
   void _showMessageDialog(String message) {
-    showDialog(
+    showMiuixDialog(
       context: context,
       builder: (BuildContext context) {
         final l10n = context.l10n;
-        return AlertDialog(
+        return MiuixAlertDialog(
           backgroundColor: context.palette.surface, // 弹窗背景颜色
           title: Text(l10n.commonNoticeTitle),
           content: Text(message, style: TextStyle(color: context.palette.text)),
           actions: [
-            TextButton(
+            MiuixDialogButton(
               style: ButtonStyle(
                 overlayColor: MaterialStateProperty.resolveWith<Color?>(
                   (Set<MaterialState> states) {

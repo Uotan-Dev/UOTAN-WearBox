@@ -1,3 +1,4 @@
+import '../miuix_dialog.dart';
 import '../platform_support.dart';
 import '../app_theme.dart';
 import 'dart:async';
@@ -178,7 +179,7 @@ class _MemoryCleanPageState extends State<MemoryCleanPage> {
           children: <Widget>[
             Text(
               context.l10n.memoryStatusTitle,
-              style: const TextStyle(fontSize: 20, fontFamily: 'MiSansLight'),
+              style: TextStyle(fontSize: 20, fontFamily: 'MiSansLight'),
             ),
             const SizedBox(height: 14),
             LinearProgressIndicator(
@@ -212,7 +213,7 @@ class _MemoryCleanPageState extends State<MemoryCleanPage> {
           children: <Widget>[
             Text(
               context.l10n.memoryCleanupTitle,
-              style: const TextStyle(fontSize: 20, fontFamily: 'MiSansLight'),
+              style: TextStyle(fontSize: 20, fontFamily: 'MiSansLight'),
             ),
             const SizedBox(height: 10),
             Wrap(
@@ -568,16 +569,16 @@ class _MemoryCleanPageState extends State<MemoryCleanPage> {
   }
 
   void _showErrorDialog(String message) {
-    showDialog<void>(
+    showMiuixDialog<void>(
       context: context,
       builder: (BuildContext context) {
         final l10n = context.l10n;
-        return AlertDialog(
+        return MiuixAlertDialog(
           backgroundColor: context.palette.surface,
           title: Text(l10n.commonErrorTitle),
           content: Text(message),
           actions: <Widget>[
-            TextButton(
+            MiuixDialogButton(
               style: ButtonStyle(
                 overlayColor: WidgetStateProperty.resolveWith<Color?>(
                   (Set<WidgetState> states) {
@@ -600,16 +601,16 @@ class _MemoryCleanPageState extends State<MemoryCleanPage> {
   }
 
   void _showInfoDialog(String message) {
-    showDialog<void>(
+    showMiuixDialog<void>(
       context: context,
       builder: (BuildContext context) {
         final l10n = context.l10n;
-        return AlertDialog(
+        return MiuixAlertDialog(
           backgroundColor: context.palette.surface,
           title: Text(l10n.commonNoticeTitle),
           content: Text(message),
           actions: <Widget>[
-            TextButton(
+            MiuixDialogButton(
               style: ButtonStyle(
                 overlayColor: WidgetStateProperty.resolveWith<Color?>(
                   (Set<WidgetState> states) {

@@ -1,3 +1,4 @@
+import '../miuix_dialog.dart';
 import '../platform_support.dart';
 import '../app_theme.dart';
 import 'dart:async';
@@ -171,7 +172,7 @@ class _BatteryManagerPageState extends State<BatteryManagerPage> {
           children: <Widget>[
             Text(
               l10n.deviceBatteryStatusTitle,
-              style: const TextStyle(fontSize: 20, fontFamily: 'MiSansLight'),
+              style: TextStyle(fontSize: 20, fontFamily: 'MiSansLight'),
             ),
             const SizedBox(height: 12),
             LinearProgressIndicator(
@@ -205,7 +206,7 @@ class _BatteryManagerPageState extends State<BatteryManagerPage> {
           children: <Widget>[
             Text(
               context.l10n.featureBatteryManager,
-              style: const TextStyle(fontSize: 20, fontFamily: 'MiSansLight'),
+              style: TextStyle(fontSize: 20, fontFamily: 'MiSansLight'),
             ),
             const SizedBox(height: 10),
             _buildInputRow(
@@ -721,15 +722,15 @@ class _BatteryManagerPageState extends State<BatteryManagerPage> {
   }
 
   void _showErrorDialog(String message) {
-    showDialog<void>(
+    showMiuixDialog<void>(
       context: context,
       builder: (BuildContext context) {
-        return AlertDialog(
+        return MiuixAlertDialog(
           backgroundColor: context.palette.surface,
           title: Text(context.l10n.commonErrorTitle),
           content: Text(message),
           actions: <Widget>[
-            TextButton(
+            MiuixDialogButton(
               onPressed: () => Navigator.of(context).pop(),
               child: Text(context.l10n.dialogOk),
             ),
@@ -740,15 +741,15 @@ class _BatteryManagerPageState extends State<BatteryManagerPage> {
   }
 
   void _showInfoDialog(String message) {
-    showDialog<void>(
+    showMiuixDialog<void>(
       context: context,
       builder: (BuildContext context) {
-        return AlertDialog(
+        return MiuixAlertDialog(
           backgroundColor: context.palette.surface,
           title: Text(context.l10n.commonNoticeTitle),
           content: Text(message),
           actions: <Widget>[
-            TextButton(
+            MiuixDialogButton(
               onPressed: () => Navigator.of(context).pop(),
               child: Text(context.l10n.dialogOk),
             ),

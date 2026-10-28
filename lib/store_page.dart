@@ -1,3 +1,4 @@
+import 'miuix_titled_page.dart';
 import 'platform_support.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
@@ -13,6 +14,36 @@ class StorePage extends StatelessWidget {
   Widget build(BuildContext context) {
     final l10n = context.l10n;
     final AppPalette palette = context.palette;
+    final Widget body = Center(
+      child: Column(
+        mainAxisSize: MainAxisSize.min,
+        children: [
+          SvgPicture.asset(
+            'assets/sidebar/store.svg',
+            width: 56,
+            height: 56,
+            colorFilter: ColorFilter.mode(palette.disabled, BlendMode.srcIn),
+          ),
+          const SizedBox(height: 16),
+          Text(
+            l10n.storeComingSoon,
+            style: TextStyle(fontSize: 16, color: palette.textSecondary),
+          ),
+        ],
+      ),
+    );
+    // 窄屏：miuix 可折叠标题栏；正文包成占满一屏的滚动视图，以便上滑折叠标题
+    if (isNarrowLayout(context)) {
+      return MiuixTitledPage(
+        title: l10n.storeTitle,
+        body: LayoutBuilder(
+          builder: (context, constraints) => SingleChildScrollView(
+            child: SizedBox(height: constraints.maxHeight, child: body),
+          ),
+        ),
+      );
+    }
+
     return Scaffold(
       appBar: PreferredSize(
         preferredSize: const Size.fromHeight(70.0),
@@ -42,24 +73,7 @@ class StorePage extends StatelessWidget {
           ),
         ),
       ),
-      body: Center(
-        child: Column(
-          mainAxisSize: MainAxisSize.min,
-          children: [
-            SvgPicture.asset(
-              'assets/sidebar/store.svg',
-              width: 56,
-              height: 56,
-              colorFilter: ColorFilter.mode(palette.disabled, BlendMode.srcIn),
-            ),
-            const SizedBox(height: 16),
-            Text(
-              l10n.storeComingSoon,
-              style: TextStyle(fontSize: 16, color: palette.textSecondary),
-            ),
-          ],
-        ),
-      ),
+      body: body,
     );
   }
 }

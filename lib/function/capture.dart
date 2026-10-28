@@ -1,3 +1,4 @@
+import '../miuix_dialog.dart';
 import '../platform_support.dart';
 import '../app_theme.dart';
 import 'dart:io';
@@ -90,7 +91,7 @@ class _CapturePageState extends State<CapturePage> {
                 children: <Widget>[
                   Text(
                     context.l10n.captureSaveLocation,
-                    style: const TextStyle(
+                    style: TextStyle(
                         fontSize: 20, fontFamily: 'MiSansLight'),
                   ),
                   const SizedBox(height: 10),
@@ -153,7 +154,7 @@ class _CapturePageState extends State<CapturePage> {
                   const SizedBox(height: 16),
                   Text(
                     context.l10n.captureSectionTitle,
-                    style: const TextStyle(
+                    style: TextStyle(
                         fontSize: 20, fontFamily: 'MiSansLight'),
                   ),
                   const SizedBox(height: 12),
@@ -270,10 +271,10 @@ class _CapturePageState extends State<CapturePage> {
   Future<void> _editDeviceDirectory() async {
     final TextEditingController controller =
         TextEditingController(text: _normalizedDeviceDirectory());
-    await showDialog<void>(
+    await showMiuixDialog<void>(
       context: context,
       builder: (BuildContext context) {
-        return AlertDialog(
+        return MiuixAlertDialog(
           backgroundColor: context.palette.surface,
           title: Text(context.l10n.captureDeviceSavePath),
           content: TextField(
@@ -284,11 +285,11 @@ class _CapturePageState extends State<CapturePage> {
             ),
           ),
           actions: <Widget>[
-            TextButton(
+            MiuixDialogButton(
               onPressed: () => Navigator.of(context).pop(),
               child: Text(context.l10n.dialogCancel),
             ),
-            TextButton(
+            MiuixDialogButton(
               onPressed: () {
                 final String text = controller.text.trim();
                 _deviceDirectoryController.text =
@@ -557,15 +558,15 @@ class _CapturePageState extends State<CapturePage> {
   }
 
   void _showErrorDialog(String message) {
-    showDialog<void>(
+    showMiuixDialog<void>(
       context: context,
       builder: (BuildContext context) {
-        return AlertDialog(
+        return MiuixAlertDialog(
           backgroundColor: context.palette.surface,
           title: Text(context.l10n.commonErrorTitle),
           content: Text(message),
           actions: <Widget>[
-            TextButton(
+            MiuixDialogButton(
               onPressed: () => Navigator.of(context).pop(),
               child: Text(context.l10n.dialogOk),
             ),
@@ -576,15 +577,15 @@ class _CapturePageState extends State<CapturePage> {
   }
 
   void _showInfoDialog(String message) {
-    showDialog<void>(
+    showMiuixDialog<void>(
       context: context,
       builder: (BuildContext context) {
-        return AlertDialog(
+        return MiuixAlertDialog(
           backgroundColor: context.palette.surface,
           title: Text(context.l10n.commonNoticeTitle),
           content: Text(message),
           actions: <Widget>[
-            TextButton(
+            MiuixDialogButton(
               onPressed: () => Navigator.of(context).pop(),
               child: Text(context.l10n.dialogOk),
             ),

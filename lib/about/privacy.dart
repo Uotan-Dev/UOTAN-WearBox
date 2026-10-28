@@ -55,7 +55,7 @@ class PrivacyPage extends StatelessWidget {
           children: [
             Text(
               context.l10n.privacyParagraph2,
-              style: const TextStyle(
+              style: TextStyle(
                 fontSize: 24,
                 fontFamily: 'MiSansMed',
               ),
@@ -75,7 +75,7 @@ class PrivacyPage extends StatelessWidget {
             const SizedBox(height: 16),
             Text(
               context.l10n.privacyParagraph5,
-              style: const TextStyle(
+              style: TextStyle(
                 fontSize: 20,
                 fontFamily: 'MiSansMed',
               ),
@@ -100,7 +100,7 @@ class PrivacyPage extends StatelessWidget {
             const SizedBox(height: 16),
             Text(
               context.l10n.privacyParagraph9,
-              style: const TextStyle(
+              style: TextStyle(
                 fontSize: 20,
                 fontFamily: 'MiSansMed',
               ),
@@ -118,7 +118,7 @@ class PrivacyPage extends StatelessWidget {
             const SizedBox(height: 16),
             Text(
               context.l10n.privacyParagraph12,
-              style: const TextStyle(
+              style: TextStyle(
                 fontSize: 20,
                 fontFamily: 'MiSansMed',
               ),
@@ -131,7 +131,7 @@ class PrivacyPage extends StatelessWidget {
             const SizedBox(height: 16),
             Text(
               context.l10n.privacyParagraph14,
-              style: const TextStyle(
+              style: TextStyle(
                 fontSize: 20,
                 fontFamily: 'MiSansMed',
               ),
@@ -169,7 +169,7 @@ class PrivacyPage extends StatelessWidget {
             const SizedBox(height: 16),
             Text(
               context.l10n.privacyParagraph21,
-              style: const TextStyle(
+              style: TextStyle(
                 fontSize: 20,
                 fontFamily: 'MiSansMed',
               ),
@@ -197,7 +197,7 @@ class PrivacyPage extends StatelessWidget {
             const SizedBox(height: 16),
             Text(
               context.l10n.privacyParagraph26,
-              style: const TextStyle(
+              style: TextStyle(
                 fontSize: 20,
                 fontFamily: 'MiSansMed',
               ),
@@ -215,7 +215,7 @@ class PrivacyPage extends StatelessWidget {
             const SizedBox(height: 16),
             Text(
               context.l10n.privacyParagraph29,
-              style: const TextStyle(
+              style: TextStyle(
                 fontSize: 20,
                 fontFamily: 'MiSansMed',
               ),
@@ -228,7 +228,7 @@ class PrivacyPage extends StatelessWidget {
             const SizedBox(height: 16),
             Text(
               context.l10n.privacyParagraph31,
-              style: const TextStyle(
+              style: TextStyle(
                 fontSize: 20,
                 fontFamily: 'MiSansMed',
               ),
@@ -241,7 +241,7 @@ class PrivacyPage extends StatelessWidget {
             const SizedBox(height: 16),
             Text(
               context.l10n.privacyParagraph33,
-              style: const TextStyle(
+              style: TextStyle(
                 fontSize: 20,
                 fontFamily: 'MiSansMed',
               ),
@@ -254,7 +254,7 @@ class PrivacyPage extends StatelessWidget {
             const SizedBox(height: 16),
             Text(
               context.l10n.privacyParagraph35,
-              style: const TextStyle(
+              style: TextStyle(
                 fontSize: 20,
                 fontFamily: 'MiSansMed',
               ),

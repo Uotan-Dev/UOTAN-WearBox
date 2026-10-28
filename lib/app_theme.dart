@@ -86,10 +86,53 @@ class AppPalette extends ThemeExtension<AppPalette> {
     field: Color(0xFF383838),
   );
 
+  /// 窄屏（移动端风格）配色：沿用 miuix 默认的灰色页面 + 白色卡片，深色为黑色页面 + 深灰卡片
+  static final AppPalette lightNarrow = light.copyWith(
+    background: const Color(0xFFF7F7F7),
+    surface: Colors.white,
+    button: const Color(0xFFF0F0F0),
+    field: const Color(0xFFF7F7F7),
+  );
+
+  static final AppPalette darkNarrow = dark.copyWith(
+    background: Colors.black,
+    surface: const Color(0xFF242424),
+    button: const Color(0xFF434343),
+    field: const Color(0xFF2E2E2E),
+  );
+
   bool get isDark => background.computeLuminance() < 0.5;
 
   @override
-  AppPalette copyWith() => this;
+  AppPalette copyWith({
+    Color? background,
+    Color? surface,
+    Color? button,
+    Color? border,
+    Color? text,
+    Color? textSecondary,
+    Color? subtext,
+    Color? disabled,
+    Color? hover,
+    Color? pressed,
+    Color? menuPanel,
+    Color? field,
+  }) {
+    return AppPalette(
+      background: background ?? this.background,
+      surface: surface ?? this.surface,
+      button: button ?? this.button,
+      border: border ?? this.border,
+      text: text ?? this.text,
+      textSecondary: textSecondary ?? this.textSecondary,
+      subtext: subtext ?? this.subtext,
+      disabled: disabled ?? this.disabled,
+      hover: hover ?? this.hover,
+      pressed: pressed ?? this.pressed,
+      menuPanel: menuPanel ?? this.menuPanel,
+      field: field ?? this.field,
+    );
+  }
 
   @override
   AppPalette lerp(ThemeExtension<AppPalette>? other, double t) {
@@ -146,5 +189,18 @@ ThemeData buildAppTheme(Brightness brightness) {
     iconTheme: base.iconTheme.copyWith(color: palette.text),
     dialogTheme: base.dialogTheme.copyWith(backgroundColor: palette.surface),
     snackBarTheme: base.snackBarTheme,
+  );
+}
+
+/// 窄屏时把主题配色切换为 miuix 风格（灰底白卡片）
+ThemeData applyNarrowPalette(ThemeData theme) {
+  final AppPalette palette = theme.brightness == Brightness.dark
+      ? AppPalette.darkNarrow
+      : AppPalette.lightNarrow;
+  return theme.copyWith(
+    scaffoldBackgroundColor: palette.background,
+    canvasColor: palette.background,
+    cardColor: palette.surface,
+    extensions: [palette],
   );
 }
