@@ -5,6 +5,7 @@ import 'dart:math' as math;
 
 import 'package:auto_size_text/auto_size_text.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_miuix/miuix.dart';
 
 import 'function/app.dart';
 import 'function/display.dart';
@@ -30,25 +31,91 @@ class Page2 extends StatelessWidget {
     final featureItems = _buildFeatureItems(l10n);
 
     final bool narrow = isNarrowLayout(context);
+    if (narrow) {
+      final sections = [
+        (
+          l10n.featureSectionApps,
+          [
+            _FeatureAction.installApp,
+            _FeatureAction.appManagement,
+          ]
+        ),
+        (l10n.featureSectionFiles, [_FeatureAction.fileManagement]),
+        (
+          l10n.featureSectionSystem,
+          [
+            _FeatureAction.sendText,
+            _FeatureAction.displaySettings,
+          _FeatureAction.keySimulation,
+            _FeatureAction.rotateScreen,
+            _FeatureAction.capture,
+          ]
+        ),
+        (
+          l10n.featureSectionHardware,
+          [
+            _FeatureAction.memoryClean,
+            _FeatureAction.batteryManager,
+          ]
+        ),
+        (
+          l10n.featureSectionAdvanced,
+          [
+            _FeatureAction.rePair,
+            _FeatureAction.flashTool,
+          ]
+        ),
+      ];
+      final itemsByAction = {
+        for (final item in featureItems) item.action: item,
+      };
+      return MiuixTitledPage(
+        title: l10n.featuresTitle,
+        body: ListView(
+          padding: const EdgeInsets.fromLTRB(12, 0, 12, 20),
+          children: [
+            for (final (index, section) in sections.indexed) ...[
+              if (index > 0) const SizedBox(height: 10),
+              _buildNarrowSectionTitle(context, section.$1),
+              MiuixCard(
+                child: ClipPath(
+                  clipper: const ShapeBorderClipper(
+                    shape: MiuixSquircleBorder(
+                      cornerRadius: MiuixCardDefaults.cornerRadius,
+                    ),
+                  ),
+                  child: Column(
+                    mainAxisSize: MainAxisSize.min,
+                    children: [
+                      for (final action in section.$2)
+                        MiuixArrowPreference(
+                          title: itemsByAction[action]!.label,
+                          onClick: () =>
+                              _openFeature(context, itemsByAction[action]!),
+                        ),
+                    ],
+                  ),
+                ),
+              ),
+            ],
+          ],
+        ),
+      );
+    }
     final Widget body = Padding(
-      padding: narrow
-          ? const EdgeInsets.symmetric(horizontal: 16)
-          : const EdgeInsets.only(top: 25, left: 20, right: 20),
+      padding: const EdgeInsets.only(top: 25, left: 20, right: 20),
       child: LayoutBuilder(
         builder: (context, constraints) {
           const spacing = 8.0;
           // 保留原始默认窗口下的五列，为原生边框和缩放取整留出余量。
           const minItemWidth = 166.0;
-          final columnCount = MediaQuery.sizeOf(context).width < 600
-              ? 2
-              : math.max(
-                  1,
-                  ((constraints.maxWidth + spacing) / (minItemWidth + spacing))
-                      .floor(),
-                );
+          final columnCount = math.max(
+            1,
+            ((constraints.maxWidth + spacing) / (minItemWidth + spacing))
+                .floor(),
+          );
 
           return GridView.builder(
-            padding: narrow ? const EdgeInsets.only(top: 4, bottom: 16) : null,
             gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
               crossAxisCount: columnCount,
               crossAxisSpacing: 8.0,
@@ -65,95 +132,7 @@ class Page2 extends StatelessWidget {
                 ),
                 child: InkWell(
                   borderRadius: BorderRadius.circular(12.0),
-                  onTap: () {
-                    switch (item.action) {
-                      case _FeatureAction.installApp:
-                        Navigator.push(
-                          context,
-                          MaterialPageRoute(
-                              builder: (context) => const InstallAppPage()),
-                        );
-                        break;
-                      case _FeatureAction.appManagement:
-                        Navigator.push(
-                          context,
-                          MaterialPageRoute(
-                              builder: (context) => const AppManagementPage()),
-                        );
-                        break;
-                      case _FeatureAction.fileManagement:
-                        Navigator.push(
-                          context,
-                          MaterialPageRoute(
-                              builder: (context) => const AdbFileManagerPage()),
-                        );
-                        break;
-                      case _FeatureAction.sendText:
-                        Navigator.push(
-                          context,
-                          MaterialPageRoute(
-                              builder: (context) => const TypeTextPage()),
-                        );
-                        break;
-                      case _FeatureAction.displaySettings:
-                        Navigator.push(
-                          context,
-                          MaterialPageRoute(
-                              builder: (context) =>
-                                  const DisplaySettingsPage()),
-                        );
-                        break;
-                      case _FeatureAction.keySimulation:
-                        Navigator.push(
-                          context,
-                          MaterialPageRoute(
-                              builder: (context) => const ButtonPage()),
-                        );
-                        break;
-                      case _FeatureAction.rotateScreen:
-                        Navigator.push(
-                          context,
-                          MaterialPageRoute(
-                              builder: (context) => const RotatePage()),
-                        );
-                        break;
-                      case _FeatureAction.rePair:
-                        Navigator.push(
-                          context,
-                          MaterialPageRoute(
-                              builder: (context) => const PairPage()),
-                        );
-                        break;
-                      case _FeatureAction.memoryClean:
-                        Navigator.push(
-                          context,
-                          MaterialPageRoute(
-                              builder: (context) => const MemoryCleanPage()),
-                        );
-                        break;
-                      case _FeatureAction.batteryManager:
-                        Navigator.push(
-                          context,
-                          MaterialPageRoute(
-                              builder: (context) => const BatteryManagerPage()),
-                        );
-                        break;
-                      case _FeatureAction.capture:
-                        Navigator.push(
-                          context,
-                          MaterialPageRoute(
-                              builder: (context) => const CapturePage()),
-                        );
-                        break;
-                      case _FeatureAction.flashTool:
-                        Navigator.push(
-                          context,
-                          MaterialPageRoute(
-                              builder: (context) => const FlashToolPage()),
-                        );
-                        break;
-                    }
-                  },
+                  onTap: () => _openFeature(context, item),
                   child: Padding(
                     padding: const EdgeInsets.all(8.0),
                     child: Row(
@@ -186,11 +165,6 @@ class Page2 extends StatelessWidget {
         },
       ),
     );
-    // 窄屏：miuix 可折叠标题栏
-    if (narrow) {
-      return MiuixTitledPage(title: l10n.featuresTitle, body: body);
-    }
-
     return Scaffold(
       appBar: PreferredSize(
         preferredSize: const Size.fromHeight(70.0),
@@ -223,6 +197,100 @@ class Page2 extends StatelessWidget {
       ),
       body: body,
     );
+  }
+
+  Widget _buildNarrowSectionTitle(BuildContext context, String title) {
+    final theme = MiuixTheme.of(context);
+    return Padding(
+      padding: EdgeInsets.fromLTRB(
+        MiuixBasicComponentDefaults.insideMargin.left,
+        8,
+        MiuixBasicComponentDefaults.insideMargin.right,
+        8,
+      ),
+      child: MiuixText(
+        title,
+        style: theme.textStyles.footnote1,
+        color: theme.colors.onBackgroundVariant,
+      ),
+    );
+  }
+
+  void _openFeature(BuildContext context, _FeatureItemData item) {
+    switch (item.action) {
+      case _FeatureAction.installApp:
+        Navigator.push(
+          context,
+          MaterialPageRoute(builder: (context) => const InstallAppPage()),
+        );
+        break;
+      case _FeatureAction.appManagement:
+        Navigator.push(
+          context,
+          MaterialPageRoute(builder: (context) => const AppManagementPage()),
+        );
+        break;
+      case _FeatureAction.fileManagement:
+        Navigator.push(
+          context,
+          MaterialPageRoute(builder: (context) => const AdbFileManagerPage()),
+        );
+        break;
+      case _FeatureAction.sendText:
+        Navigator.push(
+          context,
+          MaterialPageRoute(builder: (context) => const TypeTextPage()),
+        );
+        break;
+      case _FeatureAction.displaySettings:
+        Navigator.push(
+          context,
+          MaterialPageRoute(builder: (context) => const DisplaySettingsPage()),
+        );
+        break;
+      case _FeatureAction.keySimulation:
+        Navigator.push(
+          context,
+          MaterialPageRoute(builder: (context) => const ButtonPage()),
+        );
+        break;
+      case _FeatureAction.rotateScreen:
+        Navigator.push(
+          context,
+          MaterialPageRoute(builder: (context) => const RotatePage()),
+        );
+        break;
+      case _FeatureAction.rePair:
+        Navigator.push(
+          context,
+          MaterialPageRoute(builder: (context) => const PairPage()),
+        );
+        break;
+      case _FeatureAction.memoryClean:
+        Navigator.push(
+          context,
+          MaterialPageRoute(builder: (context) => const MemoryCleanPage()),
+        );
+        break;
+      case _FeatureAction.batteryManager:
+        Navigator.push(
+          context,
+          MaterialPageRoute(builder: (context) => const BatteryManagerPage()),
+        );
+        break;
+      case _FeatureAction.capture:
+        Navigator.push(
+          context,
+          MaterialPageRoute(builder: (context) => const CapturePage()),
+        );
+        break;
+      case _FeatureAction.flashTool:
+        Navigator.push(
+          context,
+          MaterialPageRoute(builder: (context) => const FlashToolPage()),
+        );
+        break;
+    }
   }
 
   List<_FeatureItemData> _buildFeatureItems(AppLocalizations l10n) {

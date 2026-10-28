@@ -364,13 +364,13 @@ abstract class AppLocalizations {
   /// No description provided for @updateUpToDate.
   ///
   /// In en, this message translates to:
-  /// **'You're on the latest version'**
+  /// **'You\'re on the latest version'**
   String get updateUpToDate;
 
   /// No description provided for @updateCheckFailed.
   ///
   /// In en, this message translates to:
-  /// **'Couldn't check for updates. Please check your connection.'**
+  /// **'Couldn\'t check for updates. Please check your connection.'**
   String get updateCheckFailed;
 
   /// No description provided for @themeModeSystem.
@@ -412,7 +412,7 @@ abstract class AppLocalizations {
   /// No description provided for @wirelessPageTitle.
   ///
   /// In en, this message translates to:
-  /// **'Wireless connection'**
+  /// **'Wireless'**
   String get wirelessPageTitle;
 
   /// No description provided for @wirelessHeaderIntro.
@@ -954,6 +954,36 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Tools'**
   String get featuresTitle;
+
+  /// No description provided for @featureSectionApps.
+  ///
+  /// In en, this message translates to:
+  /// **'Apps'**
+  String get featureSectionApps;
+
+  /// No description provided for @featureSectionFiles.
+  ///
+  /// In en, this message translates to:
+  /// **'Files'**
+  String get featureSectionFiles;
+
+  /// No description provided for @featureSectionSystem.
+  ///
+  /// In en, this message translates to:
+  /// **'System'**
+  String get featureSectionSystem;
+
+  /// No description provided for @featureSectionHardware.
+  ///
+  /// In en, this message translates to:
+  /// **'Hardware'**
+  String get featureSectionHardware;
+
+  /// No description provided for @featureSectionAdvanced.
+  ///
+  /// In en, this message translates to:
+  /// **'Advanced'**
+  String get featureSectionAdvanced;
 
   /// No description provided for @featureInstallApp.
   ///
@@ -2010,6 +2040,36 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Connection help'**
   String get homeConnectionHelp;
+
+  /// No description provided for @homeConnectDevice.
+  ///
+  /// In en, this message translates to:
+  /// **'Please connect a device'**
+  String get homeConnectDevice;
+
+  /// No description provided for @settingsCurrentVersion.
+  ///
+  /// In en, this message translates to:
+  /// **'Current version: {version}'**
+  String settingsCurrentVersion(String version);
+
+  /// No description provided for @homeNarrowWiredHelp.
+  ///
+  /// In en, this message translates to:
+  /// **'Connect the watch using a cable or charging dock'**
+  String get homeNarrowWiredHelp;
+
+  /// No description provided for @homeNarrowDebugHelp.
+  ///
+  /// In en, this message translates to:
+  /// **'Check whether USB debugging is enabled'**
+  String get homeNarrowDebugHelp;
+
+  /// No description provided for @homeNarrowDriverHelp.
+  ///
+  /// In en, this message translates to:
+  /// **'Check whether the ADB driver is installed'**
+  String get homeNarrowDriverHelp;
 
   /// No description provided for @homeWirelessUse.
   ///

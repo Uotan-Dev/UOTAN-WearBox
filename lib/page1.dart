@@ -42,9 +42,8 @@ class _Page1State extends State<Page1> {
   @override
   void initState() {
     super.initState();
-    _selectedAdbId = widget.devices.isNotEmpty
-        ? widget.devices.first.adbId
-        : null;
+    _selectedAdbId =
+        widget.devices.isNotEmpty ? widget.devices.first.adbId : null;
   }
 
   @override
@@ -72,20 +71,17 @@ class _Page1State extends State<Page1> {
   Widget build(BuildContext context) {
     final AdbDeviceInfo? selectedDevice = _getSelectedDeviceOrNull();
     if (_isNarrow(context)) {
-      // 窄屏：问候语 / 设备型号作为 miuix 可折叠大标题，状态文字作为副标题
+      // 窄屏：未连接时提示连接设备，已连接时显示设备型号。
       final l10n = context.l10n;
       return MiuixTitledPage(
-        title: selectedDevice?.model ?? _getGreetingBasedOnTime(l10n),
-        subtitle: selectedDevice == null
-            ? l10n.homeNoDeviceDetected
-            : l10n.connect_successfully,
+        title: selectedDevice?.model ?? l10n.homeConnectDevice,
         actions: [
           _buildRebootMenu(context, selectedDevice?.adbId),
           _buildRefreshAction(context),
         ],
         body: SingleChildScrollView(
           child: Padding(
-            padding: const EdgeInsets.fromLTRB(16, 4, 16, 16),
+            padding: const EdgeInsets.fromLTRB(12, 0, 12, 20),
             child: selectedDevice == null
                 ? _buildNoDeviceConnected(context)
                 : _buildDeviceInfo(
@@ -184,9 +180,7 @@ class _Page1State extends State<Page1> {
           const SizedBox(height: 5),
         ],
         // 窄屏下占位的设备信息卡片放在选择设备下方
-        if (_isNarrow(context))
-          const SizedBox(height: 8)
-        else ...[
+        if (!_isNarrow(context)) ...[
           _buildDeviceInfo(
             context,
             _buildPlaceholderDeviceInfo(),
@@ -202,6 +196,7 @@ class _Page1State extends State<Page1> {
         _buildCardPair(
           context,
           Card(
+            margin: _isNarrow(context) ? EdgeInsets.zero : null,
             color: context.palette.surface,
             elevation: 0,
             child: Padding(
@@ -209,14 +204,16 @@ class _Page1State extends State<Page1> {
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  Text(
-                    context.l10n.homeConnectionHelp,
-                    style: const TextStyle(
-                      fontSize: 16,
-                      fontWeight: FontWeight.bold,
+                  if (!_isNarrow(context)) ...[
+                    Text(
+                      context.l10n.homeConnectionHelp,
+                      style: const TextStyle(
+                        fontSize: 16,
+                        fontWeight: FontWeight.bold,
+                      ),
                     ),
-                  ),
-                  const SizedBox(height: 8),
+                    const SizedBox(height: 8),
+                  ],
                   // 移动端只能通过无线调试连接，不显示数据线和无线连接说明
                   if (isDesktop) ...[
                     Text(
@@ -417,11 +414,11 @@ class _Page1State extends State<Page1> {
               style: const TextStyle(fontSize: 16),
             ),
           ),
-        const SizedBox(height: 8),
+        if (!_isNarrow(context)) const SizedBox(height: 8),
         // 窄屏：重启操作在标题栏菜单中，设备信息放在选择设备下方
         if (_isNarrow(context) && showRebootActions) ...[
           _buildSelectDeviceCard(context, availableDevices),
-          const SizedBox(height: 5),
+          const SizedBox(height: 10),
           buildMergedInfoCard(
             context,
             l10n,
@@ -535,11 +532,58 @@ class _Page1State extends State<Page1> {
       return Column(
         crossAxisAlignment: CrossAxisAlignment.stretch,
         children: [
-          left,
-          const SizedBox(height: 5),
+          if (!isDesktop)
+            _buildMiuixCard(
+              context,
+              context.l10n.homeConnectionHelp,
+              MiuixArrowPreference(
+                title:
+                    '${context.l10n.homeCheckDebugPrefix.replaceFirst(RegExp(r'^\d+\.\s*'), '')} ${context.l10n.homeUsbDebugLink}',
+                onClick: () {
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                      builder: (context) => const TutorialPage(),
+                    ),
+                  );
+                },
+              ),
+            )
+          else
+            _buildMiuixCard(
+              context,
+              context.l10n.homeConnectionHelp,
+              Column(
+                mainAxisSize: MainAxisSize.min,
+                children: [
+                  MiuixBasicComponent(
+                    title: context.l10n.homeNarrowWiredHelp,
+                  ),
+                  MiuixArrowPreference(
+                    title: context.l10n.homeNarrowDebugHelp,
+                    onClick: () => Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                        builder: (context) => const TutorialPage(),
+                      ),
+                    ),
+                  ),
+                  MiuixArrowPreference(
+                    title: context.l10n.homeNarrowDriverHelp,
+                    onClick: () => Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                        builder: (context) => const DriverPage(),
+                      ),
+                    ),
+                  ),
+                ],
+              ),
+            ),
+          const SizedBox(height: 10),
           right,
           if (narrowBelowRight != null) ...[
-            const SizedBox(height: 5),
+            const SizedBox(height: 10),
             narrowBelowRight,
           ],
         ],
@@ -578,8 +622,8 @@ class _Page1State extends State<Page1> {
     }
     final String? dropdownValue =
         devices.any((AdbDeviceInfo device) => device.adbId == _selectedAdbId)
-        ? _selectedAdbId
-        : null;
+            ? _selectedAdbId
+            : null;
 
     return Card(
       color: context.palette.surface,
@@ -806,11 +850,13 @@ class _Page1State extends State<Page1> {
       ],
     ];
 
-    // 窄屏：miuix 卡片，每项为 miuix 基础行（左侧名称，右侧数值），不显示标题
+    // 窄屏：卡片上方显示分类文本，卡片内每项为 miuix 基础行。
     if (_isNarrow(context)) {
       final MiuixThemeData theme = MiuixTheme.of(context);
       final double maxValueWidth = MediaQuery.sizeOf(context).width * 0.5;
       return _buildMiuixCard(
+        context,
+        l10n.homeDeviceInfo,
         Column(
           mainAxisSize: MainAxisSize.min,
           children: [
@@ -879,20 +925,40 @@ class _Page1State extends State<Page1> {
 
   // 窄屏 miuix 卡片：与其它卡片对齐外边距，并按超椭圆圆角裁剪内容，
   // 避免行的按压 / 悬停底色露出直角
-  Widget _buildMiuixCard(Widget child) {
+  Widget _buildNarrowSectionTitle(BuildContext context, String title) {
+    final theme = MiuixTheme.of(context);
     return Padding(
-      padding: const EdgeInsets.all(4),
-      child: MiuixCard(
-        insideMargin: EdgeInsets.zero,
-        child: ClipPath(
-          clipper: const ShapeBorderClipper(
-            shape: MiuixSquircleBorder(
-              cornerRadius: MiuixCardDefaults.cornerRadius,
-            ),
-          ),
-          child: child,
-        ),
+      padding: EdgeInsets.fromLTRB(
+        MiuixBasicComponentDefaults.insideMargin.left,
+        8,
+        MiuixBasicComponentDefaults.insideMargin.right,
+        8,
       ),
+      child: MiuixText(
+        title,
+        style: theme.textStyles.footnote1,
+        color: theme.colors.onBackgroundVariant,
+      ),
+    );
+  }
+
+  Widget _buildMiuixCard(BuildContext context, String title, Widget child) {
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.stretch,
+      children: [
+        _buildNarrowSectionTitle(context, title),
+        MiuixCard(
+          insideMargin: EdgeInsets.zero,
+          child: ClipPath(
+            clipper: const ShapeBorderClipper(
+              shape: MiuixSquircleBorder(
+                cornerRadius: MiuixCardDefaults.cornerRadius,
+              ),
+            ),
+            child: child,
+          ),
+        ),
+      ],
     );
   }
 
@@ -932,6 +998,8 @@ class _Page1State extends State<Page1> {
       (AdbDeviceInfo device) => device.adbId == _selectedAdbId,
     );
     return _buildMiuixCard(
+      context,
+      l10n.homeSelectDevice,
       Column(
         mainAxisSize: MainAxisSize.min,
         children: [
@@ -1036,11 +1104,14 @@ class _Page1State extends State<Page1> {
       return;
     }
     try {
-      final ProcessResult result = await Process.run(adbPath, <String>[
-        '-s',
-        selectedAdbId,
-        ...args,
-      ], environment: toolEnvironment);
+      final ProcessResult result = await Process.run(
+          adbPath,
+          <String>[
+            '-s',
+            selectedAdbId,
+            ...args,
+          ],
+          environment: toolEnvironment);
       if (!mounted) {
         return;
       }

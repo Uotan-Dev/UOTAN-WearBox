@@ -3,6 +3,7 @@ import 'miuix_titled_page.dart';
 import 'platform_support.dart';
 import 'app_theme.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_miuix/miuix.dart';
 import 'package:url_launcher/url_launcher.dart';
 
 import 'about/privacy.dart';
@@ -128,6 +129,45 @@ class Page3 extends StatelessWidget {
       ),
     ];
 
+    if (isNarrowLayout(context)) {
+      return MiuixTitledPage(
+        title: l10n.settingsPageTitle,
+        body: Builder(
+          builder: (context) => ListView(
+            padding: const EdgeInsets.fromLTRB(12, 0, 12, 20),
+            children: [
+              _buildMiuixSectionTitle(context, l10n.setting_config),
+              _buildMiuixGroup([
+                _buildLanguageCard(context, l10n),
+                _buildThemeModeCard(context, l10n),
+                _CheckUpdateCard(
+                  onCheckUpdate: onCheckUpdate,
+                  currentVersion: currentVersion,
+                ),
+              ]),
+              for (final section in [
+                (l10n.settingsSectionFaq, faqOptions),
+                (l10n.settingsSectionAgreements, agreementOptions),
+                (l10n.settingsSectionVisit, visitOptions),
+              ]) ...[
+                const SizedBox(height: 10),
+                _buildMiuixSectionTitle(context, section.$1),
+                _buildMiuixGroup([
+                  for (final option in section.$2)
+                    MiuixArrowPreference(
+                      title: option.title,
+                      onClick: option.onTap,
+                    ),
+                ]),
+              ],
+              const SizedBox(height: 10),
+              _buildMiuixSectionTitle(context, l10n.settingsFooter),
+            ],
+          ),
+        ),
+      );
+    }
+
     final Widget list = ListView(
       padding: const EdgeInsets.only(left: 20.0, right: 20, bottom: 20),
       children: [
@@ -137,7 +177,10 @@ class Page3 extends StatelessWidget {
         const SizedBox(height: 10),
         _buildThemeModeCard(context, l10n),
         const SizedBox(height: 10),
-        _CheckUpdateCard(onCheckUpdate: onCheckUpdate),
+        _CheckUpdateCard(
+          onCheckUpdate: onCheckUpdate,
+          currentVersion: currentVersion,
+        ),
         const SizedBox(height: 10),
         _buildSectionTitle(context, l10n.settingsSectionFaq),
         const SizedBox(height: 2),
@@ -172,15 +215,6 @@ class Page3 extends StatelessWidget {
         const SizedBox(height: 5),
       ],
     );
-    // 窄屏：应用名作为 miuix 可折叠大标题，版本信息作为副标题
-    if (isNarrowLayout(context)) {
-      return MiuixTitledPage(
-        title: l10n.settingsPageTitle,
-        subtitle: l10n.settingsVersionLabel(currentVersion),
-        body: list,
-      );
-    }
-
     return Scaffold(
       appBar: PreferredSize(
         preferredSize: const Size.fromHeight(70.0), // 设置AppBar的高度
@@ -235,6 +269,17 @@ class Page3 extends StatelessWidget {
 
   Widget _buildLanguageCard(BuildContext context, AppLocalizations l10n) {
     final currentSelection = currentLocale?.languageCode ?? 'system';
+    if (isNarrowLayout(context)) {
+      const values = ['system', 'zh', 'en', 'ja'];
+      final selectedIndex = values.indexOf(currentSelection);
+      return MiuixOverlayDropdownPreference(
+        title: l10n.settingsLanguageTitle,
+        items: [l10n.languageSystem, '简体中文', 'English', '日本語'],
+        selectedIndex: selectedIndex < 0 ? 0 : selectedIndex,
+        onSelectedIndexChange: (index) =>
+            onLocaleChanged(index == 0 ? null : Locale(values[index])),
+      );
+    }
     return Material(
       color: context.palette.surface,
       shape: RoundedRectangleBorder(
@@ -273,6 +318,19 @@ class Page3 extends StatelessWidget {
   }
 
   Widget _buildThemeModeCard(BuildContext context, AppLocalizations l10n) {
+    if (isNarrowLayout(context)) {
+      const values = [ThemeMode.system, ThemeMode.dark, ThemeMode.light];
+      return MiuixOverlayDropdownPreference(
+        title: l10n.settingsDarkModeTitle,
+        items: [
+          l10n.themeModeSystem,
+          l10n.themeModeAlwaysOn,
+          l10n.themeModeAlwaysOff,
+        ],
+        selectedIndex: values.indexOf(themeMode),
+        onSelectedIndexChange: (index) => onThemeModeChanged(values[index]),
+      );
+    }
     return Material(
       color: context.palette.surface,
       shape: RoundedRectangleBorder(
@@ -297,6 +355,36 @@ class Page3 extends StatelessWidget {
             ],
           ),
         ),
+      ),
+    );
+  }
+
+  Widget _buildMiuixGroup(List<Widget> children) {
+    return MiuixCard(
+      child: ClipPath(
+        clipper: const ShapeBorderClipper(
+          shape: MiuixSquircleBorder(
+            cornerRadius: MiuixCardDefaults.cornerRadius,
+          ),
+        ),
+        child: Column(mainAxisSize: MainAxisSize.min, children: children),
+      ),
+    );
+  }
+
+  Widget _buildMiuixSectionTitle(BuildContext context, String title) {
+    final theme = MiuixTheme.of(context);
+    return Padding(
+      padding: EdgeInsets.fromLTRB(
+        MiuixBasicComponentDefaults.insideMargin.left,
+        8,
+        MiuixBasicComponentDefaults.insideMargin.right,
+        8,
+      ),
+      child: MiuixText(
+        title,
+        style: theme.textStyles.footnote1,
+        color: theme.colors.onBackgroundVariant,
       ),
     );
   }
@@ -392,9 +480,13 @@ class Page3 extends StatelessWidget {
 enum UpdateCheckResult { available, upToDate, failed }
 
 class _CheckUpdateCard extends StatefulWidget {
-  const _CheckUpdateCard({required this.onCheckUpdate});
+  const _CheckUpdateCard({
+    required this.onCheckUpdate,
+    required this.currentVersion,
+  });
 
   final Future<UpdateCheckResult> Function() onCheckUpdate;
+  final String currentVersion;
 
   @override
   State<_CheckUpdateCard> createState() => _CheckUpdateCardState();
@@ -424,6 +516,25 @@ class _CheckUpdateCardState extends State<_CheckUpdateCard> {
   @override
   Widget build(BuildContext context) {
     final l10n = context.l10n;
+    if (isNarrowLayout(context)) {
+      return MiuixArrowPreference(
+        title: l10n.settingsCheckUpdateTitle,
+        summary: l10n.settingsCurrentVersion(widget.currentVersion),
+        enabled: !_checking,
+        onClick: _checking ? null : _check,
+        endActions: _checking
+            ? const [
+                SizedBox(
+                  width: 14,
+                  height: 14,
+                  child: CircularProgressIndicator(
+                    strokeWidth: 1.5,
+                  ),
+                ),
+              ]
+            : null,
+      );
+    }
     return Material(
       color: context.palette.surface,
       shape: RoundedRectangleBorder(

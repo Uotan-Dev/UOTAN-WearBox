@@ -171,7 +171,7 @@ class AppLocalizationsJa extends AppLocalizations {
   String get languageEnglish => '英語';
 
   @override
-  String get wirelessPageTitle => 'ワイヤレス接続';
+  String get wirelessPageTitle => 'ワイヤレス';
 
   @override
   String get wirelessHeaderIntro => 'デバイスの IP アドレスとポート番号を入力してください';
@@ -486,6 +486,21 @@ class AppLocalizationsJa extends AppLocalizations {
 
   @override
   String get featuresTitle => 'ツール一覧';
+
+  @override
+  String get featureSectionApps => 'アプリ';
+
+  @override
+  String get featureSectionFiles => 'ファイル';
+
+  @override
+  String get featureSectionSystem => 'システム';
+
+  @override
+  String get featureSectionHardware => 'ハードウェア';
+
+  @override
+  String get featureSectionAdvanced => '詳細設定';
 
   @override
   String get featureInstallApp => 'アプリをインストール';
@@ -1106,6 +1121,23 @@ class AppLocalizationsJa extends AppLocalizations {
 
   @override
   String get homeConnectionHelp => '接続ガイド';
+
+  @override
+  String get homeConnectDevice => 'デバイスを接続してください';
+
+  @override
+  String settingsCurrentVersion(String version) {
+    return '現在のバージョン：$version';
+  }
+
+  @override
+  String get homeNarrowWiredHelp => 'ケーブル／充電ドックでウォッチを接続';
+
+  @override
+  String get homeNarrowDebugHelp => 'USB デバッグが有効か確認';
+
+  @override
+  String get homeNarrowDriverHelp => 'ADB ドライバーがインストールされているか確認';
 
   @override
   String get homeWirelessUse => '2. 次の機能を使用：';

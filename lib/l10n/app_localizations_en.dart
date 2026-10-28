@@ -171,7 +171,7 @@ class AppLocalizationsEn extends AppLocalizations {
   String get languageEnglish => 'English';
 
   @override
-  String get wirelessPageTitle => 'Wireless connection';
+  String get wirelessPageTitle => 'Wireless';
 
   @override
   String get wirelessHeaderIntro => 'Enter the device IP address and port';
@@ -486,6 +486,21 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get featuresTitle => 'Tools';
+
+  @override
+  String get featureSectionApps => 'Apps';
+
+  @override
+  String get featureSectionFiles => 'Files';
+
+  @override
+  String get featureSectionSystem => 'System';
+
+  @override
+  String get featureSectionHardware => 'Hardware';
+
+  @override
+  String get featureSectionAdvanced => 'Advanced';
 
   @override
   String get featureInstallApp => 'Install apps';
@@ -1106,6 +1121,23 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get homeConnectionHelp => 'Connection help';
+
+  @override
+  String get homeConnectDevice => 'Please connect a device';
+
+  @override
+  String settingsCurrentVersion(String version) {
+    return 'Current version: $version';
+  }
+
+  @override
+  String get homeNarrowWiredHelp => 'Connect the watch using a cable or charging dock';
+
+  @override
+  String get homeNarrowDebugHelp => 'Check whether USB debugging is enabled';
+
+  @override
+  String get homeNarrowDriverHelp => 'Check whether the ADB driver is installed';
 
   @override
   String get homeWirelessUse => '2. Use';
