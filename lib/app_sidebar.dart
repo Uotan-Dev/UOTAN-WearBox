@@ -52,9 +52,10 @@ class AppSidebar extends StatelessWidget {
           Image.asset('assets/logo2.png', width: 38, height: 38),
           const SizedBox(height: 10),
           Container(width: 28, height: 1, color: palette.border),
+          const SizedBox(height: 10),
+          // 按钮组靠上排列，紧跟在 logo 分隔线下方
           Expanded(
             child: Column(
-              mainAxisAlignment: MainAxisAlignment.center,
               children: [
                 for (int i = 0; i < items.length; i++)
                   Padding(
@@ -68,8 +69,6 @@ class AppSidebar extends StatelessWidget {
               ],
             ),
           ),
-          // 与顶部 logo 区域对称，保持按钮组视觉居中
-          const SizedBox(height: 60),
         ],
       ),
     );

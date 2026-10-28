@@ -18,6 +18,15 @@ class AppLocalizationsEn extends AppLocalizations {
   String get navigationFeatures => 'Tools';
 
   @override
+  String get navigationStore => 'Apps';
+
+  @override
+  String get storeComingSoon => 'Coming soon';
+
+  @override
+  String get storeTitle => 'App Center';
+
+  @override
   String get navigationAbout => 'Settings';
 
   @override

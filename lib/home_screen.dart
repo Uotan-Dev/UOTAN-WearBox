@@ -12,6 +12,7 @@ import 'page1.dart';
 import 'page2.dart';
 import 'page3.dart';
 import 'page_transition.dart';
+import 'store_page.dart';
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({
@@ -265,14 +266,9 @@ class _HomeScreenState extends State<HomeScreen> with WindowListener {
   // 窗口宽度小于该值时切换为底部导航栏布局
   static const double _narrowLayoutBreakpoint = 600;
 
-  static final bool _isDesktop = !kIsWeb &&
-      (defaultTargetPlatform == TargetPlatform.windows ||
-          defaultTargetPlatform == TargetPlatform.macOS ||
-          defaultTargetPlatform == TargetPlatform.linux);
-
   // 每个导航项拥有独立的嵌套 Navigator，二级页面在内容区域内打开，侧边栏保持显示
   final List<GlobalKey<NavigatorState>> _navigatorKeys =
-      List.generate(3, (_) => GlobalKey<NavigatorState>());
+      List.generate(4, (_) => GlobalKey<NavigatorState>());
 
   void _onDestinationSelected(int index) {
     if (index == _selectedIndex) {
@@ -383,6 +379,11 @@ class _HomeScreenState extends State<HomeScreen> with WindowListener {
               label: context.l10n.navigationFeatures,
             ),
             AppSidebarItem(
+              icon: 'store',
+              selectedIcon: 'store_filled',
+              label: context.l10n.navigationStore,
+            ),
+            AppSidebarItem(
               icon: 'settings',
               selectedIcon: 'settings_filled',
               label: context.l10n.navigationAbout,
@@ -431,6 +432,10 @@ class _HomeScreenState extends State<HomeScreen> with WindowListener {
                 label: context.l10n.navigationFeatures,
               ),
               NavigationDestination(
+                icon: const Icon(Icons.storefront),
+                label: context.l10n.navigationStore,
+              ),
+              NavigationDestination(
                 icon: const Icon(Icons.settings),
                 label: context.l10n.navigationAbout,
               ),
@@ -450,6 +455,7 @@ class _HomeScreenState extends State<HomeScreen> with WindowListener {
         onRefreshDevices: _refreshDevicesNow,
       ))
       ..add(const Page2())
+      ..add(const StorePage())
       ..add(Page3(
         onLocaleChanged: widget.onLocaleChanged,
         currentLocale: widget.locale,
@@ -501,10 +507,8 @@ class _HomeScreenState extends State<HomeScreen> with WindowListener {
             : LayoutBuilder(
                 key: const ValueKey('content'), // 唯一键值
                 builder: (context, constraints) {
-                  // 桌面端（Windows / macOS / Linux）始终使用侧边栏；
-                  // 其他平台窄屏时将侧边栏移动到页面底部
-                  if (!_isDesktop &&
-                      constraints.maxWidth < _narrowLayoutBreakpoint) {
+                  // 窄屏（窄窗口 / 移动端）时将侧边栏移动到页面底部
+                  if (constraints.maxWidth < _narrowLayoutBreakpoint) {
                     return _buildNarrowLayout(context);
                   }
                   return _buildWideLayout(context);

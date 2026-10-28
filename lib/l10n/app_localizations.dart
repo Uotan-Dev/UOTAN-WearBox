@@ -115,6 +115,24 @@ abstract class AppLocalizations {
   /// **'Tools'**
   String get navigationFeatures;
 
+  /// No description provided for @navigationStore.
+  ///
+  /// In en, this message translates to:
+  /// **'Apps'**
+  String get navigationStore;
+
+  /// No description provided for @storeComingSoon.
+  ///
+  /// In en, this message translates to:
+  /// **'Coming soon'**
+  String get storeComingSoon;
+
+  /// No description provided for @storeTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'App Center'**
+  String get storeTitle;
+
   /// No description provided for @navigationAbout.
   ///
   /// In en, this message translates to:

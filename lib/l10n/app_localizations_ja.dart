@@ -18,6 +18,15 @@ class AppLocalizationsJa extends AppLocalizations {
   String get navigationFeatures => 'ツール';
 
   @override
+  String get navigationStore => 'アプリ';
+
+  @override
+  String get storeComingSoon => '近日公開';
+
+  @override
+  String get storeTitle => 'アプリセンター';
+
+  @override
   String get navigationAbout => '設定';
 
   @override

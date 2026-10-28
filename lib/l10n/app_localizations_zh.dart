@@ -18,6 +18,15 @@ class AppLocalizationsZh extends AppLocalizations {
   String get navigationFeatures => '功能';
 
   @override
+  String get navigationStore => '应用';
+
+  @override
+  String get storeComingSoon => '敬请期待';
+
+  @override
+  String get storeTitle => '应用中心';
+
+  @override
   String get navigationAbout => '设置';
 
   @override
