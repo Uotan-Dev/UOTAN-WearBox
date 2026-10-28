@@ -407,28 +407,14 @@ class _HomeScreenState extends State<HomeScreen> with WindowListener {
 
   // 窄屏布局：底部导航栏
   Widget _buildNarrowLayout(BuildContext context) {
-    // 窄屏下二级页面仍全屏打开，不保留底部导航栏。
-    // 导航栏悬浮在页面之上（毛玻璃透出下方内容），页面通过 MediaQuery 底部内边距留出空间
-    final MediaQueryData media = MediaQuery.of(context);
-    return Stack(
+    // 窄屏下二级页面仍全屏打开，不保留底部导航栏
+    return Column(
       children: [
-        MediaQuery(
-          data: media.copyWith(
-            padding: media.padding.copyWith(
-              bottom: media.padding.bottom + AppBottomBar.totalHeight,
-            ),
-          ),
-          child: _buildNarrowPager(),
-        ),
-        Positioned(
-          left: 0,
-          right: 0,
-          bottom: 0,
-          child: AppBottomBar(
-            items: _navItems(context),
-            selectedIndex: _selectedIndex,
-            onSelected: _onDestinationSelected,
-          ),
+        Expanded(child: _buildNarrowPager()),
+        AppBottomBar(
+          items: _navItems(context),
+          selectedIndex: _selectedIndex,
+          onSelected: _onDestinationSelected,
         ),
       ],
     );

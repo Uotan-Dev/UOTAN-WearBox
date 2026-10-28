@@ -1,13 +1,11 @@
 import 'platform_support.dart';
 import 'dart:io';
 
-import 'dart:ui' as ui;
-
 import 'package:flutter/material.dart';
+import 'package:flutter_miuix/miuix.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 
 import 'app_theme.dart';
-import 'blur_menu.dart';
 
 class AppSidebarItem {
   const AppSidebarItem({
@@ -174,7 +172,7 @@ class _SidebarButtonState extends State<_SidebarButton> {
   }
 }
 
-/// 窄屏底部导航栏：悬浮在页面之上的毛玻璃胶囊，选中项底色在各项之间滑动，图标与侧边栏共用。
+/// 窄屏底部导航栏：使用 flutter_miuix 的 HyperOS 风格导航栏（MiuixNavigationBar），停靠在页面底部。
 class AppBottomBar extends StatelessWidget {
   const AppBottomBar({
     super.key,
@@ -187,148 +185,34 @@ class AppBottomBar extends StatelessWidget {
   final int selectedIndex;
   final ValueChanged<int> onSelected;
 
-  static const double _height = 60;
-  static const double _inset = 5;
-  static const EdgeInsets _margin = EdgeInsets.fromLTRB(16, 4, 16, 12);
-
-  /// 导航栏连同外边距占用的总高度，页面需留出这段底部空间
-  static double get totalHeight => _height + _margin.vertical;
-
   @override
   Widget build(BuildContext context) {
     final AppPalette palette = context.palette;
-    final int count = items.length;
-    final BorderRadius radius = BorderRadius.circular(_height / 2);
-    return Padding(
-      padding: _margin,
-      child: CustomPaint(
-        painter: OuterShadowPainter(radius: _height / 2, dark: palette.isDark),
-        child: ClipRRect(
-          borderRadius: radius,
-          child: BackdropFilter(
-            // 毛玻璃：模糊下方滚动经过的页面内容
-            filter: ui.ImageFilter.blur(sigmaX: 24, sigmaY: 24),
-            child: Container(
-              height: _height,
-              padding: const EdgeInsets.all(_inset),
-              decoration: BoxDecoration(
-                color: palette.menuPanel,
-                borderRadius: radius,
-                border: Border.all(
-                  color: palette.isDark
-                      ? const Color(0x1FFFFFFF)
-                      : const Color(0x14000000),
-                  width: 0.5,
+    return MiuixTheme(
+      data: palette.isDark ? MiuixThemeData.dark() : MiuixThemeData.light(),
+      child: MiuixNavigationBar(
+        // 底色与页面背景一致，顶部保留 miuix 分隔线
+        color: palette.background,
+        children: [
+          for (int i = 0; i < items.length; i++)
+            MiuixNavigationBarItem(
+              selected: i == selectedIndex,
+              onPressed: () => onSelected(i),
+              label: items[i].label,
+              // 图标沿用侧边栏 SVG，颜色取导航栏下发的 IconTheme（选中 / 未选中）
+              icon: Builder(
+                builder: (context) => SvgPicture.asset(
+                  'assets/sidebar/${i == selectedIndex ? items[i].selectedIcon : items[i].icon}.svg',
+                  width: 24,
+                  height: 24,
+                  colorFilter: ColorFilter.mode(
+                    IconTheme.of(context).color ?? palette.text,
+                    BlendMode.srcIn,
+                  ),
                 ),
-              ),
-              child: Stack(
-                children: [
-                  // 选中项底色：随选中项左右滑动
-                  AnimatedAlign(
-                    alignment: Alignment(
-                      count == 1 ? 0 : -1 + 2 * selectedIndex / (count - 1),
-                      0,
-                    ),
-                    duration: const Duration(milliseconds: 320),
-                    curve: Curves.easeOutCubic,
-                    child: FractionallySizedBox(
-                      widthFactor: 1 / count,
-                      heightFactor: 1,
-                      child: DecoratedBox(
-                        decoration: BoxDecoration(
-                          color: palette.button,
-                          borderRadius:
-                              BorderRadius.circular((_height - _inset * 2) / 2),
-                        ),
-                      ),
-                    ),
-                  ),
-                  Row(
-                    children: [
-                      for (int i = 0; i < count; i++)
-                        Expanded(
-                          child: _BottomBarButton(
-                            item: items[i],
-                            selected: i == selectedIndex,
-                            onTap: () => onSelected(i),
-                          ),
-                        ),
-                    ],
-                  ),
-                ],
               ),
             ),
-          ),
-        ),
-      ),
-    );
-  }
-}
-
-class _BottomBarButton extends StatefulWidget {
-  const _BottomBarButton({
-    required this.item,
-    required this.selected,
-    required this.onTap,
-  });
-
-  final AppSidebarItem item;
-  final bool selected;
-  final VoidCallback onTap;
-
-  @override
-  State<_BottomBarButton> createState() => _BottomBarButtonState();
-}
-
-class _BottomBarButtonState extends State<_BottomBarButton> {
-  bool _pressed = false;
-
-  @override
-  Widget build(BuildContext context) {
-    final AppPalette palette = context.palette;
-    final bool selected = widget.selected;
-    final Color foreground = selected ? palette.text : palette.subtext;
-    return MouseRegion(
-      cursor: SystemMouseCursors.click,
-      child: GestureDetector(
-        behavior: HitTestBehavior.opaque,
-        onTapDown: (_) => setState(() => _pressed = true),
-        onTapCancel: () => setState(() => _pressed = false),
-        onTapUp: (_) => setState(() => _pressed = false),
-        onTap: widget.onTap,
-        child: AnimatedScale(
-          scale: _pressed ? 0.92 : 1,
-          duration: const Duration(milliseconds: 120),
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              AnimatedSwitcher(
-                duration: const Duration(milliseconds: 200),
-                child: SvgPicture.asset(
-                  'assets/sidebar/${selected ? widget.item.selectedIcon : widget.item.icon}.svg',
-                  key: ValueKey<bool>(selected),
-                  width: 22,
-                  height: 22,
-                  colorFilter: ColorFilter.mode(foreground, BlendMode.srcIn),
-                ),
-              ),
-              const SizedBox(height: 3),
-              AnimatedDefaultTextStyle(
-                duration: const Duration(milliseconds: 200),
-                style: TextStyle(
-                  fontFamily: selected ? 'MiSansMed' : 'MiSans',
-                  fontSize: 12,
-                  color: foreground,
-                ),
-                child: Text(
-                  widget.item.label,
-                  maxLines: 1,
-                  overflow: TextOverflow.ellipsis,
-                ),
-              ),
-            ],
-          ),
-        ),
+        ],
       ),
     );
   }

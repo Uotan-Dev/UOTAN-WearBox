@@ -102,13 +102,7 @@ class _Page1State extends State<Page1> {
       body: Builder(builder: (context) {
         final Widget content = Padding(
           padding: narrow
-              // 底部额外留出悬浮导航栏的高度
-              ? EdgeInsets.only(
-                  right: 16,
-                  left: 16,
-                  top: 10,
-                  bottom: 16 + MediaQuery.paddingOf(context).bottom,
-                )
+              ? const EdgeInsets.only(right: 16, left: 16, top: 10, bottom: 16)
               : const EdgeInsets.only(right: 25, left: 25, top: 10),
           child: selectedDevice == null
               ? _buildNoDeviceConnected(context)

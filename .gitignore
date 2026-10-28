@@ -46,3 +46,6 @@ app.*.map.json
 
 # Android platform-tools (downloaded by macos/scripts/bundle_platform_tools.sh)
 /macos/platform-tools/
+
+# FVM Version Cache
+.fvm/

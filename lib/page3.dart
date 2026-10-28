@@ -172,12 +172,7 @@ class Page3 extends StatelessWidget {
           const SizedBox(height: 15),
           Expanded(
             child: ListView(
-              // 底部额外留出悬浮导航栏的高度（窄屏）
-              padding: EdgeInsets.only(
-                left: 20.0,
-                right: 20,
-                bottom: 20 + MediaQuery.paddingOf(context).bottom,
-              ),
+              padding: const EdgeInsets.only(left: 20.0, right: 20, bottom: 20),
               children: [
                 _buildSectionTitle(context, l10n.setting_config),
                 const SizedBox(height: 2),

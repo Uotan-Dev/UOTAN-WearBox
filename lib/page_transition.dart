@@ -1,3 +1,4 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
 /// 宽屏导航栏切换页面的入场动画：淡入并从下方轻微上移
