@@ -134,6 +134,7 @@ flutter:
       - assets/icons/enable_24dp_5F6368_FILL0_wght400_GRAD0_opsz24.png
       - assets/adb.png
       - assets/sidebar/
+      - assets/file_manager/
       - assets/driver/0.png
       - assets/driver/1.png
       - assets/driver/2.png

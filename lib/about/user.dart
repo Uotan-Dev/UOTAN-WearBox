@@ -1,5 +1,6 @@
 import '../platform_support.dart';
 import '../app_theme.dart';
+import '../miuix_titled_page.dart';
 import 'package:watch_assistant/l10n/l10n.dart';
 import 'package:flutter/material.dart';
 
@@ -8,6 +9,516 @@ class UserPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final body = SingleChildScrollView(
+      padding: EdgeInsets.fromLTRB(
+        isNarrowLayout(context) ? 20 : 30,
+        20,
+        isNarrowLayout(context) ? 20 : 30,
+        30,
+      ),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Text(
+            context.l10n.agreementParagraph2,
+            style: TextStyle(
+              fontSize: 24,
+              fontFamily: 'MiSansMed',
+            ),
+          ),
+          const SizedBox(height: 2),
+          Text(
+            context.l10n.agreementParagraph3,
+            style: const TextStyle(fontSize: 16),
+          ),
+          const SizedBox(height: 16),
+          Text(
+            context.l10n.agreementParagraph4,
+            style: const TextStyle(fontSize: 16),
+          ),
+          const SizedBox(height: 16),
+          Text(
+            context.l10n.agreementParagraph5,
+            style: TextStyle(
+              fontSize: 20,
+              fontFamily: 'MiSansMed',
+            ),
+          ),
+          const SizedBox(height: 6),
+          Text(
+            context.l10n.agreementParagraph6,
+            style: const TextStyle(fontSize: 16),
+          ),
+          const SizedBox(height: 16),
+          Text(
+            context.l10n.agreementParagraph7,
+            style: TextStyle(
+              fontSize: 20,
+              fontFamily: 'MiSansMed',
+            ),
+          ),
+          const SizedBox(height: 6),
+          Text(
+            context.l10n.agreementParagraph8,
+            style: const TextStyle(
+              fontSize: 16,
+              fontWeight: FontWeight.bold,
+            ),
+          ),
+          const SizedBox(height: 6),
+          Text(
+            context.l10n.agreementParagraph9,
+            style: const TextStyle(fontSize: 16),
+          ),
+          const SizedBox(height: 6),
+          Text(
+            context.l10n.agreementParagraph10,
+            style: const TextStyle(
+              fontSize: 16,
+              fontWeight: FontWeight.bold,
+            ),
+          ),
+          const SizedBox(height: 6),
+          Text(
+            context.l10n.agreementParagraph11,
+            style: const TextStyle(fontSize: 16),
+          ),
+          const SizedBox(height: 16),
+          Text(
+            context.l10n.agreementParagraph12,
+            style: TextStyle(
+              fontSize: 20,
+              fontFamily: 'MiSansMed',
+            ),
+          ),
+          const SizedBox(height: 6),
+          Text(
+            context.l10n.agreementParagraph13,
+            style: const TextStyle(
+              fontSize: 16,
+              fontWeight: FontWeight.bold,
+            ),
+          ),
+          const SizedBox(height: 6),
+          Text(
+            context.l10n.agreementParagraph14,
+            style: const TextStyle(fontSize: 16),
+          ),
+          const SizedBox(height: 6),
+          Text(
+            context.l10n.agreementParagraph15,
+            style: const TextStyle(
+              fontSize: 16,
+              fontWeight: FontWeight.bold,
+            ),
+          ),
+          const SizedBox(height: 6),
+          Text(
+            context.l10n.agreementParagraph16,
+            style: const TextStyle(fontSize: 16),
+          ),
+          const SizedBox(height: 16),
+          Text(
+            context.l10n.agreementParagraph17,
+            style: TextStyle(
+              fontSize: 20,
+              fontFamily: 'MiSansMed',
+            ),
+          ),
+          const SizedBox(height: 6),
+          Text(
+            context.l10n.agreementParagraph18,
+            style: const TextStyle(
+              fontSize: 16,
+              fontWeight: FontWeight.bold,
+            ),
+          ),
+          const SizedBox(height: 6),
+          Text(
+            context.l10n.agreementParagraph19,
+            style: const TextStyle(fontSize: 16),
+          ),
+          const SizedBox(height: 6),
+          Text(
+            context.l10n.agreementParagraph20,
+            style: const TextStyle(fontSize: 16),
+          ),
+          Text(
+            context.l10n.agreementParagraph21,
+            style: const TextStyle(fontSize: 16),
+          ),
+          Text(
+            context.l10n.agreementParagraph22,
+            style: const TextStyle(fontSize: 16),
+          ),
+          const SizedBox(height: 6),
+          Text(
+            context.l10n.agreementParagraph23,
+            style: const TextStyle(
+              fontSize: 16,
+              fontWeight: FontWeight.bold,
+            ),
+          ),
+          const SizedBox(height: 6),
+          Text(
+            context.l10n.agreementParagraph24,
+            style: const TextStyle(fontSize: 16),
+          ),
+          const SizedBox(height: 16),
+          Text(
+            context.l10n.agreementParagraph25,
+            style: TextStyle(
+              fontSize: 20,
+              fontFamily: 'MiSansMed',
+            ),
+          ),
+          const SizedBox(height: 6),
+          Text(
+            context.l10n.agreementParagraph26,
+            style: const TextStyle(
+              fontSize: 16,
+              fontWeight: FontWeight.bold,
+            ),
+          ),
+          const SizedBox(height: 6),
+          Text(
+            context.l10n.agreementParagraph27,
+            style: const TextStyle(fontSize: 16),
+          ),
+          const SizedBox(height: 6),
+          Text(
+            context.l10n.agreementParagraph28,
+            style: const TextStyle(
+              fontSize: 16,
+              fontWeight: FontWeight.bold,
+            ),
+          ),
+          const SizedBox(height: 6),
+          Text(
+            context.l10n.agreementParagraph29,
+            style: const TextStyle(fontSize: 16),
+          ),
+          const SizedBox(height: 6),
+          Text(
+            context.l10n.agreementParagraph30,
+            style: const TextStyle(
+              fontSize: 16,
+              fontWeight: FontWeight.bold,
+            ),
+          ),
+          const SizedBox(height: 6),
+          Text(
+            context.l10n.agreementParagraph31,
+            style: const TextStyle(fontSize: 16),
+          ),
+          const SizedBox(height: 16),
+          Text(
+            context.l10n.agreementParagraph32,
+            style: TextStyle(
+              fontSize: 20,
+              fontFamily: 'MiSansMed',
+            ),
+          ),
+          const SizedBox(height: 6),
+          Text(
+            context.l10n.agreementParagraph33,
+            style: const TextStyle(
+              fontSize: 16,
+              fontWeight: FontWeight.bold,
+            ),
+          ),
+          const SizedBox(height: 6),
+          Text(
+            context.l10n.agreementParagraph34,
+            style: const TextStyle(fontSize: 16),
+          ),
+          const SizedBox(height: 6),
+          Text(
+            context.l10n.agreementParagraph35,
+            style: const TextStyle(
+              fontSize: 16,
+              fontWeight: FontWeight.bold,
+            ),
+          ),
+          const SizedBox(height: 6),
+          Text(
+            context.l10n.agreementParagraph36,
+            style: const TextStyle(fontSize: 16),
+          ),
+          const SizedBox(height: 16),
+          Text(
+            context.l10n.agreementParagraph37,
+            style: TextStyle(
+              fontSize: 20,
+              fontFamily: 'MiSansMed',
+            ),
+          ),
+          const SizedBox(height: 6),
+          Text(
+            context.l10n.agreementParagraph38,
+            style: const TextStyle(
+              fontSize: 16,
+              fontWeight: FontWeight.bold,
+            ),
+          ),
+          const SizedBox(height: 6),
+          Text(
+            context.l10n.agreementParagraph39,
+            style: const TextStyle(fontSize: 16),
+          ),
+          const SizedBox(height: 6),
+          Text(
+            context.l10n.agreementParagraph40,
+            style: const TextStyle(
+              fontSize: 16,
+              fontWeight: FontWeight.bold,
+            ),
+          ),
+          const SizedBox(height: 6),
+          Text(
+            context.l10n.agreementParagraph41,
+            style: const TextStyle(fontSize: 16),
+          ),
+          const SizedBox(height: 6),
+          Text(
+            context.l10n.agreementParagraph42,
+            style: const TextStyle(
+              fontSize: 16,
+              fontWeight: FontWeight.bold,
+            ),
+          ),
+          const SizedBox(height: 6),
+          Text(
+            context.l10n.agreementParagraph43,
+            style: const TextStyle(fontSize: 16),
+          ),
+          const SizedBox(height: 16),
+          Text(
+            context.l10n.agreementParagraph44,
+            style: TextStyle(
+              fontSize: 20,
+              fontFamily: 'MiSansMed',
+            ),
+          ),
+          const SizedBox(height: 6),
+          Text(
+            context.l10n.agreementParagraph45,
+            style: const TextStyle(
+              fontSize: 16,
+              fontWeight: FontWeight.bold,
+            ),
+          ),
+          const SizedBox(height: 6),
+          Text(
+            context.l10n.agreementParagraph46,
+            style: const TextStyle(fontSize: 16),
+          ),
+          const SizedBox(height: 6),
+          Text(
+            context.l10n.agreementParagraph47,
+            style: const TextStyle(
+              fontSize: 16,
+              fontWeight: FontWeight.bold,
+            ),
+          ),
+          const SizedBox(height: 6),
+          Text(
+            context.l10n.agreementParagraph48,
+            style: const TextStyle(fontSize: 16),
+          ),
+          const SizedBox(height: 16),
+          Text(
+            context.l10n.agreementParagraph49,
+            style: TextStyle(
+              fontSize: 20,
+              fontFamily: 'MiSansMed',
+            ),
+          ),
+          const SizedBox(height: 6),
+          Text(
+            context.l10n.agreementParagraph50,
+            style: const TextStyle(
+              fontSize: 16,
+              fontWeight: FontWeight.bold,
+            ),
+          ),
+          const SizedBox(height: 6),
+          Text(
+            context.l10n.agreementParagraph51,
+            style: const TextStyle(fontSize: 16),
+          ),
+          const SizedBox(height: 6),
+          Text(
+            context.l10n.agreementParagraph52,
+            style: const TextStyle(
+              fontSize: 16,
+              fontWeight: FontWeight.bold,
+            ),
+          ),
+          const SizedBox(height: 6),
+          Text(
+            context.l10n.agreementParagraph53,
+            style: const TextStyle(fontSize: 16),
+          ),
+          const SizedBox(height: 16),
+          Text(
+            context.l10n.agreementParagraph54,
+            style: TextStyle(
+              fontSize: 20,
+              fontFamily: 'MiSansMed',
+            ),
+          ),
+          const SizedBox(height: 6),
+          Text(
+            context.l10n.agreementParagraph55,
+            style: const TextStyle(fontSize: 16),
+          ),
+          const SizedBox(height: 16),
+          Text(
+            context.l10n.agreementParagraph56,
+            style: TextStyle(
+              fontSize: 20,
+              fontFamily: 'MiSansMed',
+            ),
+          ),
+          const SizedBox(height: 6),
+          Text(
+            context.l10n.agreementParagraph57,
+            style: const TextStyle(
+              fontSize: 16,
+              fontWeight: FontWeight.bold,
+            ),
+          ),
+          const SizedBox(height: 6),
+          Text(
+            context.l10n.agreementParagraph58,
+            style: const TextStyle(fontSize: 16),
+          ),
+          const SizedBox(height: 6),
+          Text(
+            context.l10n.agreementParagraph59,
+            style: const TextStyle(
+              fontSize: 16,
+              fontWeight: FontWeight.bold,
+            ),
+          ),
+          const SizedBox(height: 6),
+          Text(
+            context.l10n.agreementParagraph60,
+            style: const TextStyle(fontSize: 16),
+          ),
+          const SizedBox(height: 16),
+          Text(
+            context.l10n.agreementParagraph61,
+            style: TextStyle(
+              fontSize: 20,
+              fontFamily: 'MiSansMed',
+            ),
+          ),
+          const SizedBox(height: 6),
+          Text(
+            context.l10n.agreementParagraph62,
+            style: const TextStyle(fontSize: 16),
+          ),
+          const SizedBox(height: 16),
+          Text(
+            context.l10n.agreementParagraph63,
+            style: TextStyle(
+              fontSize: 20,
+              fontFamily: 'MiSansMed',
+            ),
+          ),
+          const SizedBox(height: 6),
+          Text(
+            context.l10n.agreementParagraph64,
+            style: const TextStyle(
+              fontSize: 16,
+              fontWeight: FontWeight.bold,
+            ),
+          ),
+          const SizedBox(height: 6),
+          Text(
+            context.l10n.agreementParagraph65,
+            style: const TextStyle(fontSize: 16),
+          ),
+          const SizedBox(height: 6),
+          Text(
+            context.l10n.agreementParagraph66,
+            style: const TextStyle(
+              fontSize: 16,
+              fontWeight: FontWeight.bold,
+            ),
+          ),
+          const SizedBox(height: 6),
+          Text(
+            context.l10n.agreementParagraph67,
+            style: const TextStyle(fontSize: 16),
+          ),
+          const SizedBox(height: 6),
+          Text(
+            context.l10n.agreementParagraph68,
+            style: const TextStyle(
+              fontSize: 16,
+              fontWeight: FontWeight.bold,
+            ),
+          ),
+          const SizedBox(height: 6),
+          Text(
+            context.l10n.agreementParagraph69,
+            style: const TextStyle(fontSize: 16),
+          ),
+          const SizedBox(height: 6),
+          Text(
+            context.l10n.agreementParagraph70,
+            style: const TextStyle(
+              fontSize: 16,
+              fontWeight: FontWeight.bold,
+            ),
+          ),
+          const SizedBox(height: 6),
+          Text(
+            context.l10n.agreementParagraph71,
+            style: const TextStyle(fontSize: 16),
+          ),
+          const SizedBox(height: 16),
+          Text(
+            context.l10n.agreementParagraph72,
+            style: TextStyle(
+              fontSize: 20,
+              fontFamily: 'MiSansMed',
+            ),
+          ),
+          const SizedBox(height: 6),
+          Text(
+            context.l10n.agreementParagraph73,
+            style: const TextStyle(fontSize: 16),
+          ),
+          const SizedBox(height: 6),
+          Text(
+            context.l10n.agreementParagraph74,
+            style: const TextStyle(fontSize: 16),
+          ),
+          const SizedBox(height: 6),
+          Text(
+            context.l10n.agreementParagraph75,
+            style: const TextStyle(fontSize: 16),
+          ),
+          const SizedBox(height: 16),
+          Text(
+            context.l10n.agreementParagraph76,
+            style: const TextStyle(fontSize: 16),
+          ),
+          const SizedBox(height: 30),
+        ],
+      ),
+    );
+    if (isNarrowLayout(context)) {
+      return MiuixTitledPage(
+        title: context.l10n.agreementParagraph1,
+        showBackButton: true,
+        body: body,
+      );
+    }
     return Scaffold(
       appBar: PreferredSize(
         preferredSize: const Size.fromHeight(90.0), // 设置 AppBar 的高度
@@ -47,505 +558,7 @@ class UserPage extends StatelessWidget {
           ),
         ),
       ),
-      body: SingleChildScrollView(
-        padding: const EdgeInsets.only(
-            left: 30.0, right: 30, bottom: 30, top: 20), // 设置页面内边距
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            Text(
-              context.l10n.agreementParagraph2,
-              style: TextStyle(
-                fontSize: 24,
-                fontFamily: 'MiSansMed',
-              ),
-            ),
-            const SizedBox(height: 2),
-            Text(
-              context.l10n.agreementParagraph3,
-              style: const TextStyle(fontSize: 16),
-            ),
-            const SizedBox(height: 16),
-            Text(
-              context.l10n.agreementParagraph4,
-              style: const TextStyle(fontSize: 16),
-            ),
-            const SizedBox(height: 16),
-            Text(
-              context.l10n.agreementParagraph5,
-              style: TextStyle(
-                fontSize: 20,
-                fontFamily: 'MiSansMed',
-              ),
-            ),
-            const SizedBox(height: 6),
-            Text(
-              context.l10n.agreementParagraph6,
-              style: const TextStyle(fontSize: 16),
-            ),
-            const SizedBox(height: 16),
-            Text(
-              context.l10n.agreementParagraph7,
-              style: TextStyle(
-                fontSize: 20,
-                fontFamily: 'MiSansMed',
-              ),
-            ),
-            const SizedBox(height: 6),
-            Text(
-              context.l10n.agreementParagraph8,
-              style: const TextStyle(
-                fontSize: 16,
-                fontWeight: FontWeight.bold,
-              ),
-            ),
-            const SizedBox(height: 6),
-            Text(
-              context.l10n.agreementParagraph9,
-              style: const TextStyle(fontSize: 16),
-            ),
-            const SizedBox(height: 6),
-            Text(
-              context.l10n.agreementParagraph10,
-              style: const TextStyle(
-                fontSize: 16,
-                fontWeight: FontWeight.bold,
-              ),
-            ),
-            const SizedBox(height: 6),
-            Text(
-              context.l10n.agreementParagraph11,
-              style: const TextStyle(fontSize: 16),
-            ),
-            const SizedBox(height: 16),
-            Text(
-              context.l10n.agreementParagraph12,
-              style: TextStyle(
-                fontSize: 20,
-                fontFamily: 'MiSansMed',
-              ),
-            ),
-            const SizedBox(height: 6),
-            Text(
-              context.l10n.agreementParagraph13,
-              style: const TextStyle(
-                fontSize: 16,
-                fontWeight: FontWeight.bold,
-              ),
-            ),
-            const SizedBox(height: 6),
-            Text(
-              context.l10n.agreementParagraph14,
-              style: const TextStyle(fontSize: 16),
-            ),
-            const SizedBox(height: 6),
-            Text(
-              context.l10n.agreementParagraph15,
-              style: const TextStyle(
-                fontSize: 16,
-                fontWeight: FontWeight.bold,
-              ),
-            ),
-            const SizedBox(height: 6),
-            Text(
-              context.l10n.agreementParagraph16,
-              style: const TextStyle(fontSize: 16),
-            ),
-            const SizedBox(height: 16),
-            Text(
-              context.l10n.agreementParagraph17,
-              style: TextStyle(
-                fontSize: 20,
-                fontFamily: 'MiSansMed',
-              ),
-            ),
-            const SizedBox(height: 6),
-            Text(
-              context.l10n.agreementParagraph18,
-              style: const TextStyle(
-                fontSize: 16,
-                fontWeight: FontWeight.bold,
-              ),
-            ),
-            const SizedBox(height: 6),
-            Text(
-              context.l10n.agreementParagraph19,
-              style: const TextStyle(fontSize: 16),
-            ),
-            const SizedBox(height: 6),
-            Text(
-              context.l10n.agreementParagraph20,
-              style: const TextStyle(fontSize: 16),
-            ),
-            Text(
-              context.l10n.agreementParagraph21,
-              style: const TextStyle(fontSize: 16),
-            ),
-            Text(
-              context.l10n.agreementParagraph22,
-              style: const TextStyle(fontSize: 16),
-            ),
-            const SizedBox(height: 6),
-            Text(
-              context.l10n.agreementParagraph23,
-              style: const TextStyle(
-                fontSize: 16,
-                fontWeight: FontWeight.bold,
-              ),
-            ),
-            const SizedBox(height: 6),
-            Text(
-              context.l10n.agreementParagraph24,
-              style: const TextStyle(fontSize: 16),
-            ),
-            const SizedBox(height: 16),
-            Text(
-              context.l10n.agreementParagraph25,
-              style: TextStyle(
-                fontSize: 20,
-                fontFamily: 'MiSansMed',
-              ),
-            ),
-            const SizedBox(height: 6),
-            Text(
-              context.l10n.agreementParagraph26,
-              style: const TextStyle(
-                fontSize: 16,
-                fontWeight: FontWeight.bold,
-              ),
-            ),
-            const SizedBox(height: 6),
-            Text(
-              context.l10n.agreementParagraph27,
-              style: const TextStyle(fontSize: 16),
-            ),
-            const SizedBox(height: 6),
-            Text(
-              context.l10n.agreementParagraph28,
-              style: const TextStyle(
-                fontSize: 16,
-                fontWeight: FontWeight.bold,
-              ),
-            ),
-            const SizedBox(height: 6),
-            Text(
-              context.l10n.agreementParagraph29,
-              style: const TextStyle(fontSize: 16),
-            ),
-            const SizedBox(height: 6),
-            Text(
-              context.l10n.agreementParagraph30,
-              style: const TextStyle(
-                fontSize: 16,
-                fontWeight: FontWeight.bold,
-              ),
-            ),
-            const SizedBox(height: 6),
-            Text(
-              context.l10n.agreementParagraph31,
-              style: const TextStyle(fontSize: 16),
-            ),
-            const SizedBox(height: 16),
-            Text(
-              context.l10n.agreementParagraph32,
-              style: TextStyle(
-                fontSize: 20,
-                fontFamily: 'MiSansMed',
-              ),
-            ),
-            const SizedBox(height: 6),
-            Text(
-              context.l10n.agreementParagraph33,
-              style: const TextStyle(
-                fontSize: 16,
-                fontWeight: FontWeight.bold,
-              ),
-            ),
-            const SizedBox(height: 6),
-            Text(
-              context.l10n.agreementParagraph34,
-              style: const TextStyle(fontSize: 16),
-            ),
-            const SizedBox(height: 6),
-            Text(
-              context.l10n.agreementParagraph35,
-              style: const TextStyle(
-                fontSize: 16,
-                fontWeight: FontWeight.bold,
-              ),
-            ),
-            const SizedBox(height: 6),
-            Text(
-              context.l10n.agreementParagraph36,
-              style: const TextStyle(fontSize: 16),
-            ),
-            const SizedBox(height: 16),
-            Text(
-              context.l10n.agreementParagraph37,
-              style: TextStyle(
-                fontSize: 20,
-                fontFamily: 'MiSansMed',
-              ),
-            ),
-            const SizedBox(height: 6),
-            Text(
-              context.l10n.agreementParagraph38,
-              style: const TextStyle(
-                fontSize: 16,
-                fontWeight: FontWeight.bold,
-              ),
-            ),
-            const SizedBox(height: 6),
-            Text(
-              context.l10n.agreementParagraph39,
-              style: const TextStyle(fontSize: 16),
-            ),
-            const SizedBox(height: 6),
-            Text(
-              context.l10n.agreementParagraph40,
-              style: const TextStyle(
-                fontSize: 16,
-                fontWeight: FontWeight.bold,
-              ),
-            ),
-            const SizedBox(height: 6),
-            Text(
-              context.l10n.agreementParagraph41,
-              style: const TextStyle(fontSize: 16),
-            ),
-            const SizedBox(height: 6),
-            Text(
-              context.l10n.agreementParagraph42,
-              style: const TextStyle(
-                fontSize: 16,
-                fontWeight: FontWeight.bold,
-              ),
-            ),
-            const SizedBox(height: 6),
-            Text(
-              context.l10n.agreementParagraph43,
-              style: const TextStyle(fontSize: 16),
-            ),
-            const SizedBox(height: 16),
-            Text(
-              context.l10n.agreementParagraph44,
-              style: TextStyle(
-                fontSize: 20,
-                fontFamily: 'MiSansMed',
-              ),
-            ),
-            const SizedBox(height: 6),
-            Text(
-              context.l10n.agreementParagraph45,
-              style: const TextStyle(
-                fontSize: 16,
-                fontWeight: FontWeight.bold,
-              ),
-            ),
-            const SizedBox(height: 6),
-            Text(
-              context.l10n.agreementParagraph46,
-              style: const TextStyle(fontSize: 16),
-            ),
-            const SizedBox(height: 6),
-            Text(
-              context.l10n.agreementParagraph47,
-              style: const TextStyle(
-                fontSize: 16,
-                fontWeight: FontWeight.bold,
-              ),
-            ),
-            const SizedBox(height: 6),
-            Text(
-              context.l10n.agreementParagraph48,
-              style: const TextStyle(fontSize: 16),
-            ),
-            const SizedBox(height: 16),
-            Text(
-              context.l10n.agreementParagraph49,
-              style: TextStyle(
-                fontSize: 20,
-                fontFamily: 'MiSansMed',
-              ),
-            ),
-            const SizedBox(height: 6),
-            Text(
-              context.l10n.agreementParagraph50,
-              style: const TextStyle(
-                fontSize: 16,
-                fontWeight: FontWeight.bold,
-              ),
-            ),
-            const SizedBox(height: 6),
-            Text(
-              context.l10n.agreementParagraph51,
-              style: const TextStyle(fontSize: 16),
-            ),
-            const SizedBox(height: 6),
-            Text(
-              context.l10n.agreementParagraph52,
-              style: const TextStyle(
-                fontSize: 16,
-                fontWeight: FontWeight.bold,
-              ),
-            ),
-            const SizedBox(height: 6),
-            Text(
-              context.l10n.agreementParagraph53,
-              style: const TextStyle(fontSize: 16),
-            ),
-            const SizedBox(height: 16),
-            Text(
-              context.l10n.agreementParagraph54,
-              style: TextStyle(
-                fontSize: 20,
-                fontFamily: 'MiSansMed',
-              ),
-            ),
-            const SizedBox(height: 6),
-            Text(
-              context.l10n.agreementParagraph55,
-              style: const TextStyle(fontSize: 16),
-            ),
-            const SizedBox(height: 16),
-            Text(
-              context.l10n.agreementParagraph56,
-              style: TextStyle(
-                fontSize: 20,
-                fontFamily: 'MiSansMed',
-              ),
-            ),
-            const SizedBox(height: 6),
-            Text(
-              context.l10n.agreementParagraph57,
-              style: const TextStyle(
-                fontSize: 16,
-                fontWeight: FontWeight.bold,
-              ),
-            ),
-            const SizedBox(height: 6),
-            Text(
-              context.l10n.agreementParagraph58,
-              style: const TextStyle(fontSize: 16),
-            ),
-            const SizedBox(height: 6),
-            Text(
-              context.l10n.agreementParagraph59,
-              style: const TextStyle(
-                fontSize: 16,
-                fontWeight: FontWeight.bold,
-              ),
-            ),
-            const SizedBox(height: 6),
-            Text(
-              context.l10n.agreementParagraph60,
-              style: const TextStyle(fontSize: 16),
-            ),
-            const SizedBox(height: 16),
-            Text(
-              context.l10n.agreementParagraph61,
-              style: TextStyle(
-                fontSize: 20,
-                fontFamily: 'MiSansMed',
-              ),
-            ),
-            const SizedBox(height: 6),
-            Text(
-              context.l10n.agreementParagraph62,
-              style: const TextStyle(fontSize: 16),
-            ),
-            const SizedBox(height: 16),
-            Text(
-              context.l10n.agreementParagraph63,
-              style: TextStyle(
-                fontSize: 20,
-                fontFamily: 'MiSansMed',
-              ),
-            ),
-            const SizedBox(height: 6),
-            Text(
-              context.l10n.agreementParagraph64,
-              style: const TextStyle(
-                fontSize: 16,
-                fontWeight: FontWeight.bold,
-              ),
-            ),
-            const SizedBox(height: 6),
-            Text(
-              context.l10n.agreementParagraph65,
-              style: const TextStyle(fontSize: 16),
-            ),
-            const SizedBox(height: 6),
-            Text(
-              context.l10n.agreementParagraph66,
-              style: const TextStyle(
-                fontSize: 16,
-                fontWeight: FontWeight.bold,
-              ),
-            ),
-            const SizedBox(height: 6),
-            Text(
-              context.l10n.agreementParagraph67,
-              style: const TextStyle(fontSize: 16),
-            ),
-            const SizedBox(height: 6),
-            Text(
-              context.l10n.agreementParagraph68,
-              style: const TextStyle(
-                fontSize: 16,
-                fontWeight: FontWeight.bold,
-              ),
-            ),
-            const SizedBox(height: 6),
-            Text(
-              context.l10n.agreementParagraph69,
-              style: const TextStyle(fontSize: 16),
-            ),
-            const SizedBox(height: 6),
-            Text(
-              context.l10n.agreementParagraph70,
-              style: const TextStyle(
-                fontSize: 16,
-                fontWeight: FontWeight.bold,
-              ),
-            ),
-            const SizedBox(height: 6),
-            Text(
-              context.l10n.agreementParagraph71,
-              style: const TextStyle(fontSize: 16),
-            ),
-            const SizedBox(height: 16),
-            Text(
-              context.l10n.agreementParagraph72,
-              style: TextStyle(
-                fontSize: 20,
-                fontFamily: 'MiSansMed',
-              ),
-            ),
-            const SizedBox(height: 6),
-            Text(
-              context.l10n.agreementParagraph73,
-              style: const TextStyle(fontSize: 16),
-            ),
-            const SizedBox(height: 6),
-            Text(
-              context.l10n.agreementParagraph74,
-              style: const TextStyle(fontSize: 16),
-            ),
-            const SizedBox(height: 6),
-            Text(
-              context.l10n.agreementParagraph75,
-              style: const TextStyle(fontSize: 16),
-            ),
-            const SizedBox(height: 16),
-            Text(
-              context.l10n.agreementParagraph76,
-              style: const TextStyle(fontSize: 16),
-            ),
-            const SizedBox(height: 30),
-          ],
-        ),
-      ),
+      body: body,
     );
   }
 }

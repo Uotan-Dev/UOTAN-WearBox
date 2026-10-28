@@ -680,16 +680,16 @@
   },
   "tutorialTitle": "USB debugging setup guide (applicable to most devices)",
   "homeConnectionHelp": "Connection help",
-  "homeConnectDevice": "Please connect a device",
+  "homeConnectDevice": "No device connected",
   "settingsCurrentVersion": "Current version: {version}",
   "@settingsCurrentVersion": {
     "placeholders": {
       "version": {"type": "String"}
     }
   },
-  "homeNarrowWiredHelp": "Connect the watch using a cable or charging dock",
-  "homeNarrowDebugHelp": "Check whether USB debugging is enabled",
-  "homeNarrowDriverHelp": "Check whether the ADB driver is installed",
+  "homeNarrowWiredHelp": "Connect via USB cable or charging dock",
+  "homeNarrowDebugHelp": "Check USB debugging",
+  "homeNarrowDriverHelp": "Check ADB driver",
   "homeWirelessUse": "2. Use",
   "homeCheckDebugPrefix": "3. Make sure you have enabled",
   "homeUsbDebugLink": "USB debugging",
@@ -711,7 +711,7 @@
       }
     }
   },
-  "homeDeviceInfo": "Device information",
+  "homeDeviceInfo": "Device info",
   "homeSelectDeviceFirst": "Please select a device first",
   "homeCommandSent": "Command sent",
   "commandExitFailure": "Command failed with exit code: {code}",

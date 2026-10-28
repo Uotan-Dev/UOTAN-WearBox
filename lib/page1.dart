@@ -234,8 +234,7 @@ class _Page1State extends State<Page1> {
                             Navigator.push(
                               context,
                               MaterialPageRoute(
-                                builder: (context) => const WirelessPage(),
-                              ),
+                                  builder: (context) => const WirelessPage()),
                             );
                           },
                           child: Text(
@@ -537,8 +536,7 @@ class _Page1State extends State<Page1> {
               context,
               context.l10n.homeConnectionHelp,
               MiuixArrowPreference(
-                title:
-                    '${context.l10n.homeCheckDebugPrefix.replaceFirst(RegExp(r'^\d+\.\s*'), '')} ${context.l10n.homeUsbDebugLink}',
+                title: context.l10n.homeNarrowDebugHelp,
                 onClick: () {
                   Navigator.push(
                     context,
@@ -728,8 +726,7 @@ class _Page1State extends State<Page1> {
                         Navigator.push(
                           context,
                           MaterialPageRoute(
-                            builder: (context) => const WirelessPage(),
-                          ),
+                              builder: (context) => const WirelessPage()),
                         );
                       },
                       child: Padding(

@@ -1134,7 +1134,7 @@ class AppLocalizationsZh extends AppLocalizations {
   String get homeNarrowWiredHelp => '使用数据线/充电底座连接手表';
 
   @override
-  String get homeNarrowDebugHelp => '检查是否开启 USB 调试';
+  String get homeNarrowDebugHelp => '检查是否已开启 USB 调试';
 
   @override
   String get homeNarrowDriverHelp => '检查是否安装了 ADB 驱动';

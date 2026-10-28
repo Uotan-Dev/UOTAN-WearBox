@@ -2044,7 +2044,7 @@ abstract class AppLocalizations {
   /// No description provided for @homeConnectDevice.
   ///
   /// In en, this message translates to:
-  /// **'Please connect a device'**
+  /// **'No device connected'**
   String get homeConnectDevice;
 
   /// No description provided for @settingsCurrentVersion.
@@ -2056,19 +2056,19 @@ abstract class AppLocalizations {
   /// No description provided for @homeNarrowWiredHelp.
   ///
   /// In en, this message translates to:
-  /// **'Connect the watch using a cable or charging dock'**
+  /// **'Connect via USB cable or charging dock'**
   String get homeNarrowWiredHelp;
 
   /// No description provided for @homeNarrowDebugHelp.
   ///
   /// In en, this message translates to:
-  /// **'Check whether USB debugging is enabled'**
+  /// **'Check USB debugging'**
   String get homeNarrowDebugHelp;
 
   /// No description provided for @homeNarrowDriverHelp.
   ///
   /// In en, this message translates to:
-  /// **'Check whether the ADB driver is installed'**
+  /// **'Check ADB driver'**
   String get homeNarrowDriverHelp;
 
   /// No description provided for @homeWirelessUse.
@@ -2158,7 +2158,7 @@ abstract class AppLocalizations {
   /// No description provided for @homeDeviceInfo.
   ///
   /// In en, this message translates to:
-  /// **'Device information'**
+  /// **'Device info'**
   String get homeDeviceInfo;
 
   /// No description provided for @homeSelectDeviceFirst.

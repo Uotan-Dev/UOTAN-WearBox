@@ -683,7 +683,7 @@
   "homeConnectDevice": "请连接设备",
   "settingsCurrentVersion": "当前版本：{version}",
   "homeNarrowWiredHelp": "使用数据线/充电底座连接手表",
-  "homeNarrowDebugHelp": "检查是否开启 USB 调试",
+  "homeNarrowDebugHelp": "检查是否已开启 USB 调试",
   "homeNarrowDriverHelp": "检查是否安装了 ADB 驱动",
   "homeWirelessUse": "2. 使用",
   "homeCheckDebugPrefix": "3. 检查是否已开启",

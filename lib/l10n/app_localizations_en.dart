@@ -1123,7 +1123,7 @@ class AppLocalizationsEn extends AppLocalizations {
   String get homeConnectionHelp => 'Connection help';
 
   @override
-  String get homeConnectDevice => 'Please connect a device';
+  String get homeConnectDevice => 'No device connected';
 
   @override
   String settingsCurrentVersion(String version) {
@@ -1131,13 +1131,13 @@ class AppLocalizationsEn extends AppLocalizations {
   }
 
   @override
-  String get homeNarrowWiredHelp => 'Connect the watch using a cable or charging dock';
+  String get homeNarrowWiredHelp => 'Connect via USB cable or charging dock';
 
   @override
-  String get homeNarrowDebugHelp => 'Check whether USB debugging is enabled';
+  String get homeNarrowDebugHelp => 'Check USB debugging';
 
   @override
-  String get homeNarrowDriverHelp => 'Check whether the ADB driver is installed';
+  String get homeNarrowDriverHelp => 'Check ADB driver';
 
   @override
   String get homeWirelessUse => '2. Use';
@@ -1184,7 +1184,7 @@ class AppLocalizationsEn extends AppLocalizations {
   }
 
   @override
-  String get homeDeviceInfo => 'Device information';
+  String get homeDeviceInfo => 'Device info';
 
   @override
   String get homeSelectDeviceFirst => 'Please select a device first';

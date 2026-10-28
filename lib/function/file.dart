@@ -1,4 +1,5 @@
 import '../miuix_dialog.dart';
+import '../miuix_titled_page.dart';
 import '../platform_support.dart';
 import '../app_theme.dart';
 import 'dart:io';
@@ -8,13 +9,15 @@ import '../blur_menu.dart';
 import 'package:file_picker/file_picker.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_miuix/miuix.dart';
+import 'package:flutter_svg/flutter_svg.dart';
 import 'package:watch_assistant/l10n/l10n.dart';
 
 class AdbFileManagerPage extends StatefulWidget {
   const AdbFileManagerPage({super.key});
 
   @override
-  _AdbFileManagerPageState createState() => _AdbFileManagerPageState();
+  State<AdbFileManagerPage> createState() => _AdbFileManagerPageState();
 }
 
 class _AdbFileManagerPageState extends State<AdbFileManagerPage> {
@@ -23,6 +26,9 @@ class _AdbFileManagerPageState extends State<AdbFileManagerPage> {
   List<String> directories = []; // 当前目录中的文件夹列表
   bool isLoading = false; // 用于控制加载进度条的显示
   bool _initialized = false;
+  MiuixDropdownEntry? _contextMenu;
+  Rect _contextMenuAnchor = Rect.zero;
+  bool _contextMenuVisible = false;
 
   @override
   void initState() {
@@ -46,7 +52,9 @@ class _AdbFileManagerPageState extends State<AdbFileManagerPage> {
     });
 
     try {
-      final result = await Process.run(adbPath, ['shell', 'ls', '-p', currentPath], environment: toolEnvironment);
+      final result = await Process.run(
+          adbPath, ['shell', 'ls', '-p', currentPath],
+          environment: toolEnvironment);
       if (result.exitCode == 0) {
         await Future.delayed(const Duration(milliseconds: 500)); // 延迟显示加载
         if (!mounted) return;
@@ -58,7 +66,8 @@ class _AdbFileManagerPageState extends State<AdbFileManagerPage> {
             entry = entry.trim();
             if (entry.isNotEmpty) {
               if (entry.endsWith('/')) {
-                directories.add(entry.substring(0, entry.length - 1)); // 去掉末尾的 '/'
+                directories
+                    .add(entry.substring(0, entry.length - 1)); // 去掉末尾的 '/'
               } else {
                 files.add(entry);
               }
@@ -83,7 +92,7 @@ class _AdbFileManagerPageState extends State<AdbFileManagerPage> {
   }
 
   // 显示错误消息
-   void _showError(String message) {
+  void _showError(String message) {
     showMiuixDialog(
       context: context,
       builder: (BuildContext context) {
@@ -91,20 +100,29 @@ class _AdbFileManagerPageState extends State<AdbFileManagerPage> {
         return MiuixAlertDialog(
           backgroundColor: context.palette.surface, // 弹窗背景颜色
           title: Text(l10n.commonErrorTitle),
-          content: Text(message, style: TextStyle(color: context.palette.text)),
+          content: Text(
+            message,
+            style: isNarrowLayout(context)
+                ? null
+                : TextStyle(color: context.palette.text),
+          ),
           actions: <Widget>[
             MiuixDialogButton(
-              style: ButtonStyle(
-                overlayColor: MaterialStateProperty.resolveWith<Color?>(
-                  (Set<MaterialState> states) {
-                    if (states.contains(MaterialState.pressed) || states.contains(MaterialState.hovered)) {
-                      return context.palette.button; // 点击或悬浮时的背景颜色
-                    }
-                    return null; // 默认状态下不更改颜色
-                  },
-                ),
-                foregroundColor: MaterialStateProperty.all<Color>(context.palette.text), // 文本颜色
-              ),
+              style: isNarrowLayout(context)
+                  ? null
+                  : ButtonStyle(
+                      overlayColor: MaterialStateProperty.resolveWith<Color?>(
+                        (Set<MaterialState> states) {
+                          if (states.contains(MaterialState.pressed) ||
+                              states.contains(MaterialState.hovered)) {
+                            return context.palette.button; // 点击或悬浮时的背景颜色
+                          }
+                          return null; // 默认状态下不更改颜色
+                        },
+                      ),
+                      foregroundColor: MaterialStateProperty.all<Color>(
+                          context.palette.text), // 文本颜色
+                    ),
               onPressed: () {
                 Navigator.of(context).pop();
               },
@@ -172,7 +190,9 @@ class _AdbFileManagerPageState extends State<AdbFileManagerPage> {
     final l10n = context.l10n;
     await _showProgressDialog(l10n.fileManagerDeleteProgress(entry));
     try {
-      final result = await Process.run(adbPath, ['shell', 'rm', '-rf', '$currentPath$entry'], environment: toolEnvironment);
+      final result = await Process.run(
+          adbPath, ['shell', 'rm', '-rf', '$currentPath$entry'],
+          environment: toolEnvironment);
       _closeProgressDialog();
       if (result.exitCode == 0) {
         _listFiles(); // 重新列出文件和文件夹
@@ -195,10 +215,18 @@ class _AdbFileManagerPageState extends State<AdbFileManagerPage> {
         final l10n = context.l10n;
         return MiuixAlertDialog(
           title: Text(l10n.fileManagerRenameTitle),
-          content: TextField(
-            controller: controller,
-            decoration: InputDecoration(labelText: l10n.fileManagerRenameLabel),
-          ),
+          content: isNarrowLayout(context)
+              ? MiuixTextField(
+                  controller: controller,
+                  label: l10n.fileManagerRenameLabel,
+                  singleLine: true,
+                  autofocus: true,
+                )
+              : TextField(
+                  controller: controller,
+                  decoration:
+                      InputDecoration(labelText: l10n.fileManagerRenameLabel),
+                ),
           actions: [
             MiuixDialogButton(
               onPressed: () {
@@ -211,12 +239,15 @@ class _AdbFileManagerPageState extends State<AdbFileManagerPage> {
                 String newName = controller.text.trim();
                 if (newName.isNotEmpty && newName != oldName) {
                   await _showProgressDialog(l10n.fileManagerRenameAction);
-                  await Process.run(adbPath, [
-                    'shell',
-                    'mv',
-                    '$currentPath$oldName',
-                    '$currentPath$newName'
-                  ], environment: toolEnvironment);
+                  await Process.run(
+                      adbPath,
+                      [
+                        'shell',
+                        'mv',
+                        '$currentPath$oldName',
+                        '$currentPath$newName'
+                      ],
+                      environment: toolEnvironment);
                   _closeProgressDialog();
                   _listFiles(); // 更新列表
                 }
@@ -242,7 +273,9 @@ class _AdbFileManagerPageState extends State<AdbFileManagerPage> {
 
     await _showProgressDialog(l10n.fileManagerSaveProgress(fileName));
     try {
-      final result = await Process.run(adbPath, ['pull', '$currentPath$fileName', savePath], environment: toolEnvironment);
+      final result = await Process.run(
+          adbPath, ['pull', '$currentPath$fileName', savePath],
+          environment: toolEnvironment);
       _closeProgressDialog();
       if (result.exitCode == 0) {
         _showSuccess(l10n.fileManagerSaveSuccess(savePath));
@@ -263,7 +296,9 @@ class _AdbFileManagerPageState extends State<AdbFileManagerPage> {
       String filePath = result.files.single.path!;
       await _showProgressDialog(context.l10n.fileManagerUploadProgress);
       try {
-        final uploadResult = await Process.run(adbPath, ['push', filePath, currentPath], environment: toolEnvironment);
+        final uploadResult = await Process.run(
+            adbPath, ['push', filePath, currentPath],
+            environment: toolEnvironment);
         _closeProgressDialog();
         if (uploadResult.exitCode == 0) {
           _showSuccess(context.l10n.fileManagerUploadSuccess(currentPath));
@@ -287,9 +322,12 @@ class _AdbFileManagerPageState extends State<AdbFileManagerPage> {
         return MiuixAlertDialog(
           content: Row(
             children: [
-              CircularProgressIndicator(
-                color: context.palette.text, // 设置进度条颜色为黑色
-              ),
+              if (isNarrowLayout(context))
+                const MiuixInfiniteProgressIndicator()
+              else
+                CircularProgressIndicator(
+                  color: context.palette.text, // 设置进度条颜色为黑色
+                ),
               const SizedBox(width: 20),
               Expanded(child: Text(message)),
             ],
@@ -305,7 +343,19 @@ class _AdbFileManagerPageState extends State<AdbFileManagerPage> {
   }
 
   // 右键菜单操作
-  void _showContextMenu(BuildContext context, String entry, bool isDirectory, Offset tapPosition) {
+  void _showContextMenu(BuildContext context, String entry, bool isDirectory,
+      Offset tapPosition) {
+    if (isNarrowLayout(context)) {
+      setState(() {
+        _contextMenu = MiuixDropdownEntry(
+          items: _entryMenuItems(context, entry, isDirectory),
+        );
+        _contextMenuAnchor =
+            Rect.fromLTWH(tapPosition.dx, tapPosition.dy, 1, 1);
+        _contextMenuVisible = true;
+      });
+      return;
+    }
     showBlurMenu<String>(
       context: context,
       anchor: Rect.fromLTWH(tapPosition.dx, tapPosition.dy, 0, 0),
@@ -349,7 +399,8 @@ class _AdbFileManagerPageState extends State<AdbFileManagerPage> {
   void _navigateBack() {
     if (currentPath != '/storage/emulated/0/') {
       setState(() {
-        currentPath = currentPath.substring(0, currentPath.lastIndexOf('/', currentPath.length - 2) + 1);
+        currentPath = currentPath.substring(
+            0, currentPath.lastIndexOf('/', currentPath.length - 2) + 1);
         _listFiles();
       });
     } else {
@@ -357,12 +408,145 @@ class _AdbFileManagerPageState extends State<AdbFileManagerPage> {
     }
   }
 
+  List<MiuixDropdownItem> _entryMenuItems(
+    BuildContext context,
+    String entry,
+    bool isDirectory,
+  ) {
+    final l10n = context.l10n;
+    return [
+      MiuixDropdownItem(
+        text: l10n.fileManagerContextRename,
+        onClick: () => _renameFileOrDirectory(entry, isDirectory),
+      ),
+      if (!isDirectory)
+        MiuixDropdownItem(
+          text: l10n.fileManagerContextCopy,
+          onClick: () => _copyFileToComputer(entry),
+        ),
+      MiuixDropdownItem(
+        text: l10n.fileManagerContextDelete,
+        onClick: () => _confirmDelete(entry, isDirectory),
+      ),
+    ];
+  }
+
+  Widget _buildNarrowIcon(String name) {
+    return Builder(
+      builder: (context) => SvgPicture.asset(
+        'assets/file_manager/$name.svg',
+        width: 24,
+        height: 24,
+        colorFilter: name == 'folder' || name == 'file'
+            ? null
+            : ColorFilter.mode(
+                MiuixTheme.of(context).colors.onBackground,
+                BlendMode.srcIn,
+              ),
+      ),
+    );
+  }
+
+  Widget _buildNarrowEntry(
+      BuildContext context, String entry, bool isDirectory) {
+    return MiuixCard(
+      child: ClipPath(
+        clipper: const ShapeBorderClipper(
+          shape: MiuixSquircleBorder(
+            cornerRadius: MiuixCardDefaults.cornerRadius,
+          ),
+        ),
+        child: GestureDetector(
+          onLongPressStart: (details) => _showContextMenu(
+              context, entry, isDirectory, details.globalPosition),
+          onSecondaryTapDown: (details) => _showContextMenu(
+              context, entry, isDirectory, details.globalPosition),
+          child: isDirectory
+              ? MiuixArrowPreference(
+                  title: entry,
+                  startAction: _buildNarrowIcon('folder'),
+                  onClick: () => _navigateToDirectory(entry),
+                )
+              : MiuixBasicComponent(
+                  title: entry,
+                  startAction: _buildNarrowIcon('file'),
+                ),
+        ),
+      ),
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
     final l10n = context.l10n;
     // 获取相对路径（隐藏 "/storage/emulated/0/"）
     String relativePath = currentPath.replaceFirst('/storage/emulated/0/', '');
-    final String displayPath = relativePath.isEmpty ? l10n.fileManagerRootLabel : relativePath;
+    final String displayPath =
+        relativePath.isEmpty ? l10n.fileManagerRootLabel : relativePath;
+
+    if (isNarrowLayout(context)) {
+      final folderName =
+          relativePath.split('/').where((part) => part.isNotEmpty).lastOrNull;
+      return MiuixTitledPage(
+        title: folderName ?? l10n.fileManagerRootLabel,
+        showBackButton: true,
+        onBackPressed: _navigateBack,
+        actions: [
+          MiuixIconButton(
+            enabled: !isLoading,
+            onPressed: _listFiles,
+            child: _buildNarrowIcon('refresh'),
+          ),
+          MiuixIconButton(
+            enabled: !isLoading,
+            onPressed: _uploadFileToDevice,
+            child: _buildNarrowIcon('upload'),
+          ),
+        ],
+        body: Builder(
+          builder: (context) => Stack(
+            children: [
+              if (isLoading)
+                const CustomScrollView(
+                  slivers: [
+                    SliverFillRemaining(
+                      hasScrollBody: false,
+                      child: Center(child: MiuixInfiniteProgressIndicator()),
+                    ),
+                  ],
+                )
+              else
+                ListView.separated(
+                  key: ValueKey(currentPath),
+                  padding: const EdgeInsets.fromLTRB(12, 0, 12, 20),
+                  itemCount: directories.length + files.length,
+                  separatorBuilder: (_, __) => const SizedBox(height: 10),
+                  itemBuilder: (context, index) {
+                    final isDirectory = index < directories.length;
+                    final entry = isDirectory
+                        ? directories[index]
+                        : files[index - directories.length];
+                    return _buildNarrowEntry(context, entry, isDirectory);
+                  },
+                ),
+              if (_contextMenu != null)
+                MiuixOverlayDropdownPopup(
+                  entry: _contextMenu!,
+                  show: _contextMenuVisible,
+                  anchorBounds: _contextMenuAnchor,
+                  dropdownColors: MiuixDropdownDefaults.dropdownColors(context),
+                  onDismiss: () => setState(() => _contextMenuVisible = false),
+                  onDismissFinished: () {
+                    if (mounted && !_contextMenuVisible) {
+                      setState(() => _contextMenu = null);
+                    }
+                  },
+                ),
+            ],
+          ),
+        ),
+      );
+    }
 
     return Scaffold(
       appBar: PreferredSize(
@@ -438,8 +622,11 @@ class _AdbFileManagerPageState extends State<AdbFileManagerPage> {
                             borderRadius: BorderRadius.circular(8), // 设置卡片圆角
                           ),
                           child: GestureDetector(
-                            onSecondaryTapDown: (details) =>
-                                _showContextMenu(context, directory, true, details.globalPosition),
+                            onSecondaryTapDown: (details) => _showContextMenu(
+                                context,
+                                directory,
+                                true,
+                                details.globalPosition),
                             child: ListTile(
                               leading: const Icon(Icons.folder),
                               title: Text(directory),
@@ -449,11 +636,13 @@ class _AdbFileManagerPageState extends State<AdbFileManagerPage> {
                                 children: [
                                   IconButton(
                                     icon: const Icon(Icons.edit),
-                                    onPressed: () => _renameFileOrDirectory(directory, true),
+                                    onPressed: () =>
+                                        _renameFileOrDirectory(directory, true),
                                   ),
                                   IconButton(
                                     icon: const Icon(Icons.delete),
-                                    onPressed: () => _confirmDelete(directory, true),
+                                    onPressed: () =>
+                                        _confirmDelete(directory, true),
                                   ),
                                 ],
                               ),
@@ -470,8 +659,8 @@ class _AdbFileManagerPageState extends State<AdbFileManagerPage> {
                             borderRadius: BorderRadius.circular(8), // 设置卡片圆角
                           ),
                           child: GestureDetector(
-                            onSecondaryTapDown: (details) =>
-                                _showContextMenu(context, file, false, details.globalPosition),
+                            onSecondaryTapDown: (details) => _showContextMenu(
+                                context, file, false, details.globalPosition),
                             child: ListTile(
                               leading: const Icon(Icons.insert_drive_file),
                               title: Text(file),
@@ -480,7 +669,8 @@ class _AdbFileManagerPageState extends State<AdbFileManagerPage> {
                                 children: [
                                   IconButton(
                                     icon: const Icon(Icons.edit),
-                                    onPressed: () => _renameFileOrDirectory(file, false),
+                                    onPressed: () =>
+                                        _renameFileOrDirectory(file, false),
                                   ),
                                   IconButton(
                                     icon: const Icon(Icons.copy),
@@ -488,7 +678,8 @@ class _AdbFileManagerPageState extends State<AdbFileManagerPage> {
                                   ),
                                   IconButton(
                                     icon: const Icon(Icons.delete),
-                                    onPressed: () => _confirmDelete(file, false),
+                                    onPressed: () =>
+                                        _confirmDelete(file, false),
                                   ),
                                 ],
                               ),
@@ -503,7 +694,8 @@ class _AdbFileManagerPageState extends State<AdbFileManagerPage> {
             ),
           if (isLoading)
             Container(
-              color: context.palette.background.withOpacity(0.7), // 半透明背景以覆盖目录内容
+              color:
+                  context.palette.background.withOpacity(0.7), // 半透明背景以覆盖目录内容
               child: Center(
                 child: CircularProgressIndicator(
                   color: context.palette.text, // 黑色的进度条

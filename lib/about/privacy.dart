@@ -1,5 +1,6 @@
 import '../platform_support.dart';
 import '../app_theme.dart';
+import '../miuix_titled_page.dart';
 import 'package:watch_assistant/l10n/l10n.dart';
 import 'package:flutter/material.dart';
 
@@ -8,6 +9,248 @@ class PrivacyPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final body = SingleChildScrollView(
+      padding: EdgeInsets.fromLTRB(
+        isNarrowLayout(context) ? 20 : 30,
+        20,
+        isNarrowLayout(context) ? 20 : 30,
+        30,
+      ),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Text(
+            context.l10n.privacyParagraph2,
+            style: TextStyle(
+              fontSize: 24,
+              fontFamily: 'MiSansMed',
+            ),
+          ),
+          const SizedBox(height: 2),
+          Text(
+            context.l10n.privacyParagraph3,
+            style: const TextStyle(fontSize: 16),
+          ),
+          const SizedBox(height: 16),
+          Text(
+            context.l10n.privacyParagraph4,
+            style: const TextStyle(
+              fontSize: 16,
+            ),
+          ),
+          const SizedBox(height: 16),
+          Text(
+            context.l10n.privacyParagraph5,
+            style: TextStyle(
+              fontSize: 20,
+              fontFamily: 'MiSansMed',
+            ),
+          ),
+          const SizedBox(height: 6),
+          Text(
+            context.l10n.privacyParagraph6,
+            style: const TextStyle(fontSize: 16),
+          ),
+          const SizedBox(height: 6),
+          Text(
+            context.l10n.privacyParagraph7,
+            style: const TextStyle(fontSize: 16),
+          ),
+          const SizedBox(height: 6),
+          Text(
+            context.l10n.privacyParagraph8,
+            style: const TextStyle(
+              fontSize: 16,
+            ),
+          ),
+          const SizedBox(height: 16),
+          Text(
+            context.l10n.privacyParagraph9,
+            style: TextStyle(
+              fontSize: 20,
+              fontFamily: 'MiSansMed',
+            ),
+          ),
+          const SizedBox(height: 6),
+          Text(
+            context.l10n.privacyParagraph10,
+            style: const TextStyle(fontSize: 16),
+          ),
+          const SizedBox(height: 6),
+          Text(
+            context.l10n.privacyParagraph11,
+            style: const TextStyle(fontSize: 16),
+          ),
+          const SizedBox(height: 16),
+          Text(
+            context.l10n.privacyParagraph12,
+            style: TextStyle(
+              fontSize: 20,
+              fontFamily: 'MiSansMed',
+            ),
+          ),
+          const SizedBox(height: 6),
+          Text(
+            context.l10n.privacyParagraph13,
+            style: const TextStyle(fontSize: 16),
+          ),
+          const SizedBox(height: 16),
+          Text(
+            context.l10n.privacyParagraph14,
+            style: TextStyle(
+              fontSize: 20,
+              fontFamily: 'MiSansMed',
+            ),
+          ),
+          const SizedBox(height: 6),
+          Text(
+            context.l10n.privacyParagraph15,
+            style: const TextStyle(fontSize: 16),
+          ),
+          const SizedBox(height: 6),
+          Text(
+            context.l10n.privacyParagraph16,
+            style: const TextStyle(fontSize: 16),
+          ),
+          const SizedBox(height: 6),
+          Text(
+            context.l10n.privacyParagraph17,
+            style: const TextStyle(fontSize: 16),
+          ),
+          const SizedBox(height: 6),
+          Text(
+            context.l10n.privacyParagraph18,
+            style: const TextStyle(fontSize: 16),
+          ),
+          const SizedBox(height: 6),
+          Text(
+            context.l10n.privacyParagraph19,
+            style: const TextStyle(fontSize: 16),
+          ),
+          const SizedBox(height: 6),
+          Text(
+            context.l10n.privacyParagraph20,
+            style: const TextStyle(fontSize: 16),
+          ),
+          const SizedBox(height: 16),
+          Text(
+            context.l10n.privacyParagraph21,
+            style: TextStyle(
+              fontSize: 20,
+              fontFamily: 'MiSansMed',
+            ),
+          ),
+          const SizedBox(height: 6),
+          Text(
+            context.l10n.privacyParagraph22,
+            style: const TextStyle(fontSize: 16),
+          ),
+          const SizedBox(height: 6),
+          Text(
+            context.l10n.privacyParagraph23,
+            style: const TextStyle(fontSize: 16),
+          ),
+          const SizedBox(height: 6),
+          Text(
+            context.l10n.privacyParagraph24,
+            style: const TextStyle(fontSize: 16),
+          ),
+          const SizedBox(height: 6),
+          Text(
+            context.l10n.privacyParagraph25,
+            style: const TextStyle(fontSize: 16),
+          ),
+          const SizedBox(height: 16),
+          Text(
+            context.l10n.privacyParagraph26,
+            style: TextStyle(
+              fontSize: 20,
+              fontFamily: 'MiSansMed',
+            ),
+          ),
+          const SizedBox(height: 6),
+          Text(
+            context.l10n.privacyParagraph27,
+            style: const TextStyle(fontSize: 16),
+          ),
+          const SizedBox(height: 6),
+          Text(
+            context.l10n.privacyParagraph28,
+            style: const TextStyle(fontSize: 16),
+          ),
+          const SizedBox(height: 16),
+          Text(
+            context.l10n.privacyParagraph29,
+            style: TextStyle(
+              fontSize: 20,
+              fontFamily: 'MiSansMed',
+            ),
+          ),
+          const SizedBox(height: 6),
+          Text(
+            context.l10n.privacyParagraph30,
+            style: const TextStyle(fontSize: 16),
+          ),
+          const SizedBox(height: 16),
+          Text(
+            context.l10n.privacyParagraph31,
+            style: TextStyle(
+              fontSize: 20,
+              fontFamily: 'MiSansMed',
+            ),
+          ),
+          const SizedBox(height: 6),
+          Text(
+            context.l10n.privacyParagraph32,
+            style: const TextStyle(fontSize: 16),
+          ),
+          const SizedBox(height: 16),
+          Text(
+            context.l10n.privacyParagraph33,
+            style: TextStyle(
+              fontSize: 20,
+              fontFamily: 'MiSansMed',
+            ),
+          ),
+          const SizedBox(height: 6),
+          Text(
+            context.l10n.privacyParagraph34,
+            style: const TextStyle(fontSize: 16),
+          ),
+          const SizedBox(height: 16),
+          Text(
+            context.l10n.privacyParagraph35,
+            style: TextStyle(
+              fontSize: 20,
+              fontFamily: 'MiSansMed',
+            ),
+          ),
+          const SizedBox(height: 6),
+          Text(
+            context.l10n.privacyParagraph36,
+            style: const TextStyle(fontSize: 16),
+          ),
+          const SizedBox(height: 6),
+          Text(
+            context.l10n.privacyParagraph37,
+            style: const TextStyle(fontSize: 16),
+          ),
+          const SizedBox(height: 6),
+          Text(
+            context.l10n.privacyParagraph38,
+            style: const TextStyle(fontSize: 16),
+          ),
+          const SizedBox(height: 30),
+        ],
+      ),
+    );
+    if (isNarrowLayout(context)) {
+      return MiuixTitledPage(
+        title: context.l10n.privacyParagraph1,
+        showBackButton: true,
+        body: body,
+      );
+    }
     return Scaffold(
       appBar: PreferredSize(
         preferredSize: const Size.fromHeight(90.0), // 设置 AppBar 的高度
@@ -47,237 +290,7 @@ class PrivacyPage extends StatelessWidget {
           ),
         ),
       ),
-      body: SingleChildScrollView(
-        padding: const EdgeInsets.only(
-            left: 30.0, right: 30, bottom: 30, top: 20), // 设置页面内边距
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            Text(
-              context.l10n.privacyParagraph2,
-              style: TextStyle(
-                fontSize: 24,
-                fontFamily: 'MiSansMed',
-              ),
-            ),
-            const SizedBox(height: 2),
-            Text(
-              context.l10n.privacyParagraph3,
-              style: const TextStyle(fontSize: 16),
-            ),
-            const SizedBox(height: 16),
-            Text(
-              context.l10n.privacyParagraph4,
-              style: const TextStyle(
-                fontSize: 16,
-              ),
-            ),
-            const SizedBox(height: 16),
-            Text(
-              context.l10n.privacyParagraph5,
-              style: TextStyle(
-                fontSize: 20,
-                fontFamily: 'MiSansMed',
-              ),
-            ),
-            const SizedBox(height: 6),
-            Text(
-              context.l10n.privacyParagraph6,
-              style: const TextStyle(fontSize: 16),
-            ),
-            const SizedBox(height: 6),
-            Text(
-              context.l10n.privacyParagraph7,
-              style: const TextStyle(fontSize: 16),
-            ),
-            const SizedBox(height: 6),
-            Text(
-              context.l10n.privacyParagraph8,
-              style: const TextStyle(
-                fontSize: 16,
-              ),
-            ),
-            const SizedBox(height: 16),
-            Text(
-              context.l10n.privacyParagraph9,
-              style: TextStyle(
-                fontSize: 20,
-                fontFamily: 'MiSansMed',
-              ),
-            ),
-            const SizedBox(height: 6),
-            Text(
-              context.l10n.privacyParagraph10,
-              style: const TextStyle(fontSize: 16),
-            ),
-            const SizedBox(height: 6),
-            Text(
-              context.l10n.privacyParagraph11,
-              style: const TextStyle(fontSize: 16),
-            ),
-            const SizedBox(height: 16),
-            Text(
-              context.l10n.privacyParagraph12,
-              style: TextStyle(
-                fontSize: 20,
-                fontFamily: 'MiSansMed',
-              ),
-            ),
-            const SizedBox(height: 6),
-            Text(
-              context.l10n.privacyParagraph13,
-              style: const TextStyle(fontSize: 16),
-            ),
-            const SizedBox(height: 16),
-            Text(
-              context.l10n.privacyParagraph14,
-              style: TextStyle(
-                fontSize: 20,
-                fontFamily: 'MiSansMed',
-              ),
-            ),
-            const SizedBox(height: 6),
-            Text(
-              context.l10n.privacyParagraph15,
-              style: const TextStyle(fontSize: 16),
-            ),
-            const SizedBox(height: 6),
-            Text(
-              context.l10n.privacyParagraph16,
-              style: const TextStyle(fontSize: 16),
-            ),
-            const SizedBox(height: 6),
-            Text(
-              context.l10n.privacyParagraph17,
-              style: const TextStyle(fontSize: 16),
-            ),
-            const SizedBox(height: 6),
-            Text(
-              context.l10n.privacyParagraph18,
-              style: const TextStyle(fontSize: 16),
-            ),
-            const SizedBox(height: 6),
-            Text(
-              context.l10n.privacyParagraph19,
-              style: const TextStyle(fontSize: 16),
-            ),
-            const SizedBox(height: 6),
-            Text(
-              context.l10n.privacyParagraph20,
-              style: const TextStyle(fontSize: 16),
-            ),
-            const SizedBox(height: 16),
-            Text(
-              context.l10n.privacyParagraph21,
-              style: TextStyle(
-                fontSize: 20,
-                fontFamily: 'MiSansMed',
-              ),
-            ),
-            const SizedBox(height: 6),
-            Text(
-              context.l10n.privacyParagraph22,
-              style: const TextStyle(fontSize: 16),
-            ),
-            const SizedBox(height: 6),
-            Text(
-              context.l10n.privacyParagraph23,
-              style: const TextStyle(fontSize: 16),
-            ),
-            const SizedBox(height: 6),
-            Text(
-              context.l10n.privacyParagraph24,
-              style: const TextStyle(fontSize: 16),
-            ),
-            const SizedBox(height: 6),
-            Text(
-              context.l10n.privacyParagraph25,
-              style: const TextStyle(fontSize: 16),
-            ),
-            const SizedBox(height: 16),
-            Text(
-              context.l10n.privacyParagraph26,
-              style: TextStyle(
-                fontSize: 20,
-                fontFamily: 'MiSansMed',
-              ),
-            ),
-            const SizedBox(height: 6),
-            Text(
-              context.l10n.privacyParagraph27,
-              style: const TextStyle(fontSize: 16),
-            ),
-            const SizedBox(height: 6),
-            Text(
-              context.l10n.privacyParagraph28,
-              style: const TextStyle(fontSize: 16),
-            ),
-            const SizedBox(height: 16),
-            Text(
-              context.l10n.privacyParagraph29,
-              style: TextStyle(
-                fontSize: 20,
-                fontFamily: 'MiSansMed',
-              ),
-            ),
-            const SizedBox(height: 6),
-            Text(
-              context.l10n.privacyParagraph30,
-              style: const TextStyle(fontSize: 16),
-            ),
-            const SizedBox(height: 16),
-            Text(
-              context.l10n.privacyParagraph31,
-              style: TextStyle(
-                fontSize: 20,
-                fontFamily: 'MiSansMed',
-              ),
-            ),
-            const SizedBox(height: 6),
-            Text(
-              context.l10n.privacyParagraph32,
-              style: const TextStyle(fontSize: 16),
-            ),
-            const SizedBox(height: 16),
-            Text(
-              context.l10n.privacyParagraph33,
-              style: TextStyle(
-                fontSize: 20,
-                fontFamily: 'MiSansMed',
-              ),
-            ),
-            const SizedBox(height: 6),
-            Text(
-              context.l10n.privacyParagraph34,
-              style: const TextStyle(fontSize: 16),
-            ),
-            const SizedBox(height: 16),
-            Text(
-              context.l10n.privacyParagraph35,
-              style: TextStyle(
-                fontSize: 20,
-                fontFamily: 'MiSansMed',
-              ),
-            ),
-            const SizedBox(height: 6),
-            Text(
-              context.l10n.privacyParagraph36,
-              style: const TextStyle(fontSize: 16),
-            ),
-            const SizedBox(height: 6),
-            Text(
-              context.l10n.privacyParagraph37,
-              style: const TextStyle(fontSize: 16),
-            ),
-            const SizedBox(height: 6),
-            Text(
-              context.l10n.privacyParagraph38,
-              style: const TextStyle(fontSize: 16),
-            ),
-            const SizedBox(height: 30),
-          ],
-        ),
-      ),
+      body: body,
     );
   }
 }

@@ -20,12 +20,16 @@ class MiuixTitledPage extends StatefulWidget {
     required this.title,
     this.subtitle = '',
     this.actions,
+    this.showBackButton = false,
+    this.onBackPressed,
     required this.body,
   });
 
   final String title;
   final String subtitle;
   final List<Widget>? actions;
+  final bool showBackButton;
+  final VoidCallback? onBackPressed;
   final Widget body;
 
   @override
@@ -57,6 +61,17 @@ class _MiuixTitledPageState extends State<MiuixTitledPage> {
                   child: MiuixTopAppBar(
                     title: widget.title,
                     subtitle: widget.subtitle,
+                    navigationIcon: widget.showBackButton
+                        ? Tooltip(
+                            message: MaterialLocalizations.of(context)
+                                .backButtonTooltip,
+                            child: MiuixIconButton(
+                              onPressed: widget.onBackPressed ??
+                                  () => Navigator.of(context).maybePop(),
+                              child: MiuixIcon(vector: MiuixIcons.os4.back),
+                            ),
+                          )
+                        : null,
                     actions: widget.actions,
                     scrollBehavior: _behavior,
                     color: palette.background,

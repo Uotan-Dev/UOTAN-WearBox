@@ -1123,7 +1123,7 @@ class AppLocalizationsJa extends AppLocalizations {
   String get homeConnectionHelp => '接続ガイド';
 
   @override
-  String get homeConnectDevice => 'デバイスを接続してください';
+  String get homeConnectDevice => 'デバイスを接続';
 
   @override
   String settingsCurrentVersion(String version) {
@@ -1137,7 +1137,7 @@ class AppLocalizationsJa extends AppLocalizations {
   String get homeNarrowDebugHelp => 'USB デバッグが有効か確認';
 
   @override
-  String get homeNarrowDriverHelp => 'ADB ドライバーがインストールされているか確認';
+  String get homeNarrowDriverHelp => 'ADB ドライバーの導入を確認';
 
   @override
   String get homeWirelessUse => '2. 次の機能を使用：';
