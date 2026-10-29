@@ -4,9 +4,9 @@
 
 <img  height="120" alt="Frame 10" src="https://github.com/user-attachments/assets/de4ded3f-7daf-4f54-b74b-04dd86151fcc" />
 
-### 柚坛手表助手 / UOTAN WEARBOX
+### 柚坛手表助手 ｜ UOTAN WEARBOX
 
-
+跨平台智能穿戴工具箱 ｜ A Cross-Platform Toolbox for Android & WearOS Wearable Devices
 
 <div id="header" align="center">
 
@@ -39,6 +39,13 @@
 <!--
 banner
 <br><img width="1280" height="640" alt="Desktop 12" src="https://github.com/user-attachments/assets/930b933e-7bcf-44d8-8af4-2a165c55d493" />-->
+
+
+
+<img width="5780" height="2510" alt="Frame 11" src="https://github.com/user-attachments/assets/10fe2f6f-8096-455e-940b-81ced76498c5" />
+
+
+<img width="5780" height="2510" alt="Frame 12" src="https://github.com/user-attachments/assets/baba1f58-05e8-4f45-ad93-9c2a1d31cc64" />
 
 
 
